@@ -36,7 +36,6 @@ public class Controller extends HttpServlet {
         String currentPage = page.getPagePath();
         logger.log(Level.INFO, currentPage);
 
-        //String currentPage = command.execute(request);
         if (page.getRoute().equals(RouteType.FORWARD)) {
             request.getRequestDispatcher(currentPage).forward(request, response);
         } else {
