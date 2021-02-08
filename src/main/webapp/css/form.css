@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+* {
+    font-family: 'PT Sans', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form{
+    max-width: 450px;
+    padding: 30px;
+    background: #ccc;
+}
+
+form > div{
+    position: relative;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+form > div > label{
+    position: absolute;
+    font-weight: bold;
+    top: 22px;
+    left: 20px;
+    opacity: 0.3;
+}

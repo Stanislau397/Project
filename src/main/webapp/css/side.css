@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: open sans;
+}
+
+a{
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+i{
+    margin-right: 8px;
+}
+
+.wrapper .sidenav{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 25vw;
+    height: 100vh;
+    background: black;
+}
+
+.wrapper .sidenav h1{
+    color: #fff;
+    text-align: center;
+    font-size: 50px;
+    line-height: 90px;
+    border-bottom: 1px dotted white;
+    margin-bottom: 50px;
+}
+
+.wrapper .sidenav ul li{
+    list-style: none;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wrapper .main-content{
+    width: 80vw;
+    margin-left: 20vw;
+
+}
+
+.btn{
+    border: 0;
+    background: none;
+    font-size: 32px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+button:focus{
+    outline: none;
+}

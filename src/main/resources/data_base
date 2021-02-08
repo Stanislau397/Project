@@ -1,0 +1,4 @@
+url=jdbc:mysql://localhost/movie?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
+driver=com.mysql.cj.jdbc.Driver
+user=root
+password=ldkjs397
