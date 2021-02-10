@@ -1,0 +1,140 @@
+
+table{
+    width: 800px;
+    margin-left: 180px;
+    margin-top: 75px;
+}
+
+tbody{
+    height: 400px;
+}
+
+.picture{
+    width: 200px;
+    height: 200px;
+}
+
+.title{
+    vertical-align: center;
+    width: 620px;
+    height: 35px;
+}
+
+.p-title{
+    vertical-align: top;
+    font-family: sans-serif;
+    font-size: 35px;
+    margin-left: 25px;
+}
+
+.p-rating{
+    color: white;
+    background-color: green;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 40px;
+    text-align: center;
+}
+
+.starring{
+    vertical-align: top;
+    height: 20px;
+}
+
+.info{
+    vertical-align: top;
+}
+
+.li-info{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-info-parameter{
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.image{
+    width: 250px;
+    height: 420px;
+}
+
+ul{
+    margin-left: 25px;
+}
+
+li{
+    display: inline;
+    margin-right: 5px;
+}
+
+.run{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.time{
+    font-size: 20px;
+}
+
+.run-time{
+    vertical-align: top;
+    height: 1px;
+}
+
+.director{
+    vertical-align: top;
+}
+
+.director-li{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.director-parameter{
+    font-size: 20px;
+}
+
+.country{
+    height: 1px;
+}
+.country-li{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.country-parameter{
+    font-size: 20px;
+}
+
+.li-starring{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-starring-parameter{
+    font-size: 20px;
+}
+
+.pg{
+    height: 5px;
+}
+
+.pg-rating{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.pg-rating-parameter{
+    font-size: 15px;
+}
+
+.li-genre{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-genre-parameter{
+    font-size: 15px;
+}
