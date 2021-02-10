@@ -73,3 +73,17 @@
     font-family: 'Montserrat';
     font-size: 26px;
 }
+
+.btn{
+    outline: none;
+    border: 0;
+    background: none;
+    font-size: 32px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+button:active{
+    outline: none;
+}

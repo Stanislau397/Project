@@ -8,7 +8,7 @@
 <html lang="${language}">
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form1.css">
 </head>
 <header>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>

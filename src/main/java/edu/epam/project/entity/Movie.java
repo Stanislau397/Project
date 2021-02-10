@@ -1,36 +1,38 @@
 package edu.epam.project.entity;
 
-
 import java.sql.Date;
 
 public class Movie extends Entity{
 
-    private long movie_id;
+    private long movieId;
     private String title;
     private int runTime;
     private String country;
     private String description;
     private Date releaseDate;
+    private String picture;
+    private Genre genre;
 
     public Movie() {
 
     }
 
-    public Movie(long movie_id, String title, int runTime, String country, String description, Date releaseDate) {
-        this.movie_id = movie_id;
+    public Movie(long movieId, String title, int runTime, String country, String description, Date releaseDate, String picture) {
+        this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
         this.country = country;
         this.description = description;
         this.releaseDate = releaseDate;
+        this.picture = picture;
     }
 
-    public long getMovie_id() {
-        return movie_id;
+    public long getMovieId() {
+        return movieId;
     }
 
-    public void setMovie_id(long movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -73,6 +75,22 @@ public class Movie extends Entity{
         this.releaseDate = releaseDate;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,22 +98,24 @@ public class Movie extends Entity{
 
         Movie movie = (Movie) o;
 
-        if (movie_id != movie.movie_id) return false;
+        if (movieId != movie.movieId) return false;
         if (runTime != movie.runTime) return false;
         if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
         if (country != null ? !country.equals(movie.country) : movie.country != null) return false;
         if (description != null ? !description.equals(movie.description) : movie.description != null) return false;
-        return releaseDate != null ? releaseDate.equals(movie.releaseDate) : movie.releaseDate == null;
+        if (releaseDate != null ? !releaseDate.equals(movie.releaseDate) : movie.releaseDate != null) return false;
+        return picture != null ? picture.equals(movie.picture) : movie.picture == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (movie_id ^ (movie_id >>> 32));
+        int result = (int) (movieId ^ (movieId >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + runTime;
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
+        result = 31 * result + (picture != null ? picture.hashCode() : 0);
         return result;
     }
 }

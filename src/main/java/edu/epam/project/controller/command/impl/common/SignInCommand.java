@@ -38,14 +38,17 @@ public class SignInCommand implements Command {
                 if (!(user.isBlocked())) {
                     RoleType role = user.getRole();
                     String userName = user.getUserName();
+                    long userId = user.getUserId();
                     switch (role) {
                         case ADMIN:
+                            session.setAttribute(SessionAttribute.USER_ID, userId);
                             session.setAttribute(SessionAttribute.USER_EMAIL, userEmail);
                             session.setAttribute(SessionAttribute.USER_NAME, userName);
                             session.setAttribute(SessionAttribute.ADMIN, String.valueOf(role));
                             router.setPagePath(PagePath.HOME_PAGE);
                             break;
                         case USER:
+                            session.setAttribute(SessionAttribute.USER_ID, userId);
                             session.setAttribute(SessionAttribute.USER_EMAIL, userEmail);
                             session.setAttribute(SessionAttribute.USER_NAME, userName);
                             session.setAttribute(SessionAttribute.USER, String.valueOf(role));

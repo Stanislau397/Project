@@ -24,12 +24,13 @@ public class MovieDaoImpl implements MovieDao {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_MOVIE)) {
-            statement.setDouble(1, movie.getMovie_id());
+            statement.setDouble(1, movie.getMovieId());
             statement.setString(2, movie.getTitle());
             statement.setDate(3, movie.getReleaseDate());
             statement.setInt(4, movie.getRunTime());
             statement.setString(5, movie.getCountry());
             statement.setString(6, movie.getDescription());
+            statement.setString(7, movie.getPicture());
             int update = statement.executeUpdate();
             isAdded = (update == 1);
         } catch (SQLException e) {
@@ -62,12 +63,13 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                movie.setMovie_id(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
                 movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
                 movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 allMovies.add(movie);
             }
         } catch (SQLException e) {
@@ -79,19 +81,43 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public Optional<Movie> findMovieByTitle(String title) throws DaoException {
-        Optional<Movie> isFound = Optional.empty();
-        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_BY_TITLE)) {
+        Optional<Movie> isFound;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_BY_TITLE)) {
             statement.setString(1, title);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             Movie movie = new Movie();
-            movie.setMovie_id(resultSet.getLong(TableColumn.MOVIE_ID));
+            movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
             movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
             movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
             movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
             movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
             movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+            isFound = Optional.of(movie);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isFound;
+    }
+
+    @Override
+    public Optional<Movie> findMovieById(long movieId) throws DaoException {
+        Optional<Movie> isFound;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_BY_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            Movie movie = new Movie();
+            movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+            movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+            movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+            movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+            movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+            movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+            movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
             isFound = Optional.of(movie);
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);

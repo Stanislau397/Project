@@ -4,10 +4,14 @@
 <%@ taglib prefix="fml" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title><fmt:message key="text.label.main"/></title>
+    <title>Home</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rating.css">
 </head>
+<header>
+    <jsp:include page="static/header.jsp"/>
+</header>
 <body>
-<jsp:include page="static/header.jsp"/>
+
 </body>
 </html>

@@ -12,4 +12,5 @@ public interface MovieDao {
     boolean deleteMovieByTitle(String title) throws DaoException;
     List<Movie> findAll() throws DaoException;
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
+    Optional<Movie> findMovieById(long id) throws DaoException;
 }

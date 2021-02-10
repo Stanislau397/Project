@@ -1,5 +1,7 @@
 package edu.epam.project.controller.command;
 
+import edu.epam.project.controller.command.impl.ShowAllMoviesCommand;
+import edu.epam.project.controller.command.impl.ShowMovieDetailsCommand;
 import edu.epam.project.controller.command.impl.admin.FindAllUsersCommand;
 import edu.epam.project.controller.command.impl.admin.BlockUserCommand;
 import edu.epam.project.controller.command.impl.common.RegisterCommand;
@@ -15,7 +17,10 @@ public enum CommandType {
     FIND_ALL_USERS(new FindAllUsersCommand()),
     BLOCK_USER(new BlockUserCommand()),
 
-    CHANGE_PASSWORD(new ChangePasswordCommand());
+    CHANGE_PASSWORD(new ChangePasswordCommand()),
+
+    SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
+    SHOW_MOVIE_DETAILS(new ShowMovieDetailsCommand());
 
     private Command command;
 

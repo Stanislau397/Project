@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +66,17 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return allMovies;
+    }
+
+    @Override
+    public Optional<Movie> findMovieById(long movieId) throws ServiceException {
+        Optional<Movie> isFound;
+        try {
+            isFound = movieDao.findMovieById(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isFound;
     }
 }

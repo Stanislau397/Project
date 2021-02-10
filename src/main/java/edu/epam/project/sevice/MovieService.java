@@ -15,4 +15,6 @@ public interface MovieService {
     Optional<Movie> findMovieByTitle(String title) throws ServiceException;
 
     List<Movie> findAllMovies() throws ServiceException;
+
+    Optional<Movie> findMovieById(long movieId) throws ServiceException;
 }

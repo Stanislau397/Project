@@ -1,27 +1,23 @@
 package edu.epam.project.entity;
 
-public class Actor extends Entity {
+public class Director extends Entity {
 
-    private long actorId;
+    private long directorId;
     private String firstName;
     private String lastName;
 
-    public Actor() {
-
-    }
-
-    public Actor(long actorId, String firstName, String lastName) {
-        this.actorId = actorId;
+    public Director(long directorId, String firstName, String lastName) {
+        this.directorId = directorId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public long getActorId() {
-        return actorId;
+    public long getDirectorId() {
+        return directorId;
     }
 
-    public void setActorId(long actorId) {
-        this.actorId = actorId;
+    public void setDirectorId(long directorId) {
+        this.directorId = directorId;
     }
 
     public String getFirstName() {
@@ -45,16 +41,16 @@ public class Actor extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Actor actor = (Actor) o;
+        Director director = (Director) o;
 
-        if (actorId != actor.actorId) return false;
-        if (firstName != null ? !firstName.equals(actor.firstName) : actor.firstName != null) return false;
-        return lastName != null ? lastName.equals(actor.lastName) : actor.lastName == null;
+        if (directorId != director.directorId) return false;
+        if (firstName != null ? !firstName.equals(director.firstName) : director.firstName != null) return false;
+        return lastName != null ? lastName.equals(director.lastName) : director.lastName == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (actorId ^ (actorId >>> 32));
+        int result = (int) (directorId ^ (directorId >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
@@ -64,7 +60,7 @@ public class Actor extends Entity {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String space = " ";
-        sb.append(firstName).append(space).append(lastName).append(space);
+        sb.append(firstName).append(space).append(lastName);
         return sb.toString();
     }
 }

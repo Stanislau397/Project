@@ -15,4 +15,16 @@ public class TableColumn {
     public static final String MOVIE_DESCRIPTION = "description";
     public static final String MOVIE_RELEASE_DATE = "release_date";
     public static final String MOVIE_RUN_TIME = "time";
+    public static final String MOVIE_PICTURE = "picture";
+
+    public static final String MOVIE_RATING = "user_rating";
+
+    public static final String GENRE_ID = "genres_id";
+    public static final String GENRE_TITLE = "genre_title";
+
+    public static final String ACTOR_ID = "actor_id";
+    public static final String DIRECTOR_ID = "director_id";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+
 }
