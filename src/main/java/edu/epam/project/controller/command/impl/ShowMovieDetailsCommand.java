@@ -5,10 +5,7 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.RequestParameter;
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Director;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.sevice.*;
 import edu.epam.project.sevice.impl.*;
@@ -37,11 +34,12 @@ public class ShowMovieDetailsCommand implements Command {
         Movie movie;
         Genre genre;
         try {
+            List<Comment> comments = movieService.findCommentsByMovieId(movieId);
             List<Actor> actors = actorService.findActorsByMovieId(movieId);
             List<Director> directors = directorService.findDirectorsByMovieId(movieId);
             Optional<Genre> optionalGenre = genreService.findMovieGenreByMovieId(movieId);
             Optional<Movie> optionalMovie = movieService.findMovieById(movieId);
-            double movieRating = ratingService.countAverageMovieRating(movieId);
+            int movieRating = ratingService.countAverageMovieRating(movieId);
             if (optionalMovie.isPresent() && movieRating >= 0
                     && optionalGenre.isPresent()) {
                 genre = optionalGenre.get();
@@ -52,10 +50,16 @@ public class ShowMovieDetailsCommand implements Command {
                 String country = movie.getCountry();
                 String movieGenre = genre.getTitle();
                 int runTime = movie.getRunTime();
+                if (comments.size() != 0) {
+                    request.setAttribute(RequestParameter.COMMENTS_LIST, comments);
+                }
+                if (movieRating != 0) {
+                    request.setAttribute(RequestParameter.MOVIE_RATING_PARAMETER, movieRating);
+                }
+                request.setAttribute(RequestParameter.MOVIE_ID, movieId);
                 request.setAttribute(RequestParameter.TITLE_PARAMETER, title);
                 request.setAttribute(RequestParameter.DESCRIPTION_PARAMETER, description);
                 request.setAttribute(RequestParameter.PICTURE_PARAMETER, picture);
-                request.setAttribute(RequestParameter.MOVIE_RATING_PARAMETER, movieRating);
                 request.setAttribute(RequestParameter.MOVIE_RUN_TIME, runTime);
                 request.setAttribute(RequestParameter.MOVIE_COUNTRY_PARAMETER, country);
                 request.setAttribute(RequestParameter.MOVIE_GENRE_PARAMETER, movieGenre);

@@ -4,6 +4,7 @@ import edu.epam.project.connection.ConnectionPool;
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.SqlQuery;
 import edu.epam.project.dao.TableColumn;
+import edu.epam.project.entity.Comment;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import org.apache.logging.log4j.Level;
@@ -124,5 +125,59 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isFound;
+    }
+
+    @Override
+    public boolean leaveCommentByUserId(long movieId, String userName, String comment) throws DaoException {
+        boolean isLeft;
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.LEAVE_COMMENT)) {
+            statement.setLong(1, movieId);
+            statement.setString(2, userName);
+            statement.setString(3, comment);
+            int update = statement.executeUpdate();
+            isLeft = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isLeft;
+    }
+
+    @Override
+    public List<Comment> findCommentsByMovieId(long movieId) throws DaoException {
+        List<Comment> comments = new ArrayList<>();
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_COMMENTS_BY_MOVIE_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String userName = resultSet.getString(TableColumn.USER_NAME_FK);
+                String text = resultSet.getString(TableColumn.COMMENT);
+                Comment comment = new Comment(text, userName);
+                comments.add(comment);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return comments;
+    }
+
+    @Override
+    public boolean removeComment(long movieId, long userId, String comment) throws DaoException {
+        boolean isRemoved;
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_COMMENT)) {
+            statement.setLong(1, movieId);
+            statement.setLong(2, userId);
+            statement.setString(3, comment);
+            int update = statement.executeUpdate();
+            isRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isRemoved;
     }
 }

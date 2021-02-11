@@ -8,6 +8,7 @@ public class TableColumn {
     public static final String USER_ROLE = "role";
     public static final String USER_STATUS = "is_active";
     public static final String USER_ID = "user_id";
+    public static final String USER_NAME_FK = "user_name_fk";
 
     public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";
@@ -18,6 +19,7 @@ public class TableColumn {
     public static final String MOVIE_PICTURE = "picture";
 
     public static final String MOVIE_RATING = "user_rating";
+    public static final String COMMENT = "comment";
 
     public static final String GENRE_ID = "genres_id";
     public static final String GENRE_TITLE = "genre_title";

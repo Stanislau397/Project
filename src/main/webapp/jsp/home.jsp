@@ -10,6 +10,12 @@
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
+    <form>
+        <select class="select" id="language" name="language" onchange="submit()">
+            <option value="en" ${language == 'en' ? 'selected' : ''}>en </option>
+            <option value="ru" ${language == 'ru' ? 'selected' : ''}>ru </option>
+        </select>
+    </form>
 </header>
 <body>
 

@@ -2,6 +2,7 @@ package edu.epam.project.sevice.impl;
 
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
+import edu.epam.project.entity.Comment;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
@@ -78,5 +79,41 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isFound;
+    }
+
+    @Override
+    public boolean leaveComment(String userName, long movieId, String comment) throws ServiceException {
+        boolean isLeft;
+        try {
+            isLeft = movieDao.leaveCommentByUserId(movieId, userName, comment);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isLeft;
+    }
+
+    @Override
+    public List<Comment> findCommentsByMovieId(long movieId) throws ServiceException {
+        List<Comment> comments;
+        try {
+            comments = movieDao.findCommentsByMovieId(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return comments;
+    }
+
+    @Override
+    public boolean removeComment(long movieId, long userId, String comment) throws ServiceException {
+        boolean isRemoved;
+        try {
+            isRemoved = movieDao.removeComment(movieId, userId, comment);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isRemoved;
     }
 }

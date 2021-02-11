@@ -8,9 +8,7 @@ import edu.epam.project.dao.impl.ActorDaoImpl;
 import edu.epam.project.dao.impl.GenreDaoImpl;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.dao.impl.RatingDaoImpl;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
-import edu.epam.project.entity.User;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.sevice.DirectorService;
@@ -30,8 +28,9 @@ public class main {
         GenreDao genreDao = new GenreDaoImpl();
         GenreService genreService = new GenreServiceImpl();
         DirectorService directorService = new DirectorServiceImpl();
+        RatingService ratingService = new RatingServiceImpl();
         ActorDao actorDao = new ActorDaoImpl();
-        System.out.println(actorDao.findActorsByMovieId(1));
-        System.out.println(directorService.findDirectorsByMovieId(1));
+        MovieDao movieDao = new MovieDaoImpl();
+        System.out.println(movieDao.findCommentsByMovieId(1));
     }
 }

@@ -1,5 +1,7 @@
 package edu.epam.project.controller.command;
 
+import edu.epam.project.controller.command.impl.LeaveCommentCommand;
+import edu.epam.project.controller.command.impl.RateMovieCommand;
 import edu.epam.project.controller.command.impl.ShowAllMoviesCommand;
 import edu.epam.project.controller.command.impl.ShowMovieDetailsCommand;
 import edu.epam.project.controller.command.impl.admin.FindAllUsersCommand;
@@ -16,6 +18,8 @@ public enum CommandType {
     SIGN_OUT(new SignOutCommand()),
     FIND_ALL_USERS(new FindAllUsersCommand()),
     BLOCK_USER(new BlockUserCommand()),
+    LEAVE_COMMENT(new LeaveCommentCommand()),
+    RATE_MOVIE(new RateMovieCommand()),
 
     CHANGE_PASSWORD(new ChangePasswordCommand()),
 

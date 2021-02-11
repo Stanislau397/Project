@@ -2,9 +2,9 @@ package edu.epam.project.entity;
 
 public class Rating {
 
-    private double score;
+    private int score;
 
-    public Rating(double score) {
+    public Rating(int score) {
         this.score = score;
     }
 
@@ -12,11 +12,11 @@ public class Rating {
 
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -27,12 +27,11 @@ public class Rating {
 
         Rating rating = (Rating) o;
 
-        return Double.compare(rating.score, score) == 0;
+        return score == rating.score;
     }
 
     @Override
     public int hashCode() {
-        long temp = Double.doubleToLongBits(score);
-        return (int) (temp ^ (temp >>> 32));
+        return score;
     }
 }

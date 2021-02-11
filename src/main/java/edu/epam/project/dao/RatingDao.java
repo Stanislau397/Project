@@ -4,6 +4,7 @@ import edu.epam.project.exception.DaoException;
 
 public interface RatingDao {
 
-    double countAverageMovieRating(long movieId) throws DaoException;
-    boolean rateMovie(long movieId, long userId, double score) throws DaoException;
+    int countAverageMovieRating(long movieId) throws DaoException;
+
+    boolean rateMovie(long movieId, String userName, int score) throws DaoException;
 }

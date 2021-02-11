@@ -1,5 +1,8 @@
 package edu.epam.project.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User extends Entity {
 
     private RoleType role;
@@ -8,6 +11,8 @@ public class User extends Entity {
     private String password;
     private String email;
     private boolean isBlocked;
+
+    private List<Comment> comments;
 
     public User(long userId, String userName, String password, String email, RoleType role, boolean isBlocked) {
         this.role = role;
@@ -20,6 +25,14 @@ public class User extends Entity {
 
     public User() {
 
+    }
+
+    public List<Comment> getComments() {
+        return new ArrayList<>(comments);
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public RoleType getRole() {

@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>all_users</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table1.css">
 </head>
 <header>
-    <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
+    <jsp:include page="admin_cabinet.jsp"/>
 </header>
 <body>
 <table class="content-table">

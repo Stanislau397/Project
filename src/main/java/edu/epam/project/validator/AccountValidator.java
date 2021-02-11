@@ -14,7 +14,7 @@ public class AccountValidator {
     public boolean isValidLogInData(String login, String password) {
         boolean isCorrectLogIn = isValidUserName(login) && isValidPassword(password);
         if (!(isCorrectLogIn)) {
-            logger.log(Level.WARN, "Invalid login Data");
+            logger.log(Level.WARN, "Invalid login Data"); /// TODO: 11.02.2021
         }
         return isCorrectLogIn;
     }

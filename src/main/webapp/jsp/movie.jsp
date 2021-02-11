@@ -14,7 +14,7 @@
         <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
     </div>
     <div class="middle">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
+        <form action="${pageContext.request.contextPath}/controller" method="get">
             <input hidden name="command" value="show_movie_details">
             <input hidden name="movie_id" value="${movies.movieId}">
             <button type="submit" >${movies.title}</button>

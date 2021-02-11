@@ -15,8 +15,8 @@ public class RatingServiceImpl implements RatingService {
     private RatingDao ratingDao = new RatingDaoImpl();
 
     @Override
-    public double countAverageMovieRating(long movieId) throws ServiceException {
-        double average;
+    public int countAverageMovieRating(long movieId) throws ServiceException {
+        int average;
         try {
             average = ratingDao.countAverageMovieRating(movieId);
         } catch (DaoException e) {
@@ -27,10 +27,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean rateMovie(long movieId, long userId, double score) throws ServiceException {
+    public boolean rateMovie(long movieId, String userName, int score) throws ServiceException {
         boolean isRated;
         try {
-            isRated = ratingDao.rateMovie(movieId, userId, score);
+            isRated = ratingDao.rateMovie(movieId, userName, score);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

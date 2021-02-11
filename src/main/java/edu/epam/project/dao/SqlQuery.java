@@ -35,7 +35,12 @@ public class SqlQuery {
             "WHERE movie_title = (?)";
     public static final String FIND_MOVIE_BY_ID = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
             "WHERE movie_id = (?)";
+    public static final String REMOVE_COMMENT = "DELETE FROM movie_rating WHERE movie_id_fk = (?) " +
+            "AND user_id_fk = (?) AND comment = (?)";
 
     public static final String COUNT_AVERAGE_RATING = "SELECT AVG(user_score) FROM rating WHERE movie_id = (?)";
-    public static final String RATE_MOVIE = "INSERT INTO rating(movie_id, user_id_fk, user_score) VALUES (?,?,?)";
+    public static final String RATE_MOVIE = "INSERT INTO rating(movie_id, user_name_fk, user_score) VALUES (?,?,?)";
+    public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, comment) " +
+            "VALUES (?,?,?)";
+    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT user_name_fk, comment FROM movie_comments WHERE movie_id_fk = (?)";
 }

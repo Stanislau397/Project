@@ -16,14 +16,14 @@ public class RatingDaoImpl implements RatingDao {
     private static final Logger logger = LogManager.getLogger(RatingDaoImpl.class);
 
     @Override
-    public double countAverageMovieRating(long movieId) throws DaoException {
-        double average = 0;
+    public int countAverageMovieRating(long movieId) throws DaoException {
+        int average = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_AVERAGE_RATING)) {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                average = resultSet.getDouble(1);
+                average = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
@@ -33,13 +33,13 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public boolean rateMovie(long movieId, long userId, double score) throws DaoException {
+    public boolean rateMovie(long movieId, String userName, int score) throws DaoException {
         boolean isRated;
         try(Connection connection = ConnectionPool.INSTANCE.getConnection();
         PreparedStatement statement = connection.prepareStatement(SqlQuery.RATE_MOVIE)) {
             statement.setLong(1, movieId);
-            statement.setLong(2, userId);
-            statement.setDouble(3, score);
+            statement.setString(2, userName);
+            statement.setInt(3, score);
             int result = statement.executeUpdate();
             isRated = (result == 1);
         } catch (SQLException e) {

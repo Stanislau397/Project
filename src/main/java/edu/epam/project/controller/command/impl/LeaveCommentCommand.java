@@ -6,8 +6,8 @@ import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.RatingService;
-import edu.epam.project.sevice.impl.RatingServiceImpl;
+import edu.epam.project.sevice.MovieService;
+import edu.epam.project.sevice.impl.MovieServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,26 +15,28 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class RateMovieCommand implements Command {
+public class LeaveCommentCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(RateMovieCommand.class);
-    private RatingService ratingService = new RatingServiceImpl();
+    private static final Logger logger = LogManager.getLogger(LeaveCommentCommand.class);
+    private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String page = request.getHeader(RequestParameter.REFERER);
-        int rating = Integer.parseInt(request.getParameter(RequestParameter.SCORE));
-        long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
+        String currentPage = request.getHeader(RequestParameter.REFERER);
         String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
+        String comment = request.getParameter(RequestParameter.COMMENT);
+        long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
         try {
-            if (ratingService.rateMovie(movieId, userName, rating)) {
+            if (movieService.leaveComment(userName, movieId, comment)) {
                 router.setRoute(RouteType.REDIRECT);
-                router.setPagePath(page);
+                router.setPagePath(currentPage);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
+            router.setPagePath(currentPage);
+            router.setRoute(RouteType.REDIRECT);
         }
         return router;
     }
