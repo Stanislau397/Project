@@ -11,6 +11,7 @@ public class SessionAttribute {
     public static final String USER_ID = "user_id";
     public static final String CURRENT_PAGE = "current_page";
 
+
     public static final String SIGN_IN_ERROR = "sign_in_error";
 
     public static final String SIGN_IN_ERROR_MESSAGE = "Your email or password is incorrect!";

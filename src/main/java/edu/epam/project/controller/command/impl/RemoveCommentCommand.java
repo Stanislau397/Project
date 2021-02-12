@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.SessionAttribute.*;
+
 public class RemoveCommentCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RemoveCommentCommand.class);
@@ -24,11 +27,11 @@ public class RemoveCommentCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String currentPage = request.getHeader(RequestParameter.REFERER);
-        String comment = request.getParameter(RequestParameter.COMMENT);
-        String id = (String) session.getAttribute(SessionAttribute.USER_ID);
+        String currentPage = request.getHeader(REFERER);
+        String comment = request.getParameter(COMMENT);
+        String id = (String) session.getAttribute(USER_ID);
         long userId = Long.parseLong(id);
-        long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
             if (movieService.removeComment(movieId, userId, comment)) {
                 router.setPagePath(currentPage);

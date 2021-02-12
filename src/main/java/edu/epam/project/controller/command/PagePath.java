@@ -9,6 +9,7 @@ public class PagePath {
     public static final String MOVIE_PAGE = "jsp/movie.jsp";
     public static final String MOVIE_DETAIL_PAGE = "jsp/detail.jsp";
     public static final String CURRENT_PAGE = "current_page";
+    public static final String COMMENTS_PAGE = "jsp/comments.jsp";
 
     public static final String USER_PROFILE = "jsp/user/user_profile.jsp";
     public static final String CHANGE_EMAIL = "jsp/user/change_email.jsp";

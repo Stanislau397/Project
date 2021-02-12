@@ -4,7 +4,6 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.sevice.*;
@@ -16,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
+
+import static edu.epam.project.controller.command.RequestParameter.*;
 
 public class ShowMovieDetailsCommand implements Command {
 
@@ -29,7 +30,7 @@ public class ShowMovieDetailsCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        String id = request.getParameter(RequestParameter.MOVIE_ID);
+        String id = request.getParameter(MOVIE_ID);
         int movieId = Integer.parseInt(id);
         Movie movie;
         Genre genre;
@@ -50,22 +51,20 @@ public class ShowMovieDetailsCommand implements Command {
                 String country = movie.getCountry();
                 String movieGenre = genre.getTitle();
                 int runTime = movie.getRunTime();
-                if (comments.size() != 0) {
-                    request.setAttribute(RequestParameter.COMMENTS_LIST, comments);
-                }
-                if (movieRating != 0) {
-                    request.setAttribute(RequestParameter.MOVIE_RATING_PARAMETER, movieRating);
-                }
-                request.setAttribute(RequestParameter.MOVIE_ID, movieId);
-                request.setAttribute(RequestParameter.TITLE_PARAMETER, title);
-                request.setAttribute(RequestParameter.DESCRIPTION_PARAMETER, description);
-                request.setAttribute(RequestParameter.PICTURE_PARAMETER, picture);
-                request.setAttribute(RequestParameter.MOVIE_RUN_TIME, runTime);
-                request.setAttribute(RequestParameter.MOVIE_COUNTRY_PARAMETER, country);
-                request.setAttribute(RequestParameter.MOVIE_GENRE_PARAMETER, movieGenre);
-                request.setAttribute(RequestParameter.ACTORS_PARAMETER, actors);
-                request.setAttribute(RequestParameter.DIRECTORS_PARAMETER, directors);
+                request.setAttribute(COMMENTS_LIST, comments);
+                request.setAttribute(MOVIE_ID, movieId);
+                request.setAttribute(TITLE_PARAMETER, title);
+                request.setAttribute(DESCRIPTION_PARAMETER, description);
+                request.setAttribute(PICTURE_PARAMETER, picture);
+                request.setAttribute(MOVIE_RUN_TIME, runTime);
+                request.setAttribute(MOVIE_COUNTRY_PARAMETER, country);
+                request.setAttribute(MOVIE_GENRE_PARAMETER, movieGenre);
+                request.setAttribute(ACTORS_PARAMETER, actors);
+                request.setAttribute(DIRECTORS_PARAMETER, directors);
                 router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
+                if (movieRating != 0) {
+                    request.setAttribute(MOVIE_RATING_PARAMETER, movieRating);
+                }
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

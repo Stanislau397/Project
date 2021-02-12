@@ -1,13 +1,9 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fml" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language"
-       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="/property/text"/>
-<html lang="${language}">
+<fmt:setBundle basename="property.text"/>
+<html>
 <head>
     <title>ditail</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -131,20 +127,8 @@
         </form>
     </div>
 </c:if>
-<div class="comment">
-    <c:if test="${requestScope.comments_list == null}">
-        No comments
-    </c:if>
-    <c:if test="${requestScope.comments_list != null}">
-        <c:forEach items="${requestScope.comments_list} " var="comments">
-            <ul>
-                <li class="posted-by">Posted by: </li>
-                <li class="parameter-posted"></li>
-            </ul>
-            <p>${comments}</p>
-            <br>
-        </c:forEach>
-    </c:if>
-</div>
+<c:forEach items="${requestScope.comment_list}" var="comments">
+    ${comments.userName}
+</c:forEach>
 </body>
 </html>

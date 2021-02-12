@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fml" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="property.text"/>
 <html>
 <head>
     <title>Home</title>
@@ -10,12 +11,6 @@
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
-    <form>
-        <select class="select" id="language" name="language" onchange="submit()">
-            <option value="en" ${language == 'en' ? 'selected' : ''}>en </option>
-            <option value="ru" ${language == 'ru' ? 'selected' : ''}>ru </option>
-        </select>
-    </form>
 </header>
 <body>
 

@@ -1,11 +1,9 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fml" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
-<fmt:setLocale value="${language}" />
-<fmt:setBundle basename="/property/text" />
-<html lang="${language}">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="property.text"/>
+<html>
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form1.css">
@@ -14,7 +12,7 @@
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </header>
 <body>
-<form action="${pageContext.request.contextPath}/controller" method="post">
+<form action="${pageContext.request.contextPath}/controller" method="get">
     <input hidden name="command" value="block_user">
     <div>
         <c:choose>

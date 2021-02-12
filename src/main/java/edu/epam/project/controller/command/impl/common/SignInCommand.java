@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.SessionAttribute.*;
+
 public class SignInCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
@@ -28,8 +31,8 @@ public class SignInCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        String userEmail = request.getParameter(RequestParameter.EMAIL_PARAMETER);
-        String userPassword = request.getParameter(RequestParameter.PASSWORD_PARAMETER);
+        String userEmail = request.getParameter(EMAIL_PARAMETER);
+        String userPassword = request.getParameter(PASSWORD_PARAMETER);
         User user;
         try {
             Optional<User> userOptional = userService.findByEmailAndPassword(userEmail, userPassword);
@@ -41,28 +44,28 @@ public class SignInCommand implements Command {
                     long userId = user.getUserId();
                     switch (role) {
                         case ADMIN:
-                            session.setAttribute(SessionAttribute.USER_ID, userId);
-                            session.setAttribute(SessionAttribute.USER_EMAIL, userEmail);
-                            session.setAttribute(SessionAttribute.USER_NAME, userName);
-                            session.setAttribute(SessionAttribute.ADMIN, String.valueOf(role));
+                            session.setAttribute(USER_ID, userId);
+                            session.setAttribute(USER_EMAIL, userEmail);
+                            session.setAttribute(USER_NAME, userName);
+                            session.setAttribute(ADMIN, String.valueOf(role));
                             router.setPagePath(PagePath.HOME_PAGE);
                             break;
                         case USER:
-                            session.setAttribute(SessionAttribute.USER_ID, userId);
-                            session.setAttribute(SessionAttribute.USER_EMAIL, userEmail);
-                            session.setAttribute(SessionAttribute.USER_NAME, userName);
-                            session.setAttribute(SessionAttribute.USER, String.valueOf(role));
+                            session.setAttribute(USER_ID, userId);
+                            session.setAttribute(USER_EMAIL, userEmail);
+                            session.setAttribute(USER_NAME, userName);
+                            session.setAttribute(USER, String.valueOf(role));
                             router.setPagePath(PagePath.HOME_PAGE);
                             break;
                         default:
-                            session.setAttribute(SessionAttribute.GUEST, String.valueOf(role));
+                            session.setAttribute(GUEST, String.valueOf(role));
                             router.setPagePath(PagePath.HOME_PAGE);
                     }
                 }
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            session.setAttribute(SessionAttribute.SIGN_IN_ERROR, SessionAttribute.SIGN_IN_ERROR_MESSAGE);
+            session.setAttribute(RequestParameter.SIGN_IN_ERROR, RequestParameter.SIGN_IN_ERROR_MESSAGE);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(PagePath.LOGIN_PAGE);
         }

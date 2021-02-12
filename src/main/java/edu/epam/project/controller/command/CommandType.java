@@ -1,11 +1,9 @@
 package edu.epam.project.controller.command;
 
-import edu.epam.project.controller.command.impl.LeaveCommentCommand;
-import edu.epam.project.controller.command.impl.RateMovieCommand;
-import edu.epam.project.controller.command.impl.ShowAllMoviesCommand;
-import edu.epam.project.controller.command.impl.ShowMovieDetailsCommand;
+import edu.epam.project.controller.command.impl.*;
 import edu.epam.project.controller.command.impl.admin.FindAllUsersCommand;
 import edu.epam.project.controller.command.impl.admin.BlockUserCommand;
+import edu.epam.project.controller.command.impl.common.ChangeLocaleCommand;
 import edu.epam.project.controller.command.impl.common.RegisterCommand;
 import edu.epam.project.controller.command.impl.common.SignInCommand;
 import edu.epam.project.controller.command.impl.common.SignOutCommand;
@@ -22,8 +20,10 @@ public enum CommandType {
     RATE_MOVIE(new RateMovieCommand()),
 
     CHANGE_PASSWORD(new ChangePasswordCommand()),
+    CHANGE_LOCALE(new ChangeLocaleCommand()),
 
     SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
+    SHOW_COMMENTS(new ShowCommentsCommand()),
     SHOW_MOVIE_DETAILS(new ShowMovieDetailsCommand());
 
     private Command command;

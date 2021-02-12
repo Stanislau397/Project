@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+
 public class FindAllUsersCommand implements Command {
 
     public static final Logger logger = LogManager.getLogger(FindAllUsersCommand.class);
@@ -28,14 +30,14 @@ public class FindAllUsersCommand implements Command {
         try {
             users = userService.findAll();
             if (users.size() > 0) {
-                request.setAttribute(RequestParameter.USER_LIST, users);
+                request.setAttribute(USER_LIST, users);
                 router.setPagePath(PagePath.ALL_USERS_PAGE);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
-            request.setAttribute(RequestParameter.ERROR, RequestParameter.ERROR_MESSAGE);
+            request.setAttribute(ERROR, ERROR_MESSAGE);
         }
         return router;
     }

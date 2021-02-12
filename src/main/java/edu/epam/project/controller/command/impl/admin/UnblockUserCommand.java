@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+
 public class UnblockUserCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(BlockUserCommand.class);
@@ -23,12 +25,12 @@ public class UnblockUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        String userName = request.getParameter(RequestParameter.USER_NAME_PARAMETER);
+        String userName = request.getParameter(USER_NAME_PARAMETER);
         try {
             if (adminService.updateUserStatusByUserName(STATUS, userName)) {
-                request.setAttribute(RequestParameter.UNBLOCK, userName + RequestParameter.UNBLOCK_MESSAGE);
+                request.setAttribute(UNBLOCK, userName + UNBLOCK_MESSAGE);
             } else {
-                request.setAttribute(RequestParameter.ERROR, RequestParameter.ERROR_MESSAGE);
+                request.setAttribute(ERROR, ERROR_MESSAGE);
                 router.setRoute(RouteType.REDIRECT);
             }
             router.setPagePath(PagePath.BLOCK_USER_PAGE);

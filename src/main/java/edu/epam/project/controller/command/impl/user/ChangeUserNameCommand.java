@@ -16,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.SessionAttribute.*;
+
 public class ChangeUserNameCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ChangePasswordCommand.class);
@@ -25,12 +28,12 @@ public class ChangeUserNameCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String userName = request.getParameter(RequestParameter.USER_NAME_PARAMETER);
-        String newUserName = request.getParameter(RequestParameter.NEW_USER_NAME);
+        String userName = request.getParameter(USER_NAME_PARAMETER);
+        String newUserName = request.getParameter(NEW_USER_NAME);
         try {
             if (userService.changeUserName(userName, newUserName)) {
-                session.removeAttribute(SessionAttribute.USER_NAME);
-                session.setAttribute(SessionAttribute.USER_NAME, newUserName);
+                session.removeAttribute(USER_NAME);
+                session.setAttribute(USER_NAME, newUserName);
                 router.setPagePath(PagePath.USER_PROFILE);
             }
         } catch (ServiceException e) {

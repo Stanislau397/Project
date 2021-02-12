@@ -5,10 +5,6 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.RequestParameter;
-import edu.epam.project.dao.MovieDao;
-import edu.epam.project.dao.RatingDao;
-import edu.epam.project.dao.impl.MovieDaoImpl;
-import edu.epam.project.dao.impl.RatingDaoImpl;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.sevice.MovieService;
@@ -21,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static edu.epam.project.controller.command.RequestParameter.*;
 
 public class ShowAllMoviesCommand implements Command {
 
@@ -36,7 +34,7 @@ public class ShowAllMoviesCommand implements Command {
             movies = movieService.findAllMovies();
             if (movies.size() > 0) {
                 router.setPagePath(PagePath.MOVIE_PAGE);
-                request.setAttribute(RequestParameter.MOVIE_LIST, movies);
+                request.setAttribute(MOVIE_LIST, movies);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

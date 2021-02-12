@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.SessionAttribute.*;
+
 public class RateMovieCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RateMovieCommand.class);
@@ -24,10 +27,10 @@ public class RateMovieCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String page = request.getHeader(RequestParameter.REFERER);
-        int rating = Integer.parseInt(request.getParameter(RequestParameter.SCORE));
-        long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
-        String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
+        String page = request.getHeader(REFERER);
+        int rating = Integer.parseInt(request.getParameter(SCORE));
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        String userName = (String) session.getAttribute(USER_NAME);
         try {
             if (ratingService.rateMovie(movieId, userName, rating)) {
                 router.setRoute(RouteType.REDIRECT);

@@ -22,7 +22,7 @@ public class RequestParameter {
 
     public static final String USER_LIST = "user_list";
     public static final String MOVIE_LIST = "movie_list";
-    public static final String COMMENTS_LIST = "comments_list";
+    public static final String COMMENTS_LIST = "comment_list";
     public static final String BLOCK = "block";
     public static final String UNBLOCK = "unblock";
     public static final String SIGN_IN_ERROR = "sign_in_error";

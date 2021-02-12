@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.SessionAttribute.*;
+
 public class LeaveCommentCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(LeaveCommentCommand.class);
@@ -24,10 +27,10 @@ public class LeaveCommentCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String currentPage = request.getHeader(RequestParameter.REFERER);
-        String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
-        String comment = request.getParameter(RequestParameter.COMMENT);
-        long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
+        String currentPage = request.getHeader(REFERER);
+        String userName = (String) session.getAttribute(USER_NAME);
+        String comment = request.getParameter(COMMENT);
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
             if (movieService.leaveComment(userName, movieId, comment)) {
                 router.setRoute(RouteType.REDIRECT);

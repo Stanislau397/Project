@@ -13,7 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
+import static edu.epam.project.controller.command.RequestParameter.*;
 
 public class ChangeEmailCommand implements Command {
 
@@ -23,9 +24,8 @@ public class ChangeEmailCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        HttpSession session = request.getSession();
-        String oldEmail = request.getParameter(RequestParameter.OLD_EMAIL_PARAMETER);
-        String newEmail = request.getParameter(RequestParameter.EMAIL_PARAMETER);
+        String oldEmail = request.getParameter(OLD_EMAIL_PARAMETER);
+        String newEmail = request.getParameter(EMAIL_PARAMETER);
         try {
             if (userService.changeEmail(newEmail, oldEmail)) {
                 router.setPagePath(PagePath.USER_PROFILE);

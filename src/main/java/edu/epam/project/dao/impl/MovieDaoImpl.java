@@ -154,7 +154,9 @@ public class MovieDaoImpl implements MovieDao {
             while (resultSet.next()) {
                 String userName = resultSet.getString(TableColumn.USER_NAME_FK);
                 String text = resultSet.getString(TableColumn.COMMENT);
-                Comment comment = new Comment(text, userName);
+                Comment comment = new Comment();
+                comment.setUserName(userName);
+                comment.setText(text);
                 comments.add(comment);
             }
         } catch (SQLException e) {

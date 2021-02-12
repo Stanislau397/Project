@@ -1,13 +1,9 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fml" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language"
-       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
 <fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="/property/text"/>
-<html lang="${language}">
+<fmt:setBundle basename="property.text"/>
+<html>
 <head>
     <title>header</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -64,6 +60,25 @@
                 </a>
             </c:if>
 
+            <a>
+                <li style="color: white">
+                    <form action="${pageContext.request.contextPath}/controller"
+                          method="post">
+                        <input type="hidden" name="command" value="change_locale"/>
+                        <div class="dropdown">
+                            <button class="lal" type="button" id="language"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <fmt:message key="label.language"/>
+                            </button>
+                            <div aria-labelledby="change_language">
+                                <button class="tlsl" type="submit" name="language" value="en"><fmt:message key="label.en"/></button>
+                                <button class=";s;" type="submit" name="language" value="ru"><fmt:message key="label.ru"/> </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </a>
         </ul>
     </div>
 </div>
