@@ -26,6 +26,7 @@ public class ShowMovieDetailsCommand implements Command {
     private GenreService genreService = new GenreServiceImpl();
     private ActorService actorService = new ActorServiceImpl();
     private DirectorService directorService = new DirectorServiceImpl();
+    private CommentService commentService = new CommentServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -35,7 +36,7 @@ public class ShowMovieDetailsCommand implements Command {
         Movie movie;
         Genre genre;
         try {
-            List<Comment> comments = movieService.findCommentsByMovieId(movieId);
+            List<Comment> comments = commentService.findCommentsByMovieId(movieId);
             List<Actor> actors = actorService.findActorsByMovieId(movieId);
             List<Director> directors = directorService.findDirectorsByMovieId(movieId);
             Optional<Genre> optionalGenre = genreService.findMovieGenreByMovieId(movieId);

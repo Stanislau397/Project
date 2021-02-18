@@ -3,10 +3,12 @@ package edu.epam.project.controller.filter;
 import edu.epam.project.controller.command.PagePath;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebFilter(urlPatterns = {"/pageSecurity"})
 public class PageRedirectSecurityFilter implements Filter {
 
     private String homePath;

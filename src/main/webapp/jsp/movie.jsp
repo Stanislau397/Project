@@ -12,6 +12,9 @@
     <jsp:include page="static/header.jsp"/>
 </header>
 <body>
+<div>
+    <p>kasdnjads sa nnjads nan as</p>
+</div>
 <c:forEach items="${movie_list}" var="movies">
     <div class="side">
         <img class="image" src="${pageContext.request.contextPath}${movies.picture}">

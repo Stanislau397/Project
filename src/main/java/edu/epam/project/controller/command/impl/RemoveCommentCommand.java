@@ -3,11 +3,9 @@ package edu.epam.project.controller.command.impl;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.RequestParameter;
-import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.MovieService;
-import edu.epam.project.sevice.impl.MovieServiceImpl;
+import edu.epam.project.sevice.CommentService;
+import edu.epam.project.sevice.impl.CommentServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,7 @@ import static edu.epam.project.controller.command.SessionAttribute.*;
 public class RemoveCommentCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RemoveCommentCommand.class);
-    private MovieService movieService = new MovieServiceImpl();
+    private CommentService commentService = new CommentServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -29,11 +27,11 @@ public class RemoveCommentCommand implements Command {
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
         String comment = request.getParameter(COMMENT);
-        String id = (String) session.getAttribute(USER_ID);
-        long userId = Long.parseLong(id);
+        String userName = request.getParameter(USER_NAME);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
-            if (movieService.removeComment(movieId, userId, comment)) {
+            if (commentService.removeComment(movieId, userName, comment)) {
+                router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }
         } catch (ServiceException e) {

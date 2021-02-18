@@ -5,7 +5,6 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.RequestParameter;
-import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;

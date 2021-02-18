@@ -3,25 +3,35 @@
 <html>
 <head>
     <title>user_profile</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user_profile1.css">
 
 </head>
 <header>
     <jsp:include page="/jsp/static/header.jsp"/>
 </header>
 <body>
-<div class="side">
-    <img class="image" src="${pageContext.request.contextPath}/css/image/image.png">
+<div class="side-box">
+    <img src="${pageContext.request.contextPath}/css/image/image.png"/>
 </div>
-<div class="middle">
-    <p class="name">${user_name}</p>
-    <hr>
-    <p class="email">${user_email}</p>
-    <hr>
-    <p class="settings">
-        <a class href="${pageContext.request.contextPath}/jsp/user/account_settings.jsp">Edit settings</a>
-    </p>
-    <hr>
+<div class="middle-box">
+    <ul>
+        <li class="name">
+            <c:out value="${sessionScope.user_name}"/>
+        </li>
+        <li class="settings">
+            <a href="${pageContext.request.contextPath}/jsp/user/account_settings.jsp">Edit settings</a>
+        </li>
+    </ul>
+    <ul>
+        <li class="ratings">
+            3 Ratings
+        </li>
+        <li class="review">
+            <c:out value="${requestScope.comment} Comments"/>
+        </li>
+    </ul>
 </div>
+<hr>
+<p>My Scores</p>
 </body>
 </html>

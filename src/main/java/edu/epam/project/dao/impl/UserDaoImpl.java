@@ -53,7 +53,6 @@ public class UserDaoImpl implements UserDao {
             user.setUserName(resultSet.getString(TableColumn.USER_NAME));
             user.setBlocked(resultSet.getBoolean(TableColumn.USER_STATUS));
             user.setRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)));
-            user.setPassword(resultSet.getString(TableColumn.USER_PASSWORD));
             user.setEmail(resultSet.getString(TableColumn.USER_EMAIL));
             isFound = Optional.of(user);
         } catch (SQLException e) {
@@ -118,8 +117,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean changeUserName(String userName, String newUserName) throws DaoException {
         boolean isUserNameChanged;
-        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.CHANGE_USER_NAME)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHANGE_USER_NAME)) {
             statement.setString(1, newUserName);
             statement.setString(2, userName);
             int update = statement.executeUpdate();
@@ -141,10 +140,9 @@ public class UserDaoImpl implements UserDao {
                 long id = resultSet.getLong(TableColumn.USER_ID);
                 String login = resultSet.getString(TableColumn.USER_NAME);
                 String email = resultSet.getString(TableColumn.USER_EMAIL);
-                String password = resultSet.getString(TableColumn.USER_PASSWORD);
                 String role = resultSet.getString(TableColumn.USER_ROLE);
                 boolean status = resultSet.getBoolean(TableColumn.USER_STATUS);
-                User user = new User(id, login, password, email, RoleType.valueOf(role), status);
+                User user = new User(id, login, email, RoleType.valueOf(role), status);
                 allUsers.add(user);
             }
         } catch (SQLException e) {

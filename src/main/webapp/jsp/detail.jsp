@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detail4.css">
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
@@ -32,7 +34,9 @@
         </td>
         <td class="rating">
             <c:if test="${requestScope.movie_rating != null}">
-                <p class="p-rating">${movie_rating}</p>
+                <p class="p-rating">
+                    <c:out value="${movie_rating}"/>
+                </p>
             </c:if>
             <c:if test="${requestScope.movie_rating == null}">
                 <p>No rating</p>
@@ -45,7 +49,7 @@
                 <li class="li-starring"><fmt:message key="label.starring"/></li>
                 <li class="li-starring-parameter">
                     <c:forEach items="${requestScope.actors}" var="actors">
-                        ${actors},
+                        <c:out value="${actors}"/>
                     </c:forEach>
                 </li>
             </ul>
@@ -55,37 +59,44 @@
         <td class="info">
             <ul>
                 <li class="li-info"><fmt:message key="label.summery"/></li>
-                <li class="li-info-parameter">${description}</li>
+                <li class="li-info-parameter">
+                    <c:out value="${description}"/>
+                </li>
             </ul>
+            <div class="info-2">
+                <ul class="one">
+                    <li class="director-li"><fmt:message key="label.director"/></li>
+                    <li class="director-parameter">
+                        <c:forEach items="${requestScope.directors}" var="directors">
+                            <c:out value="${directors}"/>
+                        </c:forEach>
+                    </li>
+                </ul>
+                <ul class="two">
+                    <li class="run"><fmt:message key="label.runtime"/></li>
+                    <li class="time">
+                        <c:out value="${run_time}"/>
+                    </li>
+                </ul>
+                <ul class="three">
+                    <li class="country-li"><fmt:message key="label.country"/></li>
+                    <li class="country-parameter">
+                        <c:out value="${country}"/>
+                    </li>
+                </ul>
+                <ul class="five">
+                    <li class="li-genre"><fmt:message key="label.genre"/></li>
+                    <li class="li-genre-parameter">
+                        <c:out value="${genre}"/></li>
+                </ul>
+                <ul class="four">
+                    <li class="pg-rating"><fmt:message key="label.rating"/></li>
+                    <li class="pg-rating-parameter">R</li>
+                </ul>
+            </div>
         </td>
     </tr>
 </table>
-<div>
-    <ul class="one">
-        <li class="director-li"><fmt:message key="label.director"/></li>
-        <li class="director-parameter">
-            <c:forEach items="${requestScope.directors}" var="directors">
-                ${directors},
-            </c:forEach>
-        </li>
-    </ul>
-    <ul class="two">
-        <li class="run"><fmt:message key="label.runtime"/></li>
-        <li class="time">${run_time}</li>
-    </ul>
-    <ul class="three">
-        <li class="country-li"><fmt:message key="label.country"/></li>
-        <li class="country-parameter">${country}</li>
-    </ul>
-    <ul class="five">
-        <li class="li-genre"><fmt:message key="label.genre"/></li>
-        <li class="li-genre-parameter">${genre}</li>
-    </ul>
-    <ul class="four">
-        <li class="pg-rating"><fmt:message key="label.rating"/></li>
-        <li class="pg-rating-parameter">R</li>
-    </ul>
-</div>
 <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <div class="container">
@@ -117,18 +128,53 @@
         </div>
     </form>
 </c:if>
-<c:if test="${sessionScope.admin != null || sessionScope.user != null}">
-    <div class="comment-box">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input hidden name="command" value="leave_comment">
-            <input type="hidden" name="movie_id" value="${movie_id}">
-            <textarea name="comment" placeholder="Type your comment"></textarea><br>
-            <button type="submit">Submit Comment</button>
-        </form>
-    </div>
-</c:if>
-<c:forEach items="${requestScope.comment_list}" var="comments">
-    ${comments.userName}
-</c:forEach>
+    <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
+        <div class="comment-box">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input hidden name="command" value="leave_comment">
+                <input type="hidden" name="movie_id" value="${movie_id}">
+                <textarea name="comment" placeholder="Type your comment"></textarea><br>
+                <button type="submit">Submit Comment</button>
+            </form>
+        </div>
+    </c:if>
+<div class="show-comments">
+    <c:forEach items="${requestScope.comment_list}" var="comments">
+        <div class="comments-side-bar">
+            <img src="${pageContext.request.contextPath}/css/image/image.png"/>
+        </div>
+        <div class="comments-message">
+            <ul>
+                <li class="name">
+                    <c:out value="${comments.userName}"/>
+                </li>
+                <li class="date">
+                    <c:out value="${comments.postDate}"/>
+                </li>
+            </ul>
+            <br>
+            <p><c:out value="${comments.text}"/></p>
+        </div>
+        <c:if test="${sessionScope.user_name == comments.userName && sessionScope.user != null}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="remove_comment">
+                <input type="hidden" name="movie_id" value="${movie_id}">
+                <input type="hidden" name="user_name" value="${comments.userName}">
+                <input type="hidden" name="comment" value="${comments.text}">
+                <input class="remove" type="submit" value="remove">
+            </form>
+        </c:if>
+        <c:if test="${sessionScope.admin != null}">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="remove_comment">
+                <input type="hidden" name="movie_id" value="${movie_id}">
+                <input type="hidden" name="user_name" value="${comments.userName}">
+                <input type="hidden" name="comment" value="${comments.text}">
+                <input class="remove" type="submit" value="remove">
+            </form>
+        </c:if>
+        <hr>
+    </c:forEach>
+</div>
 </body>
 </html>

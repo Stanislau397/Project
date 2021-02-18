@@ -8,17 +8,15 @@ public class User extends Entity {
     private RoleType role;
     private long userId;
     private String userName;
-    private String password;
     private String email;
     private boolean isBlocked;
 
     private List<Comment> comments;
 
-    public User(long userId, String userName, String password, String email, RoleType role, boolean isBlocked) {
+    public User(long userId, String userName, String email, RoleType role, boolean isBlocked) {
         this.role = role;
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
         this.email = email;
         this.isBlocked = isBlocked;
     }
@@ -59,14 +57,6 @@ public class User extends Entity {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -94,7 +84,6 @@ public class User extends Entity {
         if (isBlocked != user.isBlocked) return false;
         if (role != user.role) return false;
         if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
         return email != null ? email.equals(user.email) : user.email == null;
     }
 
@@ -103,7 +92,6 @@ public class User extends Entity {
         int result = role != null ? role.hashCode() : 0;
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (isBlocked ? 1 : 0);
         return result;

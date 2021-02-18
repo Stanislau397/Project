@@ -3,11 +3,9 @@ package edu.epam.project.controller.command.impl;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.RequestParameter;
-import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.MovieService;
-import edu.epam.project.sevice.impl.MovieServiceImpl;
+import edu.epam.project.sevice.CommentService;
+import edu.epam.project.sevice.impl.CommentServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,7 @@ import static edu.epam.project.controller.command.SessionAttribute.*;
 public class LeaveCommentCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(LeaveCommentCommand.class);
-    private MovieService movieService = new MovieServiceImpl();
+    private CommentService commentService = new CommentServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -32,7 +30,7 @@ public class LeaveCommentCommand implements Command {
         String comment = request.getParameter(COMMENT);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
-            if (movieService.leaveComment(userName, movieId, comment)) {
+            if (commentService.leaveComment(userName, movieId, comment)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

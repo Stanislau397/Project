@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
         String userName = user.getUserName();
         user.setBlocked(false);
         user.setRole(RoleType.USER);
-        user.setPassword(password);
         try {
             if (validator.isValidAccountData(userName, password, userEmail)) {
                 String encryptedPassword = encryptor.encryptPassword(password);

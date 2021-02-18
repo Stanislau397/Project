@@ -7,12 +7,10 @@
 <head>
     <title>Home</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rating.css">
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
 </header>
 <body>
-
 </body>
 </html>

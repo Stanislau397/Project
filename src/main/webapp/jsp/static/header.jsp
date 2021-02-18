@@ -43,8 +43,13 @@
                     </a>
                 </c:when>
                 <c:when test="${sessionScope.user != null}">
-                    <a href="${pageContext.request.contextPath}/jsp/user/user_profile.jsp">
-                        <li><fmt:message key="label.profile"/></li>
+                    <a>
+                        <li style="color: white">
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="show_user_profile">
+                                <button type="submit" class="btn"><fmt:message key="label.profile"/></button>
+                            </form>
+                        </li>
                     </a>
                 </c:when>
             </c:choose>
@@ -60,7 +65,7 @@
                 </a>
             </c:if>
 
-            <a>
+            <!--<a>
                 <li style="color: white">
                     <form action="${pageContext.request.contextPath}/controller"
                           method="post">
@@ -78,7 +83,7 @@
                         </div>
                     </form>
                 </li>
-            </a>
+            </a>-->
         </ul>
     </div>
 </div>

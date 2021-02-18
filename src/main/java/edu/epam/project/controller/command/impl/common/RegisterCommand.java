@@ -29,13 +29,9 @@ public class RegisterCommand implements Command {
         User user = new User();
         user.setUserName(userName);
         user.setEmail(userEmail);
-        user.setPassword(userPassword);
         try {
             if (userService.register(user, userPassword)) {
-               router.setPagePath(PagePath.REGISTER_SUCCESS);
-            } else {
-                router.setPagePath(PagePath.REGISTER_PAGE);
-                router.setRoute(RouteType.REDIRECT);
+                router.setPagePath(PagePath.REGISTER_SUCCESS);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

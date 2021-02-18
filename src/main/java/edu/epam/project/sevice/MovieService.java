@@ -1,6 +1,5 @@
 package edu.epam.project.sevice;
 
-import edu.epam.project.entity.Comment;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 
@@ -18,10 +17,4 @@ public interface MovieService {
     List<Movie> findAllMovies() throws ServiceException;
 
     Optional<Movie> findMovieById(long movieId) throws ServiceException;
-
-    boolean leaveComment(String userName, long movieId, String comment) throws ServiceException;
-
-    List<Comment> findCommentsByMovieId(long movieId) throws ServiceException;
-
-    boolean removeComment(long movieId, long userId, String comment) throws ServiceException;
 }
