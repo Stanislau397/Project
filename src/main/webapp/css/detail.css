@@ -1,0 +1,320 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400);
+table{
+    width: 800px;
+    margin-left: 180px;
+    margin-top: 75px;
+}
+
+tbody{
+    height: 400px;
+}
+
+.picture{
+    width: 200px;
+    height: 200px;
+}
+
+.title{
+    vertical-align: center;
+    width: 620px;
+    height: 35px;
+}
+
+.p-title{
+    vertical-align: top;
+    font-family: sans-serif;
+    font-size: 35px;
+    margin-left: 25px;
+}
+
+.p-rating{
+    color: white;
+    background-color: green;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 40px;
+    text-align: center;
+}
+
+.starring{
+    vertical-align: top;
+    height: 20px;
+}
+
+.info{
+    vertical-align: top;
+}
+
+.li-info{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-info-parameter{
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.image{
+    width: 250px;
+    height: 420px;
+}
+
+ul{
+    margin-left: 25px;
+}
+
+li{
+    display: inline;
+    margin-right: 5px;
+}
+
+.run{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.time{
+    font-size: 20px;
+}
+
+.run-time{
+    vertical-align: top;
+    height: 1px;
+}
+
+.director{
+    vertical-align: top;
+}
+
+.director-li{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.director-parameter{
+    font-size: 20px;
+}
+
+.country{
+    height: 1px;
+}
+.country-li{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.country-parameter{
+    font-size: 20px;
+}
+
+.li-starring{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-starring-parameter{
+    font-size: 20px;
+}
+
+.pg{
+    height: 5px;
+}
+
+.pg-rating{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.pg-rating-parameter{
+    font-size: 15px;
+}
+
+.li-genre{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.li-genre-parameter{
+    font-size: 15px;
+}
+
+.comment-box{
+    margin-left: 700px;
+    margin-top: 70px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 500px;
+}
+
+.comment-box h2{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.comment-box input:focus{
+    border: 1px solid black;
+    outline: 0;
+}
+
+.comment-box textarea{
+    width: 100%;
+    height: 60px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.comment-box textarea:focus{
+    border: 1px solid black;
+    outline: 0;
+}
+
+.comment-box button{
+    border: 0;
+    padding: 10px 30px;
+    background: #86b0b6;
+    font-size: 13px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.comment-box button:hover{
+    background-color: #718a8e;
+}
+
+
+.one{
+    margin-left: 25px;
+}
+
+.two{
+    margin-left: 25px;
+}
+
+.three{
+    margin-left: 25px;
+}
+
+.four{
+    margin-left: 25px;
+}
+
+.five{
+    margin-left: 25px;
+}
+
+hr{
+    margin-left: 200px;
+}
+
+.comment{
+    margin-top: 150px;
+    margin-left: 700px;
+}
+
+.rating {
+    border: 0;
+    background-color: white;
+    margin-left: 700px;
+    margin-right: 500px;
+}
+
+.rating input{
+    display: none;
+}
+
+.rating label{
+    cursor: pointer;
+    font-size: 30px;
+    color: #444;
+    float: left;
+    transition: all 0.2s ease;
+}
+
+.rating input:not(:checked) ~ label:hover{
+    color: #fd4;
+}
+
+.rating input:checked ~ label{
+    color: #fd4;
+}
+
+.rating button{
+    cursor: pointer;
+    border: 0;
+    background: #86b0b6;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 10px;
+    margin-left: 280px;
+    margin-top: -27px;
+}
+
+.info-2{
+    margin-top: 25px;
+}
+
+.side {
+    margin-top: 400px;
+    margin-left: 400px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 0.25em;
+}
+
+.show-comments {
+    margin-top: 130px;
+}
+
+.comments-side-bar {
+    margin-left: 400px;
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+
+.comments-side-bar img{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.comments-message {
+    margin-left: 470px;
+    width: 350px;
+    height: 80px;
+
+}
+
+.comments-message ul .name {
+    margin-left: -10px;
+    font-size: 20px;
+}
+
+.comments-message ul .date {
+    color: grey;
+    font-size: 15px;
+}
+
+.comments-message p {
+    margin-top: -10px;
+}
+
+.show-comments hr{
+    margin-left: 390px;
+    width: 400px;
+}
+
+.show-comments form {
+    margin-left: 370px;
+}
+.remove {
+    font-size: 15px;
+    margin-left: 370px;
+}
+
+

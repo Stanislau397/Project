@@ -11,7 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detail4.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detail.css">
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>

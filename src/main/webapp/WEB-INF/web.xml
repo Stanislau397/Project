@@ -17,19 +17,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <filter>
-        <filter-name>pagePath</filter-name>
-        <filter-class>edu.epam.project.controller.filter.EncodingFilter</filter-class>
-        <init-param>
-            <param-name>pageFilter</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>pagePath</filter-name>
-        <url-pattern>/pageSecurity</url-pattern>
-    </filter-mapping>
-
     <servlet>
         <servlet-name>controller</servlet-name>
         <servlet-class>edu.epam.project.controller.Controller</servlet-class>

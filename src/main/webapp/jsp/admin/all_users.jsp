@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>all_users</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 </head>
 <header>
     <jsp:include page="admin_cabinet.jsp"/>

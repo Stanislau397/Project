@@ -1,20 +1,19 @@
 package edu.epam.project.controller.filter;
 
-import edu.epam.project.controller.command.PagePath;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-@WebFilter(urlPatterns = {"/pageSecurity"})
+//@WebFilter(urlPatterns = {"/jsp/*"},
+//initParams = {@WebInitParam(name = "INDEX_PATH", value = "index.jsp")})
 public class PageRedirectSecurityFilter implements Filter {
 
     private String homePath;
 
     public void init(FilterConfig config) throws ServletException {
-        homePath = config.getInitParameter(PagePath.HOME_PAGE);
+        homePath = config.getInitParameter("INDEX_PATH");
     }
 
     @Override

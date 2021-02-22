@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>user_profile</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user_profile1.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user_profile.css">
 
 </head>
 <header>
