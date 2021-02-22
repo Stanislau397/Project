@@ -5,7 +5,7 @@ import edu.epam.project.controller.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddMovieCommand implements Command {
+public class UploadMovieCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
