@@ -12,6 +12,8 @@ public class Movie extends Entity{
     private Date releaseDate;
     private String picture;
     private Genre genre;
+    private Comment comment;
+    private Rating rating;
 
     public Movie() {
 
@@ -25,6 +27,14 @@ public class Movie extends Entity{
         this.description = description;
         this.releaseDate = releaseDate;
         this.picture = picture;
+    }
+
+    public Movie(long movieId, String title, String picture, Comment comment, Rating rating) {
+        this.movieId = movieId;
+        this.title = title;
+        this.picture = picture;
+        this.comment = comment;
+        this.rating = rating;
     }
 
     public long getMovieId() {
@@ -91,6 +101,22 @@ public class Movie extends Entity{
         this.genre = genre;
     }
 
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,7 +130,10 @@ public class Movie extends Entity{
         if (country != null ? !country.equals(movie.country) : movie.country != null) return false;
         if (description != null ? !description.equals(movie.description) : movie.description != null) return false;
         if (releaseDate != null ? !releaseDate.equals(movie.releaseDate) : movie.releaseDate != null) return false;
-        return picture != null ? picture.equals(movie.picture) : movie.picture == null;
+        if (picture != null ? !picture.equals(movie.picture) : movie.picture != null) return false;
+        if (genre != null ? !genre.equals(movie.genre) : movie.genre != null) return false;
+        if (comment != null ? !comment.equals(movie.comment) : movie.comment != null) return false;
+        return rating != null ? rating.equals(movie.rating) : movie.rating == null;
     }
 
     @Override
@@ -116,6 +145,9 @@ public class Movie extends Entity{
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
+        result = 31 * result + (genre != null ? genre.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         return result;
     }
 }

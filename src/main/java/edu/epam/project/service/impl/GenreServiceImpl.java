@@ -1,11 +1,11 @@
-package edu.epam.project.sevice.impl;
+package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.GenreDao;
 import edu.epam.project.dao.impl.GenreDaoImpl;
 import edu.epam.project.entity.Genre;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.GenreService;
+import edu.epam.project.service.GenreService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

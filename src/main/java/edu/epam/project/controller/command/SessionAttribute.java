@@ -10,6 +10,7 @@ public class SessionAttribute {
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ID = "user_id";
     public static final String CURRENT_PAGE = "current_page";
+    public static final String RATING_LIST = "rating_list";
 
 
     public static final String SIGN_IN_ERROR = "sign_in_error";

@@ -1,11 +1,12 @@
-package edu.epam.project.sevice.impl;
+package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.impl.CommentDaoImpl;
 import edu.epam.project.entity.Comment;
+import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.CommentService;
+import edu.epam.project.service.CommentService;
 import edu.epam.project.util.CurrentDate;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -44,6 +45,18 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
         return comments;
+    }
+
+    @Override
+    public List<Movie> findCommentsByUserName(String userName) throws ServiceException {
+        List<Movie> userComments;
+        try {
+            userComments = commentDao.findCommentsByUserName(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return userComments;
     }
 
     @Override

@@ -2,17 +2,20 @@ package edu.epam.project.controller.command.impl;
 
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
+import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.*;
-import edu.epam.project.sevice.impl.*;
+import edu.epam.project.service.*;
+import edu.epam.project.service.impl.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +33,11 @@ public class ShowMovieDetailsCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         Router router = new Router();
         String id = request.getParameter(MOVIE_ID);
         int movieId = Integer.parseInt(id);
+        String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
         Movie movie;
         Genre genre;
         try {
@@ -42,6 +47,13 @@ public class ShowMovieDetailsCommand implements Command {
             Optional<Genre> optionalGenre = genreService.findMovieGenreByMovieId(movieId);
             Optional<Movie> optionalMovie = movieService.findMovieById(movieId);
             int movieRating = ratingService.countAverageMovieRating(movieId);
+            int userScore = ratingService.findMovieScoreByUserNameAndMovieId(userName, movieId);
+            boolean isRated = ratingService.isUserAlreadyVoted(userName, movieId);
+            if (!isRated) {
+                request.setAttribute(AttributeName.RATED_MOVIE, isRated);
+            } else {
+                request.setAttribute(AttributeName.USER_SCORE, userScore);
+            }
             if (optionalMovie.isPresent() && movieRating >= 0
                     && optionalGenre.isPresent()) {
                 genre = optionalGenre.get();
@@ -66,6 +78,7 @@ public class ShowMovieDetailsCommand implements Command {
                 if (movieRating != 0) {
                     request.setAttribute(MOVIE_RATING_PARAMETER, movieRating);
                 }
+
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

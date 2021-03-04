@@ -97,7 +97,7 @@
         </td>
     </tr>
 </table>
-<c:if test="${sessionScope.admin != null || sessionScope.user != null}">
+<c:if test="${sessionScope.admin != null && requestScope.rated_movie == false|| sessionScope.user != null && requestScope.rated_movie == false}">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <div class="container">
             <div class="rating">
@@ -127,6 +127,9 @@
             </div>
         </div>
     </form>
+</c:if>
+<c:if test="${requestScope.user_score != null}">
+    Your score is ${user_score}
 </c:if>
     <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
         <div class="comment-box">

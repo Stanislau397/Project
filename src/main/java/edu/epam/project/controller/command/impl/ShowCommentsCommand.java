@@ -5,8 +5,8 @@ import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Comment;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.CommentService;
-import edu.epam.project.sevice.impl.CommentServiceImpl;
+import edu.epam.project.service.CommentService;
+import edu.epam.project.service.impl.CommentServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 

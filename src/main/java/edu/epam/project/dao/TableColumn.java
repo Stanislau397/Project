@@ -12,14 +12,15 @@ public class TableColumn {
 
     public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";
+    public static final String MOVIE_ID_FK = "movie_id_fk";
     public static final String MOVIE_COUNTRY = "country";
     public static final String MOVIE_DESCRIPTION = "description";
     public static final String MOVIE_RELEASE_DATE = "release_date";
     public static final String MOVIE_RUN_TIME = "time";
     public static final String MOVIE_PICTURE = "picture";
 
-    public static final String MOVIE_RATING = "user_rating";
-    public static final String COMMENT = "comment";
+    public static final String MOVIE_SCORE = "user_score";
+    public static final String COMMENT = "user_comment";
     public static final String COMMENT_POST_DATE = "post_date";
 
     public static final String GENRE_ID = "genres_id";

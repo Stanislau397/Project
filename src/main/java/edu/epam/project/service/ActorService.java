@@ -1,4 +1,4 @@
-package edu.epam.project.sevice;
+package edu.epam.project.service;
 
 import edu.epam.project.entity.Actor;
 import edu.epam.project.exception.ServiceException;

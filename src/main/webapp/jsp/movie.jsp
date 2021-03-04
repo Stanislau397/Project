@@ -13,7 +13,6 @@
 </header>
 <body>
 <div>
-    <p>kasdnjads sa nnjads nan as</p>
 </div>
 <c:forEach items="${movie_list}" var="movies">
     <div class="side">

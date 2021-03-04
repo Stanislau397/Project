@@ -1,4 +1,4 @@
-package edu.epam.project.sevice.impl;
+package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.UserDao;
 import edu.epam.project.dao.impl.UserDaoImpl;
@@ -6,7 +6,7 @@ import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.UserService;
+import edu.epam.project.service.UserService;
 import edu.epam.project.util.PasswordEncryptor;
 import edu.epam.project.validator.AccountValidator;
 import org.apache.logging.log4j.Level;

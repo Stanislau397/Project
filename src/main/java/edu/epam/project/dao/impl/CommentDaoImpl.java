@@ -5,6 +5,7 @@ import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.SqlQuery;
 import edu.epam.project.dao.TableColumn;
 import edu.epam.project.entity.Comment;
+import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -61,6 +62,29 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public List<Movie> findCommentsByUserName(String userName) throws DaoException {
+        List<Movie> userComments = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_COMMENTS)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Movie movie = new Movie();
+                Comment comment = new Comment();
+                comment.setPostDate(resultSet.getString(TableColumn.COMMENT_POST_DATE));
+                comment.setText(resultSet.getString(TableColumn.COMMENT));
+                movie.setComment(comment);
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID_FK));
+                userComments.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return userComments;
+    }
+
+    @Override
     public boolean removeComment(long movieId, String userName, String comment) throws DaoException {
         boolean isRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -80,8 +104,8 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public int countUserCommentsByUserName(String userName) throws DaoException {
         int amountOfComments = 0;
-        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_USER_COMMENTS)) {
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_USER_COMMENTS)) {
             statement.setString(1, userName);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

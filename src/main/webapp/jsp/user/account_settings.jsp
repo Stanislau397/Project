@@ -1,16 +1,30 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lance
-  Date: 07.02.2021
-  Time: 14:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/settings.css">
 </head>
+<header>
+    <jsp:include page="/jsp/static/header.jsp"/>
+</header>
 <body>
-
+<h2>ACCOUNT SETTINGS</h2>
+<hr>
+<h3>PROFILE IMAGE</h3>
+<div>
+    <img src="${pageContext.request.contextPath}/css/image/user.jpg"/>
+</div>
+<hr>
+<h3>PASSWORD</h3>
+<div class="password">
+    <form action="${pageContext.request.contextPath}/controller" method="post">
+        <input type="hidden" name="command" value="change_password">
+        <input type="password" name="current_password" placeholder="Current Password">
+        <input type="password" name="new_password" placeholder="New Password">
+        <input type="password" name="verify_password" placeholder="Verify Password">
+        <button type="submit" name="submit" >Submit</button>
+    </form>
+</div>
+<hr>
 </body>
 </html>

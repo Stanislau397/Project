@@ -35,13 +35,30 @@ public class SqlQuery {
             "WHERE movie_title = (?)";
     public static final String FIND_MOVIE_BY_ID = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
             "WHERE movie_id = (?)";
-    public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
-            "AND user_name_fk = (?) AND comment = (?)";
-    public static final String COUNT_USER_COMMENTS = "SELECT COUNT(comment) FROM movie_comments WHERE user_name_fk = (?)";
+    public static final String SELECT_RATED_MOVIES = "SELECT m.user_comment, m.post_date,  r.user_score, title, picture, movie_id FROM movie_comments m , rating r, movies e WHERE" +
+            " m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) GROUP BY movie_id";
 
-    public static final String COUNT_AVERAGE_RATING = "SELECT AVG(user_score) FROM rating WHERE movie_id = (?)";
-    public static final String RATE_MOVIE = "INSERT INTO rating(movie_id, user_name_fk, user_score) VALUES (?,?,?)";
-    public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, comment, post_date) " +
+    public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";
-    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT user_name_fk, comment, post_date FROM movie_comments WHERE movie_id_fk = (?)";
+    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT user_name_fk, user_comment, post_date FROM movie_comments WHERE movie_id_fk = (?)";
+    public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
+            "AND user_name_fk = (?) AND user_comment = (?)";
+    public static final String COUNT_USER_COMMENTS = "SELECT COUNT(user_comment) FROM movie_comments WHERE user_name_fk = (?)";
+    public static final String SELECT_USER_COMMENTS = "SELECT user_comment, post_date, movie_id_fk WHERE user_name_fk = (?) " +
+            "ORDER BY movie_id_fk";
+
+    public static final String COUNT_AVERAGE_RATING = "SELECT AVG(user_score) FROM rating WHERE movie_id_fk = (?)";
+    public static final String COUNT_POSITIVE_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score > 70";
+    public static final String COUNT_MIXED_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score > 40 && user_score <= 70";
+    public static final String COUNT_NEGATIVE_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score < 50";
+    public static final String COUNT_AMOUNT_OF_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?)";
+    public static final String COUNT_AVERAGE_RATING_OF_USER = "SELECT AVG(user_score) FROM rating WHERE user_name_fk = (?)";
+    public static final String SELECT_LATEST_HIGH_SCORE = "SELECT user_score, title, movie_id FROM rating JOIN movies ON movie_id = movie_id_fk WHERE user_name_fk = (?) AND user_score > 70" +
+            " ORDER BY rating_id DESC LIMIT 1";
+    public static final String SELECT_LATEST_LOW_SCORE = "SELECT user_score, title, movie_id FROM rating JOIN movies ON movie_id = movie_id_fk WHERE user_name_fk = (?) AND user_score < 50" +
+            " ORDER BY rating_id DESC LIMIT 1";
+    public static final String RATE_MOVIE = "INSERT INTO rating(movie_id_fk, user_name_fk, user_score) VALUES (?,?,?)";
+    public static final String FIND_USER_IN_RATING = "SELECT user_name_fk FROM rating WHERE movie_id_fk = (?) AND user_name_fk = (?)";
+    public static final String FIND_MOVIE_SCORE = "SELECT user_score FROM rating WHERE user_name_fk = (?) AND movie_id_fk = (?)";
+    public static final String SELECT_ALL_USER_RATING = "SELECT user_name_fk, movie_id_fk, user_score FROM rating WHERE user_name_fk = (?)";
 }

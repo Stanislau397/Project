@@ -1,4 +1,4 @@
-package edu.epam.project.sevice;
+package edu.epam.project.service;
 
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
@@ -17,4 +17,6 @@ public interface MovieService {
     List<Movie> findAllMovies() throws ServiceException;
 
     Optional<Movie> findMovieById(long movieId) throws ServiceException;
+
+    List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;
 }

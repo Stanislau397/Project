@@ -36,6 +36,10 @@
                 </a>
             </c:if>
 
+            <a href="${pageContext.request.contextPath}/jsp/user/user_profile.jsp">
+                <li>Profile</li>
+            </a>
+
             <c:choose>
                 <c:when test="${sessionScope.admin != null}">
                     <a href="${pageContext.request.contextPath}/jsp/admin/admin_cabinet.jsp">
@@ -45,7 +49,7 @@
                 <c:when test="${sessionScope.user != null}">
                     <a>
                         <li style="color: white">
-                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <form action="${pageContext.request.contextPath}/controller" method="get">
                                 <input type="hidden" name="command" value="show_user_profile">
                                 <button type="submit" class="btn"><fmt:message key="label.profile"/></button>
                             </form>

@@ -17,4 +17,6 @@ public interface MovieDao {
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
 
     Optional<Movie> findMovieById(long id) throws DaoException;
+
+    List<Movie> findRatedMoviesByUserName(String userName) throws DaoException;
 }

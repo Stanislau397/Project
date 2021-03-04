@@ -8,8 +8,8 @@ import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.UserService;
-import edu.epam.project.sevice.impl.UserServiceImpl;
+import edu.epam.project.service.UserService;
+import edu.epam.project.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +24,7 @@ import static edu.epam.project.controller.command.SessionAttribute.*;
 public class SignInCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
-    private static UserService userService = new UserServiceImpl();
+    private UserService userService = new UserServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {

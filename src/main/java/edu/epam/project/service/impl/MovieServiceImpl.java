@@ -1,16 +1,15 @@
-package edu.epam.project.sevice.impl;
+package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.sevice.MovieService;
+import edu.epam.project.service.MovieService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +76,17 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isFound;
+    }
+
+    @Override
+    public List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException {
+        List<Movie> ratedMovies;
+        try {
+            ratedMovies = movieDao.findRatedMoviesByUserName(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return ratedMovies;
     }
 }

@@ -4,7 +4,7 @@ import edu.epam.project.connection.ConnectionPool;
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.SqlQuery;
 import edu.epam.project.dao.TableColumn;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -124,5 +124,34 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isFound;
+    }
+
+    @Override
+    public List<Movie> findRatedMoviesByUserName(String userName) throws DaoException {
+        List<Movie> ratedMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_RATED_MOVIES)) {
+            statement.setString(1, userName);
+            statement.setString(2, userName);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                Comment comment = new Comment();
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                comment.setText(resultSet.getString(TableColumn.COMMENT));
+                comment.setPostDate(resultSet.getString(TableColumn.COMMENT_POST_DATE));
+                movie.setMovieId(resultSet.getInt(TableColumn.MOVIE_ID));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setRating(rating);
+                movie.setComment(comment);
+                ratedMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return ratedMovies;
     }
 }
