@@ -253,4 +253,19 @@ public class MovieDaoImpl implements MovieDao {
         }
         return directors;
     }
+
+    public boolean addGenre(Genre genre) throws DaoException {
+        boolean isAdded;
+        try(Connection connection = ConnectionPool.INSTANCE.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_GENRE)) {
+            statement.setLong(1, genre.getGenreId());
+            statement.setString(2, genre.getTitle());
+            int update = statement.executeUpdate();
+            isAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isAdded;
+    }
 }

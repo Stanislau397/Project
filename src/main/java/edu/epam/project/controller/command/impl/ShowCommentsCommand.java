@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+
+import static edu.epam.project.controller.command.AttributeName.COMMENTS_LIST;
 
 public class ShowCommentsCommand implements Command {
 

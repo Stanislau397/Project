@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
+
 import static edu.epam.project.controller.command.RequestParameter.COMMENT;
+
 import static edu.epam.project.controller.command.AttributeName.POSITIVE_REVIEWS;
 import static edu.epam.project.controller.command.AttributeName.MIXED_REVIEWS;
 import static edu.epam.project.controller.command.AttributeName.NEGATIVE_REVIEWS;

@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface RatingDao {
 
-    int countAverageMovieRating(long movieId) throws DaoException;
-
     int countPositiveMovieRatingByUserName(String userName) throws DaoException;
 
     int countMixedMovieRatingByUserName(String userName) throws DaoException;
@@ -29,6 +27,4 @@ public interface RatingDao {
     boolean isUserAlreadyVoted(String userName, long movieId) throws DaoException;
 
     int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws DaoException;
-
-    List<Rating> findAllRatedMoviesByUserName(String userName) throws DaoException;
 }

@@ -13,8 +13,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
-import static edu.epam.project.controller.command.SessionAttribute.*;
+import static edu.epam.project.controller.command.RequestParameter.REFERER;
+import static edu.epam.project.controller.command.RequestParameter.SCORE;
+import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+
+import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class RateMovieCommand implements Command {
 

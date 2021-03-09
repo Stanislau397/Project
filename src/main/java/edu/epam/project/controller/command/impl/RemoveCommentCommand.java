@@ -11,10 +11,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
-import static edu.epam.project.controller.command.SessionAttribute.*;
+import static edu.epam.project.controller.command.RequestParameter.REFERER;
+import static edu.epam.project.controller.command.RequestParameter.COMMENT;
+import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+
+import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class RemoveCommentCommand implements Command {
 
@@ -24,7 +26,6 @@ public class RemoveCommentCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
         String comment = request.getParameter(COMMENT);
         String userName = request.getParameter(USER_NAME);

@@ -4,6 +4,7 @@ import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.Actor;
 import edu.epam.project.entity.Director;
+import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
@@ -25,6 +26,18 @@ public class MovieServiceImpl implements MovieService {
         boolean isAdded;
         try {
             isAdded = movieDao.add(movie);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public boolean addGenre(Genre genre) throws ServiceException {
+        boolean isAdded;
+        try {
+            isAdded = movieDao.addGenre(genre);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

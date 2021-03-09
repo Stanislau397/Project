@@ -7,9 +7,7 @@ import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
-import edu.epam.project.service.RatingService;
 import edu.epam.project.service.impl.MovieServiceImpl;
-import edu.epam.project.service.impl.RatingServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,13 +15,12 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.AttributeName.MOVIE_LIST;
 
 public class ShowAllMoviesCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ShowAllMoviesCommand.class);
     private MovieService movieService = new MovieServiceImpl();
-    private RatingService ratingService = new RatingServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) {

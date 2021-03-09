@@ -19,18 +19,6 @@ public class RatingServiceImpl implements RatingService {
     private RatingDao ratingDao = new RatingDaoImpl();
 
     @Override
-    public int countAverageMovieRating(long movieId) throws ServiceException {
-        int average;
-        try {
-            average = ratingDao.countAverageMovieRating(movieId);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return average;
-    }
-
-    @Override
     public int countPositiveMovieRatingByUserName(String userName) throws ServiceException {
         int positiveReviews;
         try {
@@ -148,17 +136,5 @@ public class RatingServiceImpl implements RatingService {
             throw new ServiceException(e);
         }
         return score;
-    }
-
-    @Override
-    public List<Rating> findAllRatedMoviesByUserName(String userName) throws ServiceException {
-        List<Rating> ratings;
-        try {
-            ratings = ratingDao.findAllRatedMoviesByUserName(userName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return ratings;
     }
 }

@@ -29,7 +29,6 @@ public enum CommandType {
     SHOW_USER_PROFILE(new ShowUserProfileCommand()),
     SHOW_MOVIE_DETAILS(new ShowMovieDetailsCommand());
 
-
     private Command command;
 
     CommandType(Command command) {

@@ -20,23 +20,6 @@ public class RatingDaoImpl implements RatingDao {
     private static final Logger logger = LogManager.getLogger(RatingDaoImpl.class);
 
     @Override
-    public int countAverageMovieRating(long movieId) throws DaoException {
-        int average = 0;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_AVERAGE_RATING)) {
-            statement.setLong(1, movieId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                average = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return average;
-    }
-
-    @Override
     public int countPositiveMovieRatingByUserName(String userName) throws DaoException {
         int positiveReviews = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -212,26 +195,5 @@ public class RatingDaoImpl implements RatingDao {
             throw new DaoException(e);
         }
         return score;
-    }
-
-    @Override
-    public List<Rating> findAllRatedMoviesByUserName(String userName) throws DaoException {
-        List<Rating> ratedMovies = new ArrayList<>();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ALL_USER_RATING)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Rating rating = new Rating();
-                rating.setUserName(resultSet.getString(TableColumn.USER_NAME_FK));
-                rating.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID_FK));
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
-                ratedMovies.add(rating);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return ratedMovies;
     }
 }

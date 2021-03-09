@@ -158,12 +158,12 @@
             </div>
         </c:forEach>
     </div>
-    <c:if test="${sessionScope.user_name == comments.userName && sessionScope.user != null}">
+    <c:if test="${sessionScope.user_name == comments_list.userName && sessionScope.user != null}">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="remove_comment">
             <input type="hidden" name="movie_id" value="${movie_id}">
-            <input type="hidden" name="user_name" value="${comments.userName}">
-            <input type="hidden" name="comment" value="${comments.text}">
+            <input type="hidden" name="user_name" value="${comments_list.userName}">
+            <input type="hidden" name="comment" value="${comments_list.text}">
             <input class="remove" type="submit" value="remove">
         </form>
     </c:if>
@@ -171,8 +171,8 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="remove_comment">
             <input type="hidden" name="movie_id" value="${movie_id}">
-            <input type="hidden" name="user_name" value="${comments.userName}">
-            <input type="hidden" name="comment" value="${comments.text}">
+            <input type="hidden" name="user_name" value="${comments_list.userName}">
+            <input type="hidden" name="comment" value="${comments_list.text}">
             <input class="remove" type="submit" value="remove">
         </form>
     </c:if>

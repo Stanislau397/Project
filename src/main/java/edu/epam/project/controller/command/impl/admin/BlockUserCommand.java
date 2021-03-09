@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.AttributeName.ERROR;
 
 public class BlockUserCommand implements Command {
 

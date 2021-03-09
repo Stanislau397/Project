@@ -2,6 +2,7 @@ package edu.epam.project.service;
 
 import edu.epam.project.entity.Actor;
 import edu.epam.project.entity.Director;
+import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 
@@ -31,4 +32,6 @@ public interface MovieService {
     boolean addDirector(Director director) throws ServiceException;
 
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
+
+    boolean addGenre(Genre genre) throws ServiceException;
 }

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.AttributeName.USER_LIST;
+import static edu.epam.project.controller.command.AttributeName.ERROR;
 
 public class FindAllUsersCommand implements Command {
 

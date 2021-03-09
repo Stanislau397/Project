@@ -13,7 +13,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.RequestParameter.OLD_EMAIL_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
 
 public class ChangeEmailCommand implements Command {
 
