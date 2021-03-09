@@ -37,7 +37,6 @@ import static edu.epam.project.controller.command.AttributeName.LOW_MOVIE_ID;
 import static edu.epam.project.controller.command.AttributeName.HIGH_MOVIE_ID;
 import static edu.epam.project.controller.command.AttributeName.RATED_MOVIES_LIST;
 import static edu.epam.project.controller.command.AttributeName.AMOUNT_OF_USER_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.COMMENTS_LIST;
 
 public class ShowUserProfileCommand implements Command {
 
@@ -80,7 +79,6 @@ public class ShowUserProfileCommand implements Command {
                 int lowScore = lowRating.getScore();
                 long lowMovieId = lowRating.getMovieId();
                 long highMovieId = highRating.getMovieId();
-                System.out.println(lowRating.getMovieId());
                 String lowScoreTitle = lowRating.getMovieTitle();
                 String highScoreTitle = highRating.getMovieTitle();
                 request.setAttribute(LATEST_HIGH_SCORE, highScore);

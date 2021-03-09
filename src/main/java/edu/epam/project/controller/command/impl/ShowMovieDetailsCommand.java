@@ -2,7 +2,6 @@ package edu.epam.project.controller.command.impl;
 
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
-import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.SessionAttribute;
@@ -19,16 +18,19 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
+import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+import static edu.epam.project.controller.command.AttributeName.MOVIE_INFO;
+import static edu.epam.project.controller.command.AttributeName.COMMENTS_LIST;
+import static edu.epam.project.controller.command.AttributeName.ACTORS_LIST;
+import static edu.epam.project.controller.command.AttributeName.DIRECTORS_LIST;
+import static edu.epam.project.controller.command.AttributeName.USER_SCORE;
+import static edu.epam.project.controller.command.AttributeName.RATED_MOVIE;
 
 public class ShowMovieDetailsCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ShowAllMoviesCommand.class);
     private MovieService movieService = new MovieServiceImpl();
     private RatingService ratingService = new RatingServiceImpl();
-    private GenreService genreService = new GenreServiceImpl();
-    private ActorService actorService = new ActorServiceImpl();
-    private DirectorService directorService = new DirectorServiceImpl();
     private CommentService commentService = new CommentServiceImpl();
 
     @Override
@@ -39,46 +41,25 @@ public class ShowMovieDetailsCommand implements Command {
         int movieId = Integer.parseInt(id);
         String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
         Movie movie;
-        Genre genre;
         try {
             List<Comment> comments = commentService.findCommentsByMovieId(movieId);
-            List<Actor> actors = actorService.findActorsByMovieId(movieId);
-            List<Director> directors = directorService.findDirectorsByMovieId(movieId);
-            Optional<Genre> optionalGenre = genreService.findMovieGenreByMovieId(movieId);
+            List<Actor> actors = movieService.findActorsByMovieId(movieId);
+            List<Director> directors = movieService.findDirectorsByMovieId(movieId);
             Optional<Movie> optionalMovie = movieService.findMovieById(movieId);
-            int movieRating = ratingService.countAverageMovieRating(movieId);
             int userScore = ratingService.findMovieScoreByUserNameAndMovieId(userName, movieId);
             boolean isRated = ratingService.isUserAlreadyVoted(userName, movieId);
-            if (!isRated) {
-                request.setAttribute(AttributeName.RATED_MOVIE, isRated);
+            if (isRated) {
+                request.setAttribute(USER_SCORE, userScore);
             } else {
-                request.setAttribute(AttributeName.USER_SCORE, userScore);
+                request.setAttribute(RATED_MOVIE, isRated);
             }
-            if (optionalMovie.isPresent() && movieRating >= 0
-                    && optionalGenre.isPresent()) {
-                genre = optionalGenre.get();
+            if (optionalMovie.isPresent()) {
                 movie = optionalMovie.get();
-                String title = movie.getTitle();
-                String description = movie.getDescription();
-                String picture = movie.getPicture();
-                String country = movie.getCountry();
-                String movieGenre = genre.getTitle();
-                int runTime = movie.getRunTime();
                 request.setAttribute(COMMENTS_LIST, comments);
-                request.setAttribute(MOVIE_ID, movieId);
-                request.setAttribute(TITLE_PARAMETER, title);
-                request.setAttribute(DESCRIPTION_PARAMETER, description);
-                request.setAttribute(PICTURE_PARAMETER, picture);
-                request.setAttribute(MOVIE_RUN_TIME, runTime);
-                request.setAttribute(MOVIE_COUNTRY_PARAMETER, country);
-                request.setAttribute(MOVIE_GENRE_PARAMETER, movieGenre);
-                request.setAttribute(ACTORS_PARAMETER, actors);
-                request.setAttribute(DIRECTORS_PARAMETER, directors);
+                request.setAttribute(MOVIE_INFO, movie);
+                request.setAttribute(ACTORS_LIST, actors);
+                request.setAttribute(DIRECTORS_LIST, directors);
                 router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
-                if (movieRating != 0) {
-                    request.setAttribute(MOVIE_RATING_PARAMETER, movieRating);
-                }
-
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -3,7 +3,7 @@ package edu.epam.project.controller.command;
 public class RequestParameter {
 
     public static final String LANGUAGE = "language";
-    public static final String COMMAND_PARAMETER = "command";
+    public static final String COMMAND = "command";
     public static final String USER_NAME_PARAMETER = "user_name";
     public static final String PASSWORD_PARAMETER = "password";
     public static final String EMAIL_PARAMETER = "email";
@@ -39,7 +39,7 @@ public class RequestParameter {
     public static final String MOVIE_RATING_PARAMETER = "movie_rating";
     public static final String MOVIE_RUN_TIME = "run_time";
     public static final String MOVIE_COUNTRY_PARAMETER = "country";
-    public static final String MOVIE_GENRE_PARAMETER ="genre";
+    public static final String MOVIE_GENRE_PARAMETER = "genre";
     public static final String ACTORS_PARAMETER = "actors";
     public static final String DIRECTORS_PARAMETER = "directors";
 }

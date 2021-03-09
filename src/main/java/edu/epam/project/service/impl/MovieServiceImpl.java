@@ -2,6 +2,8 @@ package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
+import edu.epam.project.entity.Actor;
+import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
@@ -88,5 +90,65 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return ratedMovies;
+    }
+
+    @Override
+    public boolean addActor(Actor actor) throws ServiceException {
+        boolean isAdded;
+        try {
+            isAdded = movieDao.addActor(actor);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public boolean removeActorByFirstName(String firstName) throws ServiceException {
+        boolean isRemoved;
+        try {
+            isRemoved = movieDao.removeActorByFirstName(firstName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isRemoved;
+    }
+
+    @Override
+    public List<Actor> findActorsByMovieId(long movieId) throws ServiceException {
+        List<Actor> actors;
+        try {
+            actors = movieDao.findActorsByMovieId(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return actors;
+    }
+
+    @Override
+    public boolean addDirector(Director director) throws ServiceException {
+        boolean isAdded;
+        try {
+            isAdded = movieDao.addDirector(director);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public List<Director> findDirectorsByMovieId(long movieId) throws ServiceException {
+        List<Director> directors;
+        try {
+            directors = movieDao.findDirectorsByMovieId(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return directors;
     }
 }

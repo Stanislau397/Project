@@ -2,19 +2,14 @@ package edu.epam.project;
 
 import edu.epam.project.dao.*;
 import edu.epam.project.dao.impl.*;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.service.DirectorService;
 import edu.epam.project.service.GenreService;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.RatingService;
-import edu.epam.project.service.impl.DirectorServiceImpl;
 import edu.epam.project.service.impl.GenreServiceImpl;
 import edu.epam.project.service.impl.MovieServiceImpl;
 import edu.epam.project.service.impl.RatingServiceImpl;
-
-import java.util.List;
 
 public class main {
 
@@ -27,7 +22,6 @@ public class main {
         RatingService ratingService = new RatingServiceImpl();
         MovieService movieService = new MovieServiceImpl();
         MovieDao movieDao = new MovieDaoImpl();
-        List<Movie> list = movieDao.findRatedMoviesByUserName("Lancer397ldkj");
-        System.out.println(list.get(0).getComment());
+        System.out.println(movieDao.findMovieById(1));
     }
 }

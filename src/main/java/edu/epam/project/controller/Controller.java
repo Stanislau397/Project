@@ -3,9 +3,7 @@ package edu.epam.project.controller;
 import edu.epam.project.connection.ConnectionPool;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.CommandProvider;
-import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.controller.command.impl.common.EmptyCommand;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +11,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Optional;
+
+import static edu.epam.project.controller.RouteType.FORWARD;
+import static edu.epam.project.controller.command.RequestParameter.COMMAND;
 
 public class Controller extends HttpServlet {
 
@@ -29,15 +30,16 @@ public class Controller extends HttpServlet {
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String commandParameter = request.getParameter(COMMAND);
         Optional<Command> commandOptional =
-                CommandProvider.defineCommand(request.getParameter(RequestParameter.COMMAND_PARAMETER));
+                CommandProvider.defineCommand(commandParameter);
         Command command = commandOptional.orElse(new EmptyCommand());
         Router page = command.execute(request);
+        RouteType routeType = page.getRoute();
         String currentPage = page.getPagePath();
-        logger.log(Level.INFO, currentPage);
-
-        if (page.getRoute().equals(RouteType.FORWARD)) {
-            request.getRequestDispatcher(currentPage).forward(request, response);
+        if (routeType == FORWARD) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(currentPage);
+            dispatcher.forward(request, response);
         } else {
             response.sendRedirect(currentPage);
         }

@@ -5,29 +5,36 @@
 <fmt:setBundle basename="property.text"/>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
+    <title>movies</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie12345.css">
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
 </header>
 <body>
-<div>
+<div class="center-content">
+    <c:forEach items="${movie_list}" var="movies">
+        <div class="side">
+            <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
+        </div>
+        <div class="middle">
+            <form action="${pageContext.request.contextPath}/controller" method="get">
+                <input hidden name="command" value="show_movie_details">
+                <input hidden name="movie_id" value="${movies.movieId}">
+                <button type="submit">${movies.title}</button>
+            </form>
+            <p class="score">
+                <c:out value="${movies.rating.score}"/>
+            </p>
+            <p class="release-date">
+                <c:out value="Release date: ${movies.releaseDate}"/>
+            </p><br>
+            <p class="content">
+                <c:out value="${movies.description}"/>
+            </p>
+        </div>
+        <hr>
+    </c:forEach>
 </div>
-<c:forEach items="${movie_list}" var="movies">
-    <div class="side">
-        <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
-    </div>
-    <div class="middle">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input hidden name="command" value="show_movie_details">
-            <input hidden name="movie_id" value="${movies.movieId}">
-            <button type="submit" >${movies.title}</button>
-        </form>
-        <p class="release-date">Release date: ${movies.releaseDate}</p><br>
-        <p class="content">${movies.description}</p>
-    </div>
-    <hr>
-</c:forEach>
 </body>
 </html>

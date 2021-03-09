@@ -45,6 +45,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = userDao.updateUserStatusByUserName(userName, status);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         Optional<User> isFound;

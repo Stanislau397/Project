@@ -10,11 +10,17 @@ public class AccountValidator {
     private static final String PASSWORD_REGEX = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
     private static final String USER_NAME_REGEX = "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$";
     private static final String EMAIL_REGEX = "^[^@]+@[^@]+\\.[^@]+$";
+    private static final String INVALID_LOGIN_MESSAGE = "Invalid login Data";
+    private static final String INVALID_PASSWORD_MESSAGE = "Invalid password Data";
+    private static final String INVALID_USER_NAME_MESSAGE = "Invalid user name Data";
+    private static final String INVALID_EMAIL_MESSAGE = "Invalid email Data";
+    private static final int MIN_LENGTH = 7;
+    private static final int MAX_LENGTH = 25;
 
     public boolean isValidLogInData(String login, String password) {
         boolean isCorrectLogIn = isValidUserName(login) && isValidPassword(password);
-        if (!(isCorrectLogIn)) {
-            logger.log(Level.WARN, "Invalid login Data"); /// TODO: 11.02.2021
+        if (!isCorrectLogIn) {
+            logger.log(Level.INFO, INVALID_LOGIN_MESSAGE);
         }
         return isCorrectLogIn;
     }
@@ -29,27 +35,25 @@ public class AccountValidator {
 
     public boolean isValidUserName(String userName) {
         boolean isUserNameCorrect = userName.matches(USER_NAME_REGEX);
-        if (!(isUserNameCorrect)) {
-            logger.log(Level.WARN, "Invalid userName Data");
+        if (!isUserNameCorrect) {
+            logger.log(Level.INFO, INVALID_USER_NAME_MESSAGE);
         }
         return isUserNameCorrect;
     }
 
     public boolean isValidEmail(String email) {
         boolean isEmailCorrect = email.matches(EMAIL_REGEX);
-        if (!(isEmailCorrect)) {
-            logger.log(Level.WARN, "Invalid email Data");
+        if (!isEmailCorrect) {
+            logger.log(Level.INFO, INVALID_EMAIL_MESSAGE);
         }
         return isEmailCorrect;
     }
 
     public boolean isValidPassword(String password) {
-        int minLength = 7;
-        int maxLength = 25;
         boolean isPasswordCorrect = password.matches(PASSWORD_REGEX)
-                && password.length() > minLength && password.length() < maxLength;
-        if (!(isPasswordCorrect)) {
-            logger.log(Level.WARN, "Invalid password Data");
+                && password.length() > MIN_LENGTH && password.length() < MAX_LENGTH;
+        if (!isPasswordCorrect) {
+            logger.log(Level.INFO, INVALID_PASSWORD_MESSAGE);
         }
         return isPasswordCorrect;
     }

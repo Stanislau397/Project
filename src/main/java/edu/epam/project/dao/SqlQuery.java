@@ -30,11 +30,12 @@ public class SqlQuery {
     public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
             "VALUES (?,?,?,?,?,?,?)";
     public static final String DELETE_BY_TITLE = "DELETE FROM movies WHERE title = (?)";
-    public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies";
+    public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, AVG(user_score) FROM movies, rating " +
+            "WHERE movie_id = movie_id_fk GROUP BY movie_id_fk";
     public static final String FIND_MOVIE_BY_TITLE = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
             "WHERE movie_title = (?)";
-    public static final String FIND_MOVIE_BY_ID = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
-            "WHERE movie_id = (?)";
+    public static final String FIND_MOVIE_BY_ID = "SELECT title, release_date, time, country, description, picture, avg(user_score), genre_title FROM movies m , rating, genres " +
+            "JOIN movie_genres g on genres_id = genre_id_fk WHERE movie_id_fk = (?) AND m.movie_id = movie_id_fk AND g.movie_id = movie_id_fk";
     public static final String SELECT_RATED_MOVIES = "SELECT m.user_comment, m.post_date,  r.user_score, title, picture, movie_id FROM movie_comments m , rating r, movies e WHERE" +
             " m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) GROUP BY movie_id";
 

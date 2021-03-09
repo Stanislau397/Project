@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>user_profile</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/asdf.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
 </head>
 <header>
     <jsp:include page="/jsp/static/header.jsp"/>
@@ -103,10 +103,6 @@
                 <c:out value="${ratedMovies.title}"/>
             </button>
         </form>
-        <ul>
-            <li>Average movie score:</li>
-            <li>75</li>
-        </ul>
         <li class="release-date">
             <c:out value="${ratedMovies.comment.postDate}"/>
         </li>

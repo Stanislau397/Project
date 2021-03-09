@@ -18,6 +18,7 @@ public class TableColumn {
     public static final String MOVIE_RELEASE_DATE = "release_date";
     public static final String MOVIE_RUN_TIME = "time";
     public static final String MOVIE_PICTURE = "picture";
+    public static final String AVERAGE_MOVIE_SCORE = "avg(user_score)";
 
     public static final String MOVIE_SCORE = "user_score";
     public static final String COMMENT = "user_comment";

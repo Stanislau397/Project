@@ -7,7 +7,7 @@
 }
 
 .middle{
-    width: 700px;
+    width: 800px;
     height: 200px;
     margin-left: 300px;
     margin-top: 50px;
@@ -44,9 +44,21 @@ button{
 
 hr{
     margin-left: 200px;
-    width: 55%;
+    width: 60%;
 }
 
 button:active{
     outline: none;
+}
+
+.score {
+    width: 45px;
+    height: 45px;
+    margin-top: -50px;
+    border-radius: 5px;
+    margin-left: 750px;
+    background-color: green;
+    color: white;
+    font-size: 40px;
+    text-align: center;
 }

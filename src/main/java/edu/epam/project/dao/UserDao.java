@@ -20,5 +20,7 @@ public interface UserDao {
 
     boolean changeUserName(String userName, String newUserName) throws DaoException;
 
+    boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException;
+
     List<User> findAll() throws DaoException;
 }

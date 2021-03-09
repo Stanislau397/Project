@@ -63,6 +63,8 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -70,6 +72,7 @@ public class MovieDaoImpl implements MovieDao {
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
                 movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
                 allMovies.add(movie);
             }
         } catch (SQLException e) {
@@ -111,13 +114,18 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             Movie movie = new Movie();
-            movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+            Rating rating = new Rating();
+            Genre genre = new Genre();
+            genre.setTitle(resultSet.getString(TableColumn.GENRE_TITLE));
+            rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
             movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
             movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
             movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
             movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
             movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
             movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+            movie.setRating(rating);
+            movie.setGenre(genre);
             isFound = Optional.of(movie);
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
@@ -153,5 +161,96 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return ratedMovies;
+    }
+
+    @Override
+    public boolean addActor(Actor actor) throws DaoException {
+        boolean isAdded;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_ACTOR)) {
+            statement.setLong(1, actor.getActorId());
+            statement.setString(2, actor.getFirstName());
+            statement.setString(3, actor.getLastName());
+            int update = statement.executeUpdate();
+            isAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public boolean removeActorByFirstName(String firstName) throws DaoException {
+        boolean isRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_BY_NAME)) {
+            statement.setString(1, firstName);
+            int update = statement.executeUpdate();
+            isRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isRemoved;
+    }
+
+    @Override
+    public List<Actor> findActorsByMovieId(long movieId) throws DaoException {
+        List<Actor> actors = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_ACTORS_BY_MOVIE_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                long actorId = resultSet.getLong(TableColumn.ACTOR_ID);
+                String firstName = resultSet.getString(TableColumn.FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.LAST_NAME);
+                Actor actor = new Actor(actorId, firstName, lastName);
+                actors.add(actor);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return actors;
+    }
+
+    @Override
+    public boolean addDirector(Director director) throws DaoException {
+        boolean isAdded;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_DIRECTOR)) {
+            statement.setLong(1, director.getDirectorId());
+            statement.setString(2, director.getFirstName());
+            statement.setString(3, director.getLastName());
+            int update = statement.executeUpdate();
+            isAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isAdded;
+    }
+
+    @Override
+    public List<Director> findDirectorsByMovieId(long movieId) throws DaoException {
+        List<Director> directors = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_DIRECTORS_BY_MOVIE_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                long directorId = resultSet.getLong(TableColumn.DIRECTOR_ID);
+                String firstName = resultSet.getString(TableColumn.FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.LAST_NAME);
+                Director director = new Director(directorId, firstName, lastName);
+                directors.add(director);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return directors;
     }
 }

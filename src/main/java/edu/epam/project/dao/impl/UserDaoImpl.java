@@ -41,6 +41,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_STATUS)) {
+            statement.setBoolean(1, status);
+            statement.setString(2, userName);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public Optional<User> findByEmailAndPassword(String email, String password) throws DaoException {
         Optional<User> isFound;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

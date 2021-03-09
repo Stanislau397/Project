@@ -1,5 +1,7 @@
 package edu.epam.project.service;
 
+import edu.epam.project.entity.Actor;
+import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 
@@ -19,4 +21,14 @@ public interface MovieService {
     Optional<Movie> findMovieById(long movieId) throws ServiceException;
 
     List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;
+
+    boolean addActor(Actor actor) throws ServiceException;
+
+    boolean removeActorByFirstName(String firstName) throws ServiceException;
+
+    List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
+
+    boolean addDirector(Director director) throws ServiceException;
+
+    List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
 }

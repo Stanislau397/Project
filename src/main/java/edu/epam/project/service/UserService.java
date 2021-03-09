@@ -18,5 +18,7 @@ public interface UserService {
 
     boolean changeUserName(String oldUserName, String newUserName) throws ServiceException;
 
+    boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException;
+
     List<User> findAll() throws ServiceException;
 }

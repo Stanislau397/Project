@@ -1,7 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400);
+
+body{
+    background-color: #e6e6e6;
+    background-size: cover;
+}
 table{
     width: 800px;
-    margin-left: 180px;
+    margin-left: 30px;
     margin-top: 75px;
 }
 
@@ -140,8 +145,8 @@ li{
 }
 
 .comment-box{
-    margin-left: 700px;
-    margin-top: 70px;
+    margin-top: -65px;
+    margin-left: 450px;
     position: absolute;
     transform: translate(-50%, -50%);
     width: 500px;
@@ -174,6 +179,7 @@ li{
 .comment-box button{
     border: 0;
     padding: 10px 30px;
+    margin-left: 300px;
     background: #86b0b6;
     font-size: 13px;
     border-radius: 5px;
@@ -317,4 +323,80 @@ hr{
     margin-left: 370px;
 }
 
+.comment-score {
+    margin-left: 30px;
+    margin-top: 50px;
+    border-radius: 20px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 25px;
+    background-color: green;
+    color: white;
+}
 
+.user-info {
+    margin-top: -40px;
+    margin-left: 130px;
+    width: 520px;
+    height: auto;
+}
+
+.user-info .user-name {
+    margin-left: -45px;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.user-info .comment-date {
+    margin-left: -45px;
+    font-family: cursive;
+    font-size: 12px;
+    color: dimgrey;
+}
+
+.rate-user-comment {
+    margin-left: -40px;
+    margin-top: 45px;
+    width: 90px;
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.comment-container {
+    margin-top: 25px;
+    margin-left: -100px;
+    width: 520px;
+    height: auto;
+    background-color: #e6e6e6;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.comment-container p {
+    font-size: 16px;
+    text-align: left;
+}
+
+.comment-section {
+    margin-top: 150px;
+}
+
+.center {
+    margin-top: 50px;
+    margin-left: 250px;
+    border: 0.5px solid grey;
+    width: 1000px;
+    height: auto;
+    background-color: white;
+}
+
+.your-score {
+    margin-left: 50px;
+    margin-top: 5px;
+    font-family: cursive;
+    font-size: 16px;
+}
