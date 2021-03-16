@@ -7,8 +7,10 @@ import edu.epam.project.controller.command.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static edu.epam.project.controller.command.RequestParameter.LANGUAGE;
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
+import static edu.epam.project.controller.command.RequestParameter.LANGUAGE_PARAMETER;
+
+import static edu.epam.project.controller.command.AttributeName.LANGUAGE;
 
 public class ChangeLocaleCommand implements Command {
 
@@ -18,7 +20,7 @@ public class ChangeLocaleCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        String language = request.getParameter(LANGUAGE);
+        String language = request.getParameter(LANGUAGE_PARAMETER);
         HttpSession session = request.getSession();
         String pagePath = request.getHeader(REFERER);
         switch (language) {
@@ -27,6 +29,7 @@ public class ChangeLocaleCommand implements Command {
                 break;
             default:
                 session.setAttribute(LANGUAGE, RU);
+                break;
         }
         router.setRoute(RouteType.REDIRECT);
         router.setPagePath(pagePath);

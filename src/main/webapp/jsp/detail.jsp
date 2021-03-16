@@ -31,15 +31,14 @@
         <tr>
             <td class="title">
                 <p class="p-title"><fmt:message key="label.movie_detail"/></p>
-
             </td>
             <td class="rating">
-                <c:if test="${requestScope.movie_info != null}">
-                    <p class="p-rating">
+                <c:if test="${requestScope.movie_info.rating.score != 0}">
+                    <p class="p-rating" id="rating">
                         <c:out value="${movie_info.rating.score}"/>
                     </p>
                 </c:if>
-                <c:if test="${requestScope.movie_info == null}">
+                <c:if test="${requestScope.movie_info.rating.score == 0}">
                     <p>No rating</p>
                 </c:if>
             </td>
@@ -50,7 +49,7 @@
                     <li class="li-starring"><fmt:message key="label.starring"/></li>
                     <li class="li-starring-parameter">
                         <c:forEach items="${requestScope.actors_list}" var="actors">
-                            <c:out value="${actors}"/>
+                            <c:out value="${actors},"/>
                         </c:forEach>
                     </li>
                 </ul>
@@ -104,26 +103,26 @@
             <div class="container">
                 <div class="rating">
                     <input type="hidden" name="command" value="rate_movie">
-                    <input type="hidden" name="movie_id" value="${movie_id}">
-                    <input type="radio" id="star1" name="point" value="10">
+                    <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                    <input type="radio" id="star1" name="point" value="100">
                     <label for="star1" class="fa fa-star"></label>
-                    <input type="radio" id="star2" name="point" value="20">
+                    <input type="radio" id="star2" name="point" value="90">
                     <label for="star2" class="fa fa-star"></label>
-                    <input type="radio" id="star3" name="point" value="30">
+                    <input type="radio" id="star3" name="point" value="80">
                     <label for="star3" class="fa fa-star"></label>
-                    <input type="radio" id="star4" name="point" value="40">
+                    <input type="radio" id="star4" name="point" value="70">
                     <label for="star4" class="fa fa-star"></label>
-                    <input type="radio" id="star5" name="point" value="50">
+                    <input type="radio" id="star5" name="point" value="60">
                     <label for="star5" class="fa fa-star"></label>
-                    <input type="radio" id="star6" name="point" value="60">
+                    <input type="radio" id="star6" name="point" value="50">
                     <label for="star6" class="fa fa-star"></label>
-                    <input type="radio" id="star7" name="point" value="70">
+                    <input type="radio" id="star7" name="point" value="40">
                     <label for="star7" class="fa fa-star"></label>
-                    <input type="radio" id="star8" name="point" value="80">
+                    <input type="radio" id="star8" name="point" value="30">
                     <label for="star8" class="fa fa-star"></label>
-                    <input type="radio" id="star9" name="point" value="90">
+                    <input type="radio" id="star9" name="point" value="20">
                     <label for="star9" class="fa fa-star"></label>
-                    <input type="radio" id="star10" name="point" class="fa fa-star" value="100">
+                    <input type="radio" id="star10" name="point" class="fa fa-star" value="10">
                     <label for="star10" class="fa fa-star"></label>
                     <button type="submit">submit</button>
                 </div>
@@ -135,7 +134,7 @@
             <div class="comment-box">
                 <form action="${pageContext.request.contextPath}/controller" method="post">
                     <input hidden name="command" value="leave_comment">
-                    <input type="hidden" name="movie_id" value="${movie_id}">
+                    <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
                     <textarea name="comment" placeholder="Type your comment"></textarea><br>
                     <button type="submit">Submit Comment</button>
                 </form>
@@ -156,26 +155,26 @@
                     <p><c:out value="${comments.text}"/></p>
                 </div>
             </div>
+            <c:if test="${sessionScope.user_name == comments.userName && sessionScope.user != null}">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
+                    <input type="hidden" name="command" value="remove_comment">
+                    <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                    <input type="hidden" name="user_name" value="${comments.userName}">
+                    <input type="hidden" name="comment" value="${comments.text}">
+                    <input class="remove" type="submit" value="remove">
+                </form>
+            </c:if>
+            <c:if test="${sessionScope.admin != null}">
+                <form action="${pageContext.request.contextPath}/controller" method="post">
+                    <input type="hidden" name="command" value="remove_comment">
+                    <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                    <input type="hidden" name="user_name" value="${comments.userName}">
+                    <input type="hidden" name="comment" value="${comments.text}">
+                    <input class="remove" type="submit" value="remove">
+                </form>
+            </c:if>
         </c:forEach>
     </div>
-    <c:if test="${sessionScope.user_name == comments_list.userName && sessionScope.user != null}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="remove_comment">
-            <input type="hidden" name="movie_id" value="${movie_id}">
-            <input type="hidden" name="user_name" value="${comments_list.userName}">
-            <input type="hidden" name="comment" value="${comments_list.text}">
-            <input class="remove" type="submit" value="remove">
-        </form>
-    </c:if>
-    <c:if test="${sessionScope.admin != null}">
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <input type="hidden" name="command" value="remove_comment">
-            <input type="hidden" name="movie_id" value="${movie_id}">
-            <input type="hidden" name="user_name" value="${comments_list.userName}">
-            <input type="hidden" name="comment" value="${comments_list.text}">
-            <input class="remove" type="submit" value="remove">
-        </form>
-    </c:if>
 </div>
 </body>
 </html>

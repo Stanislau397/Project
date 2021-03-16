@@ -43,19 +43,23 @@ tbody{
 
 .starring{
     vertical-align: top;
-    height: 20px;
+    height: auto;
 }
 
 .info{
     vertical-align: top;
+    height: auto;
 }
 
 .li-info{
+    margin-top: 20px;
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .li-info-parameter{
+    margin-top: 20px;
     font-family: sans-serif;
     font-size: 15px;
 }
@@ -76,11 +80,12 @@ li{
 
 .run{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .time{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .run-time{
@@ -94,11 +99,12 @@ li{
 
 .director-li{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .director-parameter{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .country{
@@ -106,20 +112,22 @@ li{
 }
 .country-li{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .country-parameter{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .li-starring{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .li-starring-parameter{
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .pg{
@@ -137,11 +145,12 @@ li{
 
 .li-genre{
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .li-genre-parameter{
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .comment-box{
@@ -223,8 +232,8 @@ hr{
 .rating {
     border: 0;
     background-color: white;
-    margin-left: 700px;
-    margin-right: 500px;
+    margin-right: 770px;
+    margin-top: 5px;
 }
 
 .rating input{
@@ -233,9 +242,9 @@ hr{
 
 .rating label{
     cursor: pointer;
-    font-size: 30px;
+    font-size: 20px;
     color: #444;
-    float: left;
+    float: right;
     transition: all 0.2s ease;
 }
 
@@ -255,12 +264,13 @@ hr{
     color: white;
     padding: 10px 20px;
     font-size: 10px;
-    margin-left: 280px;
-    margin-top: -27px;
+    margin-left: 230px;
+    margin-top: -25px;
 }
 
 .info-2{
     margin-top: 25px;
+    height: auto;
 }
 
 .side {

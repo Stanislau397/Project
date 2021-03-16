@@ -3,7 +3,6 @@ package edu.epam.project.controller.command.impl.common;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
@@ -15,6 +14,10 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
+
 public class RegisterCommand implements Command {
 
     public static final Logger logger = LogManager.getLogger(RegisterCommand.class);
@@ -23,9 +26,9 @@ public class RegisterCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        String userName = request.getParameter(RequestParameter.USER_NAME_PARAMETER);
-        String userPassword = request.getParameter(RequestParameter.PASSWORD_PARAMETER);
-        String userEmail = request.getParameter(RequestParameter.EMAIL_PARAMETER);
+        String userName = request.getParameter(USER_NAME_PARAMETER);
+        String userPassword = request.getParameter(PASSWORD_PARAMETER);
+        String userEmail = request.getParameter(EMAIL_PARAMETER);
         User user = new User();
         user.setUserName(userName);
         user.setEmail(userEmail);

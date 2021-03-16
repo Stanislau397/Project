@@ -45,12 +45,13 @@ public enum ConnectionPool {
     }
 
     public ProxyConnection getConnection() {
-        ProxyConnection connection = null;
+        ProxyConnection connection;
         try {
             connection = freeConnections.take();
             givenAwayConnections.add(connection);
         } catch (InterruptedException e) {
             logger.log(Level.ERROR, e);
+            throw new RuntimeException(e);
         }
         return connection;
     }
@@ -68,9 +69,7 @@ public enum ConnectionPool {
         for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
             try {
                 freeConnections.take().close();
-            } catch (SQLException e) {
-                logger.log(Level.ERROR, e);
-            } catch (InterruptedException e) {
+            } catch (SQLException | InterruptedException e) {
                 logger.log(Level.ERROR, e);
             }
         }

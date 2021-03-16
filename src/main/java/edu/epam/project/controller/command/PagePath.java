@@ -2,6 +2,10 @@ package edu.epam.project.controller.command;
 
 public class PagePath {
 
+    private PagePath() {
+
+    }
+
     public static final String REGISTER_PAGE = "jsp/register.jsp";
     public static final String REGISTER_SUCCESS = "jsp/register_success.jsp";
     public static final String LOGIN_PAGE = "jsp/login.jsp";
@@ -16,5 +20,6 @@ public class PagePath {
 
     public static final String ALL_USERS_PAGE = "jsp/admin/all_users.jsp";
     public static final String ADMIN_CABINET_PAGE = "jsp/admin/admin_cabinet.jsp";
+    public static final String UPLOAD_MOVIE_PAGE = "jsp/admin/upload_movie.jsp";
     public static final String BLOCK_USER_PAGE = "jsp/admin/block_user.jsp";
 }

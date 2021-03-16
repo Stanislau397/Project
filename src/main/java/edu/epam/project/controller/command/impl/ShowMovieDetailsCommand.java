@@ -56,12 +56,12 @@ public class ShowMovieDetailsCommand implements Command {
             }
             if (optionalMovie.isPresent()) {
                 movie = optionalMovie.get();
-                request.setAttribute(COMMENTS_LIST, comments);
                 request.setAttribute(MOVIE_INFO, movie);
-                request.setAttribute(ACTORS_LIST, actors);
-                request.setAttribute(DIRECTORS_LIST, directors);
-                router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
             }
+            request.setAttribute(ACTORS_LIST, actors);
+            request.setAttribute(DIRECTORS_LIST, directors);
+            request.setAttribute(COMMENTS_LIST, comments);
+            router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);

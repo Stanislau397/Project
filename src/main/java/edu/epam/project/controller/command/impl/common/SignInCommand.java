@@ -18,8 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-import static edu.epam.project.controller.command.RequestParameter.*;
-import static edu.epam.project.controller.command.SessionAttribute.*;
+import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
+
+import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
+import static edu.epam.project.controller.command.SessionAttribute.USER_EMAIL;
+import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
+import static edu.epam.project.controller.command.SessionAttribute.ADMIN;
+import static edu.epam.project.controller.command.SessionAttribute.USER;
+import static edu.epam.project.controller.command.SessionAttribute.GUEST;
 
 public class SignInCommand implements Command {
 

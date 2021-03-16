@@ -2,6 +2,10 @@ package edu.epam.project.controller.command;
 
 public class SessionAttribute {
 
+    private SessionAttribute() {
+
+    }
+
     public static final String ADMIN = "admin";
     public static final String USER = "user";
     public static final String GUEST = "guest";

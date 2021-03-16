@@ -16,7 +16,6 @@
         <div class="logo-container">
             <h1>MOVIE<span>APP</span></h1>
         </div>
-
         <ul class="navigation">
             <a href="${pageContext.request.contextPath}/jsp/home.jsp">
                 <li><fmt:message key="label.main"/></li>
@@ -30,15 +29,13 @@
                 </li>
             </a>
 
+            <a href="${pageContext.request.contextPath}/jsp/admin/admin_cabinet.jsp"><li>Admin</li></a>
+
             <c:if test="${sessionScope.admin == null && sessionScope.user == null}">
                 <a href="${pageContext.request.contextPath}/jsp/login.jsp">
                     <li><fmt:message key="label.login"/></li>
                 </a>
             </c:if>
-
-            <a href="${pageContext.request.contextPath}/jsp/user/user_profile.jsp">
-                <li>Profile</li>
-            </a>
 
             <c:choose>
                 <c:when test="${sessionScope.admin != null}">
@@ -91,5 +88,10 @@
         </ul>
     </div>
 </div>
+<form action="${pageContext.request.contextPath}/controller" method="get" class="key-word">
+    <input type="hidden" name="command" value="search_movie">
+    <input class="text-box" type="text" name="key_word" placeholder="Search...">
+    <input type="submit" value="search">
+</form>
 </body>
 </html>

@@ -23,15 +23,33 @@ public interface MovieDao {
 
     List<Movie> findRatedMoviesByUserName(String userName) throws DaoException;
 
+    List<Movie> findMoviesByKeyWord(String keyWord) throws DaoException;
+
     boolean addActor(Actor actor) throws DaoException;
+
+    boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
 
     boolean removeActorByFirstName(String firstName) throws DaoException;
 
+    boolean isActorAlreadyExists(String firstName, String lastName) throws DaoException;
+
     List<Actor> findActorsByMovieId(long movieId) throws DaoException;
 
+    Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws DaoException;
+
     boolean addDirector(Director director) throws DaoException;
+
+    boolean isDirectorAlreadyExists(Director director) throws DaoException;
+
+    boolean addDirectorToMovieByMovieId(Director director, long movieId) throws DaoException;
+
+    Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws DaoException;
 
     List<Director> findDirectorsByMovieId(long movieId) throws DaoException;
 
     boolean addGenre(Genre genre) throws DaoException;
+
+    boolean addGenreToMovie(long genreId, long movieId) throws DaoException;
+
+    List<Genre> findAllGenres() throws DaoException;
 }

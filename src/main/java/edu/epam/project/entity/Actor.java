@@ -10,6 +10,11 @@ public class Actor extends Entity {
 
     }
 
+    public Actor(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Actor(long actorId, String firstName, String lastName) {
         this.actorId = actorId;
         this.firstName = firstName;

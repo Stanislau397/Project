@@ -83,3 +83,11 @@
     color: white;
     cursor: pointer;
 }
+
+.key-word {
+    margin-left: 550px;
+}
+
+.key-word .text-box {
+    width: 350px;
+}

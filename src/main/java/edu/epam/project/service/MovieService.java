@@ -23,15 +23,33 @@ public interface MovieService {
 
     List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;
 
+    List<Movie> findMoviesByKeyWord(String keyWord) throws ServiceException;
+
     boolean addActor(Actor actor) throws ServiceException;
 
+    boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
+
     boolean removeActorByFirstName(String firstName) throws ServiceException;
+
+    boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException;
+
+    Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws ServiceException;
 
     List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
 
     boolean addDirector(Director director) throws ServiceException;
 
+    boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
+
+    Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;
+
+    boolean isDirectorAlreadyExists(Director director) throws ServiceException;
+
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
 
     boolean addGenre(Genre genre) throws ServiceException;
+
+    boolean addGenreToMovie(long genreId, long movieId) throws ServiceException;
+
+    List<Genre> findAllGenres() throws ServiceException;
 }

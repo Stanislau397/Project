@@ -3,6 +3,8 @@ package edu.epam.project.controller.command;
 import edu.epam.project.controller.command.impl.*;
 import edu.epam.project.controller.command.impl.admin.FindAllUsersCommand;
 import edu.epam.project.controller.command.impl.admin.BlockUserCommand;
+import edu.epam.project.controller.command.impl.admin.ToUploadMovieCommand;
+import edu.epam.project.controller.command.impl.admin.UploadMovieCommand;
 import edu.epam.project.controller.command.impl.common.ChangeLocaleCommand;
 import edu.epam.project.controller.command.impl.common.RegisterCommand;
 import edu.epam.project.controller.command.impl.common.SignInCommand;
@@ -24,9 +26,13 @@ public enum CommandType {
     CHANGE_PASSWORD(new ChangePasswordCommand()),
     CHANGE_LOCALE(new ChangeLocaleCommand()),
 
+    TO_UPLOAD_MOVIE(new ToUploadMovieCommand()),
+    UPLOAD_MOVIE(new UploadMovieCommand()),
+
     SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
     SHOW_COMMENTS(new ShowCommentsCommand()),
     SHOW_USER_PROFILE(new ShowUserProfileCommand()),
+    SEARCH_MOVIE(new SearchCommand()),
     SHOW_MOVIE_DETAILS(new ShowMovieDetailsCommand());
 
     private Command command;

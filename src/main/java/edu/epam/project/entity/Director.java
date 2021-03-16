@@ -12,6 +12,11 @@ public class Director extends Entity {
         this.lastName = lastName;
     }
 
+    public Director(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public long getDirectorId() {
         return directorId;
     }

@@ -37,6 +37,15 @@ public class Movie extends Entity{
         this.rating = rating;
     }
 
+    public Movie(String title, int runTime, String country, String description, Date releaseDate, String picture) {
+        this.title = title;
+        this.runTime = runTime;
+        this.country = country;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.picture = picture;
+    }
+
     public long getMovieId() {
         return movieId;
     }
