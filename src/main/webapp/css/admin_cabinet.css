@@ -1,0 +1,118 @@
+body {
+    background-color: #e6e6e6;
+    background-size: cover;
+}
+
+.dash_board {
+    width: 130px;
+    height: 700px;
+    background-color: black;
+    float: left;
+}
+
+.dash_board a {
+    margin-top: 20px;
+}
+
+.dash_board p {
+    margin-left: 10px;
+    margin-top: 10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.dash_board p:hover {
+    color: yellow;
+}
+
+.upload-content {
+    margin: auto;
+    width: 750px;
+    height: 450px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.movie_title {
+    margin-top: 30px;
+    margin-left: 10px;
+    width: 300px;
+}
+
+.release-date {
+    margin-top: 30px;
+    margin-right: 1px;
+    width: 300px;
+}
+
+.run-time {
+    margin-top: 40px;
+    margin-left: 10px;
+    width: 270px;
+}
+
+label {
+    text-align: right;
+}
+
+.distribution {
+    margin-top: 30px;
+    margin-right: 1px;
+    width: 500px;
+}
+
+.country label {
+    margin-left: 100px;
+}
+
+.country {
+    margin-top: 40px;
+    margin-left: 10px;
+    width: 320px;
+}
+
+.poster {
+    margin-left: 5px;
+    margin-top: 30px;
+    width: 295px;
+}
+
+.director {
+    width: 330px;
+}
+
+.genre {
+    margin-top: 30px;
+}
+
+.middle {
+    margin-top: 30px;
+
+}
+
+.actors {
+    margin-left: 120px;
+    width: 300px;
+    height: 150px;
+}
+
+.summery {
+    margin-left: 10px;
+    width: 300px;
+    height: 150px;
+}
+
+.upload-content .button {
+    margin-top: 20px;
+    margin-left: 345px;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.upload-content .button:hover {
+    color: red;
+}

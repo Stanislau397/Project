@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+.navigation {
+    background: black;
+    width: 100%;
+    height: 80px;
+}
+
+button {
+    font-family: "Poppins", sans-serif;
+}
+
+.dropdown {
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 85%;
+    margin-right: 100px;
+    height: 80px;
+}
+
+.dropdown h1 {
+    color: white;
+    height: 100%;
+    display: table-cell;
+    vertical-align: center;
+    margin-top: 35px;
+    margin-right: 30px;
+    text-align: right;
+    font-family: 'Montserrat';
+    font-size: 40px;
+    font-weight: 200;
+}
+
+.dropdown h1 span {
+    font-weight: 800;
+}
+
+.movies {
+    position: relative;
+}
+
+.movies li {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+}
+
+.movies li:hover {
+    border: 1px solid white;
+}
+
+.language li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.movies, .language {
+    position: relative;
+}
+
+.movies ul {
+    position: absolute;
+    background: black;
+    width: 200px;
+    height: 200px;
+    flex-direction: column;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.language ul {
+    background-color: black;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.dropdown button, a {
+    background: none;
+    border: none;
+    height: 100%;
+    color: white;
+    font-family: 'Montserrat';
+    text-decoration: none;
+    list-style: none;
+    font-size: 20px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+.dropdown button:hover + ul{
+    text-decoration: none;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+
+.dropdown button:hover {
+    text-decoration: none;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: red;
+    padding-bottom: 1px;
+}
+
+.dropdown button:focus {
+    outline: none; !important;
+}
+
+ul:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+}
+
+.search-movie input {
+    margin-top: 30px;
+    margin-right: 180px;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 350px;
+}
+
+.search-movie button {
+    float: left;
+    width: 25px;
+    margin-left: 355px;
+    margin-top: -55px;
+}
+
