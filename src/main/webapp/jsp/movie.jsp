@@ -5,13 +5,49 @@
 <fmt:setBundle basename="property.text"/>
 <html>
 <head>
-    <title>movies</title>
+    <title><fmt:message key="label.movies"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/movie.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <header>
     <jsp:include page="static/header.jsp"/>
 </header>
 <body>
+<div class="filter">
+    <h4>Filter:</h4>
+    <select id="selector" class="selector">
+        <option selected>Choose:</option>
+        <option><fmt:message key="label.by_year"/></option>
+        <option><fmt:message key="label.by_genre"/></option>
+    </select>
+    <div class="year-container" id="year-container">
+        <button><fmt:message key="label.year"/></button>
+        <ul>
+            <li>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="movies_by_year">
+                    <c:forEach items="${requestScope.movie_years_list}" var="years">
+                        <input class="btn" type="submit" name="movie_year" value="${years}">
+                    </c:forEach>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="genre-container" id="genre-container">
+        <button><fmt:message key="label.genre"/></button>
+        <ul>
+            <li>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="movies_by_genre">
+                    <c:forEach items="${requestScope.genres_list}" var="genres">
+                        <input class="btn" type="submit" name="genre_title" value="${genres.title}">
+                    </c:forEach>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+<hr class="hr1">
 <c:if test="${requestScope.movies_by_key_word_list == null}">
     <div class="center-content">
         <c:forEach items="${movie_list}" var="movies">
@@ -30,10 +66,11 @@
                     </p>
                 </c:if>
                 <c:if test="${movies.rating.score == 0}">
-                    <p class="no-rating"><c:out value="No rating"/></p>
+                    <p class="no-rating"><fmt:message key="label.rating"/></p>
                 </c:if>
                 <p class="release-date">
-                    <c:out value="Release date: ${movies.releaseDate}"/>
+                    <fmt:message key="label.release_date"/>
+                    <c:out value="${movies.releaseDate}"/>
                 </p><br>
                 <p class="content">
                     <c:out value="${movies.description}"/>
@@ -44,36 +81,153 @@
     </div>
 </c:if>
 
-<c:if test="${requestScope.movies_by_key_word_list != null}">
-    <div class="center-content">
-        <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord">
-            <div class="side">
-                <img class="image" src="${pageContext.request.contextPath}${moviesByKeyWord.picture}">
-            </div>
-            <div class="middle">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input hidden name="command" value="show_movie_details">
-                    <input hidden name="movie_id" value="${moviesByKeyWord.movieId}">
-                    <button type="submit">${moviesByKeyWord.title}</button>
-                </form>
-                <c:if test="${movies.rating.score != 0}">
-                    <p class="score">
-                        <c:out value="${moviesByKeyWord.rating.score}"/>
+<c:choose>
+    <c:when test="${requestScope.movies_by_key_word_list != null}">
+        <div class="center-content">
+            <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${moviesByKeyWord.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${moviesByKeyWord.movieId}">
+                        <button type="submit">${moviesByKeyWord.title}</button>
+                    </form>
+                    <c:if test="${moviesByKeyWord.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${moviesByKeyWord.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${moviesByKeyWord.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${moviesByKeyWord.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${moviesByKeyWord.description}"/>
                     </p>
-                </c:if>
-                <c:if test="${moviesByKeyWord.rating.score == 0}">
-                    <p class="no-rating"><c:out value="No rating"/></p>
-                </c:if>
-                <p class="release-date">
-                    <c:out value="Release date: ${moviesByKeyWord.releaseDate}"/>
-                </p><br>
-                <p class="content">
-                    <c:out value="${moviesByKeyWord.description}"/>
-                </p>
-            </div>
-            <hr>
-        </c:forEach>
-    </div>
-</c:if>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:when test="${requestScope.movies_by_genre_list != null}">
+        <div class="center-content">
+            <c:forEach items="${movies_by_genre_list}" var="moviesByGenre">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${moviesByGenre.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${moviesByGenre.movieId}">
+                        <button type="submit">${moviesByGenre.title}</button>
+                    </form>
+                    <c:if test="${moviesByGenre.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${moviesByGenre.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${moviesByGenre.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${moviesByGenre.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${moviesByGenre.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:when test="${requestScope.movies_by_current_year_list != null}">
+        <div class="center-content">
+            <c:forEach items="${movies_by_current_year_list}" var="currentYearMovies">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${currentYearMovies.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${currentYearMovies.movieId}">
+                        <button type="submit">${currentYearMovies.title}</button>
+                    </form>
+                    <c:if test="${currentYearMovies.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${currentYearMovies.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${currentYearMovies.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${currentYearMovies.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${currentYearMovies.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:when test="${requestScope.movies_by_year_list != null}">
+        <div class="center-content">
+            <c:forEach items="${movies_by_year_list}" var="moviesByYear">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${moviesByYear.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${moviesByYear.movieId}">
+                        <button type="submit">${moviesByYear.title}</button>
+                    </form>
+                    <c:if test="${moviesByYear.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${moviesByYear.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${moviesByYear.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${moviesByYear.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${moviesByYear.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
+</c:choose>
 </body>
+<script>
+    $("#year-container").hide();
+    $("#genre-container").hide();
+    $("#selector").change(function () {
+        if ($(this).val() === "По Году" || $(this).val() === "By Year") {
+            $("#year-container").show();
+        } else {
+            $("#year-container").hide();
+
+        }
+        if ($(this).val() === "By Genre" || $(this).val() === "По Жанру") {
+            $("#genre-container").show();
+        } else {
+            $("#genre-container").hide();
+        }
+    })
+    ;
+</script>
 </html>

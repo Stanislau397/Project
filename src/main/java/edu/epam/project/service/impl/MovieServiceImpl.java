@@ -106,6 +106,54 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findAllCurrentYearMovies() throws ServiceException {
+        List<Movie> currentYearMovies;
+        try {
+            currentYearMovies = movieDao.findAllCurrentYearMovies();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return currentYearMovies;
+    }
+
+    @Override
+    public List<Movie> findMoviesByYear(int year) throws ServiceException {
+        List<Movie> moviesByYear;
+        try {
+            moviesByYear = movieDao.findMoviesByYear(year);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviesByYear;
+    }
+
+    @Override
+    public List<Movie> findMoviesByGenre(Genre genre) throws ServiceException {
+        List<Movie> moviesByGenre;
+        try {
+            moviesByGenre = movieDao.findMoviesByGenre(genre);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviesByGenre;
+    }
+
+    @Override
+    public List<Integer> findAllMovieYears() throws ServiceException {
+        List<Integer> movieYears;
+        try {
+            movieYears = movieDao.findAllMovieYears();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return movieYears;
+    }
+
+    @Override
     public Optional<Movie> findMovieById(long movieId) throws ServiceException {
         Optional<Movie> isFound;
         try {

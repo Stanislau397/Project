@@ -6,6 +6,7 @@
 <html>
 <head>
     <title><fmt:message key="label.login"/></title>
+    <jsp:include page="static/header.jsp"/>
     <link rel="stylesheet" href="../css/register.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>

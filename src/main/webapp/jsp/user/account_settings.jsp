@@ -19,10 +19,13 @@
 <div class="password">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <input type="hidden" name="command" value="change_password">
-        <input type="password" name="current_password" placeholder="Current Password">
-        <input type="password" name="new_password" placeholder="New Password">
-        <input type="password" name="verify_password" placeholder="Verify Password">
-        <button type="submit" name="submit" >Submit</button>
+        <input type="password" name="current_password" placeholder="Current Password"
+               pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
+        <input type="password" name="new_password" placeholder="New Password"
+               pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
+        <input type="password" name="verify_password" placeholder="Verify Password"
+               pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
+        <button type="submit" name="submit">Submit</button>
     </form>
 </div>
 <hr>

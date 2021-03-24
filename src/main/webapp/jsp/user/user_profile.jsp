@@ -4,6 +4,7 @@
 <head>
     <title>user_profile</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <header>
     <jsp:include page="/jsp/static/header.jsp"/>
@@ -32,27 +33,7 @@
 </div>
 <hr>
 <p>My Scores</p>
-<div class="distribution">
-    <h1>My distribution</h1>
-    <ul>
-        <li class="name1">Positive:</li>
-        <li class="score">
-            <c:out value="${requestScope.positive}"/>
-        </li>
-    </ul>
-    <ul>
-        <li class="name1">Mixed:</li>
-        <li class="2">
-            <c:out value="${requestScope.mixed}"/>
-        </li>
-    </ul>
-    <ul>
-        <li class="name1">Negative:</li>
-        <li class="score">
-            <c:out value="${requestScope.negative}"/>
-        </li>
-    </ul>
-</div>
+
 <div class="average">
     <ul>
         <li class="name2">Average movie score:</li>
@@ -92,7 +73,7 @@
     <div class="movie_review">
         <img class="image" src="${pageContext.request.contextPath}${ratedMovies.picture}">
     </div>
-    <div class="movie-score">
+    <div class="movie-score" id="user_score">
         <c:out value="${ratedMovies.rating.score}"/>
     </div>
     <div class="movie-info">
@@ -117,4 +98,12 @@
     </div>
 </c:forEach>
 </body>
+<script>
+    $(document).ready(function () {
+        var user_score = $('#user_score').val();
+        if (user_score < 100) {
+            $('#user_score').css('background-color', 'red')
+        }
+    })
+</script>
 </html>

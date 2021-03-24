@@ -11,9 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MovieDaoImpl implements MovieDao {
 
@@ -80,6 +78,106 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return allMovies;
+    }
+
+    @Override
+    public List<Movie> findAllCurrentYearMovies() throws DaoException {
+        List<Movie> currentYearMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.FIND_CURRENT_YEAR_MOVIES);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                currentYearMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return currentYearMovies;
+    }
+
+    @Override
+    public List<Integer> findAllMovieYears() throws DaoException {
+        List<Integer> years = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_MOVIES_YEARS);
+            while (resultSet.next()) {
+                int year = resultSet.getInt(1);
+                years.add(year);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return years;
+    }
+
+    @Override
+    public List<Movie> findMoviesByYear(int year) throws DaoException {
+        List<Movie> moviesByYear = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_BY_YEAR)) {
+            statement.setInt(1, year);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                moviesByYear.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesByYear;
+    }
+
+    @Override
+    public List<Movie> findMoviesByGenre(Genre genre) throws DaoException {
+        List<Movie> moviesByGenre = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE)) {
+            statement.setString(1, genre.getTitle());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                moviesByGenre.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesByGenre;
     }
 
     @Override

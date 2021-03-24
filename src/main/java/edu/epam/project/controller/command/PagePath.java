@@ -22,4 +22,5 @@ public class PagePath {
     public static final String ADMIN_CABINET_PAGE = "jsp/admin/admin_cabinet.jsp";
     public static final String UPLOAD_MOVIE_PAGE = "jsp/admin/upload_movie.jsp";
     public static final String BLOCK_USER_PAGE = "jsp/admin/block_user.jsp";
+    public static final String ADD_GENRE_PAGE = "jsp/admin/genre.jsp";
 }

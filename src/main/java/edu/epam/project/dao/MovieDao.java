@@ -1,5 +1,6 @@
 package edu.epam.project.dao;
 
+import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.Actor;
 import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Genre;
@@ -16,6 +17,14 @@ public interface MovieDao {
     boolean deleteMovieByTitle(String title) throws DaoException;
 
     List<Movie> findAll() throws DaoException;
+
+    List<Movie> findAllCurrentYearMovies() throws DaoException;
+
+    List<Integer> findAllMovieYears() throws DaoException;
+
+    List<Movie> findMoviesByYear(int year) throws DaoException;
+
+    List<Movie> findMoviesByGenre(Genre genre) throws DaoException;
 
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
 

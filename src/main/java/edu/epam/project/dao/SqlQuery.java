@@ -32,10 +32,18 @@ public class SqlQuery {
     public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
             "VALUES (?,?,?,?,?,?,?)";
     public static final String DELETE_BY_TITLE = "DELETE FROM movies WHERE title = (?)";
-    public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 +") AS average FROM movies " +
-            "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id";
+    public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
+            "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id ORDER BY average DESC";
     public static final String FIND_MOVIE_BY_TITLE = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
             "WHERE title = (?)";
+    public static final String FIND_CURRENT_YEAR_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) GROUP BY movie_id ORDER BY average DESC";
+    public static final String SELECT_MOVIE_BY_YEAR = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = (?) GROUP BY movie_id ORDER BY average DESC";
+    public static final String SELECT_MOVIES_BY_GENRE = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies m " +
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id " +
+            "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = (?) GROUP BY mg.movie_id";
+    public static final String SELECT_MOVIES_YEARS = "SELECT DISTINCT YEAR(release_date) FROM movies ORDER BY YEAR(release_date) DESC";
     public static final String FIND_MOVIE_BY_ID = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(avg(user_score), " + 0 + ") AS average, IFNULL(genre_title, 'no-genre') AS genre_title " +
             "FROM movies m LEFT JOIN rating r ON r.movie_id_fk = m.movie_id LEFT JOIN movie_genres g ON m.movie_id = g.movie_id AND g.movie_id = m.movie_id " +
             "LEFT JOIN genres k ON g.genre_id_fk = k.genres_id AND m.movie_id = g.movie_id WHERE m.movie_id = ?";
@@ -53,9 +61,6 @@ public class SqlQuery {
     public static final String SELECT_USER_COMMENTS = "SELECT user_comment, post_date, movie_id_fk WHERE user_name_fk = (?) " +
             "ORDER BY movie_id_fk";
 
-    public static final String COUNT_POSITIVE_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score > 70";
-    public static final String COUNT_MIXED_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score > 40 && user_score <= 70";
-    public static final String COUNT_NEGATIVE_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?) AND user_score < 50";
     public static final String COUNT_AMOUNT_OF_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?)";
     public static final String COUNT_AVERAGE_RATING_OF_USER = "SELECT AVG(user_score) FROM rating WHERE user_name_fk = (?)";
     public static final String SELECT_LATEST_HIGH_SCORE = "SELECT user_score, title, movie_id FROM rating JOIN movies ON movie_id = movie_id_fk WHERE user_name_fk = (?) AND user_score > 70" +

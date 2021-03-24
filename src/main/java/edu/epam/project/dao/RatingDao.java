@@ -8,12 +8,6 @@ import java.util.Optional;
 
 public interface RatingDao {
 
-    int countPositiveMovieRatingByUserName(String userName) throws DaoException;
-
-    int countMixedMovieRatingByUserName(String userName) throws DaoException;
-
-    int countNegativeMovieRatingByUserName(String userName) throws DaoException;
-
     int countAverageMovieRatingOfUser(String userName) throws DaoException;
 
     int countAmountOfUserScoresByUserName(String userName) throws DaoException;

@@ -5,6 +5,6 @@
     <title>index</title>
 </head>
 <body>
-<jsp:forward page="jsp/home.jsp"></jsp:forward>
+<jsp:forward page="/controller?command=open_home_page"></jsp:forward>
 </body>
 </html>

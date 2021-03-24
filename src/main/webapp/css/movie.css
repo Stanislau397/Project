@@ -48,6 +48,7 @@ button{
 }
 
 hr{
+    margin-top: 10px;
     margin-left: 20px;
     width: 90%;
 }
@@ -62,7 +63,7 @@ button:active{
     margin-top: -50px;
     border-radius: 5px;
     margin-left: 750px;
-    background-color: green;
+    background-color: #6c3;
     color: white;
     font-size: 40px;
     text-align: center;
@@ -71,8 +72,8 @@ button:active{
 .center-content {
     width: 1000px;
     height: auto;
+    margin-top: 20px;
     margin-left: 250px;
-    margin-top: 50px;
     border: 1px solid black;
     background-color: white;
 }
@@ -80,4 +81,104 @@ button:active{
 .no-rating {
     margin-top: -40px;
     margin-left: 750px;
+}
+
+.selector {
+    width: 120px;
+    height: 40px;
+    justify-content: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    background: grey;
+    cursor: pointer;
+    color: black;
+    float: left;
+}
+
+.selector option {
+    background: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filter {
+    margin-top: 80px;
+    height: 40px;
+    margin-left: 250px;
+}
+
+.year-container button, .genre-container button{
+    margin-left: 10px;
+    width: 120px;
+    height: 40px;
+    font-family: sans-serif;
+    font-size: 20px;
+    background: grey;
+    color: black;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.year-container ul, .genre-container ul {
+    background: #e6e6e6;
+    margin-left: 195px;
+    margin-top: 5px;
+    border-radius: 5px;
+    position: absolute;
+    text-decoration: none;
+    list-style: none;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    border: 0.5px solid black;
+    width: 120px;
+    height: 100px;
+    overflow: hidden;
+    overflow-y: scroll;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.year-container button:focus + ul, .genre-container button:focus + ul{
+    opacity: 1;
+    visibility: visible;
+}
+
+.filter h4{
+    float: left;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.hr1{
+    margin-left: 250px;
+    width: 65%;
+}
+
+.year-container .btn, .genre-container .btn {
+    margin-top: 10px;
+    background: #e6e6e6;
+    border: 0;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+}
+.year-container .btn:hover, .genre-container .btn:hover {
+    border: 1px solid black;
+}
+.year-container .btn:focus, .genre-container .btn:focus {
+    outline: none; !important;
 }

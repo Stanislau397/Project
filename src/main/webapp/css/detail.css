@@ -34,7 +34,7 @@ tbody{
 
 .p-rating{
     color: white;
-    background-color: green;
+    background-color: #6c3;
     border-radius: 5px;
     font-family: sans-serif;
     font-size: 40px;
@@ -342,7 +342,7 @@ hr{
     border: 1px solid black;
     text-align: center;
     font-size: 25px;
-    background-color: green;
+    background-color: #6c3;
     color: white;
 }
 

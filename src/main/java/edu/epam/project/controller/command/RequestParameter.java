@@ -11,7 +11,6 @@ public class RequestParameter {
     public static final String USER_NAME_PARAMETER = "user_name";
     public static final String PASSWORD_PARAMETER = "password";
     public static final String EMAIL_PARAMETER = "email";
-    public static final String OLD_EMAIL_PARAMETER = "old_email";
     public static final String NEW_PASSWORD = "new_password";
     public static final String NEW_USER_NAME = "new_user_name";
     public static final String MOVIE_ID = "movie_id";
@@ -29,6 +28,8 @@ public class RequestParameter {
     public static final String ACTORS = "actors";
     public static final String DIRECTOR = "director";
     public static final String GENRE_ID = "genre_id";
+    public static final String GENRE_TITLE_PARAMETER = "genre_title";
+    public static final String MOVIE_YEAR = "movie_year";
 
     public static final String BLOCK = "block";
     public static final String UNBLOCK = "unblock";

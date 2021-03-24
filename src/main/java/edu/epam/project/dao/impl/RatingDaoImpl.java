@@ -20,57 +20,6 @@ public class RatingDaoImpl implements RatingDao {
     private static final Logger logger = LogManager.getLogger(RatingDaoImpl.class);
 
     @Override
-    public int countPositiveMovieRatingByUserName(String userName) throws DaoException {
-        int positiveReviews = 0;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_POSITIVE_REVIEWS)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                positiveReviews = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return positiveReviews;
-    }
-
-    @Override
-    public int countMixedMovieRatingByUserName(String userName) throws DaoException {
-        int mixedReviews = 0;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_MIXED_REVIEWS)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                mixedReviews = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return mixedReviews;
-    }
-
-    @Override
-    public int countNegativeMovieRatingByUserName(String userName) throws DaoException {
-        int negativeReviews = 0;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_NEGATIVE_REVIEWS)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                negativeReviews = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return negativeReviews;
-    }
-
-    @Override
     public int countAverageMovieRatingOfUser(String userName) throws DaoException {
         int averageUserMovieRating = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

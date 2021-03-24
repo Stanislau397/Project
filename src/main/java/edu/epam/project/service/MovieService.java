@@ -19,6 +19,14 @@ public interface MovieService {
 
     List<Movie> findAllMovies() throws ServiceException;
 
+    List<Movie> findAllCurrentYearMovies() throws ServiceException;
+
+    List<Movie> findMoviesByYear(int year) throws ServiceException;
+
+    List<Movie> findMoviesByGenre(Genre genre) throws ServiceException;
+
+    List<Integer> findAllMovieYears() throws ServiceException;
+
     Optional<Movie> findMovieById(long movieId) throws ServiceException;
 
     List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;

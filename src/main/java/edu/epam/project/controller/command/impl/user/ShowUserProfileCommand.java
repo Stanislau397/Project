@@ -27,9 +27,6 @@ import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 import static edu.epam.project.controller.command.RequestParameter.COMMENT;
 
-import static edu.epam.project.controller.command.AttributeName.POSITIVE_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.MIXED_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.NEGATIVE_REVIEWS;
 import static edu.epam.project.controller.command.AttributeName.LATEST_HIGH_SCORE;
 import static edu.epam.project.controller.command.AttributeName.LATEST_LOW_SCORE;
 import static edu.epam.project.controller.command.AttributeName.AVERAGE_MOVIE_RATING;
@@ -54,22 +51,14 @@ public class ShowUserProfileCommand implements Command {
         String userName = (String) session.getAttribute(USER_NAME);
         try {
             int amountOfComments = commentService.countUserCommentsByUserName(userName);
-            int positiveReviews = ratingService.countPositiveMovieRatingByUserName(userName);
-            int mixedReviews = ratingService.countMixedMovieRatingByUserName(userName);
-            int negativeReviews = ratingService.countNegativeMovieRatingByUserName(userName);
             int averageMovieRating = ratingService.countAverageMovieRatingOfUser(userName);
             int amountOfReviews = ratingService.countAmountOfUserScoresByUserName(userName);
             Optional<Rating> latestHighScore = ratingService.findLatestHighScoreByUserName(userName);
             Optional<Rating> latestLowScore = ratingService.findLatestLowScoreByUserName(userName);
             List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName);
-            if (amountOfComments >= 0 && positiveReviews >= 0
-                    && mixedReviews >= 0 && negativeReviews >= 0
-                    && averageMovieRating >= 0 && amountOfReviews >= 0) {
+            if (amountOfComments >= 0 && amountOfReviews >= 0) {
                 router.setPagePath(PagePath.USER_PROFILE);
                 request.setAttribute(COMMENT, amountOfComments);
-                request.setAttribute(POSITIVE_REVIEWS, positiveReviews);
-                request.setAttribute(MIXED_REVIEWS, mixedReviews);
-                request.setAttribute(NEGATIVE_REVIEWS, negativeReviews);
                 request.setAttribute(AVERAGE_MOVIE_RATING, averageMovieRating);
                 request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
                 request.setAttribute(AMOUNT_OF_USER_REVIEWS, amountOfReviews);

@@ -7,12 +7,6 @@ import java.util.Optional;
 
 public interface RatingService {
 
-    int countPositiveMovieRatingByUserName(String userName) throws ServiceException;
-
-    int countMixedMovieRatingByUserName(String userName) throws ServiceException;
-
-    int countNegativeMovieRatingByUserName(String userName) throws ServiceException;
-
     int countAverageMovieRatingOfUser(String userName) throws ServiceException;
 
     int countAmountOfUserScoresByUserName(String userName) throws ServiceException;
