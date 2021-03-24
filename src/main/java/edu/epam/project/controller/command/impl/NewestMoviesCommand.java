@@ -1,4 +1,4 @@
-package edu.epam.project.controller.command.impl.common;
+package edu.epam.project.controller.command.impl;
 
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
@@ -18,9 +18,9 @@ import java.util.List;
 
 import static edu.epam.project.controller.command.AttributeName.NEWEST_MOVIES_LIST;
 
-public class OpenHomePageCommand implements Command {
+public class NewestMoviesCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(OpenHomePageCommand.class);
+    private static final Logger logger = LogManager.getLogger(MoviesByYearCommand.class);
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
@@ -29,7 +29,7 @@ public class OpenHomePageCommand implements Command {
         try {
             List<Movie> newestMovies = movieService.findNewestMovies();
             request.setAttribute(NEWEST_MOVIES_LIST, newestMovies);
-            router.setPagePath(PagePath.HOME_PAGE);
+            router.setPagePath(PagePath.MOVIE_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

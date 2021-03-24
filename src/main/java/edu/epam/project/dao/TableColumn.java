@@ -33,4 +33,8 @@ public class TableColumn {
     public static final String DIRECTOR_ID = "director_id";
     public static final String DIRECTOR_FIRST_NAME = "first_name";
     public static final String DIRECTOR_LAST_NAME = "last_name";
+
+    private TableColumn() {
+
+    }
 }

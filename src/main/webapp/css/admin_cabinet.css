@@ -15,7 +15,7 @@ body {
 }
 
 .dash_board p {
-    margin-left: 10px;
+    margin-left: 40px;
     margin-top: 10px;
     color: white;
     font-family: sans-serif;
@@ -105,7 +105,7 @@ label {
 
 .upload-content .button {
     margin-top: 20px;
-    margin-left: 345px;
+    margin-left: 380px;
     width: 70px;
     height: 30px;
     text-align: center;

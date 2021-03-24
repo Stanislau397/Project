@@ -8,52 +8,77 @@ body {
     overflow: hidden;
 }
 
-.selector {
-    width: 120px;
-    height: 40px;
-    justify-content: center;
+h2{
+    margin-left: 170px;
+    color: #1a1a1a;
+    margin-top: 60px;
     font-family: sans-serif;
-    font-weight: bold;
-    font-size: 20px;
+}
+
+.new-movie-container {
+    margin-left: 170px;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 850px;
+    min-height: 380px;
+}
+
+.title {
+    margin-top: 10px;
+    margin-left: -20px;
+    width: auto;
+    height: auto;
     text-align: center;
-    border-radius: 5px;
-    background: grey;
-    cursor: pointer;
-    color: black;
+}
+
+.movie-info {
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 200px;
+    height: 340px;
+    border-bottom: 2px solid #f9c22a;
     float: left;
 }
 
-.selector option {
-    background: white;
-    font-family: sans-serif;
-    font-size: 20px;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.year-container button{
-    margin-left: 10px;
-    width: 120px;
-    height: 40px;
-    font-family: sans-serif;
-    font-size: 20px;
-    background: grey;
-    color: black;
+.movie-rating {
+    width: 50px;
+    height: 45px;
+    position: absolute;
+    top: 29%;
+    background: #66cc33;
+    margin-left: 135px;
+    text-align: center;
+    color: white;
     border-radius: 5px;
-    border: 1px solid black;
+    font-family: sans-serif;
+    font-size: 40px;
+}
+
+.movie-info img {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 260px;
+    max-height: 260px;
+}
+
+.movie-info a {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: initial;
+    text-decoration: none;
+    color: black;
+}
+
+.movie-info a:hover, .btn:hover {
+    color: #f9c22a;
+}
+
+.btn {
+    margin-top: 5px;
+    margin-left: 750px;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 15px;
+    border: 0;
     cursor: pointer;
 }
-
-.year-container ul {
-    margin-left: 200px;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.year-container button:focus + ul{
-    opacity: 1;
-    visibility: visible;
-}
-
-

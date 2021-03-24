@@ -25,6 +25,8 @@ public interface MovieService {
 
     List<Movie> findMoviesByGenre(Genre genre) throws ServiceException;
 
+    List<Movie> findNewestMovies() throws ServiceException;
+
     List<Integer> findAllMovieYears() throws ServiceException;
 
     Optional<Movie> findMovieById(long movieId) throws ServiceException;

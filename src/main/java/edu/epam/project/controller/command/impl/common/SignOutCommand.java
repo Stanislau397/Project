@@ -14,7 +14,7 @@ public class SignOutCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        router.setPagePath(PagePath.HOME_PAGE);
+        router.setPagePath(PagePath.INDEX);
         router.setRoute(RouteType.REDIRECT);
         session.invalidate();
         return router;

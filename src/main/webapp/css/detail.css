@@ -398,7 +398,8 @@ hr{
 .center {
     margin-top: 50px;
     margin-left: 250px;
-    border: 0.5px solid grey;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     width: 1000px;
     height: auto;
     background-color: white;

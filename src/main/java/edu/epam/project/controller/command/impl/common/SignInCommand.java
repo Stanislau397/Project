@@ -54,18 +54,18 @@ public class SignInCommand implements Command {
                             session.setAttribute(USER_EMAIL, userEmail);
                             session.setAttribute(USER_NAME, userName);
                             session.setAttribute(ADMIN, String.valueOf(role));
-                            router.setPagePath(PagePath.HOME_PAGE);
+                            router.setPagePath(PagePath.INDEX);
                             break;
                         case USER:
                             session.setAttribute(USER_ID, userId);
                             session.setAttribute(USER_EMAIL, userEmail);
                             session.setAttribute(USER_NAME, userName);
                             session.setAttribute(USER, String.valueOf(role));
-                            router.setPagePath(PagePath.HOME_PAGE);
+                            router.setPagePath(PagePath.INDEX);
                             break;
                         default:
                             session.setAttribute(GUEST, String.valueOf(role));
-                            router.setPagePath(PagePath.HOME_PAGE);
+                            router.setPagePath(PagePath.INDEX);
                     }
                 }
             }

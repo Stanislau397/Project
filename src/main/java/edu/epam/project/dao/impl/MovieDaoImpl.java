@@ -181,6 +181,33 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Movie> findNewestMovies() throws DaoException {
+        List<Movie> newestMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_NEW_MOVIES);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                newestMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return newestMovies;
+    }
+
+    @Override
     public Optional<Movie> findMovieByTitle(String title) throws DaoException {
         Optional<Movie> isFound;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

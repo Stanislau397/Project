@@ -74,10 +74,10 @@ button:active{
     height: auto;
     margin-top: 20px;
     margin-left: 250px;
-    border: 1px solid black;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     background-color: white;
 }
-
 .no-rating {
     margin-top: -40px;
     margin-left: 750px;
@@ -139,7 +139,7 @@ button:active{
     font-weight: bold;
     border: 0.5px solid black;
     width: 120px;
-    height: 100px;
+    height: 180px;
     overflow: hidden;
     overflow-y: scroll;
     visibility: hidden;

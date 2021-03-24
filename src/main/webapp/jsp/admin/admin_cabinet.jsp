@@ -13,12 +13,11 @@
 </header>
 <body>
 <div class="dash_board">
-    <a href="${pageContext.request.contextPath}/jsp/admin/upload_movie.jsp">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="to_upload_movie">
-            <input type="submit" value="Upload Movie">
-        </form>
-    </a>
+
 </div>
+<form action="${pageContext.request.contextPath}/controller" method="get">
+    <input type="hidden" name="command" value="to_upload_movie">
+    <button type="submit" value="Upload Movie">Upload Movie</button>
+</form>
 </body>
 </html>

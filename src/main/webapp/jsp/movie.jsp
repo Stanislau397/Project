@@ -48,40 +48,39 @@
     </div>
 </div>
 <hr class="hr1">
-<c:if test="${requestScope.movies_by_key_word_list == null}">
-    <div class="center-content">
-        <c:forEach items="${movie_list}" var="movies">
-            <div class="side">
-                <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
-            </div>
-            <div class="middle">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input hidden name="command" value="show_movie_details">
-                    <input hidden name="movie_id" value="${movies.movieId}">
-                    <button type="submit">${movies.title}</button>
-                </form>
-                <c:if test="${movies.rating.score != 0}">
-                    <p class="score">
-                        <c:out value="${movies.rating.score}"/>
-                    </p>
-                </c:if>
-                <c:if test="${movies.rating.score == 0}">
-                    <p class="no-rating"><fmt:message key="label.rating"/></p>
-                </c:if>
-                <p class="release-date">
-                    <fmt:message key="label.release_date"/>
-                    <c:out value="${movies.releaseDate}"/>
-                </p><br>
-                <p class="content">
-                    <c:out value="${movies.description}"/>
-                </p>
-            </div>
-            <hr>
-        </c:forEach>
-    </div>
-</c:if>
-
 <c:choose>
+    <c:when test="${requestScope.movie_list != null}">
+        <div class="center-content">
+            <c:forEach items="${movie_list}" var="movies">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${movies.movieId}">
+                        <button type="submit">${movies.title}</button>
+                    </form>
+                    <c:if test="${movies.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${movies.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${movies.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${movies.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${movies.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
     <c:when test="${requestScope.movies_by_key_word_list != null}">
         <div class="center-content">
             <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord">
@@ -204,6 +203,38 @@
                     </p><br>
                     <p class="content">
                         <c:out value="${moviesByYear.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:when test="${requestScope.newest_movies_list != null}">
+        <div class="center-content">
+            <c:forEach items="${newest_movies_list}" var="newestMovies">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${newestMovies.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${newestMovies.movieId}">
+                        <button type="submit">${newestMovies.title}</button>
+                    </form>
+                    <c:if test="${newestMovies.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${newestMovies.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${newestMovies.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${newestMovies.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${newestMovies.description}"/>
                     </p>
                 </div>
                 <hr>
