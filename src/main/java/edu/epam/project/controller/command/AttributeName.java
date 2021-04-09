@@ -35,6 +35,7 @@ public class AttributeName {
     public static final String MOVIES_BY_YEAR_LIST = "movies_by_year_list";
     public static final String MOVIES_BY_GENRE_LIST = "movies_by_genre_list";
     public static final String NEWEST_MOVIES_LIST = "newest_movies_list";
+    public static final String MOST_RATED_MOVIES_LIST = "most_rated_movies_list";
 
     public static final String MOVIE_INFO = "movie_info";
 }

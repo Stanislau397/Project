@@ -37,6 +37,7 @@ public enum CommandType {
     MOVIES_BY_YEAR(new MoviesByYearCommand()),
     MOVIES_BY_GENRE(new MoviesByGenreCommand()),
     NEWEST_MOVIES(new NewestMoviesCommand()),
+    MOST_RATED_MOVIES(new MostRatedMoviesCommand()),
     SHOW_COMMENTS(new ShowCommentsCommand()),
     SHOW_USER_PROFILE(new ShowUserProfileCommand()),
     SEARCH_MOVIE(new SearchCommand()),

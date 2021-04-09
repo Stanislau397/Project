@@ -154,6 +154,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findMostRatedMovies() throws ServiceException {
+        List<Movie> mostRatedMovies;
+        try {
+            mostRatedMovies = movieDao.findMostRatedMovies();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return mostRatedMovies;
+    }
+
+    @Override
     public List<Integer> findAllMovieYears() throws ServiceException {
         List<Integer> movieYears;
         try {

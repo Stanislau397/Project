@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.enterprise.inject.New;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import static edu.epam.project.controller.command.AttributeName.NEWEST_MOVIES_LI
 
 public class NewestMoviesCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(MoviesByYearCommand.class);
+    private static final Logger logger = LogManager.getLogger(NewestMoviesCommand.class);
     private MovieService movieService = new MovieServiceImpl();
 
     @Override

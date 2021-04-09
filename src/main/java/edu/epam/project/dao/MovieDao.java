@@ -28,6 +28,8 @@ public interface MovieDao {
 
     List<Movie> findNewestMovies() throws DaoException;
 
+    List<Movie> findMostRatedMovies() throws DaoException;
+
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
 
     Optional<Movie> findMovieById(long id) throws DaoException;

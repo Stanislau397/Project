@@ -241,8 +241,41 @@
             </c:forEach>
         </div>
     </c:when>
+    <c:when test="${requestScope.most_rated_movies_list != null}">
+        <div class="center-content">
+            <c:forEach items="${most_rated_movies_list}" var="mostRatedMovies">
+                <div class="side">
+                    <img class="image" src="${pageContext.request.contextPath}${mostRatedMovies.picture}">
+                </div>
+                <div class="middle">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${mostRatedMovies.movieId}">
+                        <button type="submit">${mostRatedMovies.title}</button>
+                    </form>
+                    <c:if test="${mostRatedMovies.rating.score != 0}">
+                        <p class="score">
+                            <c:out value="${mostRatedMovies.rating.score}"/>
+                        </p>
+                    </c:if>
+                    <c:if test="${mostRatedMovies.rating.score == 0}">
+                        <p class="no-rating"><fmt:message key="label.rating"/></p>
+                    </c:if>
+                    <p class="release-date">
+                        <fmt:message key="label.release_date"/>
+                        <c:out value="${mostRatedMovies.releaseDate}"/>
+                    </p><br>
+                    <p class="content">
+                        <c:out value="${mostRatedMovies.description}"/>
+                    </p>
+                </div>
+                <hr>
+            </c:forEach>
+        </div>
+    </c:when>
 </c:choose>
 </body>
+<jsp:include page="static/footer.jsp"/>
 <script>
     $("#year-container").hide();
     $("#genre-container").hide();

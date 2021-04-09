@@ -171,4 +171,5 @@
     </div>
 </div>
 </body>
+<jsp:include page="static/footer.jsp"/>
 </html>

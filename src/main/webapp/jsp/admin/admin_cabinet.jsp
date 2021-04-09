@@ -10,14 +10,21 @@
 </head>
 <header>
     <jsp:include page="/jsp/static/header.jsp"/>
+    <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </header>
 <body>
-<div class="dash_board">
-
+<div class="main-container">
+    <h2>Upload Movie</h2>
+    <hr>
+    <div class="content">
+        <form>
+            <input type="hidden" name="command" value="upload_movie">
+            <label for="title">Title</label>
+            <input type="text" id="title">
+            <label for="country">Country</label>
+            <input title="text" id="country">
+        </form>
+    </div>
 </div>
-<form action="${pageContext.request.contextPath}/controller" method="get">
-    <input type="hidden" name="command" value="to_upload_movie">
-    <button type="submit" value="Upload Movie">Upload Movie</button>
-</form>
 </body>
 </html>

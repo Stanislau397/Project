@@ -30,7 +30,7 @@ public class ToUploadMovieCommand implements Command {
         try {
             List<Genre> genres = movieService.findAllGenres();
             request.setAttribute(GENRES_LIST, genres);
-            router.setPagePath(PagePath.UPLOAD_MOVIE_PAGE);
+            router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);
