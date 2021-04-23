@@ -36,6 +36,42 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException {
+        boolean isUpVoted;
+        try {
+            isUpVoted = commentDao.upVoteComment(commentId, user_name, movieId, upVote);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpVoted;
+    }
+
+    @Override
+    public boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException {
+        boolean isDownVoted;
+        try {
+            isDownVoted = commentDao.downVoteComment(commentId, user_name, movieId, downVote);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDownVoted;
+    }
+
+    @Override
+    public Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws ServiceException {
+        Comment comment = new Comment();
+        try {
+            comment = commentDao.findCommentUpVotesAndDownVotes(userName, commentId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return comment;
+    }
+
+    @Override
     public List<Comment> findCommentsByMovieId(long movieId) throws ServiceException {
         List<Comment> comments;
         try {

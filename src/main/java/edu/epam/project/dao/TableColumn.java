@@ -21,7 +21,10 @@ public class TableColumn {
 
     public static final String MOVIE_SCORE = "user_score";
     public static final String COMMENT = "user_comment";
+    public static final String COMMENT_ID = "comment_id";
     public static final String COMMENT_POST_DATE = "post_date";
+    public static final String COMMENT_UP_VOTES = "up_votes";
+    public static final String COMMENT_DOWN_VOTES = "down_votes";
 
     public static final String GENRE_TITLE = "genre_title";
     public static final String GENRE_ID = "genres_id";

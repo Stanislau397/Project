@@ -1,0 +1,302 @@
+body {
+    background-color: #e6e6e6;
+    background-size: cover;
+}
+
+.main {
+    background-color: #F0F0F0;
+    width: 1330px;
+    min-height: 530px;
+    height: auto;
+    margin-left: 100px;
+    border-bottom: 0.5px solid silver;
+}
+
+.left-side {
+    width: 400px;
+    min-height: 530px;
+    height: auto;
+    border-right: 0.5px solid silver;
+    float: left;
+}
+
+.picture {
+    width: 400px;
+    height: auto;
+}
+
+img {
+    border-radius: 5px;
+    margin-top: 50px;
+    margin-left: 50px;
+    min-width: 290px;
+    min-height: 410px;
+    max-width: 290px;
+    max-height: 410px;
+}
+
+.middle {
+    float: left;
+    width: 700px;
+    height: 500px;
+}
+
+.middle h1 {
+    margin-top: 45px;
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.middle h3 {
+    margin-top: 50px;
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.middle hr {
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.middle ul {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.middle li {
+    display: inline-block;
+}
+
+.middle .name {
+    font-family: sans-serif;
+    position: absolute;
+    width: 180px;
+    color: darkgrey;
+}
+
+.middle .value {
+    font-family: sans-serif;
+    margin-left: 150px;
+    width: auto;
+    height: auto;
+}
+
+.right-side {
+    float: left;
+}
+
+.right-side .rating {
+    margin-left: 50px;
+    margin-top: 45px;
+}
+
+.right-side .rating .no-rating {
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.right-side .rating .score {
+    width: 70px;
+    height: 65px;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    font-family: sans-serif;
+    padding: 5px 10px;
+    font-size: 50px;
+}
+
+.right-side .actors h3 {
+    font-family: sans-serif;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.right-side .actors p {
+    font-family: sans-serif;
+    margin-top: 5px;
+    margin-left: 50px;
+}
+
+.rate-movie button {
+    margin-left: 50px;
+    margin-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+.rate-movie button:hover {
+    color: #f9c22a;
+}
+
+.rate-movie form {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    margin-top: -23px;
+    margin-left: 155px;
+    transform: rotateY(180deg);
+    display: flex;
+    width: auto;
+    height: auto;
+    float: left;
+}
+
+.rate-movie .dynamic {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    margin-top: -23px;
+    margin-left: 255px;
+}
+
+.rate-movie input {
+    display: none;
+}
+
+.rate-movie label {
+    display: block;
+    cursor: pointer;
+    height: 20px;
+}
+
+.rate-movie label:before {
+    content: '\f005';
+    font-family: fontAwesome;
+    position: relative;
+    display: block;
+    font-size: 20px;
+    color: black;
+}
+
+.rate-movie label:after {
+    content: '\f005';
+    font-family: fontAwesome;
+    display: block;
+    font-size: 20px;
+    position: absolute;
+    opacity: 0;
+    transition: .5s;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    top: 0;
+    color: yellow;
+}
+
+.rate-movie label:hover:after,
+.rate-movie label:hover ~ label:after,
+.rate-movie input:checked ~ label:after {
+    opacity: 1;
+    float: left;
+}
+
+.rate-movie button:focus + form {
+    opacity: 1;
+    visibility: visible;
+}
+
+.comment-section {
+    width: 1330px;
+    background-color: #F0F0F0;
+    margin-left: 100px;
+    min-height: 300px;
+    border: 1px solid black;
+}
+
+.comment-section h3 {
+    margin-top: 20px;
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.comment-section .user-comment {
+    margin-left: 50px;
+    margin-top: 10px;
+    min-width: 550px;
+    width: 550px;
+    min-height: 200px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.user-comment .user-info {
+    float: top;
+    border-bottom: 0.5px solid silver;
+    min-width: 550px;
+    width: 550px;
+    min-height: 70px;
+    height: auto;
+}
+
+.user-info .user-picture {
+    min-width: 65px;
+    width: 50px;
+    min-height: 70px;
+    height: 70px;
+    float: left;
+}
+
+.user-info .user-picture img {
+    border: 0.5px solid black;
+    border-radius: 50px;
+    margin-top: 8px;
+    margin-left: 5px;
+    min-width: 50px;
+    width: 50px;
+    min-height: 50px;
+    height: 50px;
+}
+
+.user-info .user-name {
+    float: left;
+    min-width: 330px;
+    min-height: 70px;
+    height: 70px;
+    width: 330px;
+}
+
+.user-info .upload-date {
+    float: left;
+    min-height: 70px;
+    height: 70px;
+}
+
+.comment-section p {
+    margin-left: 5px;
+    font-family: sans-serif;
+}
+
+.user-comment .text {
+    float: top;
+    min-height: 100px;
+    height: auto;
+    min-width: 550px;
+    width: 550px;
+}
+
+.user-comment .comment_votes {
+    float: top;
+    border: 1px solid black;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+.user-comment .comment_votes .up_vote {
+    margin-top: 1px;
+    min-width: 90px;
+    margin-left: 355px;
+    float: left;
+}
+
+.user-comment .comment_votes .down_vote {
+    margin-top: 1px;
+    min-width: 90px;
+    margin-left: 5px;
+    float: left;
+}
+
+.user-comment .comment_votes button:hover {
+    cursor: pointer;
+    background-color: grey;
+}

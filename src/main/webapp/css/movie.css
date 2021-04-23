@@ -182,3 +182,7 @@ button:active{
 .year-container .btn:focus, .genre-container .btn:focus {
     outline: none; !important;
 }
+
+.middle button:hover {
+    color: #f9c22a;
+}

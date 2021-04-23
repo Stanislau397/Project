@@ -58,12 +58,17 @@ public class SqlQuery {
 
     public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";
-    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT user_name_fk, user_comment, post_date FROM movie_comments WHERE movie_id_fk = (?)";
+    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT mv.user_name_fk, mv.comment_id, user_comment, post_date, IFNULL(count(comment_up_vote), 0) AS up_votes, IFNULL(count(comment_down_vote), 0) AS down_votes FROM movie_comments mv\n" +
+            "LEFT JOIN comment_votes cv ON mv.comment_id = cv.comment_id_fk WHERE mv.movie_id_fk = (?) group by mv.user_comment";
     public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
             "AND user_name_fk = (?) AND user_comment = (?)";
     public static final String COUNT_USER_COMMENTS = "SELECT COUNT(user_comment) FROM movie_comments WHERE user_name_fk = (?)";
     public static final String SELECT_USER_COMMENTS = "SELECT user_comment, post_date, movie_id_fk WHERE user_name_fk = (?) " +
             "ORDER BY movie_id_fk";
+    public static final String COUNT_UP_VOTES_AND_DOWN_VOTES = "SELECT IFNULL(COUNT(comment_up_vote), 0) AS up_votes, IFNULL(COUNT(comment_down_vote), 0) AS down_votes, user_comment, post_date, movie_id_fk FROM movie_comments\n" +
+            "LEFT JOIN comment_votes ON comment_id = (?) WHERE user_name = (?) ORDER BY comment_id_fk";
+    public static final String UP_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_up_vote) VALUES(?,?,?,?)";
+    public static final String DOWN_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_down_vote) VALUES(?,?,?,?)";
 
     public static final String COUNT_AMOUNT_OF_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?)";
     public static final String COUNT_AVERAGE_RATING_OF_USER = "SELECT AVG(user_score) FROM rating WHERE user_name_fk = (?)";

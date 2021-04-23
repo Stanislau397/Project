@@ -48,4 +48,11 @@ public class Genre extends Entity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(title);
+        return sb.toString();
+    }
 }

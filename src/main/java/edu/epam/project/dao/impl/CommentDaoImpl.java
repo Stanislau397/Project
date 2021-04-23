@@ -41,6 +41,62 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws DaoException {
+        Comment comment = new Comment();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_UP_VOTES_AND_DOWN_VOTES)) {
+            statement.setLong(1, commentId);
+            statement.setString(2, userName);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            int upVotes = resultSet.getInt(TableColumn.COMMENT_UP_VOTES);
+            int downVotes = resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES);
+            comment.setCommentUpVotes(upVotes);
+            comment.setCommentDownVotes(downVotes);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return comment;
+    }
+
+    @Override
+    public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws DaoException {
+        boolean isUpVoted;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UP_VOTE_COMMENT)) {
+            statement.setLong(1, commentId);
+            statement.setLong(2, movieId);
+            statement.setString(3, user_name);
+            statement.setInt(4, upVote);
+            int update = statement.executeUpdate();
+            isUpVoted = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpVoted;
+    }
+
+    @Override
+    public boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws DaoException {
+        boolean isDownVoted;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DOWN_VOTE_COMMENT)) {
+            statement.setLong(1, commentId);
+            statement.setLong(2, movieId);
+            statement.setString(3, user_name);
+            statement.setInt(4, downVote);
+            int update = statement.executeUpdate();
+            isDownVoted = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDownVoted;
+    }
+
+    @Override
     public List<Comment> findCommentsByMovieId(long movieId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -48,10 +104,19 @@ public class CommentDaoImpl implements CommentDao {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                Comment comment = new Comment();
                 String userName = resultSet.getString(TableColumn.USER_NAME_FK);
                 String text = resultSet.getString(TableColumn.COMMENT);
+                long commentId = resultSet.getLong(TableColumn.COMMENT_ID);
                 String postDate = resultSet.getString(TableColumn.COMMENT_POST_DATE);
-                Comment comment = new Comment(text, userName, postDate);
+                int upVotes = resultSet.getInt(TableColumn.COMMENT_UP_VOTES);
+                int downVotes = resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES);
+                comment.setCommentId(commentId);
+                comment.setUserName(userName);
+                comment.setPostDate(postDate);
+                comment.setText(text);
+                comment.setCommentUpVotes(upVotes);
+                comment.setCommentDownVotes(downVotes);
                 comments.add(comment);
             }
         } catch (SQLException e) {

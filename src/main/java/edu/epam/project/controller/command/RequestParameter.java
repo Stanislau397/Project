@@ -15,8 +15,9 @@ public class RequestParameter {
     public static final String NEW_USER_NAME = "new_user_name";
     public static final String MOVIE_ID = "movie_id";
     public static final String COMMENT = "comment";
+    public static final String COMMENT_ID = "comment_id";
     public static final String REFERER = "referer";
-    public static final String SCORE = "point";
+    public static final String SCORE = "star";
     public static final String KEY_WORD_PARAMETER = "key_word";
 
     public static final String TITLE = "title";
