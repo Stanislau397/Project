@@ -34,11 +34,14 @@ public class DownVoteCommentCommand implements Command {
         String userName = (String) session.getAttribute(USER_NAME);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
+        boolean userAlreadyDownVoted;
         try {
-            if (commentService.downVoteComment(commentId, userName, movieId, 1)) {
-                router.setRoute(RouteType.REDIRECT);
-                router.setPagePath(currentPage);
+            userAlreadyDownVoted = commentService.userAlreadyDownVoted(commentId, userName, 1);
+            if (!userAlreadyDownVoted) {
+                commentService.downVoteComment(commentId, userName, movieId, 1);
             }
+            router.setRoute(RouteType.REDIRECT);
+            router.setPagePath(currentPage);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

@@ -8,6 +8,7 @@ public class AttributeName {
 
     public static final String RATED_MOVIE = "rated_movie";
     public static final String USER_SCORE = "user_score";
+    public static final String USER_NAME = "user_name";
     public static final String LATEST_HIGH_SCORE = "high";
     public static final String LATEST_LOW_SCORE = "low";
     public static final String AVERAGE_MOVIE_RATING = "average";

@@ -16,7 +16,7 @@
 <div class="middle-box">
     <ul>
         <li class="name">
-            <c:out value="${sessionScope.user_name}"/>
+            <c:out value="${requestScope.user_name}"/>
         </li>
         <li class="settings">
             <a href="${pageContext.request.contextPath}/jsp/user/account_settings.jsp">Edit settings</a>

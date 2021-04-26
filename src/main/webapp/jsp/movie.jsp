@@ -62,12 +62,12 @@
                         <button type="submit">${movies.title}</button>
                     </form>
                     <c:if test="${movies.rating.score != 0}">
-                        <c:if test="${movies.rating.score < 70 && movies.rating.score > 40}">
+                        <c:if test="${movies.rating.score < 70 && movies.rating.score >= 40}">
                             <p class="score" style="background-color: #fc3">
                                 <c:out value="${movies.rating.score}"/>
                             </p>
                         </c:if>
-                        <c:if test="${movies.rating.score > 70}">
+                        <c:if test="${movies.rating.score >= 70}">
                             <p class="score" style="background-color: #6c3">
                                 <c:out value="${movies.rating.score}"/>
                             </p>
@@ -107,7 +107,21 @@
                     </form>
                     <c:if test="${moviesByKeyWord.rating.score != 0}">
                         <p class="score">
-                            <c:out value="${moviesByKeyWord.rating.score}"/>
+                        <c:if test="${moviesByKeyWord.rating.score < 70 && moviesByKeyWord.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${moviesByKeyWord.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByKeyWord.rating.score >= 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${moviesByKeyWord.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByKeyWord.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${moviesByKeyWord.rating.score}"/>
+                            </p>
+                        </c:if>
                         </p>
                     </c:if>
                     <c:if test="${moviesByKeyWord.rating.score == 0}">
@@ -138,9 +152,21 @@
                         <button type="submit">${moviesByGenre.title}</button>
                     </form>
                     <c:if test="${moviesByGenre.rating.score != 0}">
-                        <p class="score">
-                            <c:out value="${moviesByGenre.rating.score}"/>
-                        </p>
+                        <c:if test="${moviesByGenre.rating.score < 70 && moviesByGenre.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${moviesByGenre.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByGenre.rating.score >= 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${moviesByGenre.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByGenre.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${moviesByGenre.rating.score}"/>
+                            </p>
+                        </c:if>
                     </c:if>
                     <c:if test="${moviesByGenre.rating.score == 0}">
                         <p class="no-rating"><fmt:message key="label.rating"/></p>
@@ -203,7 +229,21 @@
                     </form>
                     <c:if test="${moviesByYear.rating.score != 0}">
                         <p class="score">
-                            <c:out value="${moviesByYear.rating.score}"/>
+                        <c:if test="${moviesByYear.rating.score < 70 && moviesByYear.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${moviesByYear.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByYear.rating.score >= 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${moviesByYear.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${moviesByYear.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${moviesByYear.rating.score}"/>
+                            </p>
+                        </c:if>
                         </p>
                     </c:if>
                     <c:if test="${moviesByYear.rating.score == 0}">
@@ -235,7 +275,21 @@
                     </form>
                     <c:if test="${newestMovies.rating.score != 0}">
                         <p class="score">
-                            <c:out value="${newestMovies.rating.score}"/>
+                        <c:if test="${newestMovies.rating.score < 70 && newestMovies.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${newestMovies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${newestMovies.rating.score >= 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${newestMovies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${newestMovies.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${newestMovies.rating.score}"/>
+                            </p>
+                        </c:if>
                         </p>
                     </c:if>
                     <c:if test="${newestMovies.rating.score == 0}">
@@ -267,7 +321,21 @@
                     </form>
                     <c:if test="${mostRatedMovies.rating.score != 0}">
                         <p class="score">
-                            <c:out value="${mostRatedMovies.rating.score}"/>
+                        <c:if test="${mostRatedMovies.rating.score < 70 && mostRatedMovies.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${mostRatedMovies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${mostRatedMovies.rating.score >= 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${mostRatedMovies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${mostRatedMovies.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${mostRatedMovies.rating.score}"/>
+                            </p>
+                        </c:if>
                         </p>
                     </c:if>
                     <c:if test="${mostRatedMovies.rating.score == 0}">

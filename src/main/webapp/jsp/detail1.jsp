@@ -98,7 +98,7 @@
                 <c:if test="${requestScope.movie_info.rating.score >= 70}">
                     <p class="score" style="background-color: #6c3">${movie_info.rating.score}</p>
                 </c:if>
-                <c:if test="${requestScope.movie_info.rating.score < 70 && requestScope.movie_info.rating.score > 40}">
+                <c:if test="${requestScope.movie_info.rating.score < 70 && requestScope.movie_info.rating.score >= 40}">
                     <p class="score" style="background-color: #fc3">${movie_info.rating.score}</p>
                 </c:if>
                 <c:if test="${requestScope.movie_info.rating.score < 40}">
@@ -112,7 +112,7 @@
         <c:if test="${sessionScope.user_name != null && requestScope.user_score != 0 || sessionScope.admin != null && requestScope.user_score != 0}">
             <div class="my-score">
                 <div class="my-score-text">
-                    <p>Моя оценка</p>
+                    <p><fmt:message key="label.my_score"/></p>
                 </div>
                 <div class="inner-score">
                     <form action="${pageContext.request.contextPath}/controller" method="post">
@@ -172,26 +172,40 @@
             <p><c:out value="${comments.text}"/></p>
         </div>
 
-        <div class="comment_votes">
-            <div class="up_vote">
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="up_vote_comment">
-                    <input type="hidden" name="comment_id" value="${comments.commentId}">
-                    <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                    <button type="submit"><i class="fa fa-thumbs-up"></i> <fmt:message key="label.useful"/> <c:out
+        <c:if test="${comments.userName != sessionScope.user_name && sessionScope.user_name != null}">
+            <div class="comment_votes">
+                <div class="up_vote">
+                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                        <input type="hidden" name="command" value="up_vote_comment">
+                        <input type="hidden" name="comment_id" value="${comments.commentId}">
+                        <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                        <button type="submit"><i class="fa fa-thumbs-up"></i> <fmt:message key="label.useful"/> <c:out
+                                value="${comments.commentUpVotes}"/></button>
+                    </form>
+                </div>
+                <div class="down_vote">
+                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                        <input type="hidden" name="command" value="down_vote_comment">
+                        <input type="hidden" name="comment_id" value="${comments.commentId}">
+                        <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                        <button type="submit"><i class="fa fa-thumbs-down"></i> <fmt:message key="label.no"/> <c:out
+                                value="${comments.commentDownVotes}"/></button>
+                    </form>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${sessionScope.user_name == comments.userName || sessionScope.user_name == null}">
+            <div class="comment_votes">
+                <div class="up_vote">
+                    <button><i class="fa fa-thumbs-up"></i> <fmt:message key="label.useful"/> <c:out
                             value="${comments.commentUpVotes}"/></button>
-                </form>
-            </div>
-            <div class="down_vote">
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="down_vote_comment">
-                    <input type="hidden" name="comment_id" value="${comments.commentId}">
-                    <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                    <button type="submit"><i class="fa fa-thumbs-down"></i> <fmt:message key="label.no"/> <c:out
+                </div>
+                <div class="down_vote">
+                    <button><i class="fa fa-thumbs-down"></i> <fmt:message key="label.no"/> <c:out
                             value="${comments.commentDownVotes}"/></button>
-                </form>
+                </div>
             </div>
-        </div>
+        </c:if>
     </div>
     </c:forEach>
     </c:if>
@@ -211,7 +225,7 @@
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="leave_comment">
                 <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                <textarea placeholder="<fmt:message key="label.text"/>" name="comment"></textarea>
+                <textarea placeholder="<fmt:message key="label.text"/>" name="comment" required></textarea>
                 <button class="btn-btn" type="submit"><fmt:message key="label.leave_comment"/></button>
             </form>
         </div>

@@ -2,6 +2,7 @@ package edu.epam.project.controller.command.impl.user;
 
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
+import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Movie;
@@ -49,9 +50,11 @@ public class ShowUserProfileCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        String userName = (String) session.getAttribute(USER_NAME);
+        String userName;
         if (request.getParameter(USER_NAME_PARAMETER) != null) {
             userName = request.getParameter(USER_NAME_PARAMETER);
+        } else {
+            userName = (String) session.getAttribute(USER_NAME);
         }
         try {
             int amountOfComments = commentService.countUserCommentsByUserName(userName);
@@ -63,6 +66,7 @@ public class ShowUserProfileCommand implements Command {
             if (amountOfComments >= 0 && amountOfReviews >= 0) {
                 router.setPagePath(PagePath.USER_PROFILE);
                 request.setAttribute(COMMENT, amountOfComments);
+                request.setAttribute(AttributeName.USER_NAME, userName);
                 request.setAttribute(AVERAGE_MOVIE_RATING, averageMovieRating);
                 request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
                 request.setAttribute(AMOUNT_OF_USER_REVIEWS, amountOfReviews);
