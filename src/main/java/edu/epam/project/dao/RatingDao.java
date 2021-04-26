@@ -20,5 +20,7 @@ public interface RatingDao {
 
     boolean isUserAlreadyVoted(String userName, long movieId) throws DaoException;
 
+    boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws DaoException;
+
     int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws DaoException;
 }

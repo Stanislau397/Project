@@ -69,6 +69,11 @@ public class SqlQuery {
             "LEFT JOIN comment_votes ON comment_id = (?) WHERE user_name = (?) ORDER BY comment_id_fk";
     public static final String UP_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_up_vote) VALUES(?,?,?,?)";
     public static final String DOWN_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_down_vote) VALUES(?,?,?,?)";
+    public static final String SELECT_COMMENT_UP_VOTE = "SELECT comment_id_fk, user_name_fk, comment_up_vote FROM comment_votes\n" +
+            "WHERE comment_id_fk = (?) AND user_name_fk = (?) AND comment_up_vote = (?)";
+    public static final String SELECT_COMMENT_DOWN_VOTE = "SELECT comment_id_fk, user_name_fk, comment_down_vote FROM comment_votes\n" +
+            "WHERE comment_id_fk = (?) AND user_name_fk = (?) AND comment_down_vote = (?)";
+    public static final String REMOVE_COMMENT_VOTE = "DELETE FROM comment_votes WHERE comment_id_fk = (?) AND user_name_fk = (?)";
 
     public static final String COUNT_AMOUNT_OF_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?)";
     public static final String COUNT_AVERAGE_RATING_OF_USER = "SELECT AVG(user_score) FROM rating WHERE user_name_fk = (?)";
@@ -77,6 +82,7 @@ public class SqlQuery {
     public static final String SELECT_LATEST_LOW_SCORE = "SELECT user_score, title, movie_id FROM rating JOIN movies ON movie_id = movie_id_fk WHERE user_name_fk = (?) AND user_score < 50" +
             " ORDER BY rating_id DESC LIMIT 1";
     public static final String RATE_MOVIE = "INSERT INTO rating(movie_id_fk, user_name_fk, user_score) VALUES (?,?,?)";
+    public static final String REMOVE_RATING = "DELETE FROM rating WHERE movie_id_fk = (?) AND user_name_fk = (?)";
     public static final String FIND_USER_IN_RATING = "SELECT user_name_fk FROM rating WHERE movie_id_fk = (?) AND user_name_fk = (?)";
     public static final String FIND_MOVIE_SCORE = "SELECT user_score FROM rating WHERE user_name_fk = (?) AND movie_id_fk = (?)";
 

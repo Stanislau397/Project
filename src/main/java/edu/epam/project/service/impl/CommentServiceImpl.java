@@ -39,6 +39,9 @@ public class CommentServiceImpl implements CommentService {
     public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException {
         boolean isUpVoted;
         try {
+            if (userAlreadyDownVoted(commentId, user_name, 1)) {
+                commentDao.removeUserVote(commentId, user_name);
+            }
             isUpVoted = commentDao.upVoteComment(commentId, user_name, movieId, upVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
@@ -51,12 +54,51 @@ public class CommentServiceImpl implements CommentService {
     public boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException {
         boolean isDownVoted;
         try {
+            if (userAlreadyUpVoted(commentId, user_name, 1)) {
+                commentDao.removeUserVote(commentId, user_name);
+            }
             isDownVoted = commentDao.downVoteComment(commentId, user_name, movieId, downVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return isDownVoted;
+    }
+
+    @Override
+    public boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws ServiceException {
+        boolean isUserVoted;
+        try {
+            isUserVoted = commentDao.userAlreadyUpVoted(commentId, userName, upVote);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUserVoted;
+    }
+
+    @Override
+    public boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws ServiceException {
+        boolean isUserDownVoted;
+        try {
+            isUserDownVoted = commentDao.userAlreadyDownVoted(commentId, userName, downVote);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUserDownVoted;
+    }
+
+    @Override
+    public boolean removeUserVote(long commentId, String userName) throws ServiceException {
+        boolean isVoteRemoved;
+        try {
+            isVoteRemoved = commentDao.removeUserVote(commentId, userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isVoteRemoved;
     }
 
     @Override

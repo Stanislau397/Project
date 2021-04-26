@@ -14,6 +14,12 @@ public interface CommentService {
 
     boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException;
 
+    boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws ServiceException;
+
+    boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws ServiceException;
+
+    boolean removeUserVote(long commentId, String userName) throws ServiceException;
+
     Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws ServiceException;
 
     List<Comment> findCommentsByMovieId(long movieId) throws ServiceException;

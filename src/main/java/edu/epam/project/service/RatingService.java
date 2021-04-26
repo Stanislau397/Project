@@ -19,5 +19,7 @@ public interface RatingService {
 
     boolean isUserAlreadyVoted(String userName, long movieId) throws ServiceException;
 
+    public boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws ServiceException;
+
     int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws ServiceException;
 }

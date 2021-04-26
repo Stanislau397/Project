@@ -129,6 +129,22 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
+    public boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws DaoException {
+        boolean isRatingRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_RATING)) {
+            statement.setLong(1, movieId);
+            statement.setString(2, userName);
+            int result = statement.executeUpdate();
+            isRatingRemoved = (result == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isRatingRemoved;
+    }
+
+    @Override
     public int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws DaoException {
         int score = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

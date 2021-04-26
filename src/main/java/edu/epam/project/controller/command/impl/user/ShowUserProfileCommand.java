@@ -26,6 +26,7 @@ import java.util.Optional;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 import static edu.epam.project.controller.command.RequestParameter.COMMENT;
+import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
 
 import static edu.epam.project.controller.command.AttributeName.LATEST_HIGH_SCORE;
 import static edu.epam.project.controller.command.AttributeName.LATEST_LOW_SCORE;
@@ -49,6 +50,9 @@ public class ShowUserProfileCommand implements Command {
         HttpSession session = request.getSession();
         Router router = new Router();
         String userName = (String) session.getAttribute(USER_NAME);
+        if (request.getParameter(USER_NAME_PARAMETER) != null) {
+            userName = request.getParameter(USER_NAME_PARAMETER);
+        }
         try {
             int amountOfComments = commentService.countUserCommentsByUserName(userName);
             int averageMovieRating = ratingService.countAverageMovieRatingOfUser(userName);

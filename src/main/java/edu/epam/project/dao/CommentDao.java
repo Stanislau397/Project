@@ -10,6 +10,12 @@ public interface CommentDao {
 
     boolean leaveCommentByUserId(long movieId, String userName, String comment, String postDate) throws DaoException;
 
+    boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws DaoException;
+
+    boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws DaoException;
+
+    boolean removeUserVote(long commentId, String userName) throws DaoException;
+
     Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws DaoException;
 
     boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws DaoException;

@@ -97,6 +97,60 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws DaoException {
+        boolean isUserUpVoted = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COMMENT_UP_VOTE)) {
+            statement.setLong(1, commentId);
+            statement.setString(2, userName);
+            statement.setInt(3, upVote);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isUserUpVoted = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUserUpVoted;
+    }
+
+    @Override
+    public boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws DaoException {
+        boolean isUserDownVoted = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COMMENT_DOWN_VOTE)) {
+            statement.setLong(1, commentId);
+            statement.setString(2, userName);
+            statement.setInt(3, downVote);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isUserDownVoted = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUserDownVoted;
+    }
+
+    @Override
+    public boolean removeUserVote(long commentId, String userName) throws DaoException {
+        boolean isVoteRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_COMMENT_VOTE)) {
+            statement.setLong(1, commentId);
+            statement.setString(2, userName);
+            int update = statement.executeUpdate();
+            isVoteRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isVoteRemoved;
+    }
+
+    @Override
     public List<Comment> findCommentsByMovieId(long movieId) throws DaoException {
         List<Comment> comments = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

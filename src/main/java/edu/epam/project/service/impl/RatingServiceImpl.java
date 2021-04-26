@@ -91,6 +91,18 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    public boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws ServiceException {
+        boolean isRatingRemoved;
+        try {
+            isRatingRemoved = ratingDao.removeRatingByUserNameAndMovieId(userName, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isRatingRemoved;
+    }
+
+    @Override
     public int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws ServiceException {
         int score;
         try {

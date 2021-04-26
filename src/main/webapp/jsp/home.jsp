@@ -28,7 +28,15 @@
                 <div class="picture-score">
                     <img src="${pageContext.request.contextPath}${newestMovies.picture}"/>
                     <c:if test="${newestMovies.rating.score != 0}">
-                        <div class="movie-rating">${newestMovies.rating.score}</div>
+                        <c:if test="${newestMovies.rating.score > 70}">
+                            <div class="movie-rating" style="background-color: #6c3">${newestMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${newestMovies.rating.score < 70 && newestMovies.rating.score > 40}">
+                            <div class="movie-rating" style="background-color: #fc3">${newestMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${newestMovies.rating.score < 40}">
+                            <div class="movie-rating" style="background-color: red">${newestMovies.rating.score}</div>
+                        </c:if>
                     </c:if>
                 </div>
                 <div class="title">
@@ -54,7 +62,15 @@
                 <div class="picture-score">
                     <img src="${pageContext.request.contextPath}${mostRatedMovies.picture}"/>
                     <c:if test="${mostRatedMovies.rating.score != 0}">
-                        <div class="movie-rating1">${mostRatedMovies.rating.score}</div>
+                        <c:if test="${mostRatedMovies.rating.score > 70}">
+                            <div class="movie-rating1" style="background-color: #6c3">${mostRatedMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${mostRatedMovies.rating.score < 70 && mostRatedMovies.rating.score > 40}">
+                            <div class="movie-rating1" style="background-color: #fc3">${mostRatedMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${mostRatedMovies.rating.score < 40}">
+                            <div class="movie-rating1" style="background-color: red">${mostRatedMovies.rating.score}</div>
+                        </c:if>
                     </c:if>
                 </div>
                 <div class="title">

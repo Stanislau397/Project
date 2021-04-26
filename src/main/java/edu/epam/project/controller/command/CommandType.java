@@ -14,6 +14,7 @@ public enum CommandType {
     FIND_ALL_USERS(new FindAllUsersCommand()),
     LEAVE_COMMENT(new LeaveCommentCommand()),
     RATE_MOVIE(new RateMovieCommand()),
+    REMOVE_RATING(new RemoveRatingCommand()),
     REMOVE_COMMENT(new RemoveCommentCommand()),
 
     BLOCK_USER(new BlockUserCommand()),

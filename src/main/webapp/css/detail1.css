@@ -82,11 +82,14 @@ img {
 }
 
 .right-side {
+    width: 200px;
     float: left;
 }
 
 .right-side .rating {
-    margin-left: 50px;
+    float: left;
+    width: 55px;
+    margin-left: 30px;
     margin-top: 45px;
 }
 
@@ -96,26 +99,26 @@ img {
 }
 
 .right-side .rating .score {
-    width: 70px;
-    height: 65px;
+    width: 50px;
+    height: 50px;
     background-color: green;
     color: white;
     border-radius: 5px;
     font-family: sans-serif;
-    padding: 5px 10px;
-    font-size: 50px;
+    padding: 10px 10px;
+    font-size: 30px;
 }
 
 .right-side .actors h3 {
     font-family: sans-serif;
-    margin-top: 20px;
-    margin-left: 50px;
+    margin-top: 110px;
+    margin-left: 30px;
 }
 
 .right-side .actors p {
     font-family: sans-serif;
     margin-top: 5px;
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 .rate-movie button {
@@ -200,7 +203,38 @@ img {
     background-color: #F0F0F0;
     margin-left: 100px;
     min-height: 300px;
-    border: 1px solid black;
+    border-top: 1px solid grey;
+}
+
+.comment-section .scroll-down {
+    border: 0.5px solid silver;
+    margin-top: 10px;
+    margin-left: 50px;
+    width: 200px;
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.comment-section .scroll-down p {
+    float: left;
+    margin-left: 10px;
+}
+
+.comment-section .scroll-down i {
+    color: grey;
+    margin-left: 5px;
+    margin-top: 2px;
+    float: left;
+}
+
+.comment-section .scroll-down:hover {
+    background-color: #e6e6e6;
+    outline: none;
+    border: 0.5px solid silver;
 }
 
 .comment-section h3 {
@@ -216,20 +250,22 @@ img {
     width: 550px;
     min-height: 200px;
     height: auto;
-    border: 1px solid black;
     border-radius: 5px;
+    background-color: #e6e6e6;
+    border: 1px solid silver;
 }
 
-.user-comment .user-info {
+.user-comment .user-info, .leave-comment .user-info {
     float: top;
-    border-bottom: 0.5px solid silver;
+    border-bottom: 1px solid grey;
     min-width: 550px;
     width: 550px;
     min-height: 70px;
     height: auto;
+    background-color: #e6e6e6;
 }
 
-.user-info .user-picture {
+.user-info .user-picture, .leave-comment .user-info .user-picture {
     min-width: 65px;
     width: 50px;
     min-height: 70px;
@@ -237,7 +273,7 @@ img {
     float: left;
 }
 
-.user-info .user-picture img {
+.user-info .user-picture img, .leave-comment .user-picture img {
     border: 0.5px solid black;
     border-radius: 50px;
     margin-top: 8px;
@@ -249,17 +285,50 @@ img {
 }
 
 .user-info .user-name {
+    padding: 5px 5px;
     float: left;
-    min-width: 330px;
+    min-width: 320px;
     min-height: 70px;
     height: 70px;
-    width: 330px;
+    width: 320px;
+    font-weight: bold;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid grey;
+}
+
+.user-info .user-name button {
+    font-family: sans-serif;
+    font-size: 18px;
+    border: none;
+    background-color: #e6e6e6;
+    color: #060077;
+    cursor: pointer;
+    outline: none;
 }
 
 .user-info .upload-date {
     float: left;
     min-height: 70px;
     height: 70px;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid grey;
+}
+
+.user-info .remove-comment {
+    margin-left: 2px;
+    float: left;
+}
+
+.user-info .remove-comment button {
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+}
+
+.user-info .remove-comment button:hover {
+    background-color: #e6e6e6;
 }
 
 .comment-section p {
@@ -268,25 +337,43 @@ img {
 }
 
 .user-comment .text {
+    padding: 8px 8px;
     float: top;
     min-height: 100px;
     height: auto;
     min-width: 550px;
     width: 550px;
+    background-color: #e6e6e6;
 }
 
 .user-comment .comment_votes {
     float: top;
-    border: 1px solid black;
     min-height: 50px;
     min-width: 50px;
+    background-color: #e6e6e6;
 }
 
 .user-comment .comment_votes .up_vote {
     margin-top: 1px;
     min-width: 90px;
-    margin-left: 355px;
+    margin-left: 340px;
     float: left;
+}
+
+.user-comment .comment_votes .up_vote button {
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.user-comment .comment_votes .down_vote button {
+    height: 30px;
+    width: 70px;
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .user-comment .comment_votes .down_vote {
@@ -296,7 +383,161 @@ img {
     float: left;
 }
 
+.user-comment .down_vote i {
+    color: red;
+}
+
+.user-comment .up_vote i {
+    color: green;
+}
+
 .user-comment .comment_votes button:hover {
     cursor: pointer;
-    background-color: grey;
+    background-color: #e6e6e6;
+}
+
+.my-score {
+    float: left;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin-left: 2px;
+    margin-top: 60px;
+}
+
+.my-score .my-score-text {
+    width: 70px;
+    margin-top: 22px;
+    float: left;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+.my-score .inner-score {
+    margin-top: -25px;
+    margin-left: 70px;
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+
+.my-score .inner-score button {
+    font-family: sans-serif;
+    font-size: 15px;
+    float: left;
+    width: 30px;
+    height: 25px;
+}
+
+.my-score .inner-score button p {
+    margin-top: -17px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.inner-score button:hover {
+    cursor: pointer;
+}
+
+.my-score .inner-score button i {
+    margin-top: 4px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.my-score .inner-score button:hover p {
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.my-score .inner-score button:hover i {
+    visibility: visible;
+    opacity: 1;
+}
+
+.leave-comment {
+    margin-left: 50px;
+    margin-top: 10px;
+    min-width: 550px;
+    width: 550px;
+    min-height: 200px;
+    height: auto;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid silver;
+}
+
+.leave-comment .user-info .user-name {
+    padding: 5px 5px;
+    float: left;
+    min-height: 70px;
+    height: 70px;
+    width: 483px;
+    font-weight: bold;
+    background-color: white;
+    border-bottom: 1px solid grey;
+}
+
+.leave-comment .user-info .user-name button {
+    border: none;
+    background-color: white;
+    color: #060077;
+    cursor: pointer;
+    outline: none;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.leave-comment .user-info .user-picture {
+    border-bottom: 1px solid grey;
+    background-color: white;
+    min-width: 65px;
+    width: 50px;
+    min-height: 70px;
+    height: 70px;
+    float: left;
+}
+
+.leave-comment .user-picture img {
+    border: 0.5px solid black;
+    border-radius: 50px;
+    margin-top: 8px;
+    margin-left: 5px;
+    min-width: 50px;
+    width: 50px;
+    min-height: 50px;
+    height: 50px;
+}
+
+textarea {
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 0.5px solid silver;
+    background-color: #f2f2f2;
+    min-width: 550px;
+    width: 550px;
+    min-height: 200px;
+    height: auto;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+textarea:focus {
+    background-color: #e6e6e6;
+    outline: none;
+}
+
+.btn-btn {
+    border: 0.5px solid silver;
+    border-radius: 5px;
+    margin-top: 10px;
+    min-width: 550px;
+    width: 550px;
+    height: 35px;
+    background-color: #f60;
+    font-size: 20px;
+    color: white;
+    font-family: sans-serif;
+    cursor: pointer;
 }

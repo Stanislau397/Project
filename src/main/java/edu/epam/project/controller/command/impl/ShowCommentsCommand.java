@@ -7,6 +7,9 @@ import edu.epam.project.entity.Comment;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
 import edu.epam.project.service.impl.CommentServiceImpl;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +21,7 @@ import static edu.epam.project.controller.command.AttributeName.COMMENTS_LIST;
 
 public class ShowCommentsCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(ShowCommentsCommand.class);
     private CommentService commentService = new CommentServiceImpl();
 
     @Override
@@ -31,7 +35,7 @@ public class ShowCommentsCommand implements Command {
                 router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.log(Level.ERROR, e);
         }
         return router;
     }

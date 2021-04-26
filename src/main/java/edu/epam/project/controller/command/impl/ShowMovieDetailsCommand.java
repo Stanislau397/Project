@@ -61,6 +61,7 @@ public class ShowMovieDetailsCommand implements Command {
             request.setAttribute(ACTORS_LIST, actors);
             request.setAttribute(DIRECTORS_LIST, directors);
             request.setAttribute(COMMENTS_LIST, comments);
+            request.setAttribute("user_score", userScore);
             router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

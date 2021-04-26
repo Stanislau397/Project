@@ -56,15 +56,27 @@
                     <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
                 </div>
                 <div class="middle">
-                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <form action="${pageContext.request.contextPath}/controller" id="form1" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${movies.movieId}">
                         <button type="submit">${movies.title}</button>
                     </form>
                     <c:if test="${movies.rating.score != 0}">
-                        <p class="score">
-                            <c:out value="${movies.rating.score}"/>
-                        </p>
+                        <c:if test="${movies.rating.score < 70 && movies.rating.score > 40}">
+                            <p class="score" style="background-color: #fc3">
+                                <c:out value="${movies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${movies.rating.score > 70}">
+                            <p class="score" style="background-color: #6c3">
+                                <c:out value="${movies.rating.score}"/>
+                            </p>
+                        </c:if>
+                        <c:if test="${movies.rating.score < 40}">
+                            <p class="score" style="background-color: #f00">
+                                <c:out value="${movies.rating.score}"/>
+                            </p>
+                        </c:if>
                     </c:if>
                     <c:if test="${movies.rating.score == 0}">
                         <p class="no-rating"><fmt:message key="label.rating"/></p>
@@ -219,7 +231,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${newestMovies.movieId}">
-                        <button type="submit">${newestMovies.title}</button>
+                        <button type="submit" onclick="submitForms()">${newestMovies.title}</button>
                     </form>
                     <c:if test="${newestMovies.rating.score != 0}">
                         <p class="score">
