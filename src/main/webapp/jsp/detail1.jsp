@@ -155,19 +155,18 @@
             <div class="upload-date">
                 <p><c:out value="${comments.postDate}"/></p>
             </div>
-            <c:if test="${sessionScope.user_name == comments.userName}">
-                <div class="remove-comment">
-                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                        <input type="hidden" name="command" value="remove_comment">
-                        <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                        <input type="hidden" name="comment" value="${comments.text}">
-                        <input type="hidden" name="user_name" value="${comments.userName}">
-                        <button type="submit"><i class="fa fa-remove"></i></button>
-                    </form>
-                </div>
+            <c:if test="${sessionScope.user_name == comments.userName || sessionScope.admin != null}">
+                    <div class="remove-comment">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="remove_comment">
+                            <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                            <input type="hidden" name="comment" value="${comments.text}">
+                            <input type="hidden" name="user_name" value="${comments.userName}">
+                            <button type="submit"><i class="fa fa-remove"></i></button>
+                        </form>
+                    </div>
             </c:if>
         </div>
-
         <div class="text">
             <p><c:out value="${comments.text}"/></p>
         </div>
