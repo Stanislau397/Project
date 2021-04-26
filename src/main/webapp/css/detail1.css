@@ -6,7 +6,7 @@ body {
 .main {
     background-color: #F0F0F0;
     width: 1330px;
-    min-height: 530px;
+    min-height: 600px;
     height: auto;
     margin-left: 100px;
     border-bottom: 0.5px solid silver;
@@ -14,7 +14,7 @@ body {
 
 .left-side {
     width: 400px;
-    min-height: 530px;
+    min-height: 600px;
     height: auto;
     border-right: 0.5px solid silver;
     float: left;

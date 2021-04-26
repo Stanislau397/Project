@@ -40,6 +40,10 @@
                 </ul>
             </div>
 
+            <button>
+                <a href="${pageContext.request.contextPath}/jsp/admin/admin_cabinet.jsp">
+                    <fmt:message key="label.cabinet"/></a></button>
+
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>

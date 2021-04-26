@@ -11,7 +11,8 @@ public enum CommandType {
     SIGN_IN(new SignInCommand()),
     REGISTER(new RegisterCommand()),
     SIGN_OUT(new SignOutCommand()),
-    FIND_ALL_USERS(new FindAllUsersCommand()),
+    ALL_USERS(new FindAllUsersCommand()),
+    ALL_MOVIES(new FindAllMoviesCommand()),
     LEAVE_COMMENT(new LeaveCommentCommand()),
     RATE_MOVIE(new RateMovieCommand()),
     REMOVE_RATING(new RemoveRatingCommand()),
@@ -27,6 +28,7 @@ public enum CommandType {
     OPEN_LOGIN_PAGE(new OpenLogInPageCommand()),
     TO_UPLOAD_MOVIE(new ToUploadMovieCommand()),
     TO_GENRES(new ToGenresCommand()),
+    TO_EDIT_MOVIE(new ToEditMovieCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE(new AddGenreCommand()),

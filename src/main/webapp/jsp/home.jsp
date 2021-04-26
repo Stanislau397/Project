@@ -28,7 +28,7 @@
                 <div class="picture-score">
                     <img src="${pageContext.request.contextPath}${newestMovies.picture}"/>
                     <c:if test="${newestMovies.rating.score != 0}">
-                        <c:if test="${newestMovies.rating.score > 70}">
+                        <c:if test="${newestMovies.rating.score >= 70}">
                             <div class="movie-rating" style="background-color: #6c3">${newestMovies.rating.score}</div>
                         </c:if>
                         <c:if test="${newestMovies.rating.score < 70 && newestMovies.rating.score > 40}">

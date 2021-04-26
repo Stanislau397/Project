@@ -15,9 +15,10 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
+import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
 import static edu.epam.project.controller.command.RequestParameter.GENRE_TITLE_PARAMETER;
-import static edu.epam.project.controller.command.AttributeName.GENRE_ATTRIBUTE;
 
 public class AddGenreCommand implements Command {
 
@@ -31,8 +32,9 @@ public class AddGenreCommand implements Command {
         Genre genre = new Genre();
         genre.setTitle(genreTitle);
         try {
+            List<Genre> genres = movieService.findAllGenres();
             if (movieService.addGenre(genre)) {
-                request.setAttribute(GENRE_ATTRIBUTE, genre);
+                request.setAttribute(GENRES_LIST, genres);
                 router.setPagePath(PagePath.ADD_GENRE_PAGE);
             }
         } catch (ServiceException e) {

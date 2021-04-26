@@ -13,18 +13,6 @@
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </header>
 <body>
-<div class="main-container">
-    <h2>Upload Movie</h2>
-    <hr>
-    <div class="content">
-        <form>
-            <input type="hidden" name="command" value="upload_movie">
-            <label for="title">Title</label>
-            <input type="text" id="title">
-            <label for="country">Country</label>
-            <input title="text" id="country">
-        </form>
-    </div>
-</div>
+
 </body>
 </html>
