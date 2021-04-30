@@ -3,7 +3,6 @@ package edu.epam.project.controller.command.impl.user;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
@@ -16,9 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.NEW_PASSWORD;
-import static edu.epam.project.controller.command.AttributeName.CHANGE_PASSWORD;
 
+import static edu.epam.project.controller.command.SessionAttribute.CHANGE_PASSWORD;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class ChangePasswordCommand implements Command {
@@ -32,21 +32,26 @@ public class ChangePasswordCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
+        String currentPage = request.getHeader(REFERER);
         String userName = (String) session.getAttribute(USER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER);
         String newPassword = request.getParameter(NEW_PASSWORD);
-        logger.log(Level.INFO, userName);
         User user = new User();
         user.setUserName(userName);
         try {
             if (userService.changePassword(user, password, newPassword)) {
-                router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
-                request.setAttribute(CHANGE_PASSWORD, PASSWORD_HAS_BEEN_UPDATED);
+                router.setRoute(RouteType.REDIRECT);
+                router.setPagePath(currentPage);
+                session.setAttribute(CHANGE_PASSWORD, PASSWORD_HAS_BEEN_UPDATED);
+            } else {
+                session.setAttribute(CHANGE_PASSWORD, INCORRECT_PASSWORD);
+                router.setPagePath(currentPage);
+                router.setRoute(RouteType.REDIRECT);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            request.setAttribute(CHANGE_PASSWORD, INCORRECT_PASSWORD);
-            router.setPagePath(PagePath.CHANGE_PASSWORD);
+            session.setAttribute(CHANGE_PASSWORD, INCORRECT_PASSWORD);
+            router.setPagePath(currentPage);
             router.setRoute(RouteType.REDIRECT);
         }
         return router;

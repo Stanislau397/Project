@@ -32,17 +32,13 @@
                 <button><fmt:message key="label.movies"/></button>
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=show_all_movies">All movies</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=show_all_movies"><fmt:message key="label.all_movies"/></a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=current_year_movies">Movies This Year</a>
+                        <a href="${pageContext.request.contextPath}/controller?command=current_year_movies"><fmt:message key="label.this_year_movies"/></a>
                     </li>
                 </ul>
             </div>
-
-            <button>
-                <a href="${pageContext.request.contextPath}/jsp/admin/admin_cabinet.jsp">
-                    <fmt:message key="label.cabinet"/></a></button>
 
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">

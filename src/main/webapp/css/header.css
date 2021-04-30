@@ -55,8 +55,8 @@ button {
     display: flex;
 }
 
-.movies li:hover {
-    border: 1px solid white;
+.movies li a:hover {
+    color: #066ee7;
 }
 
 .language li {
@@ -72,7 +72,7 @@ button {
 .movies ul {
     position: absolute;
     background: black;
-    width: 200px;
+    width: 250px;
     height: 200px;
     flex-direction: column;
     list-style: none;
@@ -85,10 +85,9 @@ button {
 .language ul {
     background-color: black;
     position: absolute;
-    width: 180px;
-    height: 100px;
+    width: 140px;
+    height: 60px;
     display: flex;
-    align-items: center;
     flex-direction: column;
     list-style: none;
     visibility: hidden;
@@ -149,5 +148,26 @@ ul:hover {
     width: 25px;
     margin-left: 355px;
     margin-top: -55px;
+}
+
+.language .btn {
+    margin-top: 3px;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: white;
+    border: 0;
+}
+
+.language .btn:focus {
+    border: 0;
+    outline: none;
+    border-bottom-color: black;
+}
+
+.language .btn:hover {
+    color: #066ee7;
+    cursor: pointer;
+    outline: none;
+    border: 0;
 }
 

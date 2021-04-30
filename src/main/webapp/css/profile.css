@@ -3,264 +3,197 @@ body {
     background-size: cover;
 }
 
-.side-box {
-    margin-top: 90px;
-    margin-left: 250px;
-    width: 90px;
-    height: 90px;
-    float: left;
+.middle-content {
+    background-color: #F0F0F0;
+    width: 1330px;
+    min-height: 600px;
+    height: auto;
+    margin-left: 100px;
+    border-bottom: 0.5px solid silver;
 }
 
-.side-box img {
-    width: 90px;
-    height: 90px;
+.middle-content .user {
+    height: 200px;
+    width: 800px;
+    float: top;
+}
+
+.middle-content .profile-picture {
+    margin-top: 70px;
+    margin-left: 70px;
+    width: 100px;
+    height: 110px;
+    float: left;
+    border-bottom: 1px solid silver;
+}
+
+.middle-content .profile-picture img {
+    height: 100px;
+    width: 100px;
+    border: 1px solid silver;
     border-radius: 5px;
 }
 
-.middle-box {
-    margin-top: 90px;
-    margin-left: 340px;
+.middle-content .user-info {
+    margin-top: 70px;
+    float: left;
+    width: 400px;
+    height: 110px;
+    border-bottom: 1px solid silver;
+}
+
+.middle-content .user-info h2 {
+    margin-left: 10px;
+    margin-top: 5px;
+    font-family: 'Oswald',"HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",
+    Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.middle-content .edit-settings {
+    margin-top: 70px;
+    float: left;
+    width: 150px;
+    height: 110px;
+    border-bottom: 1px solid silver;
+}
+
+.middle-content .edit-settings button {
+    width: 140px;
+    align-items: flex-start;
+    height: 30px;
+    border: 1px solid silver;
+    margin-top: 5px;
+
+}
+
+.middle-content .edit-settings a {
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+}
+
+.middle-content .edit-settings a:hover {
+    color: #066ee7;
+}
+
+h2 {
+    margin-left: 70px;
+    float: top;
+    font-family: 'Oswald',"HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",
+    Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.middle-content .history {
+    margin-top: 10px;
+    float: top;
+    margin-left: 70px;
+    width: 550px;
+    height: 100px;
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+}
+
+.middle-content .history .counter {
+    float: left;
+    height: 100px;
+}
+
+.middle-content .history .counter p {
+    margin-top: 5px;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.middle-content .history .movie-poster {
+    float: left;
+    margin-left: 7px;
+    width: 75px;
+    height: 100px;
+}
+
+.middle-content .history .movie-poster img {
+    margin-top: 5px;
+    width: 70px;
+    height: 80px;
+    border: 0.5px solid silver;
+    border-radius: 5px;
+}
+
+.middle-content .history .movie-title {
+    float: left;
+    width: 350px;
     min-height: 100px;
     height: auto;
-    width: 700px;
 }
 
-.middle-box .name {
-    margin-left: 5px;
-    font-family: sans-serif;
-    font-size: 25px;
-    color: black;
-}
-
-
-.middle-box .settings a{
-    margin-left: 180px;
-    font-family: sans-serif;
-    font-size: 17px;
-    border: 1px solid black;
-}
-
-ul li{
-    display: inline-block;
-}
-
-.review {
-    margin-left: 30px;
-    margin-top: 10px;
-    font-family: sans-serif;
-    font-size: 15px;
-}
-
-.ratings {
-    margin-left: 5px;
-    margin-top: 10px;
-    font-family: sans-serif;
-    font-size: 15px;
-}
-
-hr {
-    margin-left: 350px;
-    width: 700px;
-}
-
-p {
-    margin-left: 250px;
-    font-family: sans-serif;
-    font-size: 30px;
-}
-
-.name1 {
-    font-size: 15px;
-    color: grey;
-}
-
-.score {
-    font-size: 20px;
-    color: black;
-}
-
-.average {
-    margin-top: 10px;
-    margin-left: 250px;
-    width: 250px;
-    height: 150px;
-}
-
-.name2 {
-    font-size: 20px;
-    color: black;
+.middle-content .history .movie-title button {
+    border: 0;
     font-family: sans-serif;
     font-weight: bold;
-}
-
-.score2 {
-    margin-left: 5px;
-    color: green;
-    font-size: 25px;
-    position: center;
-    font-weight: bold;
-}
-
-.latest-high-score {
-    margin-top: 10px;
     margin-left: 10px;
-    border-radius: 20px;
-    background-color: green;
-    text-align: center;
-    color: white;
-    font-size: 30px;
-    width: 38px;
-    height: 35px;
-    float: left;
-}
-
-.latest_movie {
+    font-size: 15px;
     margin-top: 5px;
-    margin-left: 65px;
-    width: 300px;
-    height: auto;
-}
-
-.latest_movie .latest {
-    font-size: 18px;
-    font-family: sans-serif;
-    margin-left: 1px;
-    font-weight: bold;
-}
-
-.latest_movie .latest-movie {
-    margin-left: 1px;
-    font-family: sans-serif;
-    font-size: 16px;
-}
-
-.latest-low-score {
-    margin-top: 15px;
-    text-align: center;
-    width: 38px;
-    height: 35px;
-    color: white;
-    background-color: red;
-    font-size: 30px;
-    margin-left: 10px;
-    border-radius: 20px;
-}
-
-.latest-low-movie {
-    width: 300px;
-    height: auto;
-    margin-top: -40px;
-    margin-left: 50px;
-}
-
-.latest-low-movie .latest-low-movie-name {
-    margin-left: 15px;
-    font-family: sans-serif;
-    font-size: 18px;
-}
-
-.latest-low-name {
-    margin-left: 15px;
-    font-family: sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.latest-low-movie button{
-    border: 0;
-    background-color: #e6e6e6;
-    font-family: sans-serif;
-    font-size: 16px;
-    cursor: pointer;
-}
-.latest_movie button{
-    border: 0;
-    background-color: #e6e6e6;
-    font-family: sans-serif;
-    font-size: 16px;
     cursor: pointer;
 }
 
-button:hover {
-    color: yellow;
+.middle-content .history .movie-title button:hover {
+    color: #f9c22a;
 }
 
-button:active {
-    background-color: #e6e6e6;
+.middle-content .history .movie-title button:focus {
+    outline: none;
+    border: 0;
 }
 
-.sort {
-    margin-top: 10px;
-    margin-left: 250px;
-    font-family: sans-serif;
-    font-size: 20px;
-}
-
-.movie_review {
-    width: 80px;
-    height: 90px;
-    margin-top: 13px;
-    margin-left: 230px;
+.middle-content .history .user-score {
+    width: 40px;
+    height: 100px;
     float: left;
 }
 
-.movie_review .image {
-    width: 80px;
-    height: 90px;
-    border-radius: 2px;
-}
-
-.movie-score {
-    width: 40px;
-    height: 37px;
-    background-color: green;
-    margin-left: 320px;
-    border-radius: 20px;
-    font-size: 30px;
-    color: white;
-    margin-top: 23px;
-    text-align: center;
-}
-
-.movie-info {
-    margin-top: -58px;
-    margin-left: 370px;
-    width: 450px;
-    height: auto;
-}
-
-.movie-info button{
-    margin-left: 1px;
-    font-family: sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    border: 0;
-    background-color: #e6e6e6;
-    cursor: pointer;
-}
-
-.release-date {
-    margin-left: 1px;
+.middle-content .history .movie-title .text {
+    float: top;
+    margin-top: 5px;
+    margin-left: 10px;
     font-family: sans-serif;
     font-size: 13px;
-}
-
-.my-review {
-    margin-top: 5px;
-    font-family: sans-serif;
-    font-size: 15px;
-    min-height: 70px;
+    display: -webkit-box;
     height: auto;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.movie-info hr{
-    margin-top: 10px;
-    margin-left: -140px;
-    size: 200px;
-}
-
-.helpful-score {
-    height: 10px;
+.middle-content .history .movie-title .date {
+    font-family: sans-serif;
     color: grey;
-    font-size: 14px;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-top: 3px;
 }
+
+
+.middle-content .history .user-score p {
+    margin-top: 5px;
+    float: left;
+    border-radius: 50%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    padding: 8px 7px;
+    font-family: sans-serif;
+    font-size: 22px;
+}
+
+
+

@@ -57,36 +57,10 @@ public class ShowUserProfileCommand implements Command {
             userName = (String) session.getAttribute(USER_NAME);
         }
         try {
-            int amountOfComments = commentService.countUserCommentsByUserName(userName);
-            int averageMovieRating = ratingService.countAverageMovieRatingOfUser(userName);
-            int amountOfReviews = ratingService.countAmountOfUserScoresByUserName(userName);
-            Optional<Rating> latestHighScore = ratingService.findLatestHighScoreByUserName(userName);
-            Optional<Rating> latestLowScore = ratingService.findLatestLowScoreByUserName(userName);
             List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName);
-            if (amountOfComments >= 0 && amountOfReviews >= 0) {
-                router.setPagePath(PagePath.USER_PROFILE);
-                request.setAttribute(COMMENT, amountOfComments);
-                request.setAttribute(AttributeName.USER_NAME, userName);
-                request.setAttribute(AVERAGE_MOVIE_RATING, averageMovieRating);
-                request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
-                request.setAttribute(AMOUNT_OF_USER_REVIEWS, amountOfReviews);
-            }
-            if (latestHighScore.isPresent() && latestLowScore.isPresent()) {
-                Rating highRating = latestHighScore.get();
-                Rating lowRating = latestLowScore.get();
-                int highScore = highRating.getScore();
-                int lowScore = lowRating.getScore();
-                long lowMovieId = lowRating.getMovieId();
-                long highMovieId = highRating.getMovieId();
-                String lowScoreTitle = lowRating.getMovieTitle();
-                String highScoreTitle = highRating.getMovieTitle();
-                request.setAttribute(LATEST_HIGH_SCORE, highScore);
-                request.setAttribute(LATEST_LOW_SCORE, lowScore);
-                request.setAttribute(LOW_SCORE_MOVIE_TITLE, lowScoreTitle);
-                request.setAttribute(HIGH_SCORE_MOVIE_TITLE, highScoreTitle);
-                request.setAttribute(LOW_MOVIE_ID, lowMovieId);
-                request.setAttribute(HIGH_MOVIE_ID, highMovieId);
-            }
+            router.setPagePath(PagePath.USER_PROFILE);
+            request.setAttribute(AttributeName.USER_NAME, userName);
+            request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);

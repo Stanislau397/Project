@@ -14,9 +14,9 @@
 </header>
 <body>
 <div class="filter">
-    <h4>Filter:</h4>
+    <h4><fmt:message key="label.filter"/></h4>
     <select id="selector" class="selector">
-        <option selected>Choose:</option>
+        <option selected><fmt:message key="label.choose"/></option>
         <option><fmt:message key="label.by_year"/></option>
         <option><fmt:message key="label.by_genre"/></option>
     </select>
@@ -59,7 +59,7 @@
                     <form action="${pageContext.request.contextPath}/controller" id="form1" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${movies.movieId}">
-                        <button type="submit">${movies.title}</button>
+                        <p><button type="submit">${movies.title}</button></p>
                     </form>
                     <c:if test="${movies.rating.score != 0}">
                         <c:if test="${movies.rating.score < 70 && movies.rating.score >= 40}">

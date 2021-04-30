@@ -26,6 +26,8 @@ import static edu.epam.project.controller.command.SessionAttribute.USER_EMAIL;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 import static edu.epam.project.controller.command.SessionAttribute.ADMIN;
 import static edu.epam.project.controller.command.SessionAttribute.USER;
+import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR;
+import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR_MESSAGE;
 import static edu.epam.project.controller.command.SessionAttribute.GUEST;
 
 public class SignInCommand implements Command {
@@ -71,7 +73,7 @@ public class SignInCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            session.setAttribute(RequestParameter.SIGN_IN_ERROR, RequestParameter.SIGN_IN_ERROR_MESSAGE);
+            session.setAttribute(SIGN_IN_ERROR, SIGN_IN_ERROR_MESSAGE);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(PagePath.LOGIN_PAGE);
         }

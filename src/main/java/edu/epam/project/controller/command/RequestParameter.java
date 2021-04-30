@@ -34,11 +34,9 @@ public class RequestParameter {
 
     public static final String BLOCK = "block";
     public static final String UNBLOCK = "unblock";
-    public static final String SIGN_IN_ERROR = "sign_in_error";
 
     public static final String BLOCK_MESSAGE = " was successfully blocked";
     public static final String UNBLOCK_MESSAGE = " was successfully unblocked";
     public static final String ERROR_MESSAGE = "An error occurred!";
-    public static final String SIGN_IN_ERROR_MESSAGE = "Your email or password is incorrect!";
 }
 
