@@ -116,6 +116,10 @@ button {
     transform: translateY(0px);
 }
 
+.dropdown .icon:hover {
+    border: 0;
+}
+
 .dropdown button:hover {
     text-decoration: none;
     border-bottom-width: 3px;

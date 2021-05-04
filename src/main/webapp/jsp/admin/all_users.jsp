@@ -6,31 +6,24 @@
 <html>
 <head>
     <title>all_users</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/all_users.css">
 </head>
 <header>
     <jsp:include page="admin_cabinet.jsp"/>
 </header>
 <body>
-<table class="content-table">
-    <thead>
-    <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Role</th>
-    </tr>
-    </thead>
-    <tbody>
-<c:forEach items="${user_list}" var="users">
-    <tr>
-        <td>${users.userId}</td>
-        <td>${users.userName}</td>
-        <td>${users.email}</td>
-        <td>${users.role}</td>
-    </tr>
-</c:forEach>
-    </tbody>
-</table>
+<div class="main-content">
+    <div class="users">
+        <c:forEach items="${requestScope.user_list}" var="users" varStatus="counter">
+            <div class="picture">
+                <img src="${pageContext.request.contextPath}/css/image/default_avatar.png">
+            </div>
+            <div class="user-name">
+                <p>${counter.count}. <c:out value="${users.userName}"/></p>
+                <p class="role"><c:out value="${users.role}"/></p>
+            </div>
+        </c:forEach>
+    </div>
+</div>
 </body>
 </html>

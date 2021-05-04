@@ -18,8 +18,10 @@ public class AttributeName {
     public static final String HIGH_MOVIE_ID = "high_movie_id";
     public static final String RATED_MOVIES_LIST = "rated_movies_list";
     public static final String AMOUNT_OF_USER_REVIEWS = "amount_of_reviews";
-    public static final String CHANGE_PASSWORD = "change_password";
     public static final String LANGUAGE = "language";
+    public static final String MOVIE_TITLE = "movie_title";
+    public static final String MOVIE_ID = "movie_id";
+    public static final String ACTOR = "actor";
 
     public static final String ERROR = "error";
 
@@ -37,6 +39,7 @@ public class AttributeName {
     public static final String MOVIES_BY_GENRE_LIST = "movies_by_genre_list";
     public static final String NEWEST_MOVIES_LIST = "newest_movies_list";
     public static final String MOST_RATED_MOVIES_LIST = "most_rated_movies_list";
+    public static final String MOVIES_BY_GENRE_AND_YEAR_LIST = "movies_by_genre_and_year_list";
 
     public static final String MOVIE_INFO = "movie_info";
 }

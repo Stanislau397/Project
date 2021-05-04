@@ -142,6 +142,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws ServiceException {
+        List<Movie> moviesByGenreAndYear;
+        try {
+            moviesByGenreAndYear = movieDao.findMoviesByGenre(genre);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviesByGenreAndYear;
+    }
+
+    @Override
     public List<Movie> findNewestMovies() throws ServiceException {
         List<Movie> newestMovies;
         try {
@@ -249,15 +261,15 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean removeActorByFirstName(String firstName) throws ServiceException {
-        boolean isRemoved;
+    public boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException {
+        boolean isActorDeleted;
         try {
-            isRemoved = movieDao.removeActorByFirstName(firstName);
+            isActorDeleted = movieDao.removeActorFromMovieById(actorId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isRemoved;
+        return isActorDeleted;
     }
 
     @Override

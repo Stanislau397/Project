@@ -16,4 +16,6 @@ public class SessionAttribute {
     public static final String SIGN_IN_ERROR = "sign_in_error";
     public static final String SIGN_IN_ERROR_MESSAGE = "Your email or password is incorrect!";
     public static final String CHANGE_PASSWORD = "change_password";
+    public static final String ADD_ACTOR_MESSAGE = "add_actor_message";
+
 }

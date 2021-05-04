@@ -1,6 +1,5 @@
 package edu.epam.project.dao;
 
-import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.Actor;
 import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Genre;
@@ -26,6 +25,8 @@ public interface MovieDao {
 
     List<Movie> findMoviesByGenre(Genre genre) throws DaoException;
 
+    List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws DaoException;
+
     List<Movie> findNewestMovies() throws DaoException;
 
     List<Movie> findMostRatedMovies() throws DaoException;
@@ -43,6 +44,8 @@ public interface MovieDao {
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
 
     boolean removeActorByFirstName(String firstName) throws DaoException;
+
+    boolean removeActorFromMovieById(long actorId, long movieId) throws DaoException;
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws DaoException;
 

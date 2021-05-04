@@ -32,8 +32,13 @@ public enum CommandType {
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE(new AddGenreCommand()),
+    ADD_ACTOR(new AddActorCommand()),
+    ADD_ACTOR_TO_MOVIE(new AddActorToMovieCommand()),
     REMOVE_GENRE(new RemoveCommentCommand()),
+    REMOVE_ACTOR_FROM_MOVIE(new RemoveActorFromMovieCommand()),
     EDIT_MOVIE(new EditMovieCommand()),
+    FIND_ACTOR(new FindActorCommand()),
+    DISPLAY_MOVIE_ACTORS(new DisplayMovieActorsCommand()),
 
     SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
     CURRENT_YEAR_MOVIES(new CurrentYearMoviesCommand()),

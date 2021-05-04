@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin_cabinet.css">
 </head>
 <header>
-    <jsp:include page="/jsp/static/header.jsp"/>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </header>
 <body>

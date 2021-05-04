@@ -39,7 +39,6 @@
                     </li>
                 </ul>
             </div>
-
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>

@@ -34,7 +34,7 @@ public class RegisterCommand implements Command {
         user.setEmail(userEmail);
         try {
             if (userService.register(user, userPassword)) {
-                router.setPagePath(PagePath.REGISTER_SUCCESS);
+                router.setPagePath(PagePath.HOME_PAGE);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

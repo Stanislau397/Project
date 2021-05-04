@@ -1,12 +1,8 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsf/html" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: lance
-  Date: 02.02.2021
-  Time: 20:19
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="property.text"/>
 <html>
 <head>
     <title></title>

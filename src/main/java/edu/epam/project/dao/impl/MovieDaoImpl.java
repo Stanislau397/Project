@@ -181,6 +181,35 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws DaoException {
+        List<Movie> moviesByGenreAndYear = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE_AND_YEAR)) {
+            statement.setString(1, genre.getTitle());
+            statement.setInt(2, year);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                moviesByGenreAndYear.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesByGenreAndYear;
+    }
+
+    @Override
     public List<Movie> findNewestMovies() throws DaoException {
         List<Movie> newestMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -391,6 +420,21 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isRemoved;
+    }
+
+    @Override
+    public boolean removeActorFromMovieById(long actorId, long movieId) throws DaoException {
+        boolean isActorDeleted = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_FROM_MOVIE)) {
+             statement.setLong(1, actorId);
+             statement.setLong(2, movieId);
+             int update = statement.executeUpdate();
+             isActorDeleted = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+        }
+        return isActorDeleted;
     }
 
     @Override

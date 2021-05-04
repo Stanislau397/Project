@@ -51,7 +51,7 @@
 <c:choose>
     <c:when test="${requestScope.movie_list != null}">
         <div class="center-content">
-            <c:forEach items="${movie_list}" var="movies">
+            <c:forEach items="${movie_list}" var="movies" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${movies.picture}">
                 </div>
@@ -59,7 +59,7 @@
                     <form action="${pageContext.request.contextPath}/controller" id="form1" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${movies.movieId}">
-                        <p><button type="submit">${movies.title}</button></p>
+                        <p><button type="submit">${counter.count}. ${movies.title}</button></p>
                     </form>
                     <c:if test="${movies.rating.score != 0}">
                         <c:if test="${movies.rating.score < 70 && movies.rating.score >= 40}">
@@ -95,7 +95,7 @@
     </c:when>
     <c:when test="${requestScope.movies_by_key_word_list != null}">
         <div class="center-content">
-            <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord">
+            <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${moviesByKeyWord.picture}">
                 </div>
@@ -103,7 +103,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${moviesByKeyWord.movieId}">
-                        <button type="submit">${moviesByKeyWord.title}</button>
+                        <button type="submit">${counter.count}. ${moviesByKeyWord.title}</button>
                     </form>
                     <c:if test="${moviesByKeyWord.rating.score != 0}">
                         <p class="score">
@@ -141,7 +141,7 @@
     </c:when>
     <c:when test="${requestScope.movies_by_genre_list != null}">
         <div class="center-content">
-            <c:forEach items="${movies_by_genre_list}" var="moviesByGenre">
+            <c:forEach items="${movies_by_genre_list}" var="moviesByGenre" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${moviesByGenre.picture}">
                 </div>
@@ -149,7 +149,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${moviesByGenre.movieId}">
-                        <button type="submit">${moviesByGenre.title}</button>
+                        <button type="submit">${counter.count}. ${moviesByGenre.title}</button>
                     </form>
                     <c:if test="${moviesByGenre.rating.score != 0}">
                         <c:if test="${moviesByGenre.rating.score < 70 && moviesByGenre.rating.score >= 40}">
@@ -185,7 +185,7 @@
     </c:when>
     <c:when test="${requestScope.movies_by_current_year_list != null}">
         <div class="center-content">
-            <c:forEach items="${movies_by_current_year_list}" var="currentYearMovies">
+            <c:forEach items="${movies_by_current_year_list}" var="currentYearMovies" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${currentYearMovies.picture}">
                 </div>
@@ -193,7 +193,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${currentYearMovies.movieId}">
-                        <button type="submit">${currentYearMovies.title}</button>
+                        <button type="submit">${counter.count}. ${currentYearMovies.title}</button>
                     </form>
                     <c:if test="${currentYearMovies.rating.score != 0}">
                         <p class="score">
@@ -217,7 +217,7 @@
     </c:when>
     <c:when test="${requestScope.movies_by_year_list != null}">
         <div class="center-content">
-            <c:forEach items="${movies_by_year_list}" var="moviesByYear">
+            <c:forEach items="${movies_by_year_list}" var="moviesByYear" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${moviesByYear.picture}">
                 </div>
@@ -225,7 +225,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${moviesByYear.movieId}">
-                        <button type="submit">${moviesByYear.title}</button>
+                        <button type="submit">${counter.count}. ${moviesByYear.title}</button>
                     </form>
                     <c:if test="${moviesByYear.rating.score != 0}">
                         <p class="score">
@@ -263,7 +263,7 @@
     </c:when>
     <c:when test="${requestScope.newest_movies_list != null}">
         <div class="center-content">
-            <c:forEach items="${newest_movies_list}" var="newestMovies">
+            <c:forEach items="${newest_movies_list}" var="newestMovies" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${newestMovies.picture}">
                 </div>
@@ -271,7 +271,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${newestMovies.movieId}">
-                        <button type="submit" onclick="submitForms()">${newestMovies.title}</button>
+                        <button type="submit">${counter.count}. ${newestMovies.title}</button>
                     </form>
                     <c:if test="${newestMovies.rating.score != 0}">
                         <p class="score">
@@ -309,7 +309,7 @@
     </c:when>
     <c:when test="${requestScope.most_rated_movies_list != null}">
         <div class="center-content">
-            <c:forEach items="${most_rated_movies_list}" var="mostRatedMovies">
+            <c:forEach items="${most_rated_movies_list}" var="mostRatedMovies" varStatus="counter">
                 <div class="side">
                     <img class="image" src="${pageContext.request.contextPath}${mostRatedMovies.picture}">
                 </div>
@@ -317,7 +317,7 @@
                     <form action="${pageContext.request.contextPath}/controller" method="get">
                         <input hidden name="command" value="show_movie_details">
                         <input hidden name="movie_id" value="${mostRatedMovies.movieId}">
-                        <button type="submit">${mostRatedMovies.title}</button>
+                        <button type="submit">${counter.count}. ${mostRatedMovies.title}</button>
                     </form>
                     <c:if test="${mostRatedMovies.rating.score != 0}">
                         <p class="score">

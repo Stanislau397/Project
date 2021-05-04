@@ -25,6 +25,8 @@ public interface MovieService {
 
     List<Movie> findMoviesByGenre(Genre genre) throws ServiceException;
 
+    List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws ServiceException;
+
     List<Movie> findNewestMovies() throws ServiceException;
 
     List<Movie> findMostRatedMovies() throws ServiceException;
@@ -41,7 +43,7 @@ public interface MovieService {
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
 
-    boolean removeActorByFirstName(String firstName) throws ServiceException;
+    public boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException;
 
