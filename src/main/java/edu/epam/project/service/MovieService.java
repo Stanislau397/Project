@@ -13,8 +13,6 @@ public interface MovieService {
 
     boolean add(Movie movie) throws ServiceException;
 
-    boolean deleteMovieByTitle(String title) throws ServiceException;
-
     Optional<Movie> findMovieByTitle(String title) throws ServiceException;
 
     List<Movie> findAllMovies() throws ServiceException;
@@ -43,7 +41,7 @@ public interface MovieService {
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
 
-    public boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
+    boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException;
 
@@ -54,6 +52,8 @@ public interface MovieService {
     boolean addDirector(Director director) throws ServiceException;
 
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
+
+    boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException;
 
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;
 

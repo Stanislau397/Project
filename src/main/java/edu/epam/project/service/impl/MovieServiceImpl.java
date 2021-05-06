@@ -70,18 +70,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean deleteMovieByTitle(String title) throws ServiceException {
-        boolean isDeleted;
-        try {
-            isDeleted = movieDao.deleteMovieByTitle(title);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isDeleted;
-    }
-
-    @Override
     public Optional<Movie> findMovieByTitle(String title) throws ServiceException {
         Optional<Movie> isFound;
         try {
@@ -340,6 +328,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isDirectorAdded;
+    }
+
+    @Override
+    public boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException {
+        boolean isDirectorRemoved;
+        try {
+            isDirectorRemoved = movieDao.removeDirectorFromMovie(directorId, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDirectorRemoved;
     }
 
     @Override

@@ -11,10 +11,6 @@ public interface RatingService {
 
     int countAmountOfUserScoresByUserName(String userName) throws ServiceException;
 
-    Optional<Rating> findLatestHighScoreByUserName(String userName) throws ServiceException;
-
-    Optional<Rating> findLatestLowScoreByUserName(String userName) throws ServiceException;
-
     boolean rateMovie(long movieId, String userName, int score) throws ServiceException;
 
     boolean isUserAlreadyVoted(String userName, long movieId) throws ServiceException;

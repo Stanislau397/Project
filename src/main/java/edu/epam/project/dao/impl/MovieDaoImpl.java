@@ -426,11 +426,11 @@ public class MovieDaoImpl implements MovieDao {
     public boolean removeActorFromMovieById(long actorId, long movieId) throws DaoException {
         boolean isActorDeleted = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_FROM_MOVIE)) {
-             statement.setLong(1, actorId);
-             statement.setLong(2, movieId);
-             int update = statement.executeUpdate();
-             isActorDeleted = (update == 1);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_FROM_MOVIE)) {
+            statement.setLong(1, actorId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isActorDeleted = (update == 1);
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
         }
@@ -513,6 +513,22 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException {
+        boolean isDirectorRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_DIRECTOR_FROM_MOVIE)) {
+            statement.setLong(1, directorId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isDirectorRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDirectorRemoved;
     }
 
     @Override

@@ -1,53 +1,69 @@
 package edu.epam.project.entity;
 
+/**
+ * Class represents rating of movie.
+ *
+ * @author Stanislau Kachan
+ */
 public class Rating {
 
-    private long movieId;
+    private long ratingId;
     private int score;
-    private String userName;
-    private String movieTitle;
 
-    public Rating(long movieId, int score, String userName, String movieTitle) {
-        this.movieId = movieId;
-        this.score = score;
-        this.userName = userName;
-        this.movieTitle = movieTitle;
-    }
-
+    /**
+     * Constructor for Rating object
+     * with no parameters
+     */
     public Rating() {
 
     }
 
-    public long getMovieId() {
-        return movieId;
+    /**
+     * Constructor for Rating object
+     * with ratingId and score
+     * @param ratingId long value of ratingId
+     * @param score int value of rating score
+     */
+
+    public Rating(long ratingId, int score) {
+        this.ratingId = ratingId;
+        this.score = score;
     }
 
-    public void setMovieId(long movieId) {
-        this.movieId = movieId;
+    /**
+     * Getter method of ratingId
+     * @return long value of ratingId
+     */
+
+    public long getRatingId() {
+        return ratingId;
     }
+
+    /**
+     * Setter method of ratingId
+     * @param ratingId of Rating object
+     */
+
+    public void setRatingId(long ratingId) {
+        this.ratingId = ratingId;
+    }
+
+    /**
+     * Getter method of ratingScore
+     * @return int value of ratingScore
+     */
 
     public int getScore() {
         return score;
     }
 
+    /**
+     * Setter method of ratingScore
+     * @param score int value of ratingScore
+     */
+
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getMovieTitle() {
-        return movieTitle;
-    }
-
-    public void setMovieTitle(String movieTitle) {
-        this.movieTitle = movieTitle;
     }
 
     @Override
@@ -57,28 +73,20 @@ public class Rating {
 
         Rating rating = (Rating) o;
 
-        if (movieId != rating.movieId) return false;
-        if (score != rating.score) return false;
-        if (userName != null ? !userName.equals(rating.userName) : rating.userName != null) return false;
-        return movieTitle != null ? movieTitle.equals(rating.movieTitle) : rating.movieTitle == null;
+        if (ratingId != rating.ratingId) return false;
+        return score == rating.score;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (movieId ^ (movieId >>> 32));
+        int result = (int) (ratingId ^ (ratingId >>> 32));
         result = 31 * result + score;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (movieTitle != null ? movieTitle.hashCode() : 0);
         return result;
     }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String space = " ";
-        sb.append(movieId).append(space)
-                .append(score).append(space).append(userName)
-                .append(space).append(movieTitle);
+        sb.append(ratingId).append(" ").append(score);
         return sb.toString();
     }
 }

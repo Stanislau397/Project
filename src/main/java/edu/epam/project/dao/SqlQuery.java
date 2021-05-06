@@ -23,6 +23,7 @@ public class SqlQuery {
     public static final String FIND_ACTOR_BY_FIRST_LAST_NAME = "SELECT actor_id, first_name, last_name FROM actors WHERE first_name = (?) AND last_name = (?)";
     public static final String INSERT_ACTOR_TO_MOVIE = "INSERT INTO movie_cast (actor_id_fk, movie_id) VALUES (?,?)";
     public static final String DELETE_ACTOR_FROM_MOVIE = "DELETE FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
+    public static final String DELETE_DIRECTOR_FROM_MOVIE = "DELETE FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
 
     public static final String INSERT_TO_DIRECTOR = "INSERT INTO director (director_id, first_name, last_name) VALUES (?,?,?)";
     public static final String FIND_DIRECTORS_BY_MOVIE_ID = "SELECT director_id, first_name, last_name FROM director JOIN movie_direction " +

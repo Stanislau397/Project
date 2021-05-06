@@ -55,6 +55,8 @@ public interface MovieDao {
 
     boolean addDirector(Director director) throws DaoException;
 
+    boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException;
+
     boolean isDirectorAlreadyExists(Director director) throws DaoException;
 
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws DaoException;

@@ -12,10 +12,6 @@ public interface RatingDao {
 
     int countAmountOfUserScoresByUserName(String userName) throws DaoException;
 
-    Optional<Rating> findLatestHighScoreByUserName(String userName) throws DaoException;
-
-    Optional<Rating> findLatestLowScoreByUserName(String userName) throws DaoException;
-
     boolean rateMovie(long movieId, String userName, int score) throws DaoException;
 
     boolean isUserAlreadyVoted(String userName, long movieId) throws DaoException;

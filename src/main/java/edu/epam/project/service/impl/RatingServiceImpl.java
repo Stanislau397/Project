@@ -43,30 +43,6 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Optional<Rating> findLatestHighScoreByUserName(String userName) throws ServiceException {
-        Optional<Rating> latestHighScore;
-        try {
-            latestHighScore = ratingDao.findLatestHighScoreByUserName(userName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return latestHighScore;
-    }
-
-    @Override
-    public Optional<Rating> findLatestLowScoreByUserName(String userName) throws ServiceException {
-        Optional<Rating> latestLowScore;
-        try {
-            latestLowScore = ratingDao.findLatestLowScoreByUserName(userName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return latestLowScore;
-    }
-
-    @Override
     public boolean rateMovie(long movieId, String userName, int score) throws ServiceException {
         boolean isRated;
         try {

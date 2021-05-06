@@ -54,46 +54,6 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public Optional<Rating> findLatestHighScoreByUserName(String userName) throws DaoException {
-        Optional<Rating> latestHighScore;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_LATEST_HIGH_SCORE)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            Rating rating = new Rating();
-            rating.setMovieId(resultSet.getInt(TableColumn.MOVIE_ID));
-            rating.setMovieTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
-            rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
-            latestHighScore = Optional.of(rating);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return latestHighScore;
-    }
-
-    @Override
-    public Optional<Rating> findLatestLowScoreByUserName(String userName) throws DaoException {
-        Optional<Rating> latestLowScore;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_LATEST_LOW_SCORE)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            Rating rating = new Rating();
-            rating.setMovieId(resultSet.getInt(TableColumn.MOVIE_ID));
-            rating.setMovieTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
-            rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
-            latestLowScore = Optional.of(rating);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return latestLowScore;
-    }
-
-    @Override
     public boolean rateMovie(long movieId, String userName, int score) throws DaoException {
         boolean isRated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
