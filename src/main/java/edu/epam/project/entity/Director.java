@@ -1,42 +1,99 @@
 package edu.epam.project.entity;
 
+/**
+ * Class represents movie director
+ *
+ * @author Stanislau Kachan
+ */
 public class Director extends Entity {
 
     private long directorId;
     private String firstName;
     private String lastName;
 
+    /**
+     * Constructor for Director object
+     */
+    public Director() {
+
+    }
+
+    /**
+     * Constructor for Director object
+     * with given parameters:
+     *
+     * @param directorId long value of directorId
+     * @param firstName  String object of firstName
+     * @param lastName   String object of lastName
+     */
     public Director(long directorId, String firstName, String lastName) {
         this.directorId = directorId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Constructor for Director object
+     * with given parameters
+     *
+     * @param firstName String object of firstName
+     * @param lastName  String object of lastName
+     */
     public Director(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Getter method of directorId
+     *
+     * @return long value of directorId
+     */
     public long getDirectorId() {
         return directorId;
     }
 
+    /**
+     * Setter method of directorId
+     *
+     * @param directorId long value of directorId
+     */
     public void setDirectorId(long directorId) {
         this.directorId = directorId;
     }
 
+    /**
+     * Getter method of directorFirstName
+     *
+     * @return String object of firstName
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Setter method of directorFirstName
+     *
+     * @param firstName String object of firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Getter method of directorLastName
+     *
+     * @return String object of lastName
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Setter method of directorLastName
+     *
+     * @param lastName String object of lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -64,8 +121,8 @@ public class Director extends Entity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String space = " ";
-        sb.append(firstName).append(space).append(lastName);
+        sb.append(directorId).append(" ").append(lastName)
+                .append(" ").append(firstName);
         return sb.toString();
     }
 }

@@ -21,10 +21,10 @@ public class Rating {
     /**
      * Constructor for Rating object
      * with ratingId and score
+     *
      * @param ratingId long value of ratingId
-     * @param score int value of rating score
+     * @param score    int value of rating score
      */
-
     public Rating(long ratingId, int score) {
         this.ratingId = ratingId;
         this.score = score;
@@ -32,36 +32,36 @@ public class Rating {
 
     /**
      * Getter method of ratingId
+     *
      * @return long value of ratingId
      */
-
     public long getRatingId() {
         return ratingId;
     }
 
     /**
      * Setter method of ratingId
+     *
      * @param ratingId of Rating object
      */
-
     public void setRatingId(long ratingId) {
         this.ratingId = ratingId;
     }
 
     /**
      * Getter method of ratingScore
+     *
      * @return int value of ratingScore
      */
-
     public int getScore() {
         return score;
     }
 
     /**
      * Setter method of ratingScore
+     *
      * @param score int value of ratingScore
      */
-
     public void setScore(int score) {
         this.score = score;
     }
@@ -84,6 +84,7 @@ public class Rating {
         return result;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(ratingId).append(" ").append(score);

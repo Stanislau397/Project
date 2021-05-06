@@ -158,7 +158,7 @@ public class UserDaoImpl implements UserDao {
                 String email = resultSet.getString(TableColumn.USER_EMAIL);
                 String role = resultSet.getString(TableColumn.USER_ROLE);
                 boolean status = resultSet.getBoolean(TableColumn.USER_STATUS);
-                User user = new User(id, login, email, RoleType.valueOf(role), status);
+                User user = new User(id,RoleType.valueOf(role), login, email, status);
                 allUsers.add(user);
             }
         } catch (SQLException e) {
