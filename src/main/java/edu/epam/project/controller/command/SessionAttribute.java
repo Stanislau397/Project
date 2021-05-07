@@ -10,6 +10,7 @@ public class SessionAttribute {
     public static final String USER = "user";
     public static final String GUEST = "guest";
     public static final String DIRECTOR = "director";
+    public static final String ACTOR = "actor";
     public static final String USER_NAME = "user_name";
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ID = "user_id";

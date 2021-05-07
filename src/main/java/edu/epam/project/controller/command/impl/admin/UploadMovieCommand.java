@@ -38,8 +38,7 @@ public class UploadMovieCommand implements Command {
         int runTime = Integer.parseInt(request.getParameter(RUN_TIME));
         String country = request.getParameter(COUNTRY);
         Date releaseDate = Date.valueOf(request.getParameter(RELEASE_DATE));
-        String id = request.getParameter(GENRE_ID);
-        long genreId = Long.parseLong(id);
+        long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         String fileName = part.getSubmittedFileName();
         String savePath = DIRECTORY_PATH + SEPARATOR + fileName;
         String picturePath = savePath.substring(NUMBER);

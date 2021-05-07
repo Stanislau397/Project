@@ -32,7 +32,7 @@ public class MoviesByGenreCommand implements Command {
         Router router = new Router();
         String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
         Genre genre = new Genre();
-        genre.setTitle(genreTitle);
+        genre.setGenreTitle(genreTitle);
         try {
             List<Genre> genres = movieService.findAllGenres();
             List<Movie> moviesByGenre = movieService.findMoviesByGenre(genre);

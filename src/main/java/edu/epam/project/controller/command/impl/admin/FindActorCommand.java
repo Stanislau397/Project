@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Actor;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
@@ -34,6 +35,7 @@ public class FindActorCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         String firstName = request.getParameter(FIRST_NAME);
         String lastName = request.getParameter(LAST_NAME);
+        System.out.println(currentPage);
         Actor actor;
         try {
             Optional<Actor> actorOptional = movieService.findActorByFirstLastName(firstName, lastName);
@@ -42,7 +44,6 @@ public class FindActorCommand implements Command {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(ACTOR, actor);
-                System.out.println(actor.getFirstName());
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

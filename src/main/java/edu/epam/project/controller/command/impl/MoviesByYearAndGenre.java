@@ -32,7 +32,7 @@ public class MoviesByYearAndGenre implements Command {
         int movieYear = Integer.parseInt(request.getParameter(MOVIE_YEAR));
         String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
         Genre genre = new Genre();
-        genre.setTitle(genreTitle);
+        genre.setGenreTitle(genreTitle);
         try {
             List<Movie> moviesByGenreAndYear = movieService.findMoviesByGenreAndYear(genre, movieYear);
             List<Integer> years= movieService.findAllMovieYears();

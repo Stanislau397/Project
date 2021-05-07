@@ -157,7 +157,7 @@ public class MovieDaoImpl implements MovieDao {
         List<Movie> moviesByGenre = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE)) {
-            statement.setString(1, genre.getTitle());
+            statement.setString(1, genre.getGenreTitle());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
@@ -185,7 +185,7 @@ public class MovieDaoImpl implements MovieDao {
         List<Movie> moviesByGenreAndYear = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE_AND_YEAR)) {
-            statement.setString(1, genre.getTitle());
+            statement.setString(1, genre.getGenreTitle());
             statement.setInt(2, year);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -297,7 +297,7 @@ public class MovieDaoImpl implements MovieDao {
                 Movie movie = new Movie();
                 Rating rating = new Rating();
                 Genre genre = new Genre();
-                genre.setTitle(resultSet.getString(TableColumn.GENRE_TITLE));
+                genre.setGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -613,7 +613,7 @@ public class MovieDaoImpl implements MovieDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_GENRE)) {
             statement.setLong(1, genre.getGenreId());
-            statement.setString(2, genre.getTitle());
+            statement.setString(2, genre.getGenreTitle());
             int update = statement.executeUpdate();
             isAdded = (update == 1);
         } catch (SQLException e) {
