@@ -153,22 +153,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean changeEmail(String email, String newEmail) throws DaoException {
-        boolean isEmailChanged;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHANGE_EMAIL)) {
-            statement.setString(1, newEmail);
-            statement.setString(2, email);
-            int update = statement.executeUpdate();
-            isEmailChanged = (update == 1);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return isEmailChanged;
-    }
-
-    @Override
     public boolean changeUserName(String userName, String newUserName) throws DaoException {
         boolean isUserNameChanged;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

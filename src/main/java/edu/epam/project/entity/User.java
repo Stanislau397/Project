@@ -39,6 +39,13 @@ public class User extends Entity {
         this.isBlocked = isBlocked;
     }
 
+    public User(RoleType role, String userName, String email, boolean isBlocked) {
+        this.role = role;
+        this.userName = userName;
+        this.email = email;
+        this.isBlocked = isBlocked;
+    }
+
     /**
      * Getter method of userId
      *

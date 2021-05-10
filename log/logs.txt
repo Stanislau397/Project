@@ -1,0 +1,28 @@
+18:50:19.555 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_score), IFNULL(genre_title, 'no-genre') AS genre_title FROM movies m LEFT ' at line 1
+18:54:02.646 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_score), IFNULL(genre_title, 'no-genre') AS genre_title FROM movies m LEFT ' at line 1
+18:54:02.649 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(user_score), IFNULL(genre_title, 'no-genre') AS genre_title FROM movies m LEFT ' at line 1
+18:54:38.675 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: No value specified for parameter 1
+18:54:38.677 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLException: No value specified for parameter 1
+18:56:28.569 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: No value specified for parameter 1
+18:56:28.571 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLException: No value specified for parameter 1
+18:58:02.162 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: No value specified for parameter 1
+18:58:02.165 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLException: No value specified for parameter 1
+18:58:38.750 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: No value specified for parameter 1
+18:58:38.752 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLException: No value specified for parameter 1
+02:15:30.540 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: No value specified for parameter 1
+03:08:48.501 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mg.genre_id_fk WHERE genre_title = ('Fantasy') GROUP BY mg.movie_id' at line 1
+03:10:20.550 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:11:04.719 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:14:21.009 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:14:36.267 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:15:06.897 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:15:27.390 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'g.movie_id' in 'field list'
+03:15:44.701 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLIntegrityConstraintViolationException: Column 'movie_id' in field list is ambiguous
+03:17:33.507 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:19:04.271 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+03:19:56.669 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: Unknown column 'm.movie_id' in 'field list'
+21:39:42.704 [main] ERROR epam.project.dao.impl.CommentDaoImpl - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`movie`.`comment_votes`, CONSTRAINT `comment_id` FOREIGN KEY (`comment_id_fk`) REFERENCES `movie_comments` (`comment_id`) ON DELETE CASCADE)
+21:43:06.266 [main] ERROR epam.project.dao.impl.CommentDaoImpl - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`movie`.`comment_votes`, CONSTRAINT `comment_id` FOREIGN KEY (`comment_id_fk`) REFERENCES `movie_comments` (`comment_id`) ON DELETE CASCADE)
+21:45:09.306 [main] ERROR epam.project.dao.impl.CommentDaoImpl - java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`movie`.`comment_votes`, CONSTRAINT `comment_id` FOREIGN KEY (`comment_id_fk`) REFERENCES `movie_comments` (`comment_id`) ON DELETE CASCADE)
+21:45:29.888 [main] ERROR epam.project.dao.impl.RatingDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REMOVE FROM rating WHERE movie_id_fk = (21) AND user_name_fk = ('Lancer397ldkj')' at line 1
+21:45:29.888 [main] ERROR epam.project.dao.impl.RatingDaoImpl - edu.epam.project.exception.DaoException: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'REMOVE FROM rating WHERE movie_id_fk = (21) AND user_name_fk = ('Lancer397ldkj')' at line 1

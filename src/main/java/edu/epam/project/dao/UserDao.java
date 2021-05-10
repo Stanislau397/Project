@@ -19,8 +19,6 @@ public interface UserDao {
 
     boolean changePassword(User user, String password, String newPassword) throws DaoException;
 
-    boolean changeEmail(String email, String newEmail) throws DaoException;
-
     boolean changeUserName(String userName, String newUserName) throws DaoException;
 
     boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException;

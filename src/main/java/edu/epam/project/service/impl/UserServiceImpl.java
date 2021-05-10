@@ -95,21 +95,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeEmail(String email, String newEmail) throws ServiceException {
-        AccountValidator validator = new AccountValidator();
-        boolean isEmailChanged = false;
-        try {
-            if (validator.isValidEmail(newEmail)) {
-                isEmailChanged = userDao.changeEmail(email, newEmail);
-            }
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isEmailChanged;
-    }
-
-    @Override
     public boolean changePassword(User user, String password, String newPassword) throws ServiceException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
