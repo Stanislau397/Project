@@ -57,6 +57,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean changeUserRoleByUserName(String userName, String role) throws DaoException {
+        boolean isRoleUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_ROLE)) {
+            statement.setString(1, role);
+            statement.setString(2, userName);
+            int update = statement.executeUpdate();
+            isRoleUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isRoleUpdated;
+    }
+
+    @Override
     public Optional<User> findByEmailAndPassword(String email, String password) throws DaoException {
         Optional<User> isFound;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -93,6 +109,28 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return userId;
+    }
+
+    @Override
+    public Optional<User> findUserByUserName(String userName) throws DaoException {
+        Optional<User> isFound = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_USER_NAME)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUserName(resultSet.getString(TableColumn.USER_NAME));
+                user.setEmail(resultSet.getString(TableColumn.USER_EMAIL));
+                user.setUserId(resultSet.getLong(TableColumn.USER_ID));
+                user.setRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)));
+                user.setBlocked(resultSet.getBoolean(TableColumn.USER_STATUS));
+                isFound = Optional.of(user);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+        }
+        return isFound;
     }
 
     @Override
@@ -158,7 +196,7 @@ public class UserDaoImpl implements UserDao {
                 String email = resultSet.getString(TableColumn.USER_EMAIL);
                 String role = resultSet.getString(TableColumn.USER_ROLE);
                 boolean status = resultSet.getBoolean(TableColumn.USER_STATUS);
-                User user = new User(id,RoleType.valueOf(role), login, email, status);
+                User user = new User(id, RoleType.valueOf(role), login, email, status);
                 allUsers.add(user);
             }
         } catch (SQLException e) {

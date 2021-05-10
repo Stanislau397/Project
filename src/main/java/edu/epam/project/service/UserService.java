@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException;
 
+    Optional<User> findUserByUserName(String userName) throws ServiceException;
+
     boolean changeEmail(String email, String newEmail) throws ServiceException;
 
     boolean changePassword(User user, String oldPassword, String newPassword) throws ServiceException;
@@ -19,6 +21,8 @@ public interface UserService {
     boolean changeUserName(String oldUserName, String newUserName) throws ServiceException;
 
     boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException;
+
+    boolean changeUserRoleByUserName(String userName, String role) throws ServiceException;
 
     List<User> findAll() throws ServiceException;
 }

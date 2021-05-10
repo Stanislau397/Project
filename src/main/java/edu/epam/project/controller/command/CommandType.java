@@ -42,6 +42,8 @@ public enum CommandType {
     EDIT_MOVIE(new EditMovieCommand()),
     FIND_ACTOR(new FindActorCommand()),
     FIND_DIRECTOR(new FindDirectorCommand()),
+    FIND_USER(new SearchUserCommand()),
+    CHANGE_USER_ROLE(new ChangeUserRoleCommand()),
     DISPLAY_MOVIE_DIRECTORS(new DisplayMovieDirectorsCommand()),
     DISPLAY_MOVIE_ACTORS(new DisplayMovieActorsCommand()),
 

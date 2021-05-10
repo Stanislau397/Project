@@ -75,7 +75,7 @@
                 <li class="name"><fmt:message key="label.director"/></li>
                 <li class="value">
                     <c:forEach items="${requestScope.directors_list}" var="directors">
-                        <c:out value="${directors}"/>
+                        <c:out value="${directors.firstName} ${directors.lastName}"/>
                     </c:forEach>
                 </li>
             </ul>
@@ -127,7 +127,7 @@
         <div class="actors">
             <h3><fmt:message key="label.starring"/></h3>
             <c:forEach items="${requestScope.actors_list}" var="actors">
-                <p>${actors}</p>
+                <p><c:out value="${actors.firstName}"/> <c:out value="${actors.lastName}"/></p>
             </c:forEach>
         </div>
     </div>

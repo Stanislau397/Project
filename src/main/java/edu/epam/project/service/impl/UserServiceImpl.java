@@ -57,12 +57,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean changeUserRoleByUserName(String userName, String role) throws ServiceException {
+        boolean isRoleUpdated;
+        try {
+            isRoleUpdated = userDao.changeUserRoleByUserName(userName, role);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isRoleUpdated;
+    }
+
+    @Override
     public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         Optional<User> isFound;
         try {
             String encryptedPassword = encryptor.encryptPassword(password);
             isFound = userDao.findByEmailAndPassword(email, encryptedPassword);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isFound;
+    }
+
+    @Override
+    public Optional<User> findUserByUserName(String userName) throws ServiceException {
+        Optional<User> isFound;
+        try {
+            isFound = userDao.findUserByUserName(userName);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

@@ -1,0 +1,111 @@
+body {
+    background-color: #e6e6e6;
+    background-size: cover;
+}
+
+.main-content {
+    background-color: #F0F0F0;
+    width: 1150px;
+    min-height: 700px;
+    height: auto;
+    margin-left: 300px;
+    margin-top: 50px;
+    border-bottom: 0.5px solid silver;
+    float: left;
+}
+
+.main-content .search {
+    width: 100%;
+    height: 43px;
+    background-color: black;
+}
+
+.main-content .search input {
+    width: 300px;
+    margin-left: 300px;
+    margin-top: 10px;
+}
+
+.main-content .search button {
+    cursor: pointer;
+    border-radius: 5px;
+    width: 90px;
+    font-family: sans-serif;
+    font-size: 18px;
+    height: 27px;
+    margin-top: 10px;
+}
+
+.main-content .movie {
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    min-height: 70px;
+    height: auto;
+    min-width: 1000px;
+    width: auto;
+    border-bottom: 1px solid silver;
+}
+
+.main-content .movie .picture {
+    float: left;
+    width: 70px;
+    height: 90px;
+}
+
+.main-content .movie .picture img {
+    border-radius: 5px;
+    border: 1px solid silver;
+    min-width: 70px;
+    min-height: 70px;
+    width: 70px;
+    height: 90px;
+}
+
+.main-content .movie .title {
+    float: left;
+    width: 400px;
+    height: 70px;
+}
+
+.main-content .movie .title button {
+    border: 0;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-family: sans-serif;
+    font-size: 25px;
+}
+
+.main-content .movie .title button:hover {
+    cursor: pointer;
+    color: #f9c22a;
+}
+
+.main-content .movie .title button:focus {
+    outline: none;
+    border: none;
+}
+
+.main-content .movie .edit {
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.main-content .movie .actors {
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.main-content .movie .edit i,
+.remove i {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.main-content .movie .remove {
+    float: right;
+    margin-right: 30px;
+    margin-top: 5px;
+}

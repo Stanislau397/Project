@@ -9,8 +9,10 @@ public class SqlQuery {
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_name = (?) and password = (?)";
     public static final String CHANGE_EMAIL = "UPDATE users SET email = (?) WHERE email = (?)";
     public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
-    public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, password, email, role, is_active FROM users";
+    public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active FROM users WHERE user_name = (?)";
+    public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users";
     public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_name = (?)";
+    public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_name = (?)";
 
     public static final String INSERT_TO_GENRE = "INSERT INTO genres (genres_id, genre_title) VALUES (?,?)";
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";

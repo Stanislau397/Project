@@ -39,6 +39,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="${pageContext.request.contextPath}/jsp/admin/edit_movie.jsp">EDIT</a>
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>

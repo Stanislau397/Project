@@ -40,7 +40,7 @@
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="movies_by_genre">
                     <c:forEach items="${requestScope.genres_list}" var="genres">
-                        <input class="btn" type="submit" name="genre_title" value="${genres.title}">
+                        <input class="btn" type="submit" name="genre_title" value="${genres.genreTitle}">
                     </c:forEach>
                 </form>
             </li>

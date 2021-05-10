@@ -1,5 +1,6 @@
 package edu.epam.project.dao;
 
+import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 
@@ -14,6 +15,8 @@ public interface UserDao {
 
     long findUserIdByUserName(String userName) throws DaoException;
 
+    Optional<User> findUserByUserName(String userName) throws DaoException;
+
     boolean changePassword(User user, String password, String newPassword) throws DaoException;
 
     boolean changeEmail(String email, String newEmail) throws DaoException;
@@ -21,6 +24,8 @@ public interface UserDao {
     boolean changeUserName(String userName, String newUserName) throws DaoException;
 
     boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException;
+
+    boolean changeUserRoleByUserName(String userName, String role) throws DaoException;
 
     List<User> findAll() throws DaoException;
 }
