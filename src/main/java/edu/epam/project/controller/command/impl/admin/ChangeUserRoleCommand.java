@@ -32,7 +32,6 @@ public class ChangeUserRoleCommand implements Command {
         String userName = request.getParameter(USER_NAME_PARAMETER);
         String currentPage = request.getHeader(REFERER);
         Optional<User> userOptional;
-        boolean changeRole;
         User user;
         String role;
         try {
@@ -43,11 +42,11 @@ public class ChangeUserRoleCommand implements Command {
                 switch (userRole) {
                     case ADMIN:
                         role = String.valueOf(RoleType.USER);
-                        changeRole = userService.changeUserRoleByUserName(userName, role);
+                        userService.changeUserRoleByUserName(userName, role);
                         break;
                     default:
                         role = String.valueOf(RoleType.ADMIN);
-                        changeRole = userService.changeUserRoleByUserName(userName, role);
+                        userService.changeUserRoleByUserName(userName, role);
                         break;
                 }
                 router.setPagePath(currentPage);

@@ -11,14 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class RemoveGenreCommand implements Command {
+public class DisplayMoviePosterCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger(RemoveGenreCommand.class);
+    private static final Logger logger = LogManager.getLogger(DisplayMoviePosterCommand.class);
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
-        Router router = new Router();
-        return router;
+        return null;
     }
 }

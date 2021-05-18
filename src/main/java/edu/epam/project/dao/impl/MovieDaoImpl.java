@@ -210,6 +210,26 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException {
+        List<Genre> movieGenres = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_GENRES)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Genre genre = new Genre();
+                genre.setGenreTitle(resultSet.getString(1));
+                genre.setGenreId(resultSet.getLong(2));
+                movieGenres.add(genre);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return movieGenres;
+    }
+
+    @Override
     public List<Movie> findNewestMovies() throws DaoException {
         List<Movie> newestMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -637,6 +657,22 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isGenreAdded;
+    }
+
+    @Override
+    public boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException {
+        boolean isGenreRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_FROM_MOVIE)) {
+            statement.setLong(1, genreId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isGenreRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isGenreRemoved;
     }
 
     @Override

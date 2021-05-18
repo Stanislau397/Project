@@ -25,6 +25,8 @@ public interface MovieService {
 
     List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws ServiceException;
 
+    List<Genre> findMovieGenresByMovieId(long movieId) throws ServiceException;
+
     List<Movie> findNewestMovies() throws ServiceException;
 
     List<Movie> findMostRatedMovies() throws ServiceException;
@@ -64,6 +66,8 @@ public interface MovieService {
     boolean addGenre(Genre genre) throws ServiceException;
 
     boolean addGenreToMovie(long genreId, long movieId) throws ServiceException;
+
+    boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException;
 
     List<Genre> findAllGenres() throws ServiceException;
 }

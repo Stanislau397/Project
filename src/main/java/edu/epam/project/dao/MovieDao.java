@@ -27,6 +27,8 @@ public interface MovieDao {
 
     List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws DaoException;
 
+    List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException;
+
     List<Movie> findNewestMovies() throws DaoException;
 
     List<Movie> findMostRatedMovies() throws DaoException;
@@ -68,6 +70,8 @@ public interface MovieDao {
     boolean addGenre(Genre genre) throws DaoException;
 
     boolean addGenreToMovie(long genreId, long movieId) throws DaoException;
+
+    boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException;
 
     List<Genre> findAllGenres() throws DaoException;
 }

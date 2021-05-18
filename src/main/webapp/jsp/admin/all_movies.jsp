@@ -11,56 +11,57 @@
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </head>
 <body>
+<div class="search">
+    <form action="${pageContext.request.contextPath}/controller" method="get">
+        <input type="hidden" name="command" value="">
+        <input type="text" name="user_name" placeholder="<fmt:message key="label.search_movie"/>">
+        <input type="submit" value="<fmt:message key="label.search"/>">
+    </form>
+</div>
 <div class="main-content">
-    <div class="search">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="search_movie">
-            <input type="text" name="key_word">
-            <button type="submit"><fmt:message key="label.search"/></button>
-        </form>
-    </div>
-    <c:forEach items="${requestScope.movie_list}" var="movies">
-        <div class="movie">
-            <div class="picture">
-                <img src="${pageContext.request.contextPath}${movies.picture}">
-            </div>
-            <div class="title">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="show_movie_details">
-                    <input type="hidden" name="movie_id" value="${movies.movieId}">
-                    <button type="submit">${movies.title}</button>
-                </form>
-            </div>
-            <div class="actors">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="display_movie_actors">
-                    <input type="hidden" name="movie_id" value="${movies.movieId}">
-                    <input type="hidden" name="movie_title" value="${movies.title}">
-                    <button type="submit"><fmt:message key="label.actors"/></button>
-                </form>
-            </div>
-            <div class="actors">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="display_movie_directors">
-                    <input type="hidden" name="movie_id" value="${movies.movieId}">
-                    <input type="hidden" name="movie_title" value="${movies.title}">
-                    <button type="submit"><fmt:message key="label.director"/></button>
-                </form>
-            </div>
-            <div class="actors">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <button type="submit"><fmt:message key="label.remove"/></button>
-                </form>
-            </div>
-            <div class="edit">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="to_edit_movie">
-                    <input type="hidden" name="movie_id" value="${movies.movieId}">
-                    <button type="submit"><i class="fa fa-edit"></i></button>
-                </form>
-            </div>
-        </div>
-    </c:forEach>
+    <table class="content-table">
+        <thead>
+        <tr>
+            <th><fmt:message key="label.id"/></th>
+            <th><fmt:message key="label.poster"/></th>
+            <th><fmt:message key="label.title"/></th>
+            <th><fmt:message key="label.country"/></th>
+            <th><fmt:message key="label.operation"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${requestScope.movie_list}" var="allMovies">
+            <tr>
+                <td><c:out value="${allMovies.movieId}"/></td>
+                <td><img src="${pageContext.request.contextPath}${allMovies.picture}"/></td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="show_movie_details">
+                        <input type="hidden" name="movie_id" value="${allMovies.movieId}">
+                        <button type="submit" class="movie-title-btn"><c:out value="${allMovies.title}"/></button>
+                    </form>
+                </td>
+                <td><c:out value="${allMovies.country}"/></td>
+                <td>
+                    <div class="edit-movie">
+                        <form action="${pageContext.request.contextPath}/controller" method="get">
+                            <input type="hidden" name="command" value="to_edit_movie">
+                            <input type="hidden" name="movie_id" value="${allMovies.movieId}">
+                            <button type="submit" class="edit-btn"><fmt:message key="label.edit"/></button>
+                        </form>
+                    </div>
+                    <div class="remove-movie">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="delete_movie">
+                            <input type="hidden" name="movie_id" value="${allMovies.movieId}">
+                            <button type="submit" class="remove-btn"><fmt:message key="label.remove"/></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

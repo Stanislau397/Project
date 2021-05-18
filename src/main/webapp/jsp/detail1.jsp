@@ -68,7 +68,7 @@
             <hr>
             <ul>
                 <li class="name"><fmt:message key="label.genre"/></li>
-                <li class="value">${movie_info.genre}</li>
+                <li class="value">${movie_info.genre.genreTitle}</li>
             </ul>
             <hr>
             <ul>

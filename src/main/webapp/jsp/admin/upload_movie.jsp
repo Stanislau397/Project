@@ -30,6 +30,9 @@
             <label for="date"><fmt:message key="label.release_date"/></label>
             <input type="text" id="date" name="release_date" required>
             <hr>
+            <label for="director"><fmt:message key="label.director"/></label>
+            <input type="text" id="director" name="director" required>
+            <hr>
             <label for="genre"><fmt:message key="label.genre"/></label>
                 <select name="genre_id" id="genre" required>
                     <c:forEach items="${requestScope.genres_list}" var="genres">
@@ -37,11 +40,11 @@
                     </c:forEach>
                 </select>
             <hr>
-            <label for="director"><fmt:message key="label.director"/></label>
-            <input type="text" id="director" name="director" required>
+            <label for="actors"><fmt:message key="label.actors"/></label>
+            <textarea id="actors" name="actors" required></textarea>
             <hr>
             <label for="description"><fmt:message key="label.summery"/></label>
-            <input class="text-area" name="description" id="description" required>
+            <textarea id="description" name="description" required></textarea>
             <hr>
             <label for="picture"><fmt:message key="label.picture"/></label>
             <input type="file" id="picture" name="file" required>

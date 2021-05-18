@@ -36,6 +36,7 @@ public class AttributeName {
     public static final String MOVIES_BY_KEY_WORD_LIST = "movies_by_key_word_list";
     public static final String MOVIES_BY_CURRENT_YEAR_LIST = "movies_by_current_year_list";
     public static final String GENRES_LIST = "genres_list";
+    public static final String MOVIE_GENRES_LIST = "movie_genres_list";
     public static final String GENRE_ATTRIBUTE = "genre";
     public static final String MOVIE_YEARS_LIST = "movie_years_list";
     public static final String MOVIES_BY_YEAR_LIST = "movies_by_year_list";

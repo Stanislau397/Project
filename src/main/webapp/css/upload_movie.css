@@ -63,7 +63,7 @@ body {
     margin-top: 5px;
 }
 
-.movie-form .text-area {
+.movie-form textarea {
     padding: 0 5px;
     margin-top: 5px;
     width: 320px;
@@ -71,6 +71,11 @@ body {
     border: 1px solid silver;
     border-radius: 5px;
     word-break: break-word;
+}
+
+.movie-form textarea:focus {
+    outline: none;
+    border: 1px solid silver;
 }
 
 select {

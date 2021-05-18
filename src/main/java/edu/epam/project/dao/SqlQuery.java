@@ -7,7 +7,6 @@ public class SqlQuery {
     public static final String SELECT_USER = "SELECT email, password, role, is_active, user_name FROM users WHERE email = (?) and password = (?)";
     public static final String SELECT_ID_BY_USER_NAME = "SELECT user_id FROM users WHERE user_name = (?)";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_name = (?) and password = (?)";
-    public static final String CHANGE_EMAIL = "UPDATE users SET email = (?) WHERE email = (?)";
     public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
     public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active FROM users WHERE user_name = (?)";
     public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users";
@@ -16,7 +15,10 @@ public class SqlQuery {
 
     public static final String INSERT_TO_GENRE = "INSERT INTO genres (genres_id, genre_title) VALUES (?,?)";
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";
+    public static final String SELECT_MOVIE_GENRES = "SELECT genre_title, genres_id FROM genres JOIN movie_genres ON genres_id = genre_id_fk WHERE movie_id = (?) " +
+            "GROUP BY genres_id";
     public static final String INSERT_TO_MOVIE_GENRES = "INSERT INTO movie_genres(movie_id, genre_id_fk) VALUES(?,?)";
+    public static final String DELETE_GENRE_FROM_MOVIE = "DELETE FROM movie_genres WHERE genre_id_fk = (?) AND movie_id = (?)";
 
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name) VALUES (?,?,?)";
     public static final String DELETE_ACTOR_BY_NAME = "DELETE FROM actors WHERE first_name = (?)";

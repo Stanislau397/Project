@@ -35,7 +35,7 @@ public class DisplayMovieDirectorsCommand implements Command {
             directors = movieService.findDirectorsByMovieId(movieId);
             request.setAttribute(DIRECTORS_LIST, directors);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);
-            router.setPagePath(PagePath.ADD_DIRECTOR_TO_MOVIE);
+            router.setPagePath(PagePath.EDIT_MOVIE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

@@ -39,7 +39,7 @@ public class DisplayMovieActorsCommand implements Command {
             request.setAttribute(ACTORS_LIST, actors);
             request.setAttribute(MOVIE_TITLE, movieTitle);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);
-            router.setPagePath(PagePath.ADD_ACTOR_TO_MOVIE);
+            router.setPagePath(PagePath.EDIT_MOVIE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
