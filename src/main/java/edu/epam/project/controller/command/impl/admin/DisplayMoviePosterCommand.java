@@ -18,6 +18,7 @@ public class DisplayMoviePosterCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
-        return null;
+        Router router = new Router();
+        return router;
     }
 }

@@ -54,6 +54,41 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws DaoException {
+        boolean isPosterUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_MOVIE_POSTER)) {
+            statement.setString(1, picturePath);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isPosterUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isPosterUpdated;
+    }
+
+    @Override
+    public Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException {
+        Optional<Movie> moviePoster = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_POSTER)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Movie movie = new Movie();
+                movie.setPicture(resultSet.getString(1));
+                moviePoster = Optional.of(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviePoster;
+    }
+
+    @Override
     public List<Movie> findAll() throws DaoException {
         List<Movie> allMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -213,7 +248,7 @@ public class MovieDaoImpl implements MovieDao {
     public List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException {
         List<Genre> movieGenres = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_GENRES)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_GENRES)) {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -663,7 +698,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException {
         boolean isGenreRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_FROM_MOVIE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_FROM_MOVIE)) {
             statement.setLong(1, genreId);
             statement.setLong(2, movieId);
             int update = statement.executeUpdate();

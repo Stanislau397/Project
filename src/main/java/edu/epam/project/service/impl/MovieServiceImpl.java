@@ -34,6 +34,30 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException {
+        boolean isPosterUpdated;
+        try {
+            isPosterUpdated = movieDao.updateMoviePosterByMovieId(picturePath, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isPosterUpdated;
+    }
+
+    @Override
+    public Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException {
+        Optional<Movie> moviePoster;
+        try {
+            moviePoster = movieDao.findMoviePosterByMovieId(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviePoster;
+    }
+
+    @Override
     public boolean addGenre(Genre genre) throws ServiceException {
         boolean isAdded;
         try {

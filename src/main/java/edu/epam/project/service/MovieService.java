@@ -13,6 +13,10 @@ public interface MovieService {
 
     boolean add(Movie movie) throws ServiceException;
 
+    boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
+
+    Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException;
+
     Optional<Movie> findMovieByTitle(String title) throws ServiceException;
 
     List<Movie> findAllMovies() throws ServiceException;

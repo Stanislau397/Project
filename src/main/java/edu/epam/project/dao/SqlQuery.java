@@ -37,6 +37,8 @@ public class SqlQuery {
 
     public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
             "VALUES (?,?,?,?,?,?,?)";
+    public static final String UPDATE_MOVIE_POSTER = "UPDATE movies SET picture = (?) WHERE movie_id = (?)";
+    public static final String SELECT_MOVIE_POSTER = "SELECT picture FROM movies WHERE movie_id = (?)";
     public static final String DELETE_BY_TITLE = "DELETE FROM movies WHERE title = (?)";
     public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id ORDER BY average DESC";
