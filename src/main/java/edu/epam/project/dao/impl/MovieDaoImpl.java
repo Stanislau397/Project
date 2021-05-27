@@ -430,6 +430,54 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Movie> findLatestUploadedMovies() throws DaoException {
+        List<Movie> latestMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_LATEST_MOVIES);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Genre genre = new Genre();
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                genre.setGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE));
+                movie.setGenre(genre);
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                latestMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return latestMovies;
+    }
+
+    @Override
+    public List<Movie> findLatestReviewedMovies() throws DaoException {
+        List<Movie> latestReviewedMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_LATEST_REVIEWED_MOVIES);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Comment comment = new Comment();
+                Rating rating = new Rating();
+                comment.setText(resultSet.getString(TableColumn.COMMENT));
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setComment(comment);
+                movie.setRating(rating);
+                latestReviewedMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return latestReviewedMovies;
+    }
+
+    @Override
     public boolean addActor(Actor actor) throws DaoException {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

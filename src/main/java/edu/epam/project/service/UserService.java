@@ -23,4 +23,6 @@ public interface UserService {
     boolean changeUserRoleByUserName(String userName, String role) throws ServiceException;
 
     List<User> findAll() throws ServiceException;
+
+    List<User> findLatestRegisteredUsers() throws ServiceException;
 }

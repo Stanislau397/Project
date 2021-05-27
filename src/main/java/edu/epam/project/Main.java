@@ -1,16 +1,15 @@
 package edu.epam.project;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.logging.log4j.core.util.ArrayUtils;
+
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) {
-        Set<String> strings = new HashSet<>();
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_.-]*$");
-        String name = "Lanc";
+        Integer[] array = new Integer[]{2,4,1,3};
+        Arrays.sort(array, Collections.reverseOrder());
+        System.out.println(Arrays.toString(array));
     }
 }

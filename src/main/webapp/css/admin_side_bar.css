@@ -1,16 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     user-select: none;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
-
-.header {
-    width: 100%;
-    background-color: #1e1e1e;
-    height: 70px;
 }
 
 
@@ -19,7 +14,8 @@
     width: 250px;
     height: 100%;
     left: 0;
-    background-color: #1b1b1b;
+    background-color: #212529;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .text {
@@ -27,13 +23,15 @@
     font-size: 25px;
     font-weight: 600;
     line-height: 65px;
+    height: 65px;
     text-align: center;
-    background-color: #1e1e1e;
+    background-color: #212529;
     letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .drop {
-    background-color: #1b1b1b;
+    background-color: #212529;
     height: 100%;
     width: 100%;
     list-style: none;
@@ -54,7 +52,7 @@
 .sidebar .drop .active {
     margin-left: 5px;
     line-height: 60px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .drop .active a {
@@ -70,8 +68,8 @@
 
 
 .sidebar .drop li a:hover {
-    color: cyan;
-    background-color: #1e1e1e;
+    color: #f9ab00;
+    background-color: #212529;
 }
 
 .sidebar .drop ul {
@@ -79,7 +77,7 @@
     display: none;
 }
 
-.sidebar .drop ul li{
+.sidebar .drop ul li {
     line-height: 42px;
     border-bottom: none;
 }
@@ -89,16 +87,19 @@
     color: #e6e6e6;
     padding-left: 5px;
 }
-.sidebar .drop li.active ul li a{
+
+.sidebar .drop li.active ul li a {
     color: #e6e6e6;
-    background: #1b1b1b;
+    background: #212529;
     border-left-color: transparent;
 }
-.sidebar .drop ul li a:hover{
-    color: cyan!important;
-    background: #1e1e1e!important;
+
+.sidebar .drop ul li a:hover {
+    color: #f9ab00 !important;
+    background: #212529 !important;
 }
-.sidebar .drop li a span{
+
+.sidebar .drop li a span {
     position: absolute;
     top: 50%;
     right: 20px;
@@ -106,6 +107,7 @@
     font-size: 22px;
     transition: transform 0.4s;
 }
-.sidebar .drop li a span.rotate{
+
+.sidebar .drop li a span.rotate {
     transform: translateY(-50%) rotate(-180deg);
 }

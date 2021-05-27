@@ -10,6 +10,7 @@ public class SqlQuery {
     public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
     public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active FROM users WHERE user_name = (?)";
     public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users";
+    public static final String SELECT_LATEST_USERS = "SELECT user_id, user_name, email, role, is_active FROM users ORDER BY user_id DESC";
     public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_name = (?)";
     public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_name = (?)";
 
@@ -66,6 +67,11 @@ public class SqlQuery {
             "LEFT JOIN rating ON movie_id_fk = movie_id WHERE title LIKE CONCAT( '%',?,'%') GROUP BY movie_id_fk";
     public static final String SELECT_RATED_MOVIES = "SELECT m.user_comment, m.post_date,  r.user_score, title, picture, movie_id FROM movie_comments m , rating r, movies e WHERE" +
             " m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) GROUP BY movie_id";
+    public static final String SELECT_LATEST_MOVIES = "SELECT m.movie_id, m.title, m.release_date, genre_title FROM movies m LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
+            "LEFT JOIN genres g ON mg.genre_id_fk = g.genres_id ORDER BY m.movie_id DESC";
+    public static final String SELECT_LATEST_REVIEWED_MOVIES = "SELECT m.movie_id, m.title, user_score, user_comment, r.rating_id FROM movies m\n" +
+            "JOIN movie_comments mc ON m.movie_id = mc.movie_id_fk\n" +
+            "JOIN rating r ON mc.movie_id_fk = r.movie_id_fk GROUP BY r.movie_id_fk ORDER BY r.rating_id DESC";
 
     public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";

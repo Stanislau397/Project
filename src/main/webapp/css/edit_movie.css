@@ -128,3 +128,9 @@ button {
     border: 1px solid grey;
     border-radius: 5px;
 }
+
+.main-content .edit .content-table img {
+    max-width: 110px;
+    max-height: 130px;
+    border-radius: 5px;
+}

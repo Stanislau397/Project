@@ -31,7 +31,7 @@ public class UploadMovieCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UploadMovieCommand.class);
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image";
-    public static final String SEPARATOR = "/";
+    private static final String SEPARATOR = "/";
     private ActorParser actorParser = new ActorParser();
     private MovieService movieService = new MovieServiceImpl();
 

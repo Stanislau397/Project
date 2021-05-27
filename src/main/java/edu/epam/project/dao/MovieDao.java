@@ -45,6 +45,10 @@ public interface MovieDao {
 
     List<Movie> findMoviesByKeyWord(String keyWord) throws DaoException;
 
+    List<Movie> findLatestUploadedMovies() throws DaoException;
+
+    List<Movie> findLatestReviewedMovies() throws DaoException;
+
     boolean addActor(Actor actor) throws DaoException;
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;

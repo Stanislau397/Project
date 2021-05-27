@@ -1,15 +1,25 @@
 package edu.epam.project.controller.command.impl.admin;
 
+import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
+import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.controller.command.RequestParameter;
+import edu.epam.project.entity.Movie;
+import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
+
+import static edu.epam.project.controller.command.RequestParameter.*;
 
 public class DisplayMoviePosterCommand implements Command {
 
@@ -19,6 +29,20 @@ public class DisplayMoviePosterCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        String currentPage = request.getHeader(REFERER);
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        Movie movie;
+        try {
+            Optional<Movie> moviePoster = movieService.findMoviePosterByMovieId(movieId);
+            if (moviePoster.isPresent()) {
+                movie = moviePoster.get();
+                request.setAttribute(AttributeName.MOVIE_POSTER, movie);
+                request.setAttribute(AttributeName.MOVIE_ID, movieId);
+                router.setPagePath(PagePath.EDIT_MOVIE);
+            }
+        } catch (ServiceException e) {
+            logger.log(Level.ERROR, e);
+        }
         return router;
     }
 }

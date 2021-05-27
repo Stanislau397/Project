@@ -29,6 +29,7 @@ public enum CommandType {
     TO_UPLOAD_MOVIE(new ToUploadMovieCommand()),
     TO_GENRES(new ToGenresCommand()),
     TO_EDIT_MOVIE(new ToEditMovieCommand()),
+    TO_ADMIN_CABINET(new ToAdminCabinetCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE_TO_MOVIE(new AddGenreToMovieCommand()),
@@ -45,9 +46,11 @@ public enum CommandType {
     FIND_DIRECTOR(new FindDirectorCommand()),
     FIND_USER(new SearchUserCommand()),
     CHANGE_USER_ROLE(new ChangeUserRoleCommand()),
+    CHANGE_MOVIE_POSTER(new ChangeMoviePosterCommand()),
     DISPLAY_MOVIE_DIRECTORS(new DisplayMovieDirectorsCommand()),
     DISPLAY_MOVIE_ACTORS(new DisplayMovieActorsCommand()),
     DISPLAY_MOVIE_GENRES(new DisplayMovieGenresCommand()),
+    DISPLAY_MOVIE_POSTER(new DisplayMoviePosterCommand()),
 
     SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
     CURRENT_YEAR_MOVIES(new CurrentYearMoviesCommand()),

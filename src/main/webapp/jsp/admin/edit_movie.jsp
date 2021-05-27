@@ -13,7 +13,11 @@
 <div class="main-content">
     <div class="navigation">
         <ul>
-            <li><fmt:message key="label.poster"/></li>
+            <li><form action="${pageContext.request.contextPath}/controller" method="get">
+                <input type="hidden" name="command" value="display_movie_poster">
+                <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
+                <button type="submit"><fmt:message key="label.poster"/></button>
+            </form></li>
             <li><form action="${pageContext.request.contextPath}/controller" method="get">
                 <input type="hidden" name="command" value="display_movie_actors">
                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
@@ -196,6 +200,33 @@
                         </tbody>
                     </table>
                 </form>
+            </c:when>
+
+            <c:when test="${requestScope.movie_poster != null}">
+                <table class="content-table">
+                    <thead>
+                    <tr>
+                        <th><fmt:message key="label.poster"/></th>
+                        <th><fmt:message key="label.operation"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <img src="<c:url value="${movie_poster.picture}"/>" alt="capture_test">
+                        </td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="command" value="change_movie_poster">
+                                <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
+                                <input type="file" name="file">
+                                <button type="submit" class="remove-btn"
+                                        style="background-color: #66cc33"><fmt:message key="label.change"/></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </c:when>
         </c:choose>
     </div>

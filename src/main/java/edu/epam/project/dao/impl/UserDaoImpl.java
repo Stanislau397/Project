@@ -189,4 +189,26 @@ public class UserDaoImpl implements UserDao {
         }
         return allUsers;
     }
+
+    @Override
+    public List<User> findLatestRegisteredUsers() throws DaoException {
+        List<User> latestUsers = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_LATEST_USERS);
+            while (resultSet.next()) {
+                long id = resultSet.getLong(TableColumn.USER_ID);
+                String login = resultSet.getString(TableColumn.USER_NAME);
+                String email = resultSet.getString(TableColumn.USER_EMAIL);
+                String role = resultSet.getString(TableColumn.USER_ROLE);
+                boolean status = resultSet.getBoolean(TableColumn.USER_STATUS);
+                User user = new User(id, RoleType.valueOf(role), login, email, status);
+                latestUsers.add(user);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return latestUsers;
+    }
 }
