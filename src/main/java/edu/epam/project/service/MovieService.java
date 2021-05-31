@@ -15,6 +15,8 @@ public interface MovieService {
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
 
+    int countMovies() throws ServiceException;
+
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException;
 
     Optional<Movie> findMovieByTitle(String title) throws ServiceException;

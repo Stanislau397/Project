@@ -3,68 +3,49 @@ body {
     background-size: cover;
 }
 
-.main-content {
-    background-color: #F0F0F0;
-    width: 1150px;
-    min-height: 700px;
-    height: auto;
-    margin-left: 300px;
-    margin-top: 15px;
+body {
+    background-color: #1a191f;
+}
+
+
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.top .text1 {
     float: left;
+    display: inline-block;
+}
+
+.top .counter {
+    float: left;
+    width: 400px;
+}
+
+.top .counter p {
+    margin-left: 10px;
+    margin-top: 21px;
+    color: rgba(255,255,255,0.7);
+}
+
+.top .text1 h2{
+    color: white;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
+    margin-left: 10px;
+}
+
+.main-content {
+    margin-left: 250px;
 }
 
 .main-content .search {
-    float: top;
+    float: left;
     width: 100%;
-    height: 30px;
-    background-color: grey;
-    align-content: center;
-    align-items: center;
-}
-
-.content-table {
-    border-collapse: collapse;
-    font-size: 1.1em;
-    min-width: 1150px;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-family: sans-serif;
-}
-
-.content-table thead tr {
-    background-color: #009879;
-    color: white;
-    text-align: left;
-    font-weight: bold;
-    min-width: 50px;
-}
-
-.content-table th,
-.content-table td {
-    padding: 12px 15px;
-
-}
-
-.content-table tbody rt {
-    border-bottom: 1px solid #dddddd;
-}
-
-.content-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-button {
-    cursor: pointer;
-}
-
-.search {
-    margin-top: 40px;
-    margin-left: 380px;
 }
 
 .search input {
@@ -75,12 +56,14 @@ button {
 }
 
 .search input[type="text"] {
-    background-color: #fff;
+    background-color: #222028;
+    color: white;
     margin-left: 190px;
-    width: 430px;
-    height: 50px;
+    margin-top: 10px;
+    width: 300px;
+    height: 40px;
     padding: 0 25px;
-    border-radius: 25px 0 0 25px;
+    border-radius: 10px 0 0 10px;
     border: none;
     outline: none;
 }
@@ -88,13 +71,78 @@ button {
 .search input[type="submit"] {
     position: relative;
     left: -5px;
-    border-radius: 0 25px 25px 0;
-    height: 50px;
-    width: 150px;
+    border-radius: 0 10px 10px 0;
+    height: 40px;
+    width: 100px;
     border: none;
     cursor: pointer;
-    background: #009879;
+    background: #222028;
+    border-left: 1px solid rgba(255,255,255,0.1);
     color: #fff;
+}
+
+.content-table {
+    border-collapse: separate;
+    font-size: 1.1em;
+    min-width: 1150px;
+    overflow: hidden;
+    color: rgba(255,255,255,0.7);
+    font-family: sans-serif;
+    border-spacing: 0 12px;
+    margin-left: 20px;
+}
+
+.content-table thead tr {
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    min-width: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);;
+}
+
+.content-table td {
+    background-color: #222028;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.content-table i {
+    color: #f9c22a;
+}
+
+.content-table button {
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: #222028;
+    color: white;
+    cursor: pointer;
+}
+
+.content-table button:hover {
+    color: #f9c22a;
+    outline: none;
+    border: none;
+}
+
+td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+button {
+    cursor: pointer;
 }
 
 .main-content img {
@@ -115,7 +163,7 @@ button {
 .main-content .movie-title-btn:hover {
     outline: none;
     border: none;
-    color: #009879;
+    color: #f9c22a;
 }
 
 .main-content .remove-movie, .edit-movie {
@@ -135,14 +183,18 @@ button {
     border-radius: 5px;
 }
 
-.main-content .edit-movie .edit-btn {
-    background-color: #f9c22a;
-    color: white;
-    font-size: 14px;
+.edit-movie .edit-btn {
+    text-align: center;
+    background-color: #066ee7;
+    font-size: 30px;
     font-weight: bold;
     font-family: sans-serif;
-    width: 125px;
-    height: 34px;
-    border: 1px solid grey;
-    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.edit-movie .edit-btn i {
+    color: white;
+    font-size: 20px;
 }

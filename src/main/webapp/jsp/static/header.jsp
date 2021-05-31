@@ -46,7 +46,6 @@
                     </button>
                 </c:when>
                 <c:when test="${sessionScope.admin != null}">
-                    <button>
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="to_admin_cabinet">
                             <button type="submit"><fmt:message key="label.cabinet"/></button>

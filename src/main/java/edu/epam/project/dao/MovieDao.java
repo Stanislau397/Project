@@ -17,6 +17,8 @@ public interface MovieDao {
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws DaoException;
 
+    int countMovies() throws DaoException;
+
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException;
 
     List<Movie> findAll() throws DaoException;

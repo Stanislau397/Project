@@ -46,6 +46,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public int countMovies() throws ServiceException {
+        int counter;
+        try {
+            counter = movieDao.countMovies();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return counter;
+    }
+
+    @Override
     public Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException {
         Optional<Movie> moviePoster;
         try {

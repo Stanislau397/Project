@@ -66,6 +66,7 @@ public enum CommandType {
     EDIT_COMMENT(new EditCommentCommand()),
     DOWN_VOTE_COMMENT(new DownVoteCommentCommand()),
     SHOW_USER_PROFILE(new ShowUserProfileCommand()),
+    SEARCH_MOVIE_BY_KEY_WORD(new SearchMovieCommand()),
     SEARCH_MOVIE(new SearchCommand()),
     SHOW_MOVIE_DETAILS(new ShowMovieDetailsCommand());
 

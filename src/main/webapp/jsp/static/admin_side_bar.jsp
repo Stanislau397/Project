@@ -25,7 +25,7 @@
                 <li><a href="${pageContext.request.contextPath}/controller?command=to_upload_movie"><fmt:message
                         key="label.upload_movie"/></a></li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=all_movies"><fmt:message
-                        key="label.edit"/></a></li>
+                        key="label.all_movies"/></a></li>
             </ul>
         </li>
 

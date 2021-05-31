@@ -70,6 +70,22 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public int countMovies() throws DaoException {
+        int counter = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_MOVIES);
+            if (resultSet.next()) {
+                counter = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return counter;
+    }
+
+    @Override
     public Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException {
         Optional<Movie> moviePoster = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
