@@ -61,6 +61,23 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
+    public boolean updateComment(String updatedText, String text, String userName) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_COMMENT)) {
+            statement.setString(1, updatedText);
+            statement.setString(2, text);
+            statement.setString(3, userName);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws DaoException {
         boolean isUpVoted;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -138,7 +155,7 @@ public class CommentDaoImpl implements CommentDao {
     public boolean removeUserVote(long commentId, String userName) throws DaoException {
         boolean isVoteRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_COMMENT_VOTE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_COMMENT_VOTE)) {
             statement.setLong(1, commentId);
             statement.setString(2, userName);
             int update = statement.executeUpdate();
@@ -187,13 +204,18 @@ public class CommentDaoImpl implements CommentDao {
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_COMMENTS)) {
             statement.setString(1, userName);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 Movie movie = new Movie();
                 Comment comment = new Comment();
+                comment.setCommentId(resultSet.getLong(TableColumn.COMMENT_ID));
                 comment.setPostDate(resultSet.getString(TableColumn.COMMENT_POST_DATE));
                 comment.setText(resultSet.getString(TableColumn.COMMENT));
+                comment.setCommentUpVotes(resultSet.getInt(TableColumn.COMMENT_UP_VOTES));
+                comment.setCommentDownVotes(resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES));
+                comment.setUserName(resultSet.getString(TableColumn.USER_NAME));
                 movie.setComment(comment);
-                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID_FK));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 userComments.add(movie);
             }
         } catch (SQLException e) {

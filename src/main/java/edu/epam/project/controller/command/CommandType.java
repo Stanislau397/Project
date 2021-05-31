@@ -4,6 +4,7 @@ import edu.epam.project.controller.command.impl.*;
 import edu.epam.project.controller.command.impl.admin.*;
 import edu.epam.project.controller.command.impl.common.*;
 import edu.epam.project.controller.command.impl.user.ChangePasswordCommand;
+import edu.epam.project.controller.command.impl.user.EditCommentCommand;
 import edu.epam.project.controller.command.impl.user.ShowUserProfileCommand;
 
 public enum CommandType {
@@ -23,6 +24,7 @@ public enum CommandType {
 
     CHANGE_PASSWORD(new ChangePasswordCommand()),
     CHANGE_LOCALE(new ChangeLocaleCommand()),
+    UPDATE_EMAIL_AND_ROLE(new UpdateEmailAndRoleCommand()),
 
     OPEN_HOME_PAGE(new OpenHomePageCommand()),
     OPEN_LOGIN_PAGE(new OpenLogInPageCommand()),
@@ -30,6 +32,7 @@ public enum CommandType {
     TO_GENRES(new ToGenresCommand()),
     TO_EDIT_MOVIE(new ToEditMovieCommand()),
     TO_ADMIN_CABINET(new ToAdminCabinetCommand()),
+    TO_EDIT_USER(new ToEditUserCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE_TO_MOVIE(new AddGenreToMovieCommand()),
@@ -58,8 +61,9 @@ public enum CommandType {
     MOVIES_BY_GENRE(new MoviesByGenreCommand()),
     NEWEST_MOVIES(new NewestMoviesCommand()),
     MOST_RATED_MOVIES(new MostRatedMoviesCommand()),
-    SHOW_COMMENTS(new ShowCommentsCommand()),
+    SHOW_USER_COMMENTS(new ShowUserCommentsCommand()),
     UP_VOTE_COMMENT(new UpVoteCommentCommand()),
+    EDIT_COMMENT(new EditCommentCommand()),
     DOWN_VOTE_COMMENT(new DownVoteCommentCommand()),
     SHOW_USER_PROFILE(new ShowUserProfileCommand()),
     SEARCH_MOVIE(new SearchCommand()),

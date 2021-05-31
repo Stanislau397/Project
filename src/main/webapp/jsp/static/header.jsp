@@ -39,7 +39,6 @@
                     </li>
                 </ul>
             </div>
-            <a href="${pageContext.request.contextPath}/jsp/admin/edit_movie.jsp">EDIT</a>
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>
@@ -48,8 +47,10 @@
                 </c:when>
                 <c:when test="${sessionScope.admin != null}">
                     <button>
-                        <a href="${pageContext.request.contextPath}/jsp/admin/admin_cabinet.jsp">
-                            <fmt:message key="label.cabinet"/></a></button>
+                        <form action="${pageContext.request.contextPath}/controller" method="get">
+                            <input type="hidden" name="command" value="to_admin_cabinet">
+                            <button type="submit"><fmt:message key="label.cabinet"/></button>
+                        </form>
                 </c:when>
                 <c:when test="${sessionScope.user != null}">
                     <form action="${pageContext.request.contextPath}/controller" method="get">

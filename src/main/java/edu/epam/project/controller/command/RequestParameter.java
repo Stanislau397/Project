@@ -9,9 +9,12 @@ public class RequestParameter {
     public static final String LANGUAGE_PARAMETER = "language";
     public static final String COMMAND = "command";
     public static final String USER_NAME_PARAMETER = "user_name";
+    public static final String USER_ID = "user_id";
+    public static final String ROLE = "role";
     public static final String PASSWORD_PARAMETER = "password";
     public static final String EMAIL_PARAMETER = "email";
     public static final String NEW_PASSWORD = "new_password";
+    public static final String CONFIRM_PASSWORD = "confirm_password";
     public static final String NEW_USER_NAME = "new_user_name";
     public static final String MOVIE_ID = "movie_id";
     public static final String ACTOR_ID = "actor_id";
@@ -21,6 +24,8 @@ public class RequestParameter {
     public static final String REFERER = "referer";
     public static final String SCORE = "star";
     public static final String KEY_WORD_PARAMETER = "key_word";
+    public static final String UPDATED_TEXT = "updated_text";
+    public static final String TEXT = "text";
 
     public static final String TITLE = "title";
     public static final String COUNTRY = "country";

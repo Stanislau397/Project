@@ -14,10 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
-import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.NEW_PASSWORD;
-
+import static edu.epam.project.controller.command.RequestParameter.*;
 import static edu.epam.project.controller.command.SessionAttribute.CHANGE_PASSWORD;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
@@ -32,14 +29,20 @@ public class ChangePasswordCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
+        String userName;
         String currentPage = request.getHeader(REFERER);
-        String userName = (String) session.getAttribute(USER_NAME);
         String password = request.getParameter(PASSWORD_PARAMETER);
         String newPassword = request.getParameter(NEW_PASSWORD);
+        String confirmNewPassword = request.getParameter(CONFIRM_PASSWORD);
+        if (request.getParameter(USER_NAME) != null) {
+            userName = request.getParameter(USER_NAME);
+        } else {
+            userName = (String) session.getAttribute(USER_NAME);
+        }
         User user = new User();
         user.setUserName(userName);
         try {
-            if (userService.changePassword(user, password, newPassword)) {
+            if (userService.changePassword(user, password, newPassword, confirmNewPassword)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(CHANGE_PASSWORD, PASSWORD_HAS_BEEN_UPDATED);

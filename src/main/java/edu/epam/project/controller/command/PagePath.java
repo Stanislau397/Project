@@ -24,6 +24,7 @@ public class PagePath {
     public static final String ADD_GENRE_PAGE = "jsp/admin/add_genre.jsp";
     public static final String ALL_MOVIES_PAGE = "jsp/admin/all_movies.jsp";
     public static final String EDIT_MOVIE = "jsp/admin/edit_movie.jsp";
+    public static final String EDIT_USER = "jsp/admin/edit_user.jsp";
     public static final String ADD_ACTOR_TO_MOVIE = "jsp/admin/add_actor_to_movie.jsp";
     public static final String ADD_DIRECTOR_TO_MOVIE = "jsp/admin/add_director_to_movie.jsp";
 }

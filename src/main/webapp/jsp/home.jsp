@@ -81,22 +81,6 @@
         </c:if>
     </c:forEach>
 </div>
-<div class="upcoming-movies">
-    <div class="title">
-        <p>Upcoming Movies</p>
-    </div>
-<c:forEach items="${requestScope.most_rated_movies_list}" var="mostRatedMovies" varStatus="x">
-        <c:if test="${x.count < 6}">
-    <div class="picture">
-        <img src="${pageContext.request.contextPath}${mostRatedMovies.picture}"/>
-    </div>
-    <div class="movie-title">
-        <form>
-            <button type="submit">${mostRatedMovies.title}</button>
-        </form>
-    </div>
-    </c:if>
-    </c:forEach>
 </body>
 <jsp:include page="static/footer.jsp"/>
 </html>

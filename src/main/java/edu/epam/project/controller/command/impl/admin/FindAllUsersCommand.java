@@ -15,9 +15,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static edu.epam.project.controller.command.AttributeName.*;
 import static edu.epam.project.controller.command.RequestParameter.*;
-import static edu.epam.project.controller.command.AttributeName.USER_LIST;
-import static edu.epam.project.controller.command.AttributeName.ERROR;
 
 public class FindAllUsersCommand implements Command {
 
@@ -27,11 +26,12 @@ public class FindAllUsersCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        List<User> users;
         try {
-            users = userService.findAll();
+            List<User> users = userService.findAll();
+            int amountOfUsers = userService.countAmountOfUsers();
             if (users.size() > 0) {
                 request.setAttribute(USER_LIST, users);
+                request.setAttribute(COUNTER, amountOfUsers);
                 router.setPagePath(PagePath.ALL_USERS_PAGE);
             }
         } catch (ServiceException e) {

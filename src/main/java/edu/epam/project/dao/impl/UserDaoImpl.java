@@ -41,6 +41,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ROLE_AND_EMAIL)) {
+            statement.setString(1, email);
+            statement.setString(2, String.valueOf(role));
+            statement.setLong(3, userId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -95,6 +112,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int countAmountOfUsers() throws DaoException {
+        int amountOfUsers = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_USERS);
+            if (resultSet.next()) {
+                amountOfUsers = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return amountOfUsers;
+    }
+
+    @Override
     public long findUserIdByUserName(String userName) throws DaoException {
         long userId = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -134,7 +167,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean changePassword(User user, String password, String newPassword) throws DaoException {
+    public boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws DaoException {
         boolean isPasswordChanged;
         String userName = user.getUserName();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

@@ -18,6 +18,8 @@ public interface CommentDao {
 
     Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws DaoException;
 
+    boolean updateComment(String updatedText, String text, String userName) throws DaoException;
+
     boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws DaoException;
 
     boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws DaoException;

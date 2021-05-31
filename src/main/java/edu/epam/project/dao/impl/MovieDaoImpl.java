@@ -463,6 +463,7 @@ public class MovieDaoImpl implements MovieDao {
                 Comment comment = new Comment();
                 Rating rating = new Rating();
                 comment.setText(resultSet.getString(TableColumn.COMMENT));
+                comment.setUserName(resultSet.getString(TableColumn.USER_NAME));
                 rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));

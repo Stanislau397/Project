@@ -14,7 +14,7 @@
     width: 250px;
     height: 100%;
     left: 0;
-    background-color: #212529;
+    background-color: #1a191f;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -25,13 +25,13 @@
     line-height: 65px;
     height: 65px;
     text-align: center;
-    background-color: #212529;
+    background-color: #1a191f;
     letter-spacing: 1px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .drop {
-    background-color: #212529;
+    background-color: #1a191f;
     height: 100%;
     width: 100%;
     list-style: none;
@@ -69,7 +69,7 @@
 
 .sidebar .drop li a:hover {
     color: #f9ab00;
-    background-color: #212529;
+    background-color: #1a191f;
 }
 
 .sidebar .drop ul {
@@ -90,13 +90,13 @@
 
 .sidebar .drop li.active ul li a {
     color: #e6e6e6;
-    background: #212529;
+    background-color: #1a191f;
     border-left-color: transparent;
 }
 
 .sidebar .drop ul li a:hover {
     color: #f9ab00 !important;
-    background: #212529 !important;
+    background-color: #1a191f;!important;
 }
 
 .sidebar .drop li a span {

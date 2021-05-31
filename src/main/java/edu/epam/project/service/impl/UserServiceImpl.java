@@ -46,6 +46,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws ServiceException {
+        boolean isUpdated = false;
+        AccountValidator validator = new AccountValidator();
+        try {
+            if (validator.isValidEmail(email)) {
+                isUpdated = userDao.updateEmailAndRoleByUserId(email, role, userId);
+            }
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException {
         boolean isUpdated;
         try {
@@ -96,15 +111,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(User user, String password, String newPassword) throws ServiceException {
+    public int countAmountOfUsers() throws ServiceException {
+        int amountOfUsers;
+        try {
+            amountOfUsers = userDao.countAmountOfUsers();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return amountOfUsers;
+    }
+
+    @Override
+    public boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws ServiceException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
         boolean isPasswordChanged = false;
         try {
-            if (validator.isValidPassword(newPassword)) {
+            if (validator.isValidPassword(newPassword) && validator.isValidPassword(confirmNewPassword)
+                    && newPassword.equals(confirmNewPassword)) {
+
                 String encryptedPassword = encryptor.encryptPassword(password);
                 String encryptedNewPassword = encryptor.encryptPassword(newPassword);
-                isPasswordChanged = userDao.changePassword(user, encryptedPassword, encryptedNewPassword);
+                isPasswordChanged = userDao.changePassword(user, encryptedPassword, encryptedNewPassword, confirmNewPassword);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);

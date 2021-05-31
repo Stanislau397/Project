@@ -1,57 +1,130 @@
 body {
-    background-color: #e6e6e6;
-    background-size: cover;
+    background-color: #1a191f;
+}
+
+
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.top .text1 {
+    float: left;
+    display: inline-block;
+}
+
+.top .counter {
+    float: left;
+    width: 400px;
+}
+
+.top .counter p {
+    margin-left: 10px;
+    margin-top: 21px;
+    color: rgba(255,255,255,0.7);
+}
+
+.top .text1 h2{
+    color: white;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
+    margin-left: 10px;
 }
 
 .main-content {
-    background-color: #F0F0F0;
-    width: 1150px;
-    min-height: 700px;
-    height: auto;
-    margin-left: 300px;
-    margin-top: 15px;
-    float: left;
+    margin-left: 250px;
 }
 
 .main-content .search {
-    float: top;
+    float: left;
     width: 100%;
 }
 
+.search input {
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+.search input[type="text"] {
+    background-color: #222028;
+    color: white;
+    margin-left: 190px;
+    margin-top: 10px;
+    width: 300px;
+    height: 40px;
+    padding: 0 25px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    outline: none;
+}
+
+.search input[type="submit"] {
+    position: relative;
+    left: -5px;
+    border-radius: 0 10px 10px 0;
+    height: 40px;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+    background: #222028;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+}
+
 .content-table {
-    border-collapse: collapse;
+    border-collapse: separate;
     font-size: 1.1em;
     min-width: 1150px;
-    border-radius: 5px 5px 0 0;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    color: rgba(255,255,255,0.7);
     font-family: sans-serif;
+    border-spacing: 0 12px;
+    margin-left: 20px;
 }
 
 .content-table thead tr {
-    background-color: #009879;
-    color: white;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
     text-align: left;
     font-weight: bold;
-    min-width: 50px;
+    min-width: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);;
+}
+
+.content-table td {
+    background-color: #222028;
 }
 
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
 }
 
-.content-table tbody rt {
-    border-bottom: 1px solid #dddddd;
+.content-table i {
+    color: #f9c22a;
 }
 
-.content-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+.content-table button {
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: #222028;
+    color: white;
+    cursor: pointer;
 }
 
-.content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+.content-table button:hover {
+    color: #f9c22a;
+    outline: none;
+    border: none;
 }
 
 button {
@@ -66,65 +139,6 @@ button {
     margin-left: 7px;
 }
 
-.main-content .block-user .block-btn {
-    background-color: red;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: sans-serif;
-    width: 110px;
-    height: 32px;
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-
-.main-content .unblock-user .unblock-btn {
-    background-color: #66cc33;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: sans-serif;
-    width: 120px;
-    height: 32px;
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-
-.search {
-    margin-top: 40px;
-    margin-left: 380px;
-}
-
-.search input {
-    display: inline-block;
-    font-size: 20px;
-    box-sizing: border-box;
-    transition: 0.5s;
-}
-
-.search input[type="text"] {
-    background-color: #fff;
-    margin-left: 190px;
-    width: 430px;
-    height: 50px;
-    padding: 0 25px;
-    border-radius: 25px 0 0 25px;
-    border: none;
-    outline: none;
-}
-
-.search input[type="submit"] {
-    position: relative;
-    left: -5px;
-    border-radius: 0 25px 25px 0;
-    height: 50px;
-    width: 150px;
-    border: none;
-    cursor: pointer;
-    background: #009879;
-    color: #fff;
-}
-
 .main-content .user_name_btn {
     border: 0;
     outline: none;
@@ -136,19 +150,138 @@ button {
 .main-content .user_name_btn:hover {
     outline: none;
     border: none;
-    color: #009879;
+    color: #f9c22a;
 }
 
 .main-content .change-role .change-role-btn {
-    background-color: #f9c22a;
+    background-color: #2f80ed;
     color: white;
     font-size: 14px;
     font-weight: bold;
     font-family: sans-serif;
-    width: 200px;
-    height: 32px;
-    border: 1px solid grey;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
+}
+
+.right .buttons button {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: #1a191f;
+    border-radius: 5px;
+    height: 150px;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+.right .pop .text {
+    width: 100%;
+    text-align: center;
+}
+
+.right .pop .text p {
+    font-weight: 150;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.right .buttons .change-status {
+    margin-left: 10px;
+    margin-top: 5px;
+    float: left;
+}
+
+.right .buttons .dismiss {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+}
+
+.right .buttons .chang-btn {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.right {
+    float: left;
+}
+
+.button .change-role-btn {
+    text-align: center;
+    background-color: #009879;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.button .change-role-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.right .buttons button a {
+    width: 183px;
+    height: 42px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.right .buttons button:hover {
+    color: white;
+    border: 2px solid #f9c22a;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
 }
 
 

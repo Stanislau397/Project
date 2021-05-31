@@ -46,7 +46,6 @@ public class UploadMovieCommand implements Command {
         try {
             for (String fieldName : parameterNames) {
                 processMovieFormFields(movie, part, fieldName, request);
-                System.out.println(fieldName);
             }
             processUploadedFile(movie, part);
             if (movieService.add(movie)) {

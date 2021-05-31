@@ -10,6 +10,8 @@ public interface CommentService {
 
     boolean leaveComment(String userName, long movieId, String comment) throws ServiceException;
 
+    boolean updateComment(String updatedText, String text, String userName) throws ServiceException;
+
     boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException;
 
     boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException;

@@ -36,6 +36,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public boolean updateComment(String updatedText, String text, String userName) throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = commentDao.updateComment(updatedText, text, userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException {
         boolean isUpVoted;
         try {

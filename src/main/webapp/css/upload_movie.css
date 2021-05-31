@@ -1,102 +1,143 @@
 body {
-    background-color: #e6e6e6;
-    background-size: cover;
+    background-color: #1a191f;
 }
 
-.main-content {
-    background-color: #F0F0F0;
-    width: 1150px;
-    height: 700px;
-    margin-left: 300px;
-    margin-top: 50px;
-    border-bottom: 0.5px solid silver;
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.top .text1 {
     float: left;
-}
-
-.main-content .movie-form {
-    float: top;
-    max-width: 750px;
-    height: auto;
-}
-
-.main-content form {
-    margin-top: 10px;
-}
-
-.h2 {
-    font-family: sans-serif;
-}
-
-.main-content label {
-    vertical-align: top;
-    margin-top: 5px;
     display: inline-block;
-    width: 400px;
+}
+
+.top .text1 h2{
+    color: white;
     font-family: sans-serif;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
     margin-left: 10px;
 }
 
-.main-content .upload-title {
-    padding: 5px 5px;
-    float: top;
-    margin-top: 10px;
-    height: 50px;
-    border-bottom: 1px solid grey;
+.main-content {
+    width: 1150px;
+    height: 700px;
+    margin-left: 300px;
+    margin-top: 20px;
+    border: 1px solid #222028;
+}
+
+.left {
+    float: left;
+}
+
+.image-preview {
+    width: 300px;
+    height: 379px;
+    border: 2px solid #222028;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: black;
+}
+
+.image-preview__image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #222028;
+    border-radius: 10px;
+}
+
+.image-preview__default__text {
+    margin-left: 100px;
 }
 
 
-.main-content input {
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid silver;
-    width: 320px;
-    height: 27px;
+.inputFile {
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    z-index: -1;
 }
 
-.main-content input:focus {
-    border: 1px solid silver;
-    outline: none;
-}
-
-.main-content .movie-form hr {
-    margin-top: 5px;
-}
-
-.movie-form textarea {
-    padding: 0 5px;
-    margin-top: 5px;
-    width: 320px;
-    height: 130px;
-    border: 1px solid silver;
-    border-radius: 5px;
-    word-break: break-word;
-}
-
-.movie-form textarea:focus {
-    outline: none;
-    border: 1px solid silver;
-}
-
-select {
-    margin-top: 5px;
-    width: 130px;
-    height: 25px;
+.inputFile + label {
+    font-family: sans-serif;
+    width: 790px;
+    font-size: 1.25em;
+    color: white;
+    background-color: #222028;
+    display: inline-block;
     cursor: pointer;
-    border: 1px solid silver;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-.main-content .movie-form button {
-    border: 0.5px solid silver;
-    border-radius: 5px;
-    margin-top: 10px;
-    min-width: 550px;
-    width: 750px;
-    height: 35px;
-    background-color: #f60;
+
+.info {
+    margin-top: 12px;
+    margin-left: 15px;
+    float: left;
+}
+
+.info .block {
+    display: block;
+}
+
+.info .block li {
+    margin-top: 13px;
+    display: block;
+}
+
+.info .text {
+    width: 790px;
+    height: 42px;
+    background: #222028;
+    border: 0;
+    outline: 0;
     font-size: 20px;
     color: white;
-    font-family: sans-serif;
-    cursor: pointer;
+    padding: 5px 5px;
+    border-radius: 8px;
 }
+
+.info textarea {
+    width: 790px;
+    height: 100px;
+    background: #222028;
+    overflow: hidden;
+    resize: none;
+    border: 0;
+    outline: 0;
+    font-size: 20px;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 8px;
+}
+
+.info select {
+    width: 790px;
+    height: 42px;
+    background: #222028;
+    border: 0;
+    outline: 0;
+    font-size: 20px;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 8px;
+}
+
+.info .text:focus, .info textarea:focus, .inline .text:focus, .inline textarea:focus {
+    border: 2px solid #f9c22a;
+}
+
+.info .inline .text:focus, .info .inline textarea:focus {
+    border: 2px solid #f9c22a;
+}
+

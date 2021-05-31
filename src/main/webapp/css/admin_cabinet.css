@@ -1,18 +1,18 @@
 body {
-    background-color: #212529;
+    background-color: #1a191f;
 }
 
 .top {
     margin-left: 250px;
     height: 65px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .top .text1 {
     float: left;
 }
 
-.top .text1 h2{
+.top .text1 h2 {
     color: white;
     font-family: sans-serif;
     font-weight: 600;
@@ -38,7 +38,7 @@ body {
 .main-content .content .head {
     width: 100%;
     height: 60px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .head .icon {
@@ -49,7 +49,7 @@ body {
 
 .head .icon i {
     padding: 18px 12px;
-    font-size: 25px;
+    font-size: 22px;
     color: #f9ab00;
 }
 
@@ -71,23 +71,23 @@ body {
 }
 
 .head .button button {
-    margin-top: 16px;
+    margin-top: 18px;
     margin-left: 30px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 16px;
     font-family: sans-serif;
     height: 25px;
     width: 100px;
     border-radius: 5px;
     color: white;
     background-color: #212529;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid #212529;
     outline: none;
 }
 
 .head .button button:hover {
     color: #f9ab00;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .content-table {
@@ -96,14 +96,15 @@ body {
     min-width: 600px;
     overflow: hidden;
     font-family: sans-serif;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .content-table thead tr {
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     text-align: left;
     font-weight: bold;
     min-width: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);;
 }
 
 .content-table th,

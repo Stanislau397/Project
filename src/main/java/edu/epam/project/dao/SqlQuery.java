@@ -6,6 +6,7 @@ public class SqlQuery {
             "VALUES(?,?,?,?,?,?)";
     public static final String SELECT_USER = "SELECT email, password, role, is_active, user_name FROM users WHERE email = (?) and password = (?)";
     public static final String SELECT_ID_BY_USER_NAME = "SELECT user_id FROM users WHERE user_name = (?)";
+    public static final String UPDATE_ROLE_AND_EMAIL = "UPDATE users SET email = (?), role = (?) WHERE user_id = (?)";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_name = (?) and password = (?)";
     public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
     public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active FROM users WHERE user_name = (?)";
@@ -13,6 +14,7 @@ public class SqlQuery {
     public static final String SELECT_LATEST_USERS = "SELECT user_id, user_name, email, role, is_active FROM users ORDER BY user_id DESC";
     public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_name = (?)";
     public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_name = (?)";
+    public static final String COUNT_USERS = "SELECT COUNT(*) FROM users";
 
     public static final String INSERT_TO_GENRE = "INSERT INTO genres (genres_id, genre_title) VALUES (?,?)";
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";
@@ -69,9 +71,10 @@ public class SqlQuery {
             " m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) GROUP BY movie_id";
     public static final String SELECT_LATEST_MOVIES = "SELECT m.movie_id, m.title, m.release_date, genre_title FROM movies m LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
             "LEFT JOIN genres g ON mg.genre_id_fk = g.genres_id ORDER BY m.movie_id DESC";
-    public static final String SELECT_LATEST_REVIEWED_MOVIES = "SELECT m.movie_id, m.title, user_score, user_comment, r.rating_id FROM movies m\n" +
+    public static final String SELECT_LATEST_REVIEWED_MOVIES = "SELECT m.movie_id, m.title, user_score, user_comment, user_name, r.rating_id FROM movies m\n" +
             "JOIN movie_comments mc ON m.movie_id = mc.movie_id_fk\n" +
-            "JOIN rating r ON mc.movie_id_fk = r.movie_id_fk GROUP BY r.movie_id_fk ORDER BY r.rating_id DESC";
+            "JOIN rating r ON mc.movie_id_fk = r.movie_id_fk \n" +
+            "JOIN users u ON u.user_name = r.user_name_fk GROUP BY r.movie_id_fk ORDER BY r.rating_id DESC";
 
     public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";
@@ -79,9 +82,11 @@ public class SqlQuery {
             "LEFT JOIN comment_votes cv ON mv.comment_id = cv.comment_id_fk WHERE mv.movie_id_fk = (?) group by mv.user_comment";
     public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
             "AND user_name_fk = (?) AND user_comment = (?)";
+    public static final String UPDATE_COMMENT = "UPDATE movie_comments SET user_comment = (?) WHERE user_comment = (?) AND user_name_fk = (?)";
     public static final String COUNT_USER_COMMENTS = "SELECT COUNT(user_comment) FROM movie_comments WHERE user_name_fk = (?)";
-    public static final String SELECT_USER_COMMENTS = "SELECT user_comment, post_date, movie_id_fk WHERE user_name_fk = (?) " +
-            "ORDER BY movie_id_fk";
+    public static final String SELECT_USER_COMMENTS = "SELECT m.movie_id AS movie_id, mc.comment_id AS comment_id, mc.user_name_fk AS user_name, mc.user_comment, mc.post_date, COUNT(comment_down_vote) AS down_votes, COUNT(comment_up_vote) AS up_votes, m.title FROM movie_comments mc\n" +
+            "LEFT JOIN comment_votes cv ON  mc.comment_id = cv.comment_id_fk\n" +
+            "LEFT JOIN movies m ON mc.movie_id_fk = m.movie_id WHERE mc.user_name_fk = (?) GROUP BY mc.comment_id";
     public static final String COUNT_UP_VOTES_AND_DOWN_VOTES = "SELECT IFNULL(COUNT(comment_up_vote), 0) AS up_votes, IFNULL(COUNT(comment_down_vote), 0) AS down_votes, user_comment, post_date, movie_id_fk FROM movie_comments\n" +
             "LEFT JOIN comment_votes ON comment_id = (?) WHERE user_name = (?) ORDER BY comment_id_fk";
     public static final String UP_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_up_vote) VALUES(?,?,?,?)";

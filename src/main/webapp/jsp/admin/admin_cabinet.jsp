@@ -185,8 +185,14 @@
                                 <button type="submit"><c:out value="${latestReviewedMovies.title}"/></button>
                             </form>
                         </td>
-                        <td>dal</td>
-                        <td><c:out value="${latestReviewedMovies.rating.score}"/></td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/controller" method="get">
+                                <input type="hidden" name="command" value="show_user_profile">
+                                <input type="hidden" name="user_name" value="${latestReviewedMovies.comment.userName}">
+                                <button type="submit"><c:out value="${latestReviewedMovies.comment.userName}"/></button>
+                            </form>
+                        </td>
+                        <td><i class="fa fa-star"></i> <c:out value="${latestReviewedMovies.rating.score}"/></td>
                     </tr>
                 </c:if>
             </c:forEach>

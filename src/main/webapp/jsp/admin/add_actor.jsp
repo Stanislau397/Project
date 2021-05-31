@@ -7,33 +7,22 @@
 <html>
 <head>
     <title><fmt:message key="label.add_actor"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/upload_movie.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/add_actors.css">
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </head>
 <body>
-<div class="main-content" style="height: 200px; width: 750px; margin-left: 500px; margin-top: 200px">
-    <c:choose>
-        <c:when test="${sessionScope.add_actor_message == true}">
-            <p style="color: green;margin-top: 0">Actor has been added</p>
-        </c:when>
-        <c:when test="${sessionScope.add_actor_message == false}">
-            <p style="color: red;margin-top: 0">This actor already exists</p>
-        </c:when>
-    </c:choose>
-    <div class="upload-title">
-        <h2><fmt:message key="label.add_actor"/></h2>
-    </div>
-    <div class="movie-form">
-        <form action="${pageContext.request.contextPath}/UploadServlet" method="post">
-            <input type="hidden" name="command" value="add_actor">
-            <label for="first_name"><fmt:message key="label.first_name"/></label>
-            <input type="text" name="first_name" id="first_name" required>
-            <hr>
-            <label for="last_name"><fmt:message key="label.last_name"/></label>
-            <input type="text" id="last_name" name="last_name" required>
-            <hr>
-            <button type="submit"><fmt:message key="label.upload"/></button>
-        </form>
+<h1>Popup/Modal Windows without JavaScript</h1>
+<div class="box">
+    <a class="button" href="#popup1">Let me Pop up</a>
+</div>
+
+<div id="popup1" class="overlay">
+    <div class="popup">
+        <textarea>adsas</textarea>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            Thank to pop me out of that button, but now i'm done so you can close this window.
+        </div>
     </div>
 </div>
 </body>
