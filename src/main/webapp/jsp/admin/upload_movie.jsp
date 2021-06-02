@@ -18,43 +18,58 @@
     </div>
 </div>
 <div class="main-content">
-    <div class="left">
-        <div class="image-preview" id="imagePreview">
-            <img src="" alt="Image" class="image-preview__image">
-            <span class="image-preview__default__text"></span>
+    <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="command" value="upload_movie">
+        <div class="left">
+            <div class="left">
+                <div class="image-preview" id="imagePreview">
+                    <img src="" alt="Image" class="image-preview__image">
+                    <span class="image-preview__default__text"></span>
+                </div>
+                <input type="file" name="file" id="inpFile" class="inputFile">
+                <label for="inpFile"><fmt:message key="label.picture"/></label>
+            </div>
+            <div class="info">
+
+                <ul class="block">
+                    <li><input type="text" class="text" name="title"
+                               placeholder="<fmt:message key="label.title"/>"
+                               pattern="^.{1,80}$"
+                               title="До 80 символов" required></li>
+                    <li><textarea name="description"
+                                  placeholder="<fmt:message key="label.summery"/>" required></textarea></li>
+                </ul>
+
+                <ul class="inline">
+                    <li><input type="text" class="text1" name="run_time"
+                               placeholder="<fmt:message key="label.runtime"/>"
+                               pattern="^\d+$"
+                               title="123" required></li>
+                    <li><input type="text" style="margin-left: 12px" class="text1" name="release_date"
+                               placeholder="<fmt:message key="label.release_date"/>"
+                               pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                               title="1995-11-19" required></li>
+                </ul>
+
+                <ul class="inline">
+                    <li><input type="text" class="text1" name="country" placeholder="<fmt:message key="label.country"/>" required></li>
+                    <li><select name="genre_id">
+                        <option selected><fmt:message key="label.genre"/></option>
+                        <c:forEach items="${requestScope.genres_list}" var="genres">
+                            <option value="${genres.genreId}"><c:out value="${genres.genreTitle}"/></option>
+                        </c:forEach>
+                    </select></li>
+                </ul>
+
+                <ul class="block">
+                    <li><input type="text" class="text" name="director" placeholder="<fmt:message key="label.directors"/>" required></li>
+                    <li><textarea name="actors" placeholder="<fmt:message key="label.actors"/>" required></textarea></li>
+                </ul>
+            </div>
+            <button type="submit" class="publish-btn"><fmt:message key="label.publish"/></button>
         </div>
-    </div>
-    <div class="info">
-        <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="upload_movie">
-            <ul class="block">
-                <li><input type="file" name="file" id="inpFile" class="inputFile">
-                    <label for="inpFile"><fmt:message key="label.picture"/></label>
-                </li>
-                <li><input type="text" class="text" name="title" placeholder="<fmt:message key="label.title"/>"></li>
-                <li><input type="text" class="text" name="release_date" placeholder="<fmt:message key="label.release_date"/>"></li>
-                <li><input type="text" class="text" name="run_time" placeholder="<fmt:message key="label.runtime"/>"></li>
-                <li><input type="text" class="text" name="country" placeholder="<fmt:message key="label.country"/>"></li>
-                <li><select name="genre_id">
-                    <option selected><fmt:message key="label.genre"/></option>
-                    <c:forEach items="${requestScope.genres_list}" var="genres">
-                        <option value="${genres.genreId}"><c:out value="${genres.genreTitle}"/></option>
-                    </c:forEach>
-                </select></li>
-                <li><input type="text" class="text" placeholder="<fmt:message key="label.directors"/>" name="director"></li>
-                <li><textarea placeholder="<fmt:message key="label.actors"/>" name="actors"></textarea></li>
-                <li><textarea placeholder="<fmt:message key="label.summery"/>" name="description"></textarea></li>
-                <li><button type="submit">Submit</button> </li>
-            </ul>
-        </form>
-    </div>
+    </form>
 </div>
-
-
-
-
-
-
 <script>
     const inpFile = document.getElementById("inpFile");
     const previewContainer = document.getElementById("imagePreview");

@@ -18,6 +18,7 @@ public class RequestParameter {
     public static final String NEW_USER_NAME = "new_user_name";
     public static final String MOVIE_ID = "movie_id";
     public static final String ACTOR_ID = "actor_id";
+    public static final String PICTURE_PATH = "picture_path";
     public static final String DIRECTOR_ID = "director_id";
     public static final String COMMENT = "comment";
     public static final String COMMENT_ID = "comment_id";

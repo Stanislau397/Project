@@ -3,7 +3,6 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -24,7 +23,7 @@ import static edu.epam.project.controller.command.RequestParameter.REFERER;
 public class ChangeMoviePosterCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ChangeMoviePosterCommand.class);
-    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image";
+    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/";
     private static final String SEPARATOR = "/";
     private MovieService movieService = new MovieServiceImpl();
 

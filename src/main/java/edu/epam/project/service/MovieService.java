@@ -6,6 +6,7 @@ import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ public interface MovieService {
     boolean add(Movie movie) throws ServiceException;
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
+
+    boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException;
 
     int countMovies() throws ServiceException;
 

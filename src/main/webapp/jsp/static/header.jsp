@@ -42,7 +42,7 @@
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>
-                        <a href="${pageContext.request.contextPath}/jsp/login.jsp"><fmt:message key="label.login"/></a>
+                        <a href="${pageContext.request.contextPath}/jsp/login.jsp" style="margin-left: -4px"><fmt:message key="label.login"/></a>
                     </button>
                 </c:when>
                 <c:when test="${sessionScope.admin != null}">

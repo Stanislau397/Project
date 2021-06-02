@@ -6,6 +6,7 @@ import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,9 @@ public interface MovieDao {
 
     boolean add(Movie movie) throws DaoException;
 
-    boolean deleteMovieByTitle(String title) throws DaoException;
-
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws DaoException;
+
+    boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException;
 
     int countMovies() throws DaoException;
 

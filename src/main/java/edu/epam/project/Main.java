@@ -14,9 +14,10 @@ import java.util.regex.Pattern;
 
 public class Main {
 
+    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
+
     public static void main(String[] args) throws ServiceException {
-        CommentService commentService = new CommentServiceImpl();
-        List<Movie> user = commentService.findCommentsByUserName("Stanislau");
-        System.out.println(user.size());
+        String str = DIRECTORY_PATH.substring(DIRECTORY_PATH.lastIndexOf("/"));
+        System.out.println(str);
     }
 }

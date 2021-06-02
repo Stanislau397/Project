@@ -50,6 +50,7 @@ public enum CommandType {
     FIND_USER(new SearchUserCommand()),
     CHANGE_USER_ROLE(new ChangeUserRoleCommand()),
     CHANGE_MOVIE_POSTER(new ChangeMoviePosterCommand()),
+    UPDATE_MOVIE(new UpdateMovieCommand()),
     DISPLAY_MOVIE_DIRECTORS(new DisplayMovieDirectorsCommand()),
     DISPLAY_MOVIE_ACTORS(new DisplayMovieActorsCommand()),
     DISPLAY_MOVIE_GENRES(new DisplayMovieGenresCommand()),

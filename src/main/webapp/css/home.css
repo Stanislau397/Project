@@ -1,5 +1,3 @@
-
-
 h2{
     margin-left: 170px;
     color: #1a1a1a;
@@ -18,10 +16,14 @@ h2{
 
 .title {
     margin-top: 10px;
-    margin-left: -20px;
-    width: auto;
+    width: 210px;
     height: auto;
     text-align: center;
+    align-items: center;
+}
+
+.title a {
+    margin-left: -20px;
 }
 
 .movie-info {
@@ -37,7 +39,7 @@ h2{
     width: 50px;
     height: 45px;
     position: absolute;
-    top: 29%;
+    top: 30%;
     background: #66cc33;
     margin-left: 135px;
     text-align: center;
@@ -62,6 +64,8 @@ h2{
 }
 
 .movie-info img {
+    object-fit: fill;
+    border-radius: 5px;
     min-width: 200px;
     max-width: 200px;
     min-height: 260px;
@@ -70,7 +74,7 @@ h2{
 
 .movie-info a {
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: initial;
     text-decoration: none;
     color: black;
@@ -81,8 +85,8 @@ h2{
 }
 
 .btn {
-    margin-top: 5px;
-    margin-left: 750px;
+    margin-top: 8px;
+    margin-left: 780px;
     font-weight: bold;
     font-family: sans-serif;
     font-size: 15px;
@@ -91,76 +95,5 @@ h2{
     cursor: pointer;
 }
 
-.upcoming-movies {
-    margin-left: 170px;
-    margin-top: 20px;
-    float: left;
-    width: 425px;
-    height: 480px;
-    border: 1px solid silver;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
 
-.upcoming-movies .title {
-    float: left;
-    margin-top: -3px;
-    margin-left: 0;
-    width: 423px;
-    height: 35px;
-    background-color: #2e2e2e;
-}
-
-.upcoming-movies .title p {
-    margin-top: 10px;
-    margin-left: -255px;
-    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.upcoming-movies .picture {
-    margin-left: 5px;
-    margin-top: 5px;
-    float: left;
-    width: 70px;
-    height: 85px;
-    border-bottom: 1px solid #f9c22a;
-}
-
-.upcoming-movies .picture img {
-    width: 70px;
-    height: 80px;
-    border-radius: 5px;
-}
-
-.upcoming-movies .movie-title {
-    margin-top: 5px;
-    vertical-align: top;
-    float: left;
-    height: 85px;
-    width: 345px;
-    border-bottom: 1px solid #f9c22a;
-}
-
-.upcoming-movies .movie-title button {
-    vertical-align: top;
-    margin-left: 5px;
-    margin-top: 5px;
-    font-family: sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    border: 0;
-    cursor: pointer;
-    background-color: white;
-}
-
-.upcoming-movies .movie-title button:hover {
-    color: #f9c22a;
-}
-
-.upcoming-movies .movie-title button:focus {
-    outline: none;
-    border: 0;
-}
 

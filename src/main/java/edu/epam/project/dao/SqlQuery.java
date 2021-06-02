@@ -41,6 +41,7 @@ public class SqlQuery {
     public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
             "VALUES (?,?,?,?,?,?,?)";
     public static final String UPDATE_MOVIE_POSTER = "UPDATE movies SET picture = (?) WHERE movie_id = (?)";
+    public static final String UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE = "UPDATE movies SET title = (?), time = (?), release_date = (?), description = (?) WHERE movie_id = (?)";
     public static final String COUNT_MOVIES = "SELECT COUNT(movie_id) FROM movies";
     public static final String SELECT_MOVIE_POSTER = "SELECT picture FROM movies WHERE movie_id = (?)";
     public static final String DELETE_BY_TITLE = "DELETE FROM movies WHERE title = (?)";

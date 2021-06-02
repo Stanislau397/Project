@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class MovieDaoImpl implements MovieDao {
@@ -39,21 +40,6 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean deleteMovieByTitle(String title) throws DaoException {
-        boolean isDeleted;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_BY_TITLE)) {
-            statement.setString(1, title);
-            int update = statement.executeUpdate();
-            isDeleted = (update == 1);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return isDeleted;
-    }
-
-    @Override
     public boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws DaoException {
         boolean isPosterUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -67,6 +53,25 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isPosterUpdated;
+    }
+
+    @Override
+    public boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE)) {
+            statement.setString(1, title);
+            statement.setInt(2, runTime);
+            statement.setDate(3, releaseDate);
+            statement.setString(4, description);
+            statement.setLong(5, movie_id);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
     }
 
     @Override

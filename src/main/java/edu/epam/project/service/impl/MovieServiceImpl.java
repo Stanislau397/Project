@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,19 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isPosterUpdated;
+    }
+
+    @Override
+    public boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id)
+            throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = movieDao.updateTitleRunTimeReleaseDateDescriptionByMovieId(title, runTime, releaseDate, description, movie_id);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
     }
 
     @Override
