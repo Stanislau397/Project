@@ -13,15 +13,13 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 
 import static edu.epam.project.controller.command.RequestParameter.FIRST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
-
-import static edu.epam.project.controller.command.SessionAttribute.ACTOR;
 
 public class AddActorToMovieCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddActorToMovieCommand.class);
@@ -30,17 +28,19 @@ public class AddActorToMovieCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
-        HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
         String firstName = request.getParameter(FIRST_NAME);
         String lastName = request.getParameter(LAST_NAME);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
-        Actor actor = new Actor(firstName, lastName);
+        Actor actor;
         try {
-            if (movieService.addActorToMovieByMovieId(actor, movieId)) {
-                router.setRoute(RouteType.REDIRECT);
-                router.setPagePath(currentPage);
-                session.removeAttribute(ACTOR);
+            Optional<Actor> actorOptional = movieService.findActorByFirstLastName(firstName, lastName);
+            if (actorOptional.isPresent()) {
+                actor = actorOptional.get();
+                if (movieService.addActorToMovieByMovieId(actor, movieId)) {
+                    router.setRoute(RouteType.REDIRECT);
+                    router.setPagePath(currentPage);
+                }
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -339,6 +339,7 @@ public class MovieServiceImpl implements MovieService {
                 actor = actorOptional.get();
                 isActorAddedToMovie = movieDao.addActorToMovieByMovieId(actor, movieId);
             }
+
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

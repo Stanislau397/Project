@@ -34,6 +34,7 @@ public class ToEditMovieCommand implements Command {
                 movie = optionalMovie.get();
                 request.setAttribute(AttributeName.MOVIE_INFO, movie);
                 request.setAttribute(AttributeName.MOVIE_ID, movieId);
+                request.setAttribute(AttributeName.MOVIE_TITLE, movie.getTitle());
                 router.setPagePath(PagePath.EDIT_MOVIE);
             }
         } catch (ServiceException e) {

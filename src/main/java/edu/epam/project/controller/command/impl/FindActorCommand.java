@@ -1,9 +1,8 @@
-package edu.epam.project.controller.command.impl.admin;
+package edu.epam.project.controller.command.impl;
 
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Actor;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;

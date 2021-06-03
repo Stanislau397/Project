@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+import static edu.epam.project.controller.command.RequestParameter.TITLE;
 
 import static edu.epam.project.controller.command.AttributeName.DIRECTORS_LIST;
 
@@ -30,11 +31,13 @@ public class DisplayMovieDirectorsCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        String movieTitle = request.getParameter(TITLE);
         List<Director> directors;
         try {
             directors = movieService.findDirectorsByMovieId(movieId);
             request.setAttribute(DIRECTORS_LIST, directors);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);
+            request.setAttribute(AttributeName.MOVIE_TITLE, movieTitle);
             router.setPagePath(PagePath.EDIT_MOVIE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

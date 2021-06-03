@@ -19,7 +19,7 @@ public class AttributeName {
     public static final String RATED_MOVIES_LIST = "rated_movies_list";
     public static final String AMOUNT_OF_USER_REVIEWS = "amount_of_reviews";
     public static final String LANGUAGE = "language";
-    public static final String MOVIE_TITLE = "movie_title";
+    public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";
     public static final String ACTOR = "actor";
     public static final String USER = "user";

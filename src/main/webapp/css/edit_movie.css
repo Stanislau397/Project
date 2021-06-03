@@ -36,9 +36,53 @@ body {
     border-radius: 10px;
 }
 
+.main-content .head .movie-info {
+    height: 80px;
+    width: 210px;
+    float: left;
+}
+
+.main-content .head .movie-info h2 {
+    margin-left: 10px;
+    margin-top: 25px;
+}
+
+.main-content .head .navigation {
+    float: left;
+    margin-left: 50px;
+    width: 850px;
+}
+
+.main-content .head .navigation ul {
+    display: inline-block;
+}
+
+.main-content .head .navigation li {
+    display: inline-block;
+    margin-left: 7px;
+}
+
+.main-content .head .navigation li button {
+    margin-top: 6px;
+    height: 49px;
+    color: white;
+    background-color: #222028;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 16px;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+}
+
+.main-content .head .navigation li button:hover {
+    color: #f9c22a;
+    border-bottom: 2px solid #f9c22a;
+}
+
 .main-content .edit-poster {
     float: left;
-    margin-top: 10px;
+    margin-top: 20px;
     width: 320px;
     height: 490px;
     background-color: #1a191f;
@@ -119,7 +163,7 @@ body {
 
 .edit-title-date-time-description {
     float: left;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 30px;
     width: 830px;
     height: 490px;
@@ -180,31 +224,247 @@ body {
     border-radius: 8px;
 }
 
-.edit-genre {
-    float: left;
-    margin-top: 30px;
-    height: 300px;
-    width: 700px;
-    background-color: #1a191f;
-    border: 1px solid #222028;
-    border-radius: 10px;
-}
-
-.edit-actors {
-    float: left;
-    margin-top: 30px;
-    height: 300px;
-    width: 575px;
-    background-color: #1a191f;
-    border: 1px solid #222028;
-    border-radius: 10px;
-}
-
-.edit-actors h2, .edit-genre h2 {
-    margin-top: 10px;
-    margin-left: 10px;
+.content-table {
+    border-collapse: separate;
+    font-size: 1.1em;
+    width: 100%;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.7);
     font-family: sans-serif;
-    font-weight: 100;
+    border-spacing: 0 12px;
+}
+
+.content-table thead tr {
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    min-width: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);;
+}
+
+td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content-table td {
+    background-color: #222028;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.content-table i {
+    color: white;
+}
+
+.content-table button {
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: #222028;
+    color: white;
+    cursor: pointer;
+}
+
+.content-table button:hover {
+    color: #f9c22a;
+    outline: none;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.content-table tbody tr {
+    height: 55px;
+}
+
+.content-table tbody tr td {
+    font-size: 15px;
+    font-weight: 150;
+}
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overlay2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay2:target {
+    visibility: visible;
+    opacity: 1;
+}
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: #1a191f;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
+}
+
+.pop .text, .right .pop .text {
+    width: 100%;
+    text-align: center;
+}
+
+.pop .text p, .right .pop .text p {
+    font-weight: 150;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.buttons .remove, .right .buttons .change-status {
+    margin-left: 10px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons .dismiss, .right .buttons .dismiss {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons button, .right .buttons button {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.buttons button a, .right .buttons button a {
+    width: 183px;
+    height: 42px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.buttons button:hover, .right .buttons button:hover {
+    color: white;
+    border: 2px solid #f9c22a;
+}
+
+.button .edit-btn {
+    text-align: center;
+    background-color: #eb5757;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.button .edit-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.add {
+    height: 100px;
+}
+
+.add .button .add-btn {
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 12px;
+    width: 200px;
+    height: 40px;
+    float: right;
+    background-color: #222028;
+    border: 2px solid #f9c22a;
+    border-radius: 8px;
+}
+
+.add .pop li {
+    display: block;
+    margin-top: 8px;
+}
+
+.add .pop input {
+    margin-top: 5px;
+    width: 400px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #222028;
+    border: 1px solid #1a191f;
+    outline: none;
+    padding: 5px 12px;
     color: grey;
+}
+
+.add .pop input:focus{
+    border: 1px solid #f9c22a;
+    border-radius: 8px;
+}
+
+.add .pop select {
+    margin-top: 5px;
+    width: 400px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #222028;
+    border: 1px solid #1a191f;
+    outline: none;
+    padding: 5px 12px;
+    color: grey;
+    cursor: pointer;
 }
 

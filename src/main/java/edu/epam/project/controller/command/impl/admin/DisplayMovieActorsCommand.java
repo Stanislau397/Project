@@ -33,6 +33,7 @@ public class DisplayMovieActorsCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         String movieTitle = request.getParameter(TITLE);
+        System.out.println(movieTitle);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
             List<Actor> actors = movieService.findActorsByMovieId(movieId);
