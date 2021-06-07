@@ -25,6 +25,7 @@ public class SqlQuery {
 
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name) VALUES (?,?,?)";
     public static final String DELETE_ACTOR_BY_NAME = "DELETE FROM actors WHERE first_name = (?)";
+    public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors";
     public static final String FIND_ACTORS_BY_MOVIE_ID = "SELECT actor_id, first_name, last_name FROM actors JOIN movie_cast " +
             "ON actor_id = actor_id_fk where movie_id = ?";
     public static final String FIND_ACTOR_BY_FIRST_LAST_NAME = "SELECT actor_id, first_name, last_name FROM actors WHERE first_name = (?) AND last_name = (?)";
@@ -36,6 +37,11 @@ public class SqlQuery {
     public static final String FIND_DIRECTORS_BY_MOVIE_ID = "SELECT director_id, first_name, last_name FROM director JOIN movie_direction " +
             "ON director_id = director_id_fk where movie_id_fk = (?)";
     public static final String FIND_DIRECTOR = "SELECT director_id, first_name, last_name FROM director WHERE first_name = (?) AND last_name = (?)";
+    public static final String SELECT_ALL_DIRECTORS = "SELECT director_id, first_name, last_name FROM director";
+    public static final String SELECT_MOVIES_FOR_DIRECTOR = "SELECT m.movie_id, m.title, m.release_date, IFNULL(AVG(user_score), 0) AS user_score FROM director d\n" +
+            "JOIN movie_direction md ON d.director_id = md.director_id_fk\n" +
+            "JOIN movies m ON md.movie_id_fk = m.movie_id\n" +
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE md.director_id_fk = (?) GROUP BY r.movie_id_fk";
     public static final String INSERT_TO_MOVIE_DIRECTION = "INSERT INTO movie_direction (movie_id_fk, director_id_fk) VALUES (?,?)";
 
     public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
@@ -49,15 +55,35 @@ public class SqlQuery {
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id ORDER BY average DESC";
     public static final String FIND_MOVIE_BY_TITLE = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
             "WHERE title = (?)";
+    public static final String SELECT_MOVIES_FOR_ACTOR = "SELECT first_name, last_name, m.movie_id, m.release_date, m.title, IFNULL(AVG(user_score), 0) AS user_score FROM actors a \n" +
+            "JOIN movie_cast mc ON a.actor_id = mc.actor_id_fk\n" +
+            "JOIN movies m ON mc.movie_id = m.movie_id\n" +
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE mc.actor_id_fk = (?) GROUP BY m.movie_id";
     public static final String FIND_CURRENT_YEAR_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
-            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) GROUP BY movie_id ORDER BY average DESC";
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY average DESC";
     public static final String SELECT_MOVIE_BY_YEAR = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = (?) GROUP BY movie_id ORDER BY average DESC";
-    public static final String SELECT_NEW_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
-            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) GROUP BY movie_id ORDER BY movie_id DESC";
+    public static final String SELECT_NEW_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC";
+    public static final String SELECT_NEW_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
+            "JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
+            "JOIN genres g ON mg.genre_id_fk = g.genres_id\n" +
+            "LEFT JOIN rating r ON mg.movie_id = r.movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())\n" +
+            "AND g.genre_title = ? GROUP BY m.movie_id ORDER BY m.movie_id DESC";
+    public static final String SELECT_UPCOMING_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE DATE(release_date) > DATE(NOW()) GROUP BY movie_id ORDER BY release_date";
+    public static final String SELECT_UPCOMING_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
+            "JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
+            "JOIN genres g ON mg.genre_id_fk = g.genres_id\n" +
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE DATE(release_date) > DATE(NOW()) AND g.genre_title = (?) GROUP BY m.movie_id ORDER BY release_date";
     public static final String SELECT_MOVIES_BY_GENRE = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies m " +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id " +
             "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = (?) GROUP BY mg.movie_id";
+    public static final String SELECT_CURRENT_YEAR_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
+            "JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
+            "JOIN genres g ON mg.genre_id_fk = g.genres_id\n" +
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())\n" +
+            "AND g.genre_title = (?) GROUP BY m.movie_id ORDER BY release_date";
     public static final String SELECT_MOVIES_BY_GENRE_AND_YEAR = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
             "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = (?) AND YEAR(release_date) = (?) GROUP BY mg.movie_id";

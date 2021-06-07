@@ -90,6 +90,43 @@
         </c:if>
     </c:forEach>
 </div>
+
+<h2><fmt:message key="label.coming_soon"/></h2>
+<div class="new-movie-container">
+    <div class="newest-movies">
+        <form action="${pageContext.request.contextPath}/controller" method="get">
+            <input type="hidden" name="command" value="upcoming_movies">
+            <input type="submit" class="btn" value="<fmt:message key="label.see_more"/>">
+        </form>
+    </div>
+    <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies" varStatus="x">
+        <c:if test="${x.count < 5}">
+            <div class="movie-info">
+                <div class="picture-score">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}"
+                       style="margin-left: -1.5px">
+                        <img src="${pageContext.request.contextPath}${upcomingMovies.picture}"/>
+                    </a>
+                    <c:if test="${upcomingMovies.rating.score != 0}">
+                        <c:if test="${upcomingMovies.rating.score >= 70}">
+                            <div class="movie-rating" style="background-color: #6c3">${upcomingMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score > 40}">
+                            <div class="movie-rating" style="background-color: #fc3">${upcomingMovies.rating.score}</div>
+                        </c:if>
+                        <c:if test="${upcomingMovies.rating.score < 40}">
+                            <div class="movie-rating" style="background-color: red">${upcomingMovies.rating.score}</div>
+                        </c:if>
+                    </c:if>
+                </div>
+                <div class="title">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}">
+                            ${upcomingMovies.title}</a>
+                </div>
+            </div>
+        </c:if>
+    </c:forEach>
+</div>
 </body>
 <jsp:include page="static/footer.jsp"/>
 </html>

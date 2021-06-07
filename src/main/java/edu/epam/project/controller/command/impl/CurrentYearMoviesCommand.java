@@ -4,6 +4,7 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static edu.epam.project.controller.command.AttributeName.MOVIES_BY_CURRENT_YEAR_LIST;
+import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
 
 public class CurrentYearMoviesCommand implements Command {
 
@@ -29,7 +31,9 @@ public class CurrentYearMoviesCommand implements Command {
         Router router = new Router();
         try {
             List<Movie> currentYearMovies = movieService.findAllCurrentYearMovies();
+            List<Genre> genres = movieService.findAllGenres();
             if (currentYearMovies.size() > 0) {
+                request.setAttribute(GENRES_LIST, genres);
                 request.setAttribute(MOVIES_BY_CURRENT_YEAR_LIST, currentYearMovies);
                 router.setPagePath(PagePath.MOVIE_PAGE);
             }

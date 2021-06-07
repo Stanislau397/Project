@@ -30,18 +30,6 @@
         </li>
 
         <li class="active">
-            <a href="#" class="actors-btn"><fmt:message key="label.actors"/>
-                <span class="fa fa-caret-down third"></span>
-            </a>
-            <ul class="actors-show">
-                <li><a href="${pageContext.request.contextPath}/jsp/admin/add_actor.jsp"><fmt:message
-                        key="label.add_actor"/></a></li>
-                <li><a href="${pageContext.request.contextPath}/jsp/admin/add_director.jsp"><fmt:message
-                        key="label.add_director"/></a></li>
-            </ul>
-        </li>
-
-        <li class="active">
             <a href="#" class="serv-btn"><fmt:message key="label.user"/>
                 <span class="fa fa-caret-down second"></span>
             </a>
@@ -50,6 +38,14 @@
                         key="label.all_users"/></a></li>
             </ul>
         </li>
+        <li class="active"><a
+                href="${pageContext.request.contextPath}/controller?command=display_all_actors"><fmt:message
+                key="label.actors"/></a></li>
+        <li class="active"><a
+                href="${pageContext.request.contextPath}/controller?command=display_all_directors"><fmt:message
+                key="label.directors"/></a></li>
+        <li class="active"><a>
+
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=show_user_profile"><fmt:message
                 key="label.profile"/></a></li>

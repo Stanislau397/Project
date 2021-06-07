@@ -1,10 +1,10 @@
-package edu.epam.project.controller.command.impl;
+package edu.epam.project.controller.command.impl.admin;
 
 import edu.epam.project.controller.Router;
+import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.Actor;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -17,24 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-import static edu.epam.project.controller.command.AttributeName.NEWEST_MOVIES_LIST;
+public class DisplayAllActorsCommand implements Command {
 
-import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
-
-public class NewestMoviesCommand implements Command {
-
-    private static final Logger logger = LogManager.getLogger(NewestMoviesCommand.class);
+    private static final Logger logger = LogManager.getLogger(DisplayAllActorsCommand.class);
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         try {
-            List<Movie> newestMovies = movieService.findNewestMovies();
-            List<Genre> genres = movieService.findAllGenres();
-            request.setAttribute(NEWEST_MOVIES_LIST, newestMovies);
-            request.setAttribute(GENRES_LIST, genres);
-            router.setPagePath(PagePath.MOVIE_PAGE);
+            List<Actor> allActors = movieService.findAllActors();
+            request.setAttribute(AttributeName.ACTORS_LIST, allActors);
+            router.setPagePath(PagePath.ALL_ACTORS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

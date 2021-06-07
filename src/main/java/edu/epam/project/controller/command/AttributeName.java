@@ -9,6 +9,8 @@ public class AttributeName {
     public static final String RATED_MOVIE = "rated_movie";
     public static final String USER_SCORE = "user_score";
     public static final String USER_NAME = "user_name";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
     public static final String LATEST_HIGH_SCORE = "high";
     public static final String LATEST_LOW_SCORE = "low";
     public static final String AVERAGE_MOVIE_RATING = "average";
@@ -26,6 +28,7 @@ public class AttributeName {
     public static final String ADMIN_ROLE = "admin_role";
     public static final String USER_ROLE = "user_role";
     public static final String COUNTER = "counter";
+    public static final String ERROR_404 = "error_404";
 
     public static final String ERROR = "error";
 
@@ -42,13 +45,19 @@ public class AttributeName {
     public static final String LATEST_USERS_LIST = "latest_users_list";
     public static final String LATEST_MOVIES_LIST = "latest_movies_list";
     public static final String LATEST_REVIEWED_MOVIES_LIST = "latest_reviewed_movies_list";
+    public static final String UPCOMING_MOVIES_BY_GENRE_LIST = "upcoming_movie_by_genre_list";
+    public static final String CURRENT_YEAR_MOVIES_BY_GENRE_LIST = "current_year_movies_by_genre_list";
+    public static final String NEWEST_MOVIES_BY_GENRE_LIST = "newest_movies_by_genre_list";
     public static final String GENRE_ATTRIBUTE = "genre";
     public static final String MOVIE_YEARS_LIST = "movie_years_list";
     public static final String MOVIES_BY_YEAR_LIST = "movies_by_year_list";
     public static final String MOVIES_BY_GENRE_LIST = "movies_by_genre_list";
     public static final String NEWEST_MOVIES_LIST = "newest_movies_list";
+    public static final String UPCOMING_MOVIES_LIST = "upcoming_movies_list";
     public static final String MOST_RATED_MOVIES_LIST = "most_rated_movies_list";
     public static final String MOVIES_BY_GENRE_AND_YEAR_LIST = "movies_by_genre_and_year_list";
+    public static final String MOVIES_FOR_ACTOR_LIST = "movies_for_actor_list";
+    public static final String MOVIE_FOR_DIRECTOR_LIST = "movies_for_director_list";
 
     public static final String MOVIE_INFO = "movie_info";
 }

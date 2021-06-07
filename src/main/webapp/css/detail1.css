@@ -25,7 +25,7 @@ body {
     height: auto;
 }
 
-img {
+.picture img {
     border-radius: 5px;
     margin-top: 50px;
     margin-left: 50px;
@@ -81,6 +81,25 @@ img {
     height: auto;
 }
 
+.middle .value button {
+    width: 170px;
+    height: 25px;
+    cursor: pointer;
+    border: 0;
+    font-family: sans-serif;
+    font-size: 15px;
+    text-align: left;
+}
+
+.middle .value button:hover {
+    color: #066ee7;
+}
+
+.middle .value button:focus {
+    outline: none;
+    border: 0;
+}
+
 .right-side {
     width: 200px;
     float: left;
@@ -115,10 +134,20 @@ img {
     margin-left: 30px;
 }
 
-.right-side .actors p {
+.right-side .actors button {
+    width: 170px;
+    height: 25px;
+    cursor: pointer;
+    border: 0;
     font-family: sans-serif;
-    margin-top: 5px;
+    margin-top: 1px;
+    font-size: 15px;
     margin-left: 30px;
+    text-align: left;
+}
+
+.right-side .actors button:hover {
+    color: #066ee7;
 }
 
 .rate-movie button {
@@ -127,6 +156,12 @@ img {
     font-size: 20px;
     cursor: pointer;
     font-family: sans-serif;
+}
+
+.rate-movie button:focus {
+    border: 0;
+    outline: none;
+    color: #f9c22a;
 }
 
 .rate-movie button:hover {
@@ -245,12 +280,10 @@ img {
 
 .comment-section .user-comment {
     margin-left: 50px;
-    margin-top: 10px;
-    min-width: 550px;
+    margin-top: 15px;
     width: 550px;
     min-height: 200px;
     height: auto;
-    border-radius: 5px;
     background-color: #e6e6e6;
     border: 1px solid silver;
 }
@@ -260,7 +293,7 @@ img {
     border-bottom: 1px solid grey;
     min-width: 550px;
     width: 550px;
-    min-height: 70px;
+    min-height: 65px;
     height: auto;
     background-color: #e6e6e6;
 }
@@ -268,8 +301,8 @@ img {
 .user-info .user-picture, .leave-comment .user-info .user-picture {
     min-width: 65px;
     width: 50px;
-    min-height: 70px;
-    height: 70px;
+    min-height: 65px;
+    height: 65px;
     float: left;
 }
 
@@ -287,10 +320,9 @@ img {
 .user-info .user-name {
     padding: 5px 5px;
     float: left;
-    min-width: 320px;
-    min-height: 70px;
-    height: 70px;
-    width: 320px;
+    min-width: 200px;
+    height: 65px;
+    width: 240px;
     font-weight: bold;
     background-color: #e6e6e6;
     border-bottom: 1px solid grey;
@@ -308,23 +340,14 @@ img {
 
 .user-info .upload-date {
     float: left;
-    min-height: 70px;
-    height: 70px;
+    height: 65px;
     background-color: #e6e6e6;
     border-bottom: 1px solid grey;
 }
 
-.user-info .remove-comment {
-    margin-left: 2px;
-    float: left;
-}
-
-.user-info .remove-comment button {
-    background-color: white;
-    border: 1px solid silver;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-
+.user-info .upload-date p {
+    margin-top: 7px;
+    margin-left: 46px;
 }
 
 .user-info .remove-comment button:hover {
@@ -341,9 +364,10 @@ img {
     float: top;
     min-height: 100px;
     height: auto;
-    min-width: 550px;
-    width: 550px;
+    min-width: 549px;
+    width: 549px;
     background-color: #e6e6e6;
+    border-right: 1px solid silver;
 }
 
 .user-comment .comment_votes {
@@ -457,14 +481,14 @@ img {
 }
 
 .leave-comment {
+    background-color: #f2f2f2;
+    float: top;
     margin-left: 50px;
-    margin-top: 10px;
     min-width: 550px;
     width: 550px;
     min-height: 200px;
     height: auto;
     border-radius: 5px;
-    border: 1px solid silver;
 }
 
 .leave-comment .user-info .user-name {
@@ -474,13 +498,14 @@ img {
     height: 70px;
     width: 483px;
     font-weight: bold;
-    background-color: #f2f2f2;
-    border-bottom: 1px solid grey;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid silver;
 }
 
 .leave-comment .user-info .user-name button {
+    margin-top: 5px;
     border: none;
-    background-color: #f2f2f2;
+    background-color: #e6e6e6;
     color: #060077;
     cursor: pointer;
     outline: none;
@@ -489,8 +514,8 @@ img {
 }
 
 .leave-comment .user-info .user-picture {
-    border-bottom: 1px solid grey;
-    background-color: #f2f2f2;
+    border-bottom: 1px solid silver;
+    background-color: #e6e6e6;
     min-width: 65px;
     width: 50px;
     min-height: 70px;
@@ -509,21 +534,22 @@ img {
     height: 50px;
 }
 
-textarea {
+.leave-comment textarea {
     margin-top: 10px;
     border-radius: 5px;
     border: 0.5px solid silver;
     background-color: #f2f2f2;
-    min-width: 550px;
-    width: 550px;
+    width: 530px;
     min-height: 200px;
+    margin-left: 10px;
     height: auto;
+    padding: 8px 8px;
     font-family: sans-serif;
     font-size: 20px;
 }
 
 textarea:focus {
-    background-color: #e6e6e6;
+    background-color: #f2f2f2;
     outline: none;
 }
 
@@ -539,4 +565,232 @@ textarea:focus {
     color: white;
     font-family: sans-serif;
     cursor: pointer;
+}
+
+.edit-comment {
+    float: left;
+    width: 10px;
+}
+
+.remove-comment {
+    float: right;
+    margin-top: -20px;
+}
+
+.remove-comment .button .remove-btn {
+    text-align: center;
+    background-color: #eb5757;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-top: -10px;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-comment .button .remove-btn i {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.remove-comment .button .remove-btn:hover {
+    background-color: #eb5757;
+}
+
+.edit-comment .button .edit-btn {
+    text-align: center;
+    background-color: #066ee7;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-comment .button .edit-btn:hover {
+    background-color: #066ee7;
+    cursor: pointer;
+}
+
+.edit-comment .button .edit-btn i {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    position: fixed;
+    top: 30%;
+    left: 35%;
+    width: 500px;
+    padding: 15px;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 35%;
+    width: 500px;
+    padding: 15px;
+    background-color: silver;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .popup {
+        width: 70%;
+    }
+}
+
+.popup .text {
+    float: left;
+    width: 100%;
+    height: 155px;
+}
+
+.popup .text textarea {
+    width: 450px;
+    height: 150px;
+    border: 2px solid silver;
+    outline: none;
+    resize: none;
+    font-size: 20px;
+    font-family: sans-serif;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+}
+
+.popup textarea:focus {
+    border: 2px solid #066ee7;
+}
+
+.popup .change {
+    margin-top: 10px;
+    margin-left: 3px;
+    float: left;
+    background-color: #e6e6e6;
+}
+
+.popup h2 {
+    margin-left: 15px;
+}
+
+.popup .change button, .popup .dismiss button {
+    width: 210px;
+    height: 35px;
+    border: 2px solid silver;
+    margin-left: 5px;
+    font-family: sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: #e6e6e6;
+    cursor: pointer;
+}
+
+.popup .dismiss {
+    margin-top: 10px;
+    margin-left: 25px;
+    float: left;
+}
+
+.popup .dismiss .close {
+    margin-left: -5px;
+    color: black;
+    font-family: sans-serif;
+    font-size: 18px;
+    background-color: #e6e6e6;
+}
+
+.pop h2 {
+    margin-top: 5px;
+    margin-left: 120px;
+}
+
+.pop p {
+    font-family: sans-serif;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.pop .remove {
+    float: left;
+}
+
+.pop .dismiss {
+    float: left;
+    margin-left: 45px;
+}
+
+.pop .remove .remove-btn, .pop .dismiss button {
+    margin-top: 10px;
+    width: 210px;
+    height: 40px;
+    border: 1px solid grey;
+    cursor: pointer;
+    background-color: silver;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.pop .dismiss .close {
+    color: black;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-left: -1px;
 }

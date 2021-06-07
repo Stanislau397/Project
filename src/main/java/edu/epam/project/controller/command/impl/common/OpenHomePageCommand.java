@@ -18,6 +18,7 @@ import java.util.List;
 
 import static edu.epam.project.controller.command.AttributeName.NEWEST_MOVIES_LIST;
 import static edu.epam.project.controller.command.AttributeName.MOST_RATED_MOVIES_LIST;
+import static edu.epam.project.controller.command.AttributeName.UPCOMING_MOVIES_LIST;
 
 public class OpenHomePageCommand implements Command {
 
@@ -30,8 +31,10 @@ public class OpenHomePageCommand implements Command {
         try {
             List<Movie> newestMovies = movieService.findNewestMovies();
             List<Movie> mostRatedMovies = movieService.findMostRatedMovies();
+            List<Movie> upcomingMovies = movieService.findUpcomingMovies();
             request.setAttribute(NEWEST_MOVIES_LIST, newestMovies);
             request.setAttribute(MOST_RATED_MOVIES_LIST, mostRatedMovies);
+            request.setAttribute(UPCOMING_MOVIES_LIST, upcomingMovies);
             router.setPagePath(PagePath.HOME_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

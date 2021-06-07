@@ -42,6 +42,14 @@ public interface MovieService {
 
     List<Movie> findNewestMovies() throws ServiceException;
 
+    List<Movie> findUpcomingMovies() throws ServiceException;
+
+    List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws ServiceException;
+
+    List<Movie> findCurrentYearMoviesByGenreTitle(String genreTitle) throws ServiceException;
+
+    List<Movie> findNewestMoviesByGenreTitle(String genreTitle) throws ServiceException;
+
     List<Movie> findMostRatedMovies() throws ServiceException;
 
     List<Integer> findAllMovieYears() throws ServiceException;
@@ -51,6 +59,8 @@ public interface MovieService {
     List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;
 
     List<Movie> findMoviesByKeyWord(String keyWord) throws ServiceException;
+
+    List<Movie> findMoviesForActorByActorId(long actorId) throws ServiceException;
 
     boolean addActor(Actor actor) throws ServiceException;
 
@@ -64,6 +74,8 @@ public interface MovieService {
 
     List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
 
+    List<Actor> findAllActors() throws ServiceException;
+
     boolean addDirector(Director director) throws ServiceException;
 
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
@@ -72,9 +84,13 @@ public interface MovieService {
 
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;
 
+    List<Movie> findMoviesForDirector(long directorId) throws ServiceException;
+
     boolean isDirectorAlreadyExists(Director director) throws ServiceException;
 
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
+
+    List<Director> findAllDirectors() throws ServiceException;
 
     boolean addGenre(Genre genre) throws ServiceException;
 

@@ -59,7 +59,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE)) {
             statement.setString(1, title);
             statement.setInt(2, runTime);
             statement.setDate(3, releaseDate);
@@ -313,6 +313,117 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Movie> findUpcomingMovies() throws DaoException {
+        List<Movie> upcomingMovies = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_UPCOMING_MOVIES);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                upcomingMovies.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return upcomingMovies;
+    }
+
+    @Override
+    public List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws DaoException {
+        List<Movie> upcomingMoviesByGenre = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_UPCOMING_MOVIES_BY_GENRE)) {
+            statement.setString(1, genreTitle);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                upcomingMoviesByGenre.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return upcomingMoviesByGenre;
+    }
+
+    @Override
+    public List<Movie> findCurrentYearMoviesByGenreTitle(String genreTitle) throws DaoException {
+        List<Movie> currentYearMoviesByGenre = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_CURRENT_YEAR_MOVIES_BY_GENRE)) {
+            statement.setString(1, genreTitle);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                currentYearMoviesByGenre.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return currentYearMoviesByGenre;
+    }
+
+    @Override
+    public List<Movie> findNewestMoviesByGenreTitle(String genreTitle) throws DaoException {
+        List<Movie> newestMoviesByGenre = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_NEW_MOVIES_BY_GENRE)) {
+            statement.setString(1, genreTitle);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
+                movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
+                movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                newestMoviesByGenre.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return newestMoviesByGenre;
+    }
+
+    @Override
     public List<Movie> findMostRatedMovies() throws DaoException {
         List<Movie> mostRatedMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -337,6 +448,30 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return mostRatedMovies;
+    }
+
+    @Override
+    public List<Movie> findMoviesForActorByActorId(long actorId) throws DaoException {
+        List<Movie> moviesForActor = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_FOR_ACTOR)) {
+            statement.setLong(1, actorId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                movie.setRating(rating);
+                moviesForActor.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesForActor;
     }
 
     @Override
@@ -624,6 +759,46 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Actor> findAllActors() throws DaoException {
+        List<Actor> allActors = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_ACTORS);
+            while (resultSet.next()) {
+                long actorId = resultSet.getLong(TableColumn.ACTOR_ID);
+                String firstName = resultSet.getString(TableColumn.ACTOR_FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.ACTOR_LAST_NAME);
+                Actor actor = new Actor(actorId, firstName, lastName);
+                allActors.add(actor);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return allActors;
+    }
+
+    @Override
+    public List<Director> findAllDirectors() throws DaoException {
+        List<Director> allDirectors = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_DIRECTORS);
+            while (resultSet.next()) {
+                long directorId = resultSet.getLong(TableColumn.DIRECTOR_ID);
+                String firstName = resultSet.getString(TableColumn.DIRECTOR_FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.DIRECTOR_LAST_NAME);
+                Director director = new Director(directorId, firstName, lastName);
+                allDirectors.add(director);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return allDirectors;
+    }
+
+    @Override
     public boolean addDirector(Director director) throws DaoException {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -731,6 +906,30 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return directors;
+    }
+
+    @Override
+    public List<Movie> findMoviesForDirector(long directorId) throws DaoException {
+        List<Movie> moviesForDirector = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_FOR_DIRECTOR)) {
+            statement.setLong(1, directorId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                movie.setRating(rating);
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
+                moviesForDirector.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesForDirector;
     }
 
     public boolean addGenre(Genre genre) throws DaoException {

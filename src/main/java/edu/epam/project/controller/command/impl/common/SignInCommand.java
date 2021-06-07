@@ -18,9 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
-import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
-
+import static edu.epam.project.controller.command.RequestParameter.*;
 import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
 import static edu.epam.project.controller.command.SessionAttribute.USER_EMAIL;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
@@ -39,6 +37,7 @@ public class SignInCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
+        String currentPage = request.getHeader(REFERER);
         String userEmail = request.getParameter(EMAIL_PARAMETER);
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
         User user;
@@ -73,8 +72,8 @@ public class SignInCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            session.setAttribute(SIGN_IN_ERROR, SIGN_IN_ERROR_MESSAGE);
-            router.setRoute(RouteType.REDIRECT);
+            request.setAttribute(SIGN_IN_ERROR, SIGN_IN_ERROR_MESSAGE);
+            router.setRoute(RouteType.FORWARD);
             router.setPagePath(PagePath.LOGIN_PAGE);
         }
         return router;

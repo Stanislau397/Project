@@ -252,6 +252,54 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findUpcomingMovies() throws ServiceException {
+        List<Movie> upcomingMovies;
+        try {
+            upcomingMovies = movieDao.findUpcomingMovies();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return upcomingMovies;
+    }
+
+    @Override
+    public List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws ServiceException {
+        List<Movie> upcomingMoviesByGenre;
+        try {
+            upcomingMoviesByGenre = movieDao.findUpcomingMoviesByGenreTitle(genreTitle);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return upcomingMoviesByGenre;
+    }
+
+    @Override
+    public List<Movie> findCurrentYearMoviesByGenreTitle(String genreTitle) throws ServiceException {
+        List<Movie> currentYearMoviesByGenre;
+        try {
+            currentYearMoviesByGenre = movieDao.findCurrentYearMoviesByGenreTitle(genreTitle);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return currentYearMoviesByGenre;
+    }
+
+    @Override
+    public List<Movie> findNewestMoviesByGenreTitle(String genreTitle) throws ServiceException {
+        List<Movie> newestMoviesByGenre;
+        try {
+            newestMoviesByGenre = movieDao.findNewestMoviesByGenreTitle(genreTitle);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return newestMoviesByGenre;
+    }
+
+    @Override
     public List<Movie> findMostRatedMovies() throws ServiceException {
         List<Movie> mostRatedMovies;
         try {
@@ -312,6 +360,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findMoviesForActorByActorId(long actorId) throws ServiceException {
+        List<Movie> moviesForActor;
+        try {
+            moviesForActor = movieDao.findMoviesForActorByActorId(actorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviesForActor;
+    }
+
+    @Override
     public boolean addActor(Actor actor) throws ServiceException {
         boolean isAdded = false;
         String firstName = actor.getFirstName();
@@ -339,7 +399,6 @@ public class MovieServiceImpl implements MovieService {
                 actor = actorOptional.get();
                 isActorAddedToMovie = movieDao.addActorToMovieByMovieId(actor, movieId);
             }
-
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -393,6 +452,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return actors;
+    }
+
+    @Override
+    public List<Actor> findAllActors() throws ServiceException {
+        List<Actor> allActors;
+        try {
+            allActors = movieDao.findAllActors();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return allActors;
     }
 
     @Override
@@ -454,6 +525,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findMoviesForDirector(long directorId) throws ServiceException {
+        List<Movie> moviesForDirector;
+        try {
+            moviesForDirector = movieDao.findMoviesForDirector(directorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return moviesForDirector;
+    }
+
+    @Override
     public boolean isDirectorAlreadyExists(Director director) throws ServiceException {
         boolean isDirectorExists;
         try {
@@ -475,5 +558,17 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return directors;
+    }
+
+    @Override
+    public List<Director> findAllDirectors() throws ServiceException {
+        List<Director> allDirectors;
+        try {
+            allDirectors = movieDao.findAllDirectors();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return allDirectors;
     }
 }

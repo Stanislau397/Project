@@ -37,11 +37,17 @@ public class Controller extends HttpServlet {
         Router page = command.execute(request);
         RouteType routeType = page.getRoute();
         String currentPage = page.getPagePath();
-        if (routeType == FORWARD) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(currentPage);
-            dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect(currentPage);
+        switch (routeType) {
+            case INCLUDE:
+                RequestDispatcher dispatcher = request.getRequestDispatcher(currentPage);
+                dispatcher.include(request, response);
+                break;
+            case FORWARD:
+                dispatcher = request.getRequestDispatcher(currentPage);
+                dispatcher.forward(request, response);
+                break;
+            default:
+                response.sendRedirect(currentPage);
         }
     }
 

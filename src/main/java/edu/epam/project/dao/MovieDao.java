@@ -38,7 +38,17 @@ public interface MovieDao {
 
     List<Movie> findNewestMovies() throws DaoException;
 
+    List<Movie> findUpcomingMovies() throws DaoException;
+
+    List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws DaoException;
+
+    List<Movie> findCurrentYearMoviesByGenreTitle(String genreTitle) throws DaoException;
+
+    List<Movie> findNewestMoviesByGenreTitle(String genreTitle) throws DaoException;
+
     List<Movie> findMostRatedMovies() throws DaoException;
+
+    List<Movie> findMoviesForActorByActorId(long actorId) throws DaoException;
 
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
 
@@ -66,6 +76,10 @@ public interface MovieDao {
 
     Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws DaoException;
 
+    List<Actor> findAllActors() throws DaoException;
+
+    List<Director> findAllDirectors() throws DaoException;
+
     boolean addDirector(Director director) throws DaoException;
 
     boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException;
@@ -77,6 +91,8 @@ public interface MovieDao {
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws DaoException;
 
     List<Director> findDirectorsByMovieId(long movieId) throws DaoException;
+
+    List<Movie> findMoviesForDirector(long directorId) throws DaoException;
 
     boolean addGenre(Genre genre) throws DaoException;
 

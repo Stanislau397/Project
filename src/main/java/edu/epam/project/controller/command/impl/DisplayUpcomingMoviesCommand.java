@@ -17,23 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-import static edu.epam.project.controller.command.AttributeName.NEWEST_MOVIES_LIST;
+import static edu.epam.project.controller.command.AttributeName.*;
 
-import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
+public class DisplayUpcomingMoviesCommand implements Command {
 
-public class NewestMoviesCommand implements Command {
-
-    private static final Logger logger = LogManager.getLogger(NewestMoviesCommand.class);
+    private static final Logger logger = LogManager.getLogger(DisplayUpcomingMoviesCommand.class);
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         try {
-            List<Movie> newestMovies = movieService.findNewestMovies();
+            List<Movie> upcomingMovies = movieService.findUpcomingMovies();
             List<Genre> genres = movieService.findAllGenres();
-            request.setAttribute(NEWEST_MOVIES_LIST, newestMovies);
             request.setAttribute(GENRES_LIST, genres);
+            request.setAttribute(UPCOMING_MOVIES_LIST, upcomingMovies);
             router.setPagePath(PagePath.MOVIE_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

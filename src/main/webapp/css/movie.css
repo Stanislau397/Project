@@ -1,8 +1,14 @@
 body{
-    background-color: #e6e6e6;
-    background-size: cover;
+    background-color: #F0F0F0;
+    font-family: "proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;;
 }
 
+
+h2 {
+    margin-left: 170px;
+    margin-top: 20px;
+    font-family: Helvetica,Arial,sans-serif;
+}
 .side{
     width: 100px;
     height: 140px;
@@ -12,8 +18,8 @@ body{
 }
 
 .middle{
-    min-width: 800px;
-    width: 800px;
+    min-width: 650px;
+    width: 650px;
     min-height: 160px;
     height: auto;
     margin-left: 120px;
@@ -28,25 +34,29 @@ form p {
 button{
     outline: none;
     border: 0;
-    background-color: white;
+    background-color: #F0F0F0;
     cursor: pointer;
     font-family: sans-serif;
     height: auto;
     font-size: 28px;
+    margin-top: -5px;
     margin-left: 15px;
 }
 
 .release-date{
-    margin-top: 8px;
-    font-family: Montserrat;
-    color: grey;
-    font-size: 15px;
+    margin-top: 10px;
+    color: #999;
+    font-size: 16px;
     margin-left: 15px;
 }
 
 .content{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
     margin-left: 15px;
-    font-family: Montserrat;
+    font-family: "proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 16px;
 }
 
@@ -72,20 +82,20 @@ button:active{
     height: 45px;
     margin-top: -50px;
     border-radius: 5px;
-    margin-left: 770px;
+    margin-left: 750px;
     color: white;
-    font-size: 40px;
-    text-align: center;
+    padding: 6px 6px;
+    font-size: 30px;
 }
 
 .center-content {
     width: 1000px;
     height: auto;
     margin-top: 20px;
-    margin-left: 250px;
-    border: 1px solid silver;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    background-color: white;
+    margin-left: 160px;
+    border: 1px solid #F0F0F0;
+    box-shadow: 0 0 0 rgba(0,0,0,0.5);
+    background-color: #F0F0F0;
 }
 .no-rating {
     margin-top: -40px;
@@ -125,12 +135,19 @@ button:active{
 
 .filter {
     color: #999;
-    margin-top: 80px;
+    margin-top: 20px;
     height: 40px;
-    margin-left: 250px;
+    margin-left: 175px;
 }
 
-.year-container button, .genre-container button{
+.hr1{
+    margin-left: 175px;
+    width: 59%;
+}
+
+.genre-container button{
+    float: left;
+    margin-top: 0px;
     margin-left: 10px;
     width: 120px;
     height: 40px;
@@ -143,10 +160,25 @@ button:active{
     cursor: pointer;
 }
 
-.year-container ul, .genre-container ul {
+.year-container button{
+    float: left;
+    margin-top: 0px;
+    margin-left: 10px;
+    width: 120px;
+    height: 40px;
+    font-family: sans-serif;
+    font-size: 20px;
+    background: #424242;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #424242;
+    cursor: pointer;
+}
+
+.genre-container ul {
     background: #e6e6e6;
-    margin-left: 225px;
-    margin-top: 5px;
+    margin-left: 106px;
+    margin-top: 45px;
     border-radius: 5px;
     position: absolute;
     text-decoration: none;
@@ -155,11 +187,29 @@ button:active{
     font-size: 18px;
     font-weight: bold;
     border: 0.5px solid black;
-    width: 120px;
-    height: 180px;
+    width: 160px;
+    height: auto;
     overflow: hidden;
-    overflow-y: scroll;
     visibility: hidden;
+    text-align: left;
+    opacity: 0;
+}
+
+.year-container ul {
+    background: #e6e6e6;
+    margin-left: 235px;
+    margin-top: 45px;
+    border-radius: 5px;
+    position: absolute;
+    text-decoration: none;
+    list-style: none;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    width: 130px;
+    height: 180px;
+    visibility: hidden;
+    text-align: left;
     opacity: 0;
 }
 
@@ -178,11 +228,6 @@ button:active{
     font-weight: bold;
 }
 
-.hr1{
-    margin-left: 250px;
-    width: 65%;
-}
-
 .year-container .btn, .genre-container .btn {
     font-weight: bold;
     margin-top: 10px;
@@ -192,6 +237,8 @@ button:active{
     font-family: sans-serif;
     font-size: 18px;
     width: 100%;
+    text-align: left;
+    margin-left: 7px;
 }
 .year-container .btn:hover, .genre-container .btn:hover {
     color: #066ee7;

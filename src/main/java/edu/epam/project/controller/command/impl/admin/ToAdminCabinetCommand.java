@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,16 +30,21 @@ public class ToAdminCabinetCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         try {
-            List<Movie> topMovies = movieService.findMostRatedMovies();
-            List<Movie> latestMovies = movieService.findLatestUploadedMovies();
-            List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
-            List<User> latestUsers = userService.findLatestRegisteredUsers();
-            request.setAttribute(AttributeName.MOST_RATED_MOVIES_LIST, topMovies);
-            request.setAttribute(AttributeName.LATEST_MOVIES_LIST, latestMovies);
-            request.setAttribute(AttributeName.LATEST_USERS_LIST, latestUsers);
-            request.setAttribute(AttributeName.LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
-            router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
+            if (session.getAttribute("admin") != null) {
+                List<Movie> topMovies = movieService.findMostRatedMovies();
+                List<Movie> latestMovies = movieService.findLatestUploadedMovies();
+                List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
+                List<User> latestUsers = userService.findLatestRegisteredUsers();
+                request.setAttribute(AttributeName.MOST_RATED_MOVIES_LIST, topMovies);
+                request.setAttribute(AttributeName.LATEST_MOVIES_LIST, latestMovies);
+                request.setAttribute(AttributeName.LATEST_USERS_LIST, latestUsers);
+                request.setAttribute(AttributeName.LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
+                router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
+            } else {
+                router.setPagePath(PagePath.ERROR_PAGE);
+            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }
