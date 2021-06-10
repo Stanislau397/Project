@@ -36,7 +36,7 @@ public interface MovieService {
 
     List<Movie> findMoviesByGenre(Genre genre) throws ServiceException;
 
-    List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws ServiceException;
+    List<Movie> findMoviesByGenreAndYear(Genre genre, Integer year) throws ServiceException;
 
     List<Genre> findMovieGenresByMovieId(long movieId) throws ServiceException;
 
@@ -65,6 +65,10 @@ public interface MovieService {
     boolean addActor(Actor actor) throws ServiceException;
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
+
+    boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws ServiceException;
+
+    boolean removeActorByActorId(long actorId) throws ServiceException;
 
     boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
 

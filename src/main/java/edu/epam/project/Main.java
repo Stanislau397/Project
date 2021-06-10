@@ -23,21 +23,5 @@ public class Main {
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        MovieService movieService = new MovieServiceImpl();
-        MovieDao movieDao = new MovieDaoImpl();
-        List<Movie> comingMovies = movieDao.findCurrentYearMoviesByGenreTitle("Action");
-        System.out.println(comingMovies);
-        //List<Movie> moviesByGenre = findUpcomingMoviesByGenre(comingMovies, "Comedy");
-        //System.out.println(moviesByGenre);
-    }
-
-    static List<Movie> findUpcomingMoviesByGenre(List<Movie> upcomingMovies, String genre) {
-        List<Movie> moviesByGenre = new ArrayList<>();
-        for (Movie movie : upcomingMovies) {
-            if (movie.getGenre().getGenreTitle().equals(genre)) {
-                moviesByGenre.add(movie);
-            }
-        }
-        return moviesByGenre;
     }
 }

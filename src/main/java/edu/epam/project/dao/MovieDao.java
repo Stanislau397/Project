@@ -32,7 +32,7 @@ public interface MovieDao {
 
     List<Movie> findMoviesByGenre(Genre genre) throws DaoException;
 
-    List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws DaoException;
+    List<Movie> findMoviesByGenreAndYear(Genre genre, Integer year) throws DaoException;
 
     List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException;
 
@@ -66,7 +66,9 @@ public interface MovieDao {
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
 
-    boolean removeActorByFirstName(String firstName) throws DaoException;
+    boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws DaoException;
+
+    boolean removeActorByActorId(long actorId) throws DaoException;
 
     boolean removeActorFromMovieById(long actorId, long movieId) throws DaoException;
 

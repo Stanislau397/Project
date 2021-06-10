@@ -26,6 +26,8 @@ public class SqlQuery {
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name) VALUES (?,?,?)";
     public static final String DELETE_ACTOR_BY_NAME = "DELETE FROM actors WHERE first_name = (?)";
     public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors";
+    public static final String UPDATE_ACTOR = "UPDATE actors SET first_name = (?), last_name = (?) WHERE actor_id = (?)";
+    public static final String DELETE_ACTOR = "DELETE FROM actors WHERE actor_id = (?)";
     public static final String FIND_ACTORS_BY_MOVIE_ID = "SELECT actor_id, first_name, last_name FROM actors JOIN movie_cast " +
             "ON actor_id = actor_id_fk where movie_id = ?";
     public static final String FIND_ACTOR_BY_FIRST_LAST_NAME = "SELECT actor_id, first_name, last_name FROM actors WHERE first_name = (?) AND last_name = (?)";
@@ -86,7 +88,7 @@ public class SqlQuery {
             "AND g.genre_title = (?) GROUP BY m.movie_id ORDER BY release_date";
     public static final String SELECT_MOVIES_BY_GENRE_AND_YEAR = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
-            "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = (?) AND YEAR(release_date) = (?) GROUP BY mg.movie_id";
+            "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = ifnull(?, genre_title) AND YEAR(release_date) = IFNULL(?, YEAR(release_date)) GROUP BY mg.movie_id";
     public static final String SELECT_MOVIES_YEARS = "SELECT DISTINCT YEAR(release_date) FROM movies ORDER BY YEAR(release_date) DESC";
     public static final String FIND_MOVIE_BY_ID = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(avg(user_score), " + 0 + ") AS average, IFNULL(genre_title, 'no-genre') AS genre_title " +
             "FROM movies m LEFT JOIN rating r ON r.movie_id_fk = m.movie_id LEFT JOIN movie_genres g ON m.movie_id = g.movie_id AND g.movie_id = m.movie_id " +

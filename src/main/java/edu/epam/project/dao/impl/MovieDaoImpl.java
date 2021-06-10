@@ -237,7 +237,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> findMoviesByGenreAndYear(Genre genre, int year) throws DaoException {
+    public List<Movie> findMoviesByGenreAndYear(Genre genre, Integer year) throws DaoException {
         List<Movie> moviesByGenreAndYear = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE_AND_YEAR)) {
@@ -668,11 +668,28 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeActorByFirstName(String firstName) throws DaoException {
+    public boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ACTOR)) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setLong(3, actorId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public boolean removeActorByActorId(long actorId) throws DaoException {
         boolean isRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_BY_NAME)) {
-            statement.setString(1, firstName);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR)) {
+            statement.setLong(1, actorId);
             int update = statement.executeUpdate();
             isRemoved = (update == 1);
         } catch (SQLException e) {

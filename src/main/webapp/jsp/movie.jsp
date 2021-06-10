@@ -281,7 +281,8 @@
         </div>
         <hr class="hr1">
         <div class="center-content">
-            <c:forEach items="${requestScope.current_year_movies_by_genre_list}" var="currentYearMoviesByGenre" varStatus="counter">
+            <c:forEach items="${requestScope.current_year_movies_by_genre_list}" var="currentYearMoviesByGenre"
+                       varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${currentYearMoviesByGenre.movieId}">
                         <img class="image" src="${pageContext.request.contextPath}${currentYearMoviesByGenre.picture}">
@@ -469,7 +470,8 @@
         </div>
         <hr class="hr1">
         <div class="center-content">
-            <c:forEach items="${requestScope.newest_movies_by_genre_list}" var="newestMoviesByGenre" varStatus="counter">
+            <c:forEach items="${requestScope.newest_movies_by_genre_list}" var="newestMoviesByGenre"
+                       varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMoviesByGenre.movieId}">
                         <img class="image" src="${pageContext.request.contextPath}${newestMoviesByGenre.picture}">
@@ -657,7 +659,8 @@
         </div>
         <hr class="hr1">
         <div class="center-content">
-            <c:forEach items="${requestScope.upcoming_movie_by_genre_list}" var="upcomingMoviesByGenre" varStatus="counter">
+            <c:forEach items="${requestScope.upcoming_movie_by_genre_list}" var="upcomingMoviesByGenre"
+                       varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMoviesByGenre.movieId}">
                         <img class="image" src="${pageContext.request.contextPath}${upcomingMoviesByGenre.picture}">
@@ -702,6 +705,37 @@
                 <hr>
             </c:forEach>
         </div>
+    </c:when>
+    <c:when test="${requestScope.movies_by_genre_and_year_list != null}">
+        <h2><fmt:message key="label.all_movies"/></h2>
+        <form action="${pageContext.request.contextPath}/controller" method="get">
+        <div class="filter">
+            <h4><fmt:message key="label.filter"/></h4>
+            <div class="genre-container">
+                    <button name="genre_title2" value="1"><fmt:message key="label.genre"/></button>
+                    <ul>
+                        <li>
+                            <input type="hidden" name="command" value="movies_by_genre">
+                            <c:forEach items="${requestScope.genres_list}" var="genres">
+                                <input class="btn" type="submit" name="genre_title" value="${genres.genreTitle}">
+                            </c:forEach>
+                        </li>
+                    </ul>
+            </div>
+            <div class="year-container">
+                <button name="movie-year2"><fmt:message key="label.year"/></button>
+                <ul>
+                    <li>
+                            <input type="hidden" name="command" value="movies_by_year">
+                            <c:forEach items="${requestScope.movie_years_list}" var="years">
+                                <input class="btn" type="submit" name="movie_year" value="${years}">
+                            </c:forEach>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </form>
+        <hr class="hr1">
     </c:when>
 </c:choose>
 </body>
