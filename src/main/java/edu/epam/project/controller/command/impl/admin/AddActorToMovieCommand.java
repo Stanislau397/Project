@@ -21,6 +21,8 @@ import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 
+import static edu.epam.project.controller.command.SessionAttribute.ACTOR;
+
 public class AddActorToMovieCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddActorToMovieCommand.class);
     private MovieService movieService = new MovieServiceImpl();

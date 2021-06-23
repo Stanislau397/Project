@@ -35,6 +35,8 @@ public class RequestParameter {
     public static final String FILE = "file";
     public static final String RELEASE_DATE = "release_date";
     public static final String ACTORS = "actors";
+    public static final String GENRES = "genres";
+    public static final String ACTOR_FIRST_AND_LAST_NAME = "first_and_last_name";
     public static final String DIRECTOR = "director";
     public static final String GENRE_ID = "genre_id";
     public static final String GENRE_TITLE_PARAMETER = "genre_title";

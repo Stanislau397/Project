@@ -1,11 +1,11 @@
 body {
-    background-color: #1a191f;
+    background-color: 	rgb(245,245,245);
 }
 
 .top {
     margin-left: 250px;
     height: 65px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid grey;
 }
 
 .top .text1 {
@@ -14,7 +14,7 @@ body {
 }
 
 .top .text1 h2{
-    color: white;
+    color: black;
     font-family: sans-serif;
     font-weight: 600;
     font-size: 25px;
@@ -24,10 +24,10 @@ body {
 
 .main-content {
     width: 1150px;
-    height: 650px;
+    height: 740px;
     margin-left: 300px;
     margin-top: 20px;
-    border: 1px solid #222028;
+    border: 1px solid grey;
 }
 
 .left {
@@ -35,11 +35,12 @@ body {
 }
 
 .image-preview {
+    background-color: white;
     width: 280px;
     height: 400px;
-    border: 2px solid #222028;
+    border: 1px solid grey;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 31px;
     margin-left: 20px;
     display: flex;
     align-items: center;
@@ -73,9 +74,9 @@ body {
     margin-left: 20px;
     margin-top: 22px;
     font-size: 1.25em;
-    color: grey;
-    background-color: #222028;
-    border: 1px solid #f9c22a;
+    color: black;
+    background-color: white;
+    border: 1px solid grey;
     display: inline-block;
     cursor: pointer;
     padding: 8px 110px;
@@ -84,103 +85,34 @@ body {
 
 
 .info {
-    margin-top: 12px;
+    margin-top: 20px;
     margin-left: 15px;
     float: left;
-}
-
-.info .block {
-    display: block;
-}
-
-.info .block li {
-    margin-top: 20px;
-    display: block;
-}
-
-.info .text {
     width: 790px;
-    height: 42px;
-    background: #222028;
-    border: 0;
-    outline: 0;
+}
+
+.info label {
+    font-family: sans-serif;
+    font-weight: lighter;
     font-size: 18px;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
+    margin-top: 10px;
 }
 
 .info textarea {
-    width: 790px;
-    height: 140px;
-    background: #222028;
-    overflow: hidden;
     resize: none;
-    border: 0;
-    outline: 0;
-    font-size: 18px;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
 }
 
-.info .inline {
-    margin-top: 20px;
-}
-
-.info .inline li {
-    display: inline-block;
-}
-
-.info .inline .text1 {
-    width: 387px;
-    height: 42px;
-    background: #222028;
-    border: 0;
-    outline: 0;
-    font-size: 18px;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-}
-
-.info .inline .text1:focus {
-    border: 2px solid #f9c22a;
-}
-
-.info select {
-    width: 387px;
-    height: 42px;
-    margin-left: 12px;
-    background: #222028;
-    border: 0;
-    outline: 0;
-    font-size: 20px;
-    color: grey;
-    padding: 5px 5px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.info .text:focus, .info textarea:focus, .inline .text:focus, .inline textarea:focus {
-    border: 2px solid #f9c22a;
-}
-
-.info .inline .text:focus, .info .inline textarea:focus {
-    border: 2px solid #f9c22a;
-}
 
 .publish-btn {
     float: right;
     margin-top: 15px;
     margin-right: 45px;
-    background-color: #222028;
-    border: 2px solid #f9c22a;
+    background-color: white;
+    border: 2px solid grey;
     border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
-    color: #FFF8DC;
+    color: black;
     height: 42px;
     width: 180px;
 }
-

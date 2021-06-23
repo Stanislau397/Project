@@ -389,6 +389,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean addActorToMovieById(long actorId, long movieId) throws ServiceException {
+        boolean isActorAdded;
+        try {
+            isActorAdded = movieDao.addActorToMovieById(actorId, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isActorAdded;
+    }
+
+    @Override
     public boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException {
         boolean isActorAddedToMovie = false;
         String firstName = actor.getFirstName();
@@ -491,6 +503,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Actor> findActorsByKeyWords(String keyWords) throws ServiceException {
+        List<Actor> actorsByKeyWords;
+        try {
+            actorsByKeyWords = movieDao.findActorsByKeyWords(keyWords);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return actorsByKeyWords;
+    }
+
+    @Override
     public boolean addDirector(Director director) throws ServiceException {
         boolean isAdded = false;
         boolean directorExists;
@@ -504,6 +528,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public boolean addDirectorToMovieById(long directorId, long movieId) throws ServiceException {
+        boolean isDirectorAdded;
+        try {
+            isDirectorAdded = movieDao.addDirectorToMovieById(directorId, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDirectorAdded;
     }
 
     @Override
@@ -558,6 +594,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return moviesForDirector;
+    }
+
+    @Override
+    public List<Director> findDirectorsByKeyWords(String keyWords) throws ServiceException {
+        List<Director> directorsByKeyWords;
+        try {
+            directorsByKeyWords = movieDao.findDirectorsByKeyWords(keyWords);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return directorsByKeyWords;
     }
 
     @Override

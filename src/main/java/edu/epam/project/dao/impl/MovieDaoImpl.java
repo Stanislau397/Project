@@ -652,6 +652,22 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean addActorToMovieById(long actorId, long movieId) throws DaoException {
+        boolean isActorAdded;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_ACTOR_TO_MOVIE_BY_ID)) {
+            statement.setLong(1, actorId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isActorAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isActorAdded;
+    }
+
+    @Override
     public boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException {
         boolean isActorAddedToMovie;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -796,6 +812,27 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Actor> findActorsByKeyWords(String keyWords) throws DaoException {
+        List<Actor> actorsByKeyWords = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ACTORS_BY_KEY_WORDS)) {
+            statement.setString(1, keyWords);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String firstName = resultSet.getString(TableColumn.ACTOR_FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.ACTOR_LAST_NAME);
+                long actorId = resultSet.getLong(TableColumn.ACTOR_ID);
+                Actor actor = new Actor(actorId, firstName, lastName);
+                actorsByKeyWords.add(actor);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return actorsByKeyWords;
+    }
+
+    @Override
     public List<Director> findAllDirectors() throws DaoException {
         List<Director> allDirectors = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -816,6 +853,27 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Director> findDirectorsByKeyWords(String keyWords) throws DaoException {
+        List<Director> directorsByKeyWords = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_DIRECTORS_BY_KEY_WORDS)) {
+            statement.setString(1, keyWords);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String firstName = resultSet.getString(TableColumn.DIRECTOR_FIRST_NAME);
+                String lastName = resultSet.getString(TableColumn.DIRECTOR_LAST_NAME);
+                long directorId = resultSet.getLong(TableColumn.DIRECTOR_ID);
+                Director director = new Director(directorId, firstName, lastName);
+                directorsByKeyWords.add(director);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return directorsByKeyWords;
+    }
+
+    @Override
     public boolean addDirector(Director director) throws DaoException {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -830,6 +888,22 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public boolean addDirectorToMovieById(long directorId, long movieId) throws DaoException {
+        boolean isDirectorAdded;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_DIRECTOR_TO_MOVIE)) {
+            statement.setLong(1, directorId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isDirectorAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDirectorAdded;
     }
 
     @Override

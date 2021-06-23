@@ -4,8 +4,6 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.parser.ActorParser;
@@ -21,7 +19,7 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,7 +39,6 @@ public class UploadMovieCommand implements Command {
         Part part = request.getPart(FILE);
         Set<String> parameterNames = request.getParameterMap().keySet();
         String currentPage = request.getHeader(REFERER);
-        long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         Movie movie = new Movie();
         try {
             for (String fieldName : parameterNames) {
@@ -56,7 +53,7 @@ public class UploadMovieCommand implements Command {
                     long movieId = movie.getMovieId();
                     processActorFormField(request, movie);
                     processDirectorFormField(request, movie);
-                    movieService.addGenreToMovie(genreId, movieId);
+                    processGenreFormField(request, movieId);
                 }
                 router.setPagePath(PagePath.MOVIE_PAGE);
             }
@@ -78,28 +75,31 @@ public class UploadMovieCommand implements Command {
         return savePath.substring(savePath.indexOf("/css"));
     }
 
+    private void processGenreFormField(HttpServletRequest request, long movieId) throws ServiceException {
+        String[] genres = request.getParameterValues(GENRES);
+        System.out.println(Arrays.toString(genres));
+        for (String genre : genres) {
+            long genreId = Long.parseLong(genre);
+            movieService.addGenreToMovie(genreId, movieId);
+        }
+    }
+
     private void processActorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
         long movieId = movie.getMovieId();
-        String actors = request.getParameter(ACTORS);
-        List<Actor> actorList = actorParser.parseActor(actors);
-        for (Actor actor : actorList) {
-            String firstName = actor.getFirstName();
-            String lastName = actor.getLastName();
-            if (!movieService.isActorAlreadyExists(firstName, lastName)) {
-                movieService.addActor(actor);
-            }
-            movieService.addActorToMovieByMovieId(actor, movieId);
+        String[] actors = request.getParameterValues(ACTORS);
+        for (String actor : actors) {
+            long actorId = Long.parseLong(actor);
+            movieService.addActorToMovieById(actorId, movieId);
         }
     }
 
     private void processDirectorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
         long movieId = movie.getMovieId();
-        String directorField = request.getParameter(DIRECTOR);
-        Director director = actorParser.parseDirector(directorField);
-        if (!movieService.isDirectorAlreadyExists(director)) {
-            movieService.addDirector(director);
+        String[] directors = request.getParameterValues(DIRECTOR);
+        for (String director : directors) {
+            long directorId = Long.parseLong(director);
+            movieService.addDirectorToMovieById(directorId, movieId);
         }
-        movieService.addDirectorToMovieByMovieId(director, movieId);
     }
 
     private void processUploadedFile(Movie movie, Part part) throws IOException {

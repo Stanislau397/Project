@@ -1,0 +1,594 @@
+body {
+    background-color: #1a191f;
+}
+
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top .text1 {
+    float: left;
+    display: inline-block;
+}
+
+.top .text1 h2 {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
+    margin-left: 10px;
+}
+
+.main-content {
+    margin-left: 290px;
+    margin-top: 40px;
+    width: 1180px;
+}
+
+.main-content .head {
+    float: left;
+    width: 100%;
+    height: 80px;
+    background-color: #222028;
+    border-radius: 10px;
+}
+
+.main-content .head .picture {
+    float: left;
+    height: 80px;
+    width: 68px;
+}
+
+.main-content .head .picture img {
+    margin-top: 17px;
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #212529;
+}
+
+.main-content .head .user-info {
+    height: 80px;
+    width: 210px;
+    float: left;
+}
+
+.main-content .head .user-info ul {
+    display: inline-block;
+    margin-top: 13px;
+}
+
+.main-content .head .user-info li {
+    display: inline-block;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 550;
+}
+
+.main-content .head .user-info p {
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 500;
+}
+
+.main-content .head .navigation {
+    float: left;
+    width: 850px;
+}
+
+.main-content .head .navigation ul {
+    display: inline-block;
+}
+
+.main-content .head .navigation li {
+    display: inline-block;
+    margin-left: 7px;
+}
+
+.main-content .head .navigation li button {
+    margin-top: 10px;
+    height: 70px;
+    color: white;
+    background-color: #222028;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 16px;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+}
+
+.main-content .head .navigation li button:hover {
+    color: #f9c22a;
+    border-bottom: 2px solid #f9c22a;
+}
+
+.main-content .head .right {
+    float: left;
+}
+
+.main-content .head .right .change-role-btn {
+    margin-top: 27px;
+    width: 30px;
+    height: 30px;
+    background-color: #009879;
+    border-radius: 5px;
+    border: 0;
+}
+
+.main-content .head .right .change-role-btn i {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    background-color: #009879;
+}
+
+.main-content .edit-user-info {
+    float: left;
+    margin-top: 30px;
+    width: 580px;
+    height: 310px;
+    background-color: #1a191f;
+    border: 1px solid #222028;
+    border-radius: 10px;
+}
+
+.main-content .change-password {
+    float: left;
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 580px;
+    height: 310px;
+    background-color: #1a191f;
+    border: 1px solid #222028;
+    border-radius: 10px;
+}
+
+.main-content .change-password h2 {
+    margin-left: 20px;
+    margin-top: 25px;
+    color: white;
+    font-size: 18px;
+    font-weight: 150;
+    font-family: sans-serif;
+}
+
+.main-content .edit-user-info h2 {
+    margin-left: 20px;
+    margin-top: 25px;
+    color: white;
+    font-size: 18px;
+    font-weight: 150;
+    font-family: sans-serif;
+}
+
+.main-content .edit-user-info ul, .change-password ul {
+    margin-top: 20px;
+}
+
+.main-content .edit-user-info ul li, .change-password ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+input, label {
+    display: block;
+}
+
+input {
+    margin-top: 5px;
+    color: #fff;
+    width: 250px;
+    height: 45px;
+    background-color: #222028;
+    font-family: sans-serif;
+    font-size: 17px;
+    padding: 0 15px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+}
+
+label {
+    color: white;
+    font-family: sans-serif;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+input:focus {
+    border: 2px solid #f9c22a;
+}
+
+select {
+    margin-top: 3px;
+    width: 250px;
+    height: 45px;
+    background-color: #222028;
+    color: white;
+    font-family: sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+}
+
+.main-content .edit-user-info button, .change-password button {
+    margin-top: 20px;
+    margin-left: 20px;
+    border: 2px solid #f9c22a;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: white;
+    background-color: #222028;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 180px;
+    height: 45px;
+}
+
+.content-table {
+    border-collapse: separate;
+    font-size: 1.1em;
+    width: 100%;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: sans-serif;
+    border-spacing: 0 12px;
+}
+
+.content-table thead tr {
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    min-width: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);;
+}
+
+td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content-table td {
+    background-color: #222028;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.content-table i {
+    color: white;
+}
+
+.content-table button {
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: #222028;
+    color: white;
+    cursor: pointer;
+}
+
+.content-table button:hover {
+    color: #f9c22a;
+    outline: none;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.content-table tbody tr {
+    height: 55px;
+}
+
+.content-table tbody tr td {
+    font-size: 15px;
+    font-weight: 150;
+}
+
+.main-content .remove {
+    float: left;
+}
+
+.edit {
+    float: left;
+}
+
+.button {
+    margin-left: 3px;
+}
+
+.button .edit-btn {
+    text-align: center;
+    background-color: #066ee7;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.button .edit-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 600px;
+    padding: 15px;
+    background: #1a191f;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+.edit .popup .info {
+    width: 100%;
+    height: 55px;
+    border-bottom: 1px solid #222028;
+}
+
+.edit .info .picture {
+    float: left;
+    width: 55px;
+    height: 55px;
+}
+
+.edit .info .user-info {
+    float: left;
+    width: 200px;
+}
+
+.edit .info .text {
+    width: 100%;
+    min-height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid #222028;
+}
+
+.edit .info .votes {
+    margin-top: 10px;
+}
+
+textarea {
+    overflow: hidden;
+    padding: 20px 0;
+    width: 100%;
+    height: 150px;
+    background: #1a191f;
+    border: 0;
+    outline: none;
+    color: white;
+    font-family: sans-serif;
+    font-size: 20px;
+    border-bottom: 1px solid #222028;
+    font-weight: 150;
+    resize: none;
+}
+
+.popup .text button {
+    float: right;
+    width: 120px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: 200;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: 2px solid #f9c22a;
+    font-family: sans-serif;
+    border-radius: 5px;
+}
+
+textarea:focus {
+    border-bottom: 1px solid #222028;
+    outline: none;
+}
+
+.edit .popup .info img {
+    width: 45px;
+    height: 45px;
+}
+
+.popup .close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    transition: all 200ms;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .popup {
+        width: 70%;
+    }
+}
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: #1a191f;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
+}
+
+.up-votes {
+    margin-top: 12px;
+    float: left;
+}
+
+.down_votes {
+    margin-top: 12px;
+    margin-left: 5px;
+    float: left;
+    border-left: 1px solid #2e2e2e;
+}
+
+.up-votes button {
+    width: 30px;
+    height: 20px;
+    background: #1a191f;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.down_votes button {
+    margin-left: 3px;
+    width: 30px;
+    height: 20px;
+    background: #1a191f;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+
+.up-votes button:hover, .down_votes button:hover {
+    border: 0;
+    outline: none;
+}
+
+.up-votes i {
+    font-size: 15px;
+    color: #66cc33;
+}
+
+.down_votes i {
+    font-size: 15px;
+    color: red;
+}
+
+.pop .text, .right .pop .text {
+    width: 100%;
+    text-align: center;
+}
+
+.pop .text p, .right .pop .text p {
+    font-weight: 150;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.buttons .remove, .right .buttons .change-status {
+    margin-left: 10px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons .dismiss, .right .buttons .dismiss {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons button, .right .buttons button {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.buttons button a, .right .buttons button a {
+    width: 183px;
+    height: 42px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.buttons button:hover, .right .buttons button:hover {
+    color: white;
+    border: 2px solid #f9c22a;
+}
+
+
+
+
+
+

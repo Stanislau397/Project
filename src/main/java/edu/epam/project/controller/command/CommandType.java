@@ -9,6 +9,8 @@ import edu.epam.project.controller.command.impl.user.ShowUserProfileCommand;
 
 public enum CommandType {
 
+    TEST(new TestCommand()),
+
     SIGN_IN(new SignInCommand()),
     REGISTER(new RegisterCommand()),
     SIGN_OUT(new SignOutCommand()),
@@ -38,6 +40,8 @@ public enum CommandType {
     ADD_GENRE_TO_MOVIE(new AddGenreToMovieCommand()),
     ADD_ACTOR(new AddActorCommand()),
     EDIT_ACTOR(new EditActorCommand()),
+    SEARCH_ACTOR(new SearchActorCommand()),
+    SEARCH_DIRECTORS(new SearchDirectorCommand()),
     ADD_DIRECTOR(new AddDirectorCommand()),
     ADD_DIRECTOR_TO_MOVIE(new AddDirectorToMovieCommand()),
     ADD_ACTOR_TO_MOVIE(new AddActorToMovieCommand()),

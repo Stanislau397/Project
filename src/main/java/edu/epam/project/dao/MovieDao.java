@@ -64,6 +64,8 @@ public interface MovieDao {
 
     boolean addActor(Actor actor) throws DaoException;
 
+    boolean addActorToMovieById(long actorId, long movieId) throws DaoException;
+
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
 
     boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws DaoException;
@@ -80,9 +82,15 @@ public interface MovieDao {
 
     List<Actor> findAllActors() throws DaoException;
 
+    List<Actor> findActorsByKeyWords(String keyWords) throws DaoException;
+
     List<Director> findAllDirectors() throws DaoException;
 
+    List<Director> findDirectorsByKeyWords(String keyWords) throws DaoException;
+
     boolean addDirector(Director director) throws DaoException;
+
+    boolean addDirectorToMovieById(long directorId, long movieId) throws DaoException;
 
     boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException;
 

@@ -1,0 +1,481 @@
+body {
+    background-color: #1a191f;
+}
+
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.top .text1 {
+    float: left;
+    display: inline-block;
+}
+
+.top .counter {
+    float: left;
+    width: 400px;
+}
+
+.top .counter p {
+    margin-left: 10px;
+    margin-top: 21px;
+    color: rgba(255,255,255,0.7);
+}
+
+.top .text1 h2{
+    color: white;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
+    margin-left: 10px;
+}
+
+.main-content {
+    margin-left: 250px;
+}
+
+.main-content .search {
+    float: left;
+    width: 100%;
+}
+
+.search input {
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+.search input[type="text"] {
+    background-color: #222028;
+    color: white;
+    margin-left: 190px;
+    margin-top: 10px;
+    width: 300px;
+    height: 40px;
+    padding: 0 25px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    outline: none;
+}
+
+.search input[type="submit"] {
+    position: relative;
+    left: -5px;
+    border-radius: 0 10px 10px 0;
+    height: 40px;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+    background: #222028;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.content-table {
+    border-collapse: separate;
+    font-size: 1.1em;
+    min-width: 1150px;
+    overflow: hidden;
+    color: rgba(255,255,255,0.7);
+    font-family: sans-serif;
+    border-spacing: 0 12px;
+    margin-left: 20px;
+}
+
+.content-table thead tr {
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    min-width: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);;
+}
+
+.content-table td {
+    background-color: #222028;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.content-table i {
+    color: #f9c22a;
+}
+
+.content-table button {
+    font-size: 13px;
+    border: none;
+    outline: none;
+    background-color: #222028;
+    color: white;
+    cursor: pointer;
+}
+
+.content-table button:hover {
+    color: #f9c22a;
+    outline: none;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.main-content .block-user, .change-role {
+    float: left;
+}
+
+.main-content .change-role {
+    margin-left: 7px;
+}
+
+.main-content .user_name_btn {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: sans-serif;
+}
+
+.main-content .user_name_btn:hover {
+    outline: none;
+    border: none;
+    color: #f9c22a;
+}
+
+.main-content .change-role .change-role-btn {
+    background-color: #2f80ed;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.right .buttons button {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overlay2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay2:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overlay3 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay3:target {
+    visibility: visible;
+    opacity: 1;
+}
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: #1a191f;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+    border: 1px solid #222028;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
+}
+
+.right .pop .text {
+    width: 100%;
+    text-align: center;
+}
+
+.right .pop .text p {
+    font-weight: 150;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.right .buttons .change-status {
+    margin-left: 10px;
+    margin-top: 5px;
+    float: left;
+}
+
+.right .buttons .dismiss {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+}
+
+.right .buttons .chang-btn {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.right {
+    float: left;
+}
+
+.button .change-role-btn {
+    text-align: center;
+    background-color: #009879;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.button .change-role-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.right .buttons button a {
+    width: 183px;
+    height: 42px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.right .buttons button:hover {
+    color: white;
+    border: 2px solid #f9c22a;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
+}
+
+
+.add {
+    height: 50px;
+}
+
+.add .button .add-btn {
+    color: #ffffff;
+    font-size: 20px;
+    margin-top: 12px;
+    width: 200px;
+    height: 40px;
+    float: left;
+    margin-left: 30px;
+    background-color: #222028;
+    border: 2px solid #f9c22a;
+    border-radius: 8px;
+}
+
+.add .pop li {
+    display: block;
+    margin-top: 8px;
+}
+
+.edit-actor {
+    float: left;
+}
+
+.remove-actor {
+    float: left;
+    margin-left: 5px;
+}
+
+.add .pop input, .edit-actor .pop input {
+    margin-top: 5px;
+    width: 400px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #222028;
+    border: 1px solid #1a191f;
+    outline: none;
+    padding: 5px 12px;
+    color: grey;
+}
+
+.add .pop input:focus{
+    border: 1px solid #f9c22a;
+    border-radius: 8px;
+}
+
+.add .pop select {
+    margin-top: 5px;
+    width: 400px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #222028;
+    border: 1px solid #1a191f;
+    outline: none;
+    padding: 5px 12px;
+    color: grey;
+    cursor: pointer;
+}
+
+.pop .text, .right .pop .text {
+    width: 100%;
+    text-align: center;
+}
+
+.pop .text p, .right .pop .text p {
+    font-weight: 150;
+    margin-left: -3px;
+    margin-top: 10px;
+}
+
+.buttons .remove, .right .buttons .change-status {
+    margin-left: 10px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons .dismiss, .right .buttons .dismiss {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+}
+
+.buttons button, .right .buttons button {
+    margin-top: 12px;
+    width: 183px;
+    height: 42px;
+    border: 2px solid #f9c22a;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+}
+
+.buttons button a, .right .buttons button a {
+    width: 183px;
+    height: 42px;
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.buttons button:hover, .right .buttons button:hover {
+    color: white;
+    border: 2px solid #f9c22a;
+}
+
+.remove-actor .remove-btn {
+    background-color: #eb5757;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.remove-btn i {
+    color: white;
+    font-size: 20px;
+}
+
+.edit-actor .edit-btn {
+    background-color: #2f80ed;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.edit-btn i {
+    font-size: 20px;
+    color: white;
+    margin-left: 2px;
+    margin-top: 2px;
+}

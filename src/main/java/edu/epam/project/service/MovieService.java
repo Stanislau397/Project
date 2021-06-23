@@ -64,6 +64,8 @@ public interface MovieService {
 
     boolean addActor(Actor actor) throws ServiceException;
 
+    boolean addActorToMovieById(long actorId, long movieId) throws ServiceException;
+
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
 
     boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws ServiceException;
@@ -80,7 +82,11 @@ public interface MovieService {
 
     List<Actor> findAllActors() throws ServiceException;
 
+    List<Actor> findActorsByKeyWords(String keyWords) throws ServiceException;
+
     boolean addDirector(Director director) throws ServiceException;
+
+    boolean addDirectorToMovieById(long directorId, long movieId) throws ServiceException;
 
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
 
@@ -89,6 +95,8 @@ public interface MovieService {
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;
 
     List<Movie> findMoviesForDirector(long directorId) throws ServiceException;
+
+    List<Director> findDirectorsByKeyWords(String keyWords) throws ServiceException;
 
     boolean isDirectorAlreadyExists(Director director) throws ServiceException;
 

@@ -109,10 +109,12 @@
                     </a>
                     <c:if test="${upcomingMovies.rating.score != 0}">
                         <c:if test="${upcomingMovies.rating.score >= 70}">
-                            <div class="movie-rating" style="background-color: #6c3">${upcomingMovies.rating.score}</div>
+                            <div class="movie-rating"
+                                 style="background-color: #6c3">${upcomingMovies.rating.score}</div>
                         </c:if>
                         <c:if test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score > 40}">
-                            <div class="movie-rating" style="background-color: #fc3">${upcomingMovies.rating.score}</div>
+                            <div class="movie-rating"
+                                 style="background-color: #fc3">${upcomingMovies.rating.score}</div>
                         </c:if>
                         <c:if test="${upcomingMovies.rating.score < 40}">
                             <div class="movie-rating" style="background-color: red">${upcomingMovies.rating.score}</div>
@@ -127,6 +129,95 @@
         </c:if>
     </c:forEach>
 </div>
+<div id="wrapper">
+    <div class="top">
+        <ul>
+            <li><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2></li>
+            <li style="margin-left: 7px">asdasd</li>
+        </ul>
+    </div>
+    <div id="carousel">
+        <div id="content">
+            <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies">
+                <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}"
+                   style="margin-left: -1.5px">
+                    <c:choose>
+                        <c:when test="${newestMovies.rating.score == 0}">
+                            <p class="score"></p>
+                        </c:when>
+                        <c:when test="${newestMovies.rating.score >= 70}">
+                            <p class="score" style="background-color: #66cc33"><c:out
+                                    value="${newestMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${newestMovies.rating.score < 70 && newestMovies.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3"><c:out
+                                    value="${newestMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${newestMovies.rating.score < 40}">
+                            <p class="score" style="background-color: red"><c:out
+                                    value="${newestMovies.rating.score}"/></p>
+                        </c:when>
+                    </c:choose>
+                    <img src="${pageContext.request.contextPath}${newestMovies.picture}" class="item"/>
+                    <p class="movie-title"><c:out value="${newestMovies.title}"/></p>
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+    <button id="prev">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
+        </svg>
+    </button>
+    <button id="next">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/>
+        </svg>
+    </button>
+</div>
+<div style="height: 200px"></div>
+<script type="text/javascript">
+    const gap = 15;
+
+    const carousel = document.getElementById("carousel"),
+        content = document.getElementById("content"),
+        next = document.getElementById("next"),
+        prev = document.getElementById("prev");
+
+    next.addEventListener("click", e => {
+        carousel.scrollBy(width + gap, 0);
+        if (carousel.scrollWidth !== 0) {
+            prev.style.display = "flex";
+        }
+        if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "none";
+        }
+    });
+    prev.addEventListener("click", e => {
+        carousel.scrollBy(-(width + gap), 0);
+        if (carousel.scrollLeft - width - gap <= 0) {
+            prev.style.display = "none";
+        }
+        if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "flex";
+        }
+    });
+
+    let width = carousel.offsetWidth;
+    window.addEventListener("resize", e => (width = carousel.offsetWidth));
+</script>
 </body>
 <jsp:include page="static/footer.jsp"/>
 </html>

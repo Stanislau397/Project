@@ -24,6 +24,11 @@
                 </form>
 
             <form action="${pageContext.request.contextPath}/controller" method="get">
+                <input type="hidden" name="command" value="display_all_actors">
+                <button type="submit">Test</button>
+            </form>
+
+            <form action="${pageContext.request.contextPath}/controller" method="get">
                 <input type="hidden" name="command" value="open_home_page">
                 <button type="submit"><fmt:message key="text.label.main"/></button>
             </form>

@@ -56,10 +56,10 @@
                     <td><c:out value="${users.role}"/></td>
                     <c:choose>
                         <c:when test="${users.blocked == false}">
-                            <td style="color: #66cc33"><fmt:message key="label.active"/></td>
+                            <td style="color: green"><fmt:message key="label.active"/></td>
                         </c:when>
                         <c:when test="${users.blocked}">
-                            <td style="color:#eb5757;"><fmt:message key="label.blocked"/></td>
+                            <td style="color:red;"><fmt:message key="label.blocked"/></td>
                         </c:when>
                     </c:choose>
                     <td>

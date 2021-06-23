@@ -4,6 +4,8 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.entity.Actor;
+import edu.epam.project.entity.Director;
 import edu.epam.project.entity.Genre;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
+import static edu.epam.project.controller.command.AttributeName.ACTORS_LIST;
+import static edu.epam.project.controller.command.AttributeName.DIRECTORS_LIST;
 import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
 
 public class ToUploadMovieCommand implements Command {
@@ -29,7 +33,11 @@ public class ToUploadMovieCommand implements Command {
         Router router = new Router();
         try {
             List<Genre> genres = movieService.findAllGenres();
+            List<Actor> allActors = movieService.findAllActors();
+            List<Director> allDirectors = movieService.findAllDirectors();
             request.setAttribute(GENRES_LIST, genres);
+            request.setAttribute(ACTORS_LIST, allActors);
+            request.setAttribute(DIRECTORS_LIST, allDirectors);
             router.setPagePath(PagePath.UPLOAD_MOVIE_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

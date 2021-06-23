@@ -29,15 +29,8 @@
             </ul>
         </li>
 
-        <li class="active">
-            <a href="#" class="serv-btn"><fmt:message key="label.user"/>
-                <span class="fa fa-caret-down second"></span>
-            </a>
-            <ul class="serv-show">
-                <li><a href="${pageContext.request.contextPath}/controller?command=all_users"><fmt:message
-                        key="label.all_users"/></a></li>
-            </ul>
-        </li>
+        <li class="active"><a href="${pageContext.request.contextPath}/controller?command=all_users"><fmt:message
+                key="label.all_users"/></a></li>
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=display_all_actors"><fmt:message
                 key="label.actors"/></a></li>
