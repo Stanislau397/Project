@@ -324,6 +324,30 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findBestMoviesForActorByActorId(long actorId) throws ServiceException {
+        List<Movie> bestMoviesForActor;
+        try {
+            bestMoviesForActor = movieDao.findBestMoviesForActorByActorId(actorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return bestMoviesForActor;
+    }
+
+    @Override
+    public List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws ServiceException {
+        List<Movie> bestMoviesForDirector;
+        try {
+            bestMoviesForDirector = movieDao.findBestMoviesForDirectorByDirectorId(directorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return bestMoviesForDirector;
+    }
+
+    @Override
     public Optional<Movie> findMovieById(long movieId) throws ServiceException {
         Optional<Movie> isFound;
         try {
@@ -467,6 +491,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Optional<Actor> findActorInfoByActorId(long actorId) throws ServiceException {
+        Optional<Actor> actorInfo;
+        try {
+            actorInfo = movieDao.findActorInfoByActorId(actorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return actorInfo;
+    }
+
+    @Override
     public Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws ServiceException {
         Optional<Actor> isFound;
         try {
@@ -528,6 +564,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public Optional<Director> findDirectorInfoByDirectorId(long directorId) throws ServiceException {
+        Optional<Director> directorInfo;
+        try {
+            directorInfo = movieDao.findDirectorInfoByDirectorId(directorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return directorInfo;
     }
 
     @Override

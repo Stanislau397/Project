@@ -10,6 +10,9 @@ public class Director extends Entity {
     private long directorId;
     private String firstName;
     private String lastName;
+    private String picture;
+    private double height;
+    private int age;
 
     /**
      * Constructor for Director object
@@ -42,6 +45,15 @@ public class Director extends Entity {
     public Director(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Director(long directorId, String firstName, String lastName, String picture, double height, int age) {
+        this.directorId = directorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.picture = picture;
+        this.height = height;
+        this.age = age;
     }
 
     /**
@@ -98,6 +110,30 @@ public class Director extends Entity {
         this.lastName = lastName;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,15 +142,24 @@ public class Director extends Entity {
         Director director = (Director) o;
 
         if (directorId != director.directorId) return false;
+        if (Double.compare(director.height, height) != 0) return false;
+        if (age != director.age) return false;
         if (firstName != null ? !firstName.equals(director.firstName) : director.firstName != null) return false;
-        return lastName != null ? lastName.equals(director.lastName) : director.lastName == null;
+        if (lastName != null ? !lastName.equals(director.lastName) : director.lastName != null) return false;
+        return picture != null ? picture.equals(director.picture) : director.picture == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (directorId ^ (directorId >>> 32));
+        int result;
+        long temp;
+        result = (int) (directorId ^ (directorId >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (picture != null ? picture.hashCode() : 0);
+        temp = Double.doubleToLongBits(height);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + age;
         return result;
     }
 

@@ -635,6 +635,54 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public List<Movie> findBestMoviesForActorByActorId(long actorId) throws DaoException {
+        List<Movie> bestMoviesForActor = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_BEST_MOVIES_FOR_ACTOR)) {
+            statement.setLong(1, actorId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                bestMoviesForActor.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return bestMoviesForActor;
+    }
+
+    @Override
+    public List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws DaoException {
+        List<Movie> bestMoviesForDirector = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_BEST_MOVIES_FOR_DIRECTOR)) {
+            statement.setLong(1, directorId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setRating(rating);
+                bestMoviesForDirector.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return bestMoviesForDirector;
+    }
+
+    @Override
     public boolean addActor(Actor actor) throws DaoException {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -749,6 +797,29 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public Optional<Actor> findActorInfoByActorId(long actorId) throws DaoException {
+        Optional<Actor> actorInfo = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ACTOR_INFO)) {
+            statement.setLong(1, actorId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Actor actor = new Actor();
+                actor.setFirstName(resultSet.getString(TableColumn.ACTOR_FIRST_NAME));
+                actor.setLastName(resultSet.getString(TableColumn.ACTOR_LAST_NAME));
+                actor.setPicture(resultSet.getString(TableColumn.ACTOR_PICTURE));
+                actor.setAge(resultSet.getInt(TableColumn.AGE));
+                actor.setHeight(resultSet.getDouble(TableColumn.HEIGHT));
+                actorInfo = Optional.of(actor);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return actorInfo;
+    }
+
+    @Override
     public List<Actor> findActorsByMovieId(long movieId) throws DaoException {
         List<Actor> actors = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -789,6 +860,30 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return actorOptional;
+    }
+
+    @Override
+    public Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException {
+        Optional<Director> directorInfo = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_DIRECTOR_INFO)) {
+            statement.setLong(1, directorId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Director director = new Director();
+                director.setDirectorId(resultSet.getLong(TableColumn.DIRECTOR_ID));
+                director.setFirstName(resultSet.getString(TableColumn.DIRECTOR_FIRST_NAME));
+                director.setLastName(resultSet.getString(TableColumn.DIRECTOR_LAST_NAME));
+                director.setPicture(resultSet.getString(TableColumn.ACTOR_PICTURE));
+                director.setAge(resultSet.getInt(TableColumn.AGE));
+                director.setHeight(resultSet.getDouble(TableColumn.HEIGHT));
+                directorInfo = Optional.of(director);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return directorInfo;
     }
 
     @Override

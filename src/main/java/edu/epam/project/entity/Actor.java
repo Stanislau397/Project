@@ -10,6 +10,9 @@ public class Actor extends Entity {
     private long actorId;
     private String firstName;
     private String lastName;
+    private String picture;
+    private double height;
+    private int age;
 
     /**
      * Constructor for Actor object
@@ -42,6 +45,22 @@ public class Actor extends Entity {
         this.actorId = actorId;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Actor(long actorId, String firstName, String lastName, String picture) {
+        this.actorId = actorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.picture = picture;
+    }
+
+    public Actor(long actorId, String firstName, String lastName, String picture, double height, int age) {
+        this.actorId = actorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.picture = picture;
+        this.height = height;
+        this.age = age;
     }
 
     /**
@@ -98,6 +117,30 @@ public class Actor extends Entity {
         this.lastName = lastName;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,15 +149,24 @@ public class Actor extends Entity {
         Actor actor = (Actor) o;
 
         if (actorId != actor.actorId) return false;
+        if (Double.compare(actor.height, height) != 0) return false;
+        if (age != actor.age) return false;
         if (firstName != null ? !firstName.equals(actor.firstName) : actor.firstName != null) return false;
-        return lastName != null ? lastName.equals(actor.lastName) : actor.lastName == null;
+        if (lastName != null ? !lastName.equals(actor.lastName) : actor.lastName != null) return false;
+        return picture != null ? picture.equals(actor.picture) : actor.picture == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (actorId ^ (actorId >>> 32));
+        int result;
+        long temp;
+        result = (int) (actorId ^ (actorId >>> 32));
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (picture != null ? picture.hashCode() : 0);
+        temp = Double.doubleToLongBits(height);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + age;
         return result;
     }
 

@@ -4,6 +4,7 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.entity.Actor;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
@@ -16,12 +17,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
+import static edu.epam.project.controller.command.AttributeName.ACTOR;
 import static edu.epam.project.controller.command.RequestParameter.ACTOR_ID;
 import static edu.epam.project.controller.command.RequestParameter.FIRST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 
 import static edu.epam.project.controller.command.AttributeName.MOVIES_FOR_ACTOR_LIST;
+import static edu.epam.project.controller.command.AttributeName.BEST_MOVIES_FOR_ACTOR_LIST;
 
 public class DisplayActorInfoCommand implements Command {
 
@@ -34,12 +38,20 @@ public class DisplayActorInfoCommand implements Command {
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         String actorFirstName = request.getParameter(FIRST_NAME);
         String actorLastName = request.getParameter(LAST_NAME);
+        Actor actor;
         try {
             List<Movie> moviesForActor = movieService.findMoviesForActorByActorId(actorId);
-            request.setAttribute(MOVIES_FOR_ACTOR_LIST, moviesForActor);
-            request.setAttribute(AttributeName.FIRST_NAME, actorFirstName);
-            request.setAttribute(AttributeName.LAST_NAME, actorLastName);
-            router.setPagePath(PagePath.ACTOR_PAGE);
+            List<Movie> bestMoviesForActor = movieService.findBestMoviesForActorByActorId(actorId);
+            Optional<Actor> actorOptional = movieService.findActorInfoByActorId(actorId);
+            if (actorOptional.isPresent()) {
+                actor = actorOptional.get();
+                request.setAttribute(ACTOR, actor);
+                request.setAttribute(MOVIES_FOR_ACTOR_LIST, moviesForActor);
+                request.setAttribute(BEST_MOVIES_FOR_ACTOR_LIST, bestMoviesForActor);
+                request.setAttribute(AttributeName.FIRST_NAME, actorFirstName);
+                request.setAttribute(AttributeName.LAST_NAME, actorLastName);
+                router.setPagePath(PagePath.ACTOR_PAGE);
+            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

@@ -8,6 +8,8 @@ public class TableColumn {
     public static final String USER_STATUS = "is_active";
     public static final String USER_ID = "user_id";
     public static final String USER_NAME_FK = "user_name_fk";
+    public static final String AGE = "age";
+    public static final String HEIGHT = "height";
 
     public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";
@@ -32,6 +34,7 @@ public class TableColumn {
     public static final String ACTOR_ID = "actor_id";
     public static final String ACTOR_FIRST_NAME = "first_name";
     public static final String ACTOR_LAST_NAME = "last_name";
+    public static final String ACTOR_PICTURE = "picture";
 
     public static final String DIRECTOR_ID = "director_id";
     public static final String DIRECTOR_FIRST_NAME = "first_name";

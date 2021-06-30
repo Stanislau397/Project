@@ -62,6 +62,10 @@ public interface MovieDao {
 
     List<Movie> findLatestReviewedMovies() throws DaoException;
 
+    List<Movie> findBestMoviesForActorByActorId(long actorId) throws DaoException;
+
+    List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws DaoException;
+
     boolean addActor(Actor actor) throws DaoException;
 
     boolean addActorToMovieById(long actorId, long movieId) throws DaoException;
@@ -76,9 +80,13 @@ public interface MovieDao {
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws DaoException;
 
+    Optional<Actor> findActorInfoByActorId(long actorId) throws DaoException;
+
     List<Actor> findActorsByMovieId(long movieId) throws DaoException;
 
     Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws DaoException;
+
+    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
 
     List<Actor> findAllActors() throws DaoException;
 
