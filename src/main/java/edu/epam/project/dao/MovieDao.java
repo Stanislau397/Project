@@ -72,6 +72,10 @@ public interface MovieDao {
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
 
+    boolean updateActorPictureByActorId(long actorId, String picture) throws DaoException;
+
+    boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date release_date, double height) throws DaoException;
+
     boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws DaoException;
 
     boolean removeActorByActorId(long actorId) throws DaoException;

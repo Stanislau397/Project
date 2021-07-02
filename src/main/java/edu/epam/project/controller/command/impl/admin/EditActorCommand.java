@@ -13,10 +13,13 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.sql.Date;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.FIRST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
+import static edu.epam.project.controller.command.RequestParameter.BIRTH_DATE;
+import static edu.epam.project.controller.command.RequestParameter.HEIGHT;
 import static edu.epam.project.controller.command.RequestParameter.ACTOR_ID;
 
 public class EditActorCommand implements Command {
@@ -30,9 +33,11 @@ public class EditActorCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         String firstName = request.getParameter(FIRST_NAME);
         String lastName = request.getParameter(LAST_NAME);
+        Date birth_date = Date.valueOf(request.getParameter(BIRTH_DATE));
+        double height = Double.parseDouble(request.getParameter(HEIGHT));
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         try {
-            if (movieService.updateActorFirstAndLastNameByActorId(firstName, lastName, actorId)) {
+            if (movieService.updateActorInfoByActorId(actorId, firstName, lastName, birth_date, height)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

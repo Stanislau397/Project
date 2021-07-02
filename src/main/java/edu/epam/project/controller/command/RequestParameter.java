@@ -43,6 +43,9 @@ public class RequestParameter {
     public static final String MOVIE_YEAR = "movie_year";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
+    public static final String AGE = "age";
+    public static final String HEIGHT = "height";
+    public static final String BIRTH_DATE = "birth_date";
 
     public static final String BLOCK = "block";
     public static final String UNBLOCK = "unblock";

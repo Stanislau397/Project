@@ -72,6 +72,10 @@ public interface MovieService {
 
     boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
 
+    boolean updateActorPictureByActorId(long actorId, String picture) throws ServiceException;
+
+    boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date birth_date, double height) throws ServiceException;
+
     boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws ServiceException;
 
     boolean removeActorByActorId(long actorId) throws ServiceException;

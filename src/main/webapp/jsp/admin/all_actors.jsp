@@ -35,36 +35,9 @@
 </div>
 <div class="main-content">
     <div class="add">
-        <a class="button" href="#pop">
+        <a class="button" href="${pageContext.request.contextPath}/jsp/admin/add_actor.jsp">
             <button class="add-btn"><fmt:message key="label.add_actor"/></button>
         </a>
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <div id="pop" class="overlay2">
-                <div class="pop">
-                    <input type="hidden" name="command" value="add_actor">
-                    <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
-                    <div class="text">
-                        <h2 style="color: white"><fmt:message key="label.add_actor"/></h2>
-                        <input type="text" name="first_name"
-                               placeholder="<fmt:message key="label.first_name"/>">
-                        <input type="text" name="last_name"
-                               placeholder="<fmt:message key="label.last_name"/>">
-                    </div>
-                    <div class="buttons">
-                        <div class="remove">
-                            <button type="submit" style="background-color: #1a191f"><fmt:message
-                                    key="label.add"/></button>
-                        </div>
-                        <div class="dismiss">
-                            <button style="background-color: #1a191f; margin-left: 14px"><a class="close"
-                                                                                            href="#"><fmt:message
-                                    key="label.close"/></a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
     </div>
     <table class="content-table">
         <thead>
@@ -87,36 +60,9 @@
                         <td><c:out value="${allActors.actorId}"/></td>
                         <td>
                             <div class="edit-actor">
-                                <a class="button" href="#pop${counter.count}">
+                                <a class="button" href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${allActors.actorId}">
                                     <button class="edit-btn"><i class="fa fa-edit"></i></button>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <div id="pop${counter.count}" class="overlay1">
-                                        <div class="pop">
-                                            <input type="hidden" name="command" value="edit_actor">
-                                            <input type="hidden" name="actor_id" value="${allActors.actorId}">
-                                            <div class="text">
-                                                <h2 style="color: white"><fmt:message key="label.edit_actor"/></h2>
-                                                <input type="text" name="first_name"
-                                                       value="${allActors.firstName}">
-                                                <input type="text" name="last_name"
-                                                       value="${allActors.lastName}">
-                                            </div>
-                                            <div class="buttons">
-                                                <div class="remove">
-                                                    <button type="submit" style="background-color: #1a191f"><fmt:message
-                                                            key="label.change"/></button>
-                                                </div>
-                                                <div class="dismiss">
-                                                    <button style="background-color: #1a191f; margin-left: 14px"><a
-                                                            class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                             <div class="remove-actor">
                                 <a class="button" href="#popup${counter.count}">
@@ -160,36 +106,9 @@
                         <td><c:out value="${actorsByKeyWords.actorId}"/></td>
                         <td>
                             <div class="edit-actor">
-                                <a class="button" href="#pop${counter.count}">
+                                <a class="button" href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${actorsByKeyWords.actorId}">
                                     <button class="edit-btn"><i class="fa fa-edit"></i></button>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <div id="pop${counter.count}" class="overlay1">
-                                        <div class="pop">
-                                            <input type="hidden" name="command" value="edit_actor">
-                                            <input type="hidden" name="actor_id" value="${actorsByKeyWords.actorId}">
-                                            <div class="text">
-                                                <h2 style="color: white"><fmt:message key="label.edit_actor"/></h2>
-                                                <input type="text" name="first_name"
-                                                       value="${actorsByKeyWords.firstName}">
-                                                <input type="text" name="last_name"
-                                                       value="${actorsByKeyWords.lastName}">
-                                            </div>
-                                            <div class="buttons">
-                                                <div class="remove">
-                                                    <button type="submit" style="background-color: #1a191f"><fmt:message
-                                                            key="label.change"/></button>
-                                                </div>
-                                                <div class="dismiss">
-                                                    <button style="background-color: #1a191f; margin-left: 14px"><a
-                                                            class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                             <div class="remove-actor">
                                 <a class="button" href="#popup${counter.count}">

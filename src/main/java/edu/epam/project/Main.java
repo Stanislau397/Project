@@ -17,6 +17,8 @@ import edu.epam.project.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.core.util.ArrayUtils;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -25,17 +27,17 @@ public class Main {
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
 
     public static void main(String[] args) throws ServiceException, DaoException {
+
         MovieService movieService = new MovieServiceImpl();
-        String actorName = "Alex Trebek, Brandon Scales, Britne Oldford, Camille Kostek, Heidi Garrow, Jamaal Burcher, Janelle Feigley, Jodie Comer, Joe Keery, Kayla Rae Vesce, Lannan Eacott";
-        ActorParser actorParser = new ActorParser();
-        List<Actor> actors = actorParser.parseActor(actorName);
-        for (Actor actor : actors) {
-            String firstName = actor.getFirstName();
-            String lastName = actor.getLastName();
-            if (!movieService.isActorAlreadyExists(firstName, lastName)) {
-                movieService.addActor(actor);
-            }
-            movieService.addActorToMovieByMovieId(actor, 72);
+        Optional<Actor> actorOptional = movieService.findActorInfoByActorId(313);
+
+        if (actorOptional.isPresent()) {
+            Actor actor = actorOptional.get();
+            System.out.println(actor.getBirthDate());
         }
+    }
+
+    public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+            return Period.between(birthDate, currentDate).getYears();
     }
 }

@@ -1,0 +1,158 @@
+body {
+    background-color: 	rgb(245,245,245);
+}
+
+.top {
+    margin-left: 250px;
+    height: 65px;
+    border-bottom: 1px solid grey;
+}
+
+.top .text1 {
+    float: left;
+    display: inline-block;
+}
+
+.top .text1 h2{
+    color: black;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 17px;
+    margin-left: 10px;
+}
+
+.main-content {
+    margin-left: 290px;
+    margin-top: 40px;
+    width: 1180px;
+}
+
+.main-content .picture {
+    float: left;
+    margin-top: 20px;
+    width: 320px;
+    height: 490px;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+
+.left {
+    float: left;
+    width: 320px;
+}
+
+.right {
+    float: left;
+}
+
+.right button {
+    font-family: sans-serif;
+    width: 280px;
+    height: 42px;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 1.25em;
+    color: black;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+.image-preview {
+    width: 280px;
+    height: 360px;
+    border: 2px solid #222028;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: black;
+}
+
+.image-preview__image {
+    min-width: 280px;
+    height: 360px;
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+.image-preview__default__text {
+    margin-left: 100px;
+}
+
+
+.inputFile {
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputFile + label {
+    font-family: sans-serif;
+    width: 280px;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 1.25em;
+    color: black;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+    padding: 8px 100px;
+    border-radius: 8px;
+}
+
+.info {
+    float: left;
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 830px;
+    height: 490px;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid silver;
+    border-radius: 10px;
+}
+
+.info label {
+    display: inline-block;
+    width: 165px;
+    margin-left: 10px;
+    font-size: 18px;
+    font-family: sans-serif;
+    color: black;
+}
+
+.info input {
+    margin-top: 10px;
+    width: 630px;
+    height: 40px;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid silver;
+    outline: 0;
+    font-size: 18px;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.info button {
+    font-family: sans-serif;
+    float: right;
+    margin-top: 265px;
+    width: 260px;
+    height: 42px;
+    margin-right: 20px;
+    font-size: 1.25em;
+    color: black;
+    background-color: 	rgb(245,245,245);
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 8px;
+}

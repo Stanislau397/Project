@@ -35,35 +35,9 @@
 </div>
 <div class="main-content">
     <div class="add">
-        <a class="button" href="#pop">
+        <a class="button" href="${pageContext.request.contextPath}/jsp/admin/add_director.jsp">
             <button class="add-btn"><fmt:message key="label.add_director"/></button>
         </a>
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <div id="pop" class="overlay2">
-                <div class="pop">
-                    <input type="hidden" name="command" value="add_director">
-                    <div class="text">
-                        <h2 style="color: white"><fmt:message key="label.add_director"/></h2>
-                        <input type="text" name="first_name"
-                               placeholder="<fmt:message key="label.first_name"/>">
-                        <input type="text" name="last_name"
-                               placeholder="<fmt:message key="label.last_name"/>">
-                    </div>
-                    <div class="buttons">
-                        <div class="remove">
-                            <button type="submit" style="background-color: #1a191f"><fmt:message
-                                    key="label.add"/></button>
-                        </div>
-                        <div class="dismiss">
-                            <button style="background-color: #1a191f; margin-left: 14px"><a class="close"
-                                                                                            href="#"><fmt:message
-                                    key="label.close"/></a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
     </div>
     <table class="content-table">
         <thead>

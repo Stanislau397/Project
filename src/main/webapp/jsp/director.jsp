@@ -66,7 +66,7 @@
                 <div id="carousel">
                     <div id="content">
                         <c:forEach items="${requestScope.best_movies_for_director_list}" var="bestMoviesForDirector">
-                            <a class="movie-picture" href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${bestMoviesForActor.movieId}"
+                            <a class="movie-picture" href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${bestMoviesForDirector.movieId}"
                                style="margin-left: -1.5px">
                                 <c:choose>
                                     <c:when test="${bestMoviesForDirector.rating.score >= 70}">
@@ -118,41 +118,41 @@
     </div>
     <div class="films">
         <h3><fmt:message key="label.all_filmography"/></h3>
-        <table class="content-table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th><fmt:message key="label.movie"/></th>
-                <th><fmt:message key="label.release_date"/></th>
-                <th><fmt:message key="label.scores"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${requestScope.movies_for_director_list}" var="moviesForDirector" varStatus="counter">
-                <tr>
-                    <td>${counter.count}</td>
-                    <td>
-                        <form action="${pageContext.request.contextPath}/controller" method="get">
-                            <input type="hidden" name="command" value="show_movie_details">
-                            <input type="hidden" name="movie_id" value="${moviesForDirector.movieId}">
-                            <button type="submit"><c:out value="${moviesForDirector.title}"/></button>
-                        </form>
-                    </td>
-                    <td><c:out value="${moviesForDirector.releaseDate}"/></td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${moviesForDirector.rating.score > 0}">
-                                <i class="fa fa-star"></i> <c:out value="${moviesForDirector.rating.score}"/>
-                            </c:when>
-                            <c:when test="${moviesForDirector.rating.score == 0}">
-                                <fmt:message key="label.rating"/>
-                            </c:when>
-                        </c:choose>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <c:forEach items="${requestScope.movies_for_director_list}" var="moviesForDirector">
+            <div class="container">
+                <div class="pic">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForDirector.movieId}">
+                        <img src="${pageContext.request.contextPath}${moviesForDirector.picture}">
+                    </a>
+                </div>
+                <div class="movie-title">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="show_movie_details">
+                        <input type="hidden" name="movie_id" value="${moviesForDirector.movieId}">
+                        <button type="submit" class="movie-title-btn"><c:out value="${moviesForDirector.title}"/></button>
+                    </form>
+                </div>
+                <div class="movie-year">
+                    <p><c:out value="${moviesForDirector.releaseDate}"/></p>
+                </div>
+                <div class="movie-score">
+                    <c:choose>
+                        <c:when test="${moviesForDirector.rating.score >= 70}">
+                            <p style="background-color: #66cc33"><c:out value="${moviesForDirector.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForDirector.rating.score < 70 && moviesForDirector.rating.score >= 40}">
+                            <p style="background-color: #f9c22a"><c:out value="${moviesForDirector.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForDirector.rating.score < 40 && moviesForDirector.rating.score > 0}">
+                            <p style="background-color: red"><c:out value="${moviesForDirector.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForDirector.rating.score == 0}">
+                            <fmt:message key="label.rating"/>
+                        </c:when>
+                    </c:choose>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <script type="text/javascript">

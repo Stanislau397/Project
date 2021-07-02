@@ -44,6 +44,17 @@
                             </c:when>
                         </c:choose>
                     </li>
+                    <li class="name"><fmt:message key="label.birth_date"/></li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${requestScope.actor.birthDate == null}">
+                                -
+                            </c:when>
+                            <c:when test="${requestScope.actor.birthDate != null}">
+                                <c:out value="${requestScope.actor.birthDate}"/>
+                            </c:when>
+                        </c:choose>
+                    </li>
                     <li class="name"><fmt:message key="label.height"/></li>
                     <li>
                         <c:choose>
@@ -118,41 +129,41 @@
     </div>
     <div class="films">
         <h3><fmt:message key="label.all_filmography"/></h3>
-        <table class="content-table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th><fmt:message key="label.movie"/></th>
-                <th><fmt:message key="label.release_date"/></th>
-                <th><fmt:message key="label.scores"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${requestScope.movies_for_actor_list}" var="moviesForActor" varStatus="counter">
-                <tr>
-                    <td>${counter.count}</td>
-                    <td>
+        <c:forEach items="${requestScope.movies_for_actor_list}" var="moviesForActor">
+            <div class="container">
+                <div class="pic">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForActor.movieId}">
+                        <img src="${pageContext.request.contextPath}${moviesForActor.picture}">
+                    </a>
+                </div>
+                <div class="movie-title">
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="show_movie_details">
                             <input type="hidden" name="movie_id" value="${moviesForActor.movieId}">
-                            <button type="submit"><c:out value="${moviesForActor.title}"/></button>
+                            <button type="submit" class="movie-title-btn"><c:out value="${moviesForActor.title}"/></button>
                         </form>
-                    </td>
-                    <td><c:out value="${moviesForActor.releaseDate}"/></td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${moviesForActor.rating.score > 0}">
-                                <i class="fa fa-star"></i> <c:out value="${moviesForActor.rating.score}"/>
-                            </c:when>
-                            <c:when test="${moviesForActor.rating.score == 0}">
-                                <fmt:message key="label.rating"/>
-                            </c:when>
-                        </c:choose>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </div>
+                <div class="movie-year">
+                    <p><c:out value="${moviesForActor.releaseDate}"/></p>
+                </div>
+                <div class="movie-score">
+                    <c:choose>
+                        <c:when test="${moviesForActor.rating.score >= 70}">
+                            <p style="background-color: #66cc33"><c:out value="${moviesForActor.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForActor.rating.score < 70 && moviesForActor.rating.score >= 40}">
+                            <p style="background-color: #f9c22a"><c:out value="${moviesForActor.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForActor.rating.score < 40 && moviesForActor.rating.score > 0}">
+                            <p style="background-color: red"><c:out value="${moviesForActor.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${moviesForActor.rating.score == 0}">
+                            <fmt:message key="label.rating"/>
+                        </c:when>
+                    </c:choose>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <script type="text/javascript">

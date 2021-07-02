@@ -462,6 +462,7 @@ public class MovieDaoImpl implements MovieDao {
                 Rating rating = new Rating();
                 rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
                 movie.setRating(rating);
@@ -690,6 +691,8 @@ public class MovieDaoImpl implements MovieDao {
             statement.setLong(1, actor.getActorId());
             statement.setString(2, actor.getFirstName());
             statement.setString(3, actor.getLastName());
+            statement.setString(4, actor.getPicture());
+            statement.setString(5, actor.getBirthDate());
             int update = statement.executeUpdate();
             isAdded = (update == 1);
         } catch (SQLException e) {
@@ -729,6 +732,41 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isActorAddedToMovie;
+    }
+
+    @Override
+    public boolean updateActorPictureByActorId(long actorId, String picture) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ACTOR_PICTURE)) {
+            statement.setString(1, picture);
+            statement.setLong(2, actorId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date birth_date, double height) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ACTOR)) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setDate(3, birth_date);
+            statement.setDouble(4, height);
+            statement.setLong(5, actorId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
     }
 
     @Override
@@ -805,9 +843,11 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Actor actor = new Actor();
+                actor.setActorId(resultSet.getLong(TableColumn.ACTOR_ID));
                 actor.setFirstName(resultSet.getString(TableColumn.ACTOR_FIRST_NAME));
                 actor.setLastName(resultSet.getString(TableColumn.ACTOR_LAST_NAME));
                 actor.setPicture(resultSet.getString(TableColumn.ACTOR_PICTURE));
+                actor.setBirthDate(String.valueOf(resultSet.getDate(TableColumn.BIRTH_DATE)));
                 actor.setAge(resultSet.getInt(TableColumn.AGE));
                 actor.setHeight(resultSet.getDouble(TableColumn.HEIGHT));
                 actorInfo = Optional.of(actor);
@@ -1106,6 +1146,7 @@ public class MovieDaoImpl implements MovieDao {
                 Rating rating = new Rating();
                 rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setRating(rating);
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));

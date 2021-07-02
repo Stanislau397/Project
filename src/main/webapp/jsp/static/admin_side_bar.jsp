@@ -39,6 +39,8 @@
                 key="label.directors"/></a></li>
         <li class="active"><a>
 
+<%--            <--%>
+
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=show_user_profile"><fmt:message
                 key="label.profile"/></a></li>
@@ -46,6 +48,9 @@
                 key="text.label.main"/></a></li>
         <li class="active"><a href="${pageContext.request.contextPath}/controller?command=sign_out"><fmt:message
                 key="label.logout"/></a></li>
+        <li class="active"><a
+                href="${pageContext.request.contextPath}/jsp/admin/edit_actor.jsp"><fmt:message
+                key="label.edit_actor"/></a></li>
     </ul>
 </nav>
 </body>

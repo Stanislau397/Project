@@ -11,6 +11,7 @@ public class Director extends Entity {
     private String firstName;
     private String lastName;
     private String picture;
+    private String birthDate;
     private double height;
     private int age;
 
@@ -134,6 +135,14 @@ public class Director extends Entity {
         this.age = age;
     }
 
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -146,7 +155,8 @@ public class Director extends Entity {
         if (age != director.age) return false;
         if (firstName != null ? !firstName.equals(director.firstName) : director.firstName != null) return false;
         if (lastName != null ? !lastName.equals(director.lastName) : director.lastName != null) return false;
-        return picture != null ? picture.equals(director.picture) : director.picture == null;
+        if (picture != null ? !picture.equals(director.picture) : director.picture != null) return false;
+        return birthDate != null ? birthDate.equals(director.birthDate) : director.birthDate == null;
     }
 
     @Override
@@ -157,6 +167,7 @@ public class Director extends Entity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
+        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         temp = Double.doubleToLongBits(height);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + age;

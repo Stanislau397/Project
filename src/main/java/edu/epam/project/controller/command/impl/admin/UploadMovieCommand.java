@@ -42,7 +42,7 @@ public class UploadMovieCommand implements Command {
         Movie movie = new Movie();
         try {
             for (String fieldName : parameterNames) {
-                processMovieFormFields(movie, part, fieldName, request);
+                processMovieFormFields(movie, fieldName, request);
             }
             processUploadedFile(movie, part);
             if (movieService.add(movie)) {
@@ -110,7 +110,7 @@ public class UploadMovieCommand implements Command {
         part.write(file + File.separator);
     }
 
-    private void processMovieFormFields(Movie movie, Part part, String fieldName, HttpServletRequest request) throws ServletException, IOException {
+    private void processMovieFormFields(Movie movie, String fieldName, HttpServletRequest request) throws ServletException, IOException {
         switch (fieldName) {
             case TITLE:
                 String title = request.getParameter(TITLE);
