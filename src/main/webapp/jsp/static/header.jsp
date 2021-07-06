@@ -14,7 +14,7 @@
 <body>
 <nav>
     <div class="navigation">
-        <div class="dropdown">
+        <div class="dropdown" style="position: absolute; z-index: 3">
             <h1>MOVIE<span>APP</span></h1>
 
                 <form class="search-movie" action="${pageContext.request.contextPath}/controller" method="get">
@@ -24,18 +24,13 @@
                 </form>
 
             <form action="${pageContext.request.contextPath}/controller" method="get">
-                <input type="hidden" name="command" value="display_all_actors">
-                <button type="submit">Test</button>
-            </form>
-
-            <form action="${pageContext.request.contextPath}/controller" method="get">
                 <input type="hidden" name="command" value="open_home_page">
                 <button type="submit"><fmt:message key="text.label.main"/></button>
             </form>
 
             <div class="movies">
                 <button><fmt:message key="label.movies"/></button>
-                <ul>
+                <ul style="margin: 0px">
                     <li>
                         <a href="${pageContext.request.contextPath}/controller?command=newest_movies"><fmt:message key="label.new_movies"/></a>
                     </li>

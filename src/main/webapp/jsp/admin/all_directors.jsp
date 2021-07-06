@@ -60,36 +60,9 @@
                         <td><c:out value="${allDirectors.directorId}"/></td>
                         <td>
                             <div class="edit-actor">
-                                <a class="button" href="#pop${counter.count}">
+                                <a class="button" href="${pageContext.request.contextPath}/controller?command=to_edit_director&director_id=${allDirectors.directorId}">
                                     <button class="edit-btn"><i class="fa fa-edit"></i></button>
                                 </a>
-                                <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <div id="pop${counter.count}" class="overlay1">
-                                        <div class="pop">
-                                            <input type="hidden" name="command" value="edit_director">
-                                            <input type="hidden" name="director_id" value="${allDirectors.directorId}">
-                                            <div class="text">
-                                                <h2 style="color: white"><fmt:message key="label.edit_director"/></h2>
-                                                <input type="text" name="first_name"
-                                                       value="${allDirectors.firstName}">
-                                                <input type="text" name="last_name"
-                                                       value="${allDirectors.lastName}">
-                                            </div>
-                                            <div class="buttons">
-                                                <div class="remove">
-                                                    <button type="submit" style="background-color: #1a191f"><fmt:message
-                                                            key="label.change"/></button>
-                                                </div>
-                                                <div class="dismiss">
-                                                    <button style="background-color: #1a191f; margin-left: 14px"><a
-                                                            class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                             <div class="remove-actor">
                                 <a class="button" href="#popup${counter.count}">

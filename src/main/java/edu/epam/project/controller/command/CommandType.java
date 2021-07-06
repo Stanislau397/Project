@@ -27,6 +27,7 @@ public enum CommandType {
     CHANGE_PASSWORD(new ChangePasswordCommand()),
     CHANGE_LOCALE(new ChangeLocaleCommand()),
     CHANGE_ACTOR_PICTURE(new ChangeActorPictureCommand()),
+    CHANGE_DIRECTOR_PICTURE(new ChangeDirectorPictureCommand()),
     UPDATE_EMAIL_AND_ROLE(new UpdateEmailAndRoleCommand()),
 
     OPEN_HOME_PAGE(new OpenHomePageCommand()),
@@ -37,11 +38,14 @@ public enum CommandType {
     TO_ADMIN_CABINET(new ToAdminCabinetCommand()),
     TO_EDIT_USER(new ToEditUserCommand()),
     TO_EDIT_ACTOR(new ToEditActorCommand()),
+    TO_EDIT_DIRECTOR(new ToEditDirectorCommand()),
+    EDIT_DIRECTOR_INFO(new EditDirectorInfoCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE_TO_MOVIE(new AddGenreToMovieCommand()),
     ADD_ACTOR(new AddActorCommand()),
     EDIT_ACTOR(new EditActorCommand()),
+    EDIT_DIRECTOR(new EditDirectorInfoCommand()),
     SEARCH_ACTOR(new SearchActorCommand()),
     SEARCH_DIRECTORS(new SearchDirectorCommand()),
     ADD_DIRECTOR(new AddDirectorCommand()),

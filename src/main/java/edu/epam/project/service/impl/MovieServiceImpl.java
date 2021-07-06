@@ -633,6 +633,31 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = movieDao.updateDirectorPictureByDirectorId(directorId, picture);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName,
+                                                  Date birthDate, double height) throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = movieDao.updateDirectorInfoByDirectorId(directorId, firstName, lastName, birthDate, height);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException {
         boolean isDirectorRemoved;
         try {

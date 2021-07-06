@@ -512,6 +512,7 @@ public class MovieDaoImpl implements MovieDao {
                 genre.setGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTrailer(resultSet.getString(TableColumn.MOVIE_TRAILER));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
                 movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
@@ -915,6 +916,7 @@ public class MovieDaoImpl implements MovieDao {
                 director.setFirstName(resultSet.getString(TableColumn.DIRECTOR_FIRST_NAME));
                 director.setLastName(resultSet.getString(TableColumn.DIRECTOR_LAST_NAME));
                 director.setPicture(resultSet.getString(TableColumn.ACTOR_PICTURE));
+                director.setBirthDate(String.valueOf(resultSet.getDate(TableColumn.BIRTH_DATE)));
                 director.setAge(resultSet.getInt(TableColumn.AGE));
                 director.setHeight(resultSet.getDouble(TableColumn.HEIGHT));
                 directorInfo = Optional.of(director);
@@ -1016,6 +1018,8 @@ public class MovieDaoImpl implements MovieDao {
             statement.setLong(1, director.getDirectorId());
             statement.setString(2, director.getFirstName());
             statement.setString(3, director.getLastName());
+            statement.setString(4, director.getPicture());
+            statement.setString(5, director.getBirthDate());
             int update = statement.executeUpdate();
             isAdded = (update == 1);
         } catch (SQLException e) {
@@ -1039,6 +1043,41 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isDirectorAdded;
+    }
+
+    @Override
+    public boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_DIRECTOR_PICTURE)) {
+            statement.setString(1, picture);
+            statement.setLong(2, directorId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName, Date birthDate, double height) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_DIRECTOR_INFO)) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setDouble(3, height);
+            statement.setDate(4, birthDate);
+            statement.setLong(5, directorId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
     }
 
     @Override

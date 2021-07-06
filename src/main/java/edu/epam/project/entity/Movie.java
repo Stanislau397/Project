@@ -11,6 +11,7 @@ public class Movie extends Entity{
     private String description;
     private Date releaseDate;
     private String picture;
+    private String trailer;
     private Genre genre;
     private Comment comment;
     private Rating rating;
@@ -126,6 +127,14 @@ public class Movie extends Entity{
         this.rating = rating;
     }
 
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,6 +149,7 @@ public class Movie extends Entity{
         if (description != null ? !description.equals(movie.description) : movie.description != null) return false;
         if (releaseDate != null ? !releaseDate.equals(movie.releaseDate) : movie.releaseDate != null) return false;
         if (picture != null ? !picture.equals(movie.picture) : movie.picture != null) return false;
+        if (trailer != null ? !trailer.equals(movie.trailer) : movie.trailer != null) return false;
         if (genre != null ? !genre.equals(movie.genre) : movie.genre != null) return false;
         if (comment != null ? !comment.equals(movie.comment) : movie.comment != null) return false;
         return rating != null ? rating.equals(movie.rating) : movie.rating == null;
@@ -154,6 +164,7 @@ public class Movie extends Entity{
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
         result = 31 * result + (picture != null ? picture.hashCode() : 0);
+        result = 31 * result + (trailer != null ? trailer.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (rating != null ? rating.hashCode() : 0);

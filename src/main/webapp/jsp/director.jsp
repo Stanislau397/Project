@@ -44,6 +44,17 @@
                             </c:when>
                         </c:choose>
                     </li>
+                    <li class="name"><fmt:message key="label.birth_date"/></li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${requestScope.director.birthDate == null}">
+                                -
+                            </c:when>
+                            <c:when test="${requestScope.director.birthDate != null}">
+                                <c:out value="${requestScope.director.birthDate}"/>
+                            </c:when>
+                        </c:choose>
+                    </li>
                     <li class="name"><fmt:message key="label.height"/></li>
                     <li>
                         <c:choose>

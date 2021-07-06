@@ -3,6 +3,187 @@ body {
     background-size: cover;
 }
 
+.top {
+    width: 1330px;
+    margin-left: 100px;
+    background-color: black;
+    height: 350px;
+}
+
+.top .left {
+    float: left;
+    height: 350px;
+    width: 650px;
+    display: inline-block;
+}
+
+.top .left .title {
+    width: 580px;
+    height: auto;
+    float: top;
+    margin-left: 40px;
+}
+
+.top .left hr {
+    margin-left: 40px;
+    width: 580px;
+    margin-top: 10px;
+}
+
+.top .user-score-container {
+    height: 65px;
+}
+
+.top .right {
+    float: left;
+    height: 350px;
+    width: 670px;
+}
+
+.top video {
+    z-index: 1;
+    width: 97%;
+    height: 90%;
+    margin-left: 10px;
+}
+
+
+.top h1 {
+    color: white;
+    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 20px;
+    font-size: 2.5em;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.top h2 {
+    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-left: 20px;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.top .user-score-title {
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 530px;
+    height: 70px;
+}
+
+.top .score {
+    float: left;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    background-color: lightslategray;
+}
+
+.top .score .value {
+    color: white;
+    margin-top: 11px;
+    font-family: sans-serif;
+    font-size: 35px;
+    border-radius: 5px;
+}
+
+.top .left .my-score {
+    width: 620px;
+    height: 90px;
+    margin-top: 0px;
+}
+
+.left .my-score .my-score-title {
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 530px;
+    height: 70px;
+    display: inline-block;
+}
+
+.left .my-score .my-score-value {
+    float: left;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    background-color: lightslategray;
+}
+
+.my-score-value .value {
+    color: white;
+    border: 0;
+    margin-top: 11px;
+    font-family: sans-serif;
+    font-size: 35px;
+    border-radius: 5px;
+}
+
+.top .left .rate-movie {
+    margin-top: 10px;
+    margin-left: -10px;
+}
+
+.top .left .rate-btn {
+    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: white;
+    font-size: 25px;
+    border: 0;
+    background-color: black;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.top .left .dynamic {
+    margin-left: 500px;
+}
+
+.top .left .rate-btn:hover {
+    color: #f9c22a;
+}
+
+.my-score-title form {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.my-score-title .remove-rating {
+    border: 0;
+    color: red;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 18px;
+    background-color: black;
+}
+
+.my-score-title .remove-rating:hover {
+    color: red;
+}
+
+.top .user-score-container .score .no-rating {
+    font-family: sans-serif;
+    font-size: 32px;
+    color: white;
+    margin-top: 14px;
+    vertical-align: middle;
+    font-weight: 700;
+
+}
+
+.top h1 p {
+    color: white;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 15px;
+    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .main {
     background-color: #F0F0F0;
     width: 1330px;
@@ -101,31 +282,9 @@ body {
 }
 
 .right-side {
+    margin-top: -60px;
     width: 200px;
     float: left;
-}
-
-.right-side .rating {
-    float: left;
-    width: 55px;
-    margin-left: 30px;
-    margin-top: 45px;
-}
-
-.right-side .rating .no-rating {
-    margin-left: 50px;
-    font-family: sans-serif;
-}
-
-.right-side .rating .score {
-    width: 50px;
-    height: 50px;
-    background-color: green;
-    color: white;
-    border-radius: 5px;
-    font-family: sans-serif;
-    padding: 10px 10px;
-    font-size: 30px;
 }
 
 .right-side .actors h3 {
@@ -173,7 +332,7 @@ body {
     visibility: hidden;
     position: absolute;
     margin-top: -23px;
-    margin-left: 155px;
+    margin-left: 220px;
     transform: rotateY(180deg);
     display: flex;
     width: auto;
@@ -196,7 +355,7 @@ body {
 .rate-movie label {
     display: block;
     cursor: pointer;
-    height: 20px;
+    height: 30px;
 }
 
 .rate-movie label:before {
@@ -205,7 +364,7 @@ body {
     position: relative;
     display: block;
     font-size: 20px;
-    color: black;
+    color: white;
 }
 
 .rate-movie label:after {
@@ -418,66 +577,6 @@ body {
 .user-comment .comment_votes button:hover {
     cursor: pointer;
     background-color: #e6e6e6;
-}
-
-.my-score {
-    float: left;
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    margin-left: 2px;
-    margin-top: 60px;
-}
-
-.my-score .my-score-text {
-    width: 70px;
-    margin-top: 22px;
-    float: left;
-    font-family: sans-serif;
-    font-size: 12px;
-}
-
-.my-score .inner-score {
-    margin-top: -25px;
-    margin-left: 70px;
-    float: left;
-    width: 50px;
-    height: 50px;
-}
-
-.my-score .inner-score button {
-    font-family: sans-serif;
-    font-size: 15px;
-    float: left;
-    width: 30px;
-    height: 25px;
-}
-
-.my-score .inner-score button p {
-    margin-top: -17px;
-    visibility: visible;
-    opacity: 1;
-}
-
-.inner-score button:hover {
-    cursor: pointer;
-}
-
-.my-score .inner-score button i {
-    margin-top: 4px;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.my-score .inner-score button:hover p {
-    cursor: pointer;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.my-score .inner-score button:hover i {
-    visibility: visible;
-    opacity: 1;
 }
 
 .leave-comment {

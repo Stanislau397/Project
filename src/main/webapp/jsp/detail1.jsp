@@ -15,52 +15,137 @@
     </script>
 </head>
 <body>
+<div class="top">
+    <div class="left">
+        <div class="title">
+            <h1><c:out value="${requestScope.movie_info.title}"/><p><fmt:formatDate
+                    value="${requestScope.movie_info.releaseDate}" pattern="yyyy"/></p></h1>
+        </div>
+        <hr>
+        <div class="user-score-container">
+            <div class="user-score-title">
+                <h2><fmt:message key="label.user_score"/></h2>
+            </div>
+            <c:choose>
+                <c:when test="${requestScope.movie_info.rating.score == 0}">
+                    <div class="score">
+                        <p class="no-rating">tbd</p>
+                    </div>
+                </c:when>
+                <c:when test="${requestScope.movie_info.rating.score == 100}">
+                    <div class="score" style="background-color: #66cc33;">
+                        <p class="value">10</p>
+                    </div>
+                </c:when>
+                <c:when test="${requestScope.movie_info.rating.score >= 70}">
+                    <div class="score" style="background-color: #66cc33;">
+                        <p class="value"><c:out value="${requestScope.movie_info.rating.score / 10}"/></p>
+                    </div>
+                </c:when>
+                <c:when test="${requestScope.movie_info.rating.score < 70 && requestScope.movie_info.rating.score >= 40}">
+
+                    <div class="score" style="background-color: #f9c22a;">
+                        <p class="value"><c:out value="${requestScope.movie_info.rating.score / 10}"/></p>
+                    </div>
+                </c:when>
+                <c:when test="${requestScope.movie_info.rating.score < 40 && requestScope.movie_info.rating.score > 0}">
+                    <div class="score" style="background-color: red;">
+                        <p class="value"><c:out value="${requestScope.movie_info.rating.score / 10}"/></p>
+                    </div>
+                </c:when>
+            </c:choose>
+        </div>
+        <hr>
+        <c:choose>
+            <c:when test="${requestScope.movie_info.releaseDate.after(today)}">
+                <div class="my-score">
+                    <div class="my-score-title">
+                        <h2><fmt:message key="label.review_msg"/> <c:out
+                                value="${requestScope.movie_info.releaseDate}"/></h2>
+                    </div>
+                </div>
+            </c:when>
+            <c:when test="${sessionScope.user_name != null && requestScope.user_score == 0 && requestScope.movie_info.releaseDate.before(today)
+             || sessionScope.admin != null && requestScope.user_score == 0 && requestScope.movie_info.releaseDate.before(today)}">
+                <div class="rate-movie">
+                    <button class="rate-btn"><fmt:message key="label.rate"/>
+                        <i class="fa fa-arrow-right " style="margin-left: 3px"></i></button>
+                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                        <input type="hidden" name="command" value="rate_movie">
+                        <input type="hidden" name="movie_id" value="${movie_info.movieId}">
+                        <input type="submit" name="star" id="star1" value="100">
+                        <label class="star10" for="star1"></label>
+                        <input type="submit" name="star" id="star2" value="90">
+                        <label class="star9" for="star2"></label>
+                        <input type="submit" name="star" id="star3" value="80">
+                        <label class="star8" for="star3"></label>
+                        <input type="submit" name="star" id="star4" value="70">
+                        <label class="star7" for="star4"></label>
+                        <input type="submit" name="star" id="star5" value="60">
+                        <label class="star6" for="star5"></label>
+                        <input type="submit" name="star" id="star6" value="50">
+                        <label class="star5" for="star6"></label>
+                        <input type="submit" name="star" id="star7" value="40">
+                        <label class="star4" for="star7"></label>
+                        <input type="submit" name="star" id="star8" value="30">
+                        <label class="star3" for="star8"></label>
+                        <input type="submit" name="star" id="star9" value="20">
+                        <label class="star2" for="star9"></label>
+                        <input type="submit" name="star" id="star10" value="10">
+                        <label class="star1" for="star10"></label>
+                    </form>
+                </div>
+                <div class="dynamic">
+                    <p></p>
+                </div>
+            </c:when>
+            <c:when test="${sessionScope.user_name != null && requestScope.user_score != 0 || sessionScope.admin != null && requestScope.user_score != 0}">
+                <div class="my-score">
+                    <div class="my-score-title">
+                        <h2><fmt:message key="label.my_score"/>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="remove_rating">
+                                <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                                <button class="remove-rating" type="submit"><fmt:message key="label.remove"/></button>
+                            </form>
+                        </h2>
+                    </div>
+                    <c:choose>
+                        <c:when test="${requestScope.user_score >= 70}">
+                            <div class="my-score-value" style="background-color: #66cc33;">
+                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                            </div>
+                        </c:when>
+                        <c:when test="${requestScope.user_score < 70 && requestScope.user_score >= 40}">
+                            <div class="my-score-value" style="background-color: #f9c22a;">
+                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                            </div>
+                        </c:when>
+                        <c:when test="${requestScope.user_score < 40}">
+                            <div class="my-score-value" style="background-color: red;">
+                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </div>
+            </c:when>
+        </c:choose>
+    </div>
+    <div class="right">
+        <c:if test="${requestScope.movie_info.trailer != null}">
+            <video controls autoplay muted
+                   src="${pageContext.request.contextPath}${requestScope.movie_info.trailer}"/>
+        </c:if>
+    </div>
+</div>
 <div class="main">
     <c:if test="${requestScope.movie_info != null}">
         <div class="left-side">
             <div class="picture">
                 <img src="${pageContext.request.contextPath}${movie_info.picture}"/>
             </div>
-            <div class="rate-movie-button">
-
-            </div>
-            <c:if test="${sessionScope.user_name != null && requestScope.user_score == 0 || sessionScope.admin != null && requestScope.user_score == 0}">
-                <c:choose>
-                    <c:when test="${requestScope.movie_info.releaseDate.before(today)}">
-                        <div class="rate-movie">
-                            <button><i class="fa fa-star"></i><fmt:message key="label.rate"/></button>
-                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                <input type="hidden" name="command" value="rate_movie">
-                                <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                                <input type="submit" name="star" id="star1" value="100">
-                                <label class="star10" for="star1"></label>
-                                <input type="submit" name="star" id="star2" value="90">
-                                <label class="star9" for="star2"></label>
-                                <input type="submit" name="star" id="star3" value="80">
-                                <label class="star8" for="star3"></label>
-                                <input type="submit" name="star" id="star4" value="70">
-                                <label class="star7" for="star4"></label>
-                                <input type="submit" name="star" id="star5" value="60">
-                                <label class="star6" for="star5"></label>
-                                <input type="submit" name="star" id="star6" value="50">
-                                <label class="star5" for="star6"></label>
-                                <input type="submit" name="star" id="star7" value="40">
-                                <label class="star4" for="star7"></label>
-                                <input type="submit" name="star" id="star8" value="30">
-                                <label class="star3" for="star8"></label>
-                                <input type="submit" name="star" id="star9" value="20">
-                                <label class="star2" for="star9"></label>
-                                <input type="submit" name="star" id="star10" value="10">
-                                <label class="star1" for="star10"></label>
-                            </form>
-                        </div>
-                    </c:when>
-                </c:choose>
-            </c:if>
-            <div class="dynamic"></div>
         </div>
         <div class="middle">
-            <h1>${movie_info.title}</h1>
             <h3><fmt:message key="label.movie_detail"/></h3>
             <ul>
                 <li class="name"><fmt:message key="label.release_date"/></li>
@@ -105,37 +190,6 @@
         </div>
     </c:if>
     <div class="right-side">
-        <div class="rating">
-            <c:if test="${requestScope.movie_info.rating.score != 0}">
-                <c:if test="${requestScope.movie_info.rating.score >= 70}">
-                    <p class="score" style="background-color: #6c3">${movie_info.rating.score}</p>
-                </c:if>
-                <c:if test="${requestScope.movie_info.rating.score < 70 && requestScope.movie_info.rating.score >= 40}">
-                    <p class="score" style="background-color: #fc3">${movie_info.rating.score}</p>
-                </c:if>
-                <c:if test="${requestScope.movie_info.rating.score < 40}">
-                    <p class="score" style="background-color: #f00">${movie_info.rating.score}</p>
-                </c:if>
-            </c:if>
-            <c:if test="${movie_info.rating.score == 0}">
-                <p class="no-rating"><fmt:message key="label.rating"/></p>
-            </c:if>
-        </div>
-        <c:if test="${sessionScope.user_name != null && requestScope.user_score != 0 || sessionScope.admin != null && requestScope.user_score != 0}">
-            <div class="my-score">
-                <div class="my-score-text">
-                    <p><fmt:message key="label.my_score"/></p>
-                </div>
-                <div class="inner-score">
-                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                        <input type="hidden" name="command" value="remove_rating">
-                        <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                        <button class="btn1" type="submit"><i class="fa fa-remove"></i>
-                            <p><c:out value="${user_score}"/></p></button>
-                    </form>
-                </div>
-            </div>
-        </c:if>
         <div class="actors">
             <h3><fmt:message key="label.starring"/></h3>
             <c:forEach items="${requestScope.actors_list}" var="actors">
@@ -310,8 +364,9 @@
     $(document).ready(function () {
         $('.btn1').submit();
         $('.star1').mouseover(function () {
-            $('.dynamic').fadeIn().html('1').css({
-                marginLeft: '350px', marginTop: '-25px', fontSize: '20px',
+            $('.dynamic').fadeIn().html('1.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: 'red',
                 fontFamily: 'sans-serif'
             });
         });
@@ -319,64 +374,91 @@
             $('.dynamic').fadeOut();
         });
         $('.star2').mouseover(function () {
-            $('.dynamic').html('2');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('2.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: 'red',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star2').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star3').mouseover(function () {
-            $('.dynamic').html('3');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('3.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: 'red',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star3').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star4').mouseover(function () {
-            $('.dynamic').html('4');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('4.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#f9c22a',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star4').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star5').mouseover(function () {
-            $('.dynamic').html('5');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('5.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#f9c22a',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star5').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star6').mouseover(function () {
-            $('.dynamic').html('6');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('6.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#f9c22a',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star6').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star7').mouseover(function () {
-            $('.dynamic').html('7');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('7.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#66cc33',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star7').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star8').mouseover(function () {
-            $('.dynamic').html('8');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('8.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#66cc33',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star8').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star9').mouseover(function () {
-            $('.dynamic').html('9');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('9.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#66cc33',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star9').mouseleave(function () {
             $('.dynamic').hide();
         });
         $('.star10').mouseover(function () {
-            $('.dynamic').html('10');
-            $('.dynamic').show();
+            $('.dynamic').fadeIn().html('10.0').css({
+                marginLeft: '550px', marginTop: '-30px', fontSize: '35px',
+                color: '#66cc33',
+                fontFamily: 'sans-serif'
+            });
         });
         $('.star10').mouseleave(function () {
             $('.dynamic').hide();

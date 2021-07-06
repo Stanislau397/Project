@@ -102,6 +102,10 @@ public interface MovieService {
 
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
 
+    boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws ServiceException;
+
+    boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName, Date birthDate, double height) throws ServiceException;
+
     boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException;
 
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;

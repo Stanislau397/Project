@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.FIRST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.BIRTH_DATE;
-import static edu.epam.project.controller.command.RequestParameter.HEIGHT;
 import static edu.epam.project.controller.command.RequestParameter.FILE;
 
 public class AddActorCommand implements Command {
