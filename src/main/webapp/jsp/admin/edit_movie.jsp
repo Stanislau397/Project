@@ -8,6 +8,7 @@
     <title><fmt:message key="label.edit"/></title>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/edit_movie.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="top">
@@ -111,6 +112,18 @@
                         <button type="submit"><fmt:message key="label.save"/></button>
                     </form>
                 </div>
+                <div class="bottom">
+                    <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="command" value="update_movie_trailer">
+                        <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                        <div id="video">
+                            <video muted autoplay controls id="trailer" src="${pageContext.request.contextPath}${requestScope.movie_info.trailer}"></video>
+                        </div>
+                        <label for="fileupload" id="file" class="label-for_video"><fmt:message key="label.choose"/></label>
+                        <input id="fileupload" type="file" name="file" class="inputFile" multiple>
+                        <button type="submit"><fmt:message key="label.change"/></button>
+                    </form>
+                </div>
             </c:when>
 
 
@@ -153,7 +166,8 @@
                                                                value="remove_director_from_movie">
                                                         <input type="hidden" name="movie_id"
                                                                value="${requestScope.movie_id}">
-                                                        <input type="hidden" name="director_id" value="${directors.directorId}">
+                                                        <input type="hidden" name="director_id"
+                                                               value="${directors.directorId}">
                                                         <button type="submit"><fmt:message key="label.remove"/></button>
                                                     </form>
                                                 </div>
@@ -173,11 +187,12 @@
                 </table>
                 <div class="add">
                     <a class="button" href="#pop">
-                        <button class="add-btn" style="width: 210px; height: 42px"><fmt:message key="label.add_director"/></button>
+                        <button class="add-btn" style="width: 210px; height: 42px"><fmt:message
+                                key="label.add_director"/></button>
                     </a>
                     <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <div id="pop" class="overlay2">
-                        <div class="pop">
+                        <div id="pop" class="overlay2">
+                            <div class="pop">
                                 <input type="hidden" name="command" value="add_director_to_movie">
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                                 <div class="text">
@@ -199,8 +214,8 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                    </div>
                     </form>
                 </div>
             </c:when>
@@ -336,7 +351,8 @@
                                                                value="remove_genre_from_movie">
                                                         <input type="hidden" name="movie_id"
                                                                value="${requestScope.movie_id}">
-                                                        <input type="hidden" name="genre_id" value="${movieGenres.genreId}">
+                                                        <input type="hidden" name="genre_id"
+                                                               value="${movieGenres.genreId}">
                                                         <button type="submit"><fmt:message key="label.remove"/></button>
                                                     </form>
                                                 </div>
@@ -367,7 +383,8 @@
                                     <h2 style="color: white"><fmt:message key="label.add_genre"/></h2>
                                     <select name="genre_id">
                                         <c:forEach items="${requestScope.genres_list}" var="genres">
-                                            <option value="${genres.genreId}"><c:out value="${genres.genreTitle}"/></option>
+                                            <option value="${genres.genreId}"><c:out
+                                                    value="${genres.genreTitle}"/></option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -413,6 +430,21 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        $("#fileupload").change(function(evt) {
+            var fileUpload = $(this).get(0).files;
+            readURL(this, "#trailer");
+        });
+        //Preview image
+        function readURL(inputFile, imgId) {
+            if (inputFile.files && inputFile.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(imgId).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        }
     </script>
 </div>
 </body>

@@ -7,7 +7,7 @@
 <fmt:setBundle basename="property.text"/>
 <html>
 <head>
-    <title>detail</title>
+    <title><c:out value="${requestScope.movie_info.title}"/></title>
     <jsp:include page="static/header.jsp"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detail1.css">
@@ -149,7 +149,7 @@
             <h3><fmt:message key="label.movie_detail"/></h3>
             <ul>
                 <li class="name"><fmt:message key="label.release_date"/></li>
-                <li class="value">${movie_info.releaseDate}</li>
+                <li class="value"><c:out value="${requestScope.movie_info.releaseDate}"/></li>
             </ul>
             <hr>
             <ul>
@@ -333,21 +333,29 @@
     <h3><fmt:message key="label.write_comment"/></h3>
     <div class="leave-comment">
         <div class="user-info">
-            <div class="user-picture">
+            <div class="user-picture1">
                 <img src="${pageContext.request.contextPath}/css/image/default_avatar.png">
             </div>
             <div class="user-name">
                 <form action="${pageContext.request.contextPath}/controller" name="get">
                     <input type="hidden" name="command" value="show_user_profile">
-                    <button type="submit">${sessionScope.user_name}</button>
+                    <input type="hidden" name="user_name" value="${sessionScope.user_name}">
+                    <button type="submit" class="user-name-button"><c:out value="${sessionScope.user_name}"/></button>
+                </form>
+                <form action="${pageContext.request.contextPath}/controller" name="get">
+                    <input type="hidden" name="command" value="sign_out">
+                    <button type="submit" class="log-out-button"><fmt:message key="label.logout"/></button>
                 </form>
             </div>
+        </div>
+        <div class="comment">
             <form action="${pageContext.request.contextPath}/controller" method="post">
                 <input type="hidden" name="command" value="leave_comment">
-                <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                <textarea placeholder="<fmt:message key="label.text"/>" name="comment" required></textarea>
-                <button class="btn-btn" type="submit"><fmt:message key="label.leave_comment"/></button>
+                <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                <textarea name="comment"></textarea>
+                <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
             </form>
+        </div>
         </div>
         <div style="height: 20px">
 

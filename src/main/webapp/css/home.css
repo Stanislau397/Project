@@ -1,8 +1,13 @@
 h2 {
     margin-left: 170px;
     color: #1a1a1a;
-    margin-top: 60px;
-    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;;
+}
+
+h2:hover {
+    color: #066ee7;
 }
 
 .new-movie-container {
@@ -96,27 +101,33 @@ h2 {
 }
 
 
-#wrapper, #wrapper1 {
+#wrapper, #wrapper1, #wrapper2 {
     position: relative;
+    float: top;
+    margin-top: 30px;
     width: 100%;
-    max-width: 1060px;
-    margin-left: 170px;
+    max-width: 900px;
+    max-height: 400px;
+    margin-left: 140px;
 }
 
-#carousel, #carousel1 {
+#carousel2, #carousel1, #carousel3 {
+    height: 320px;
     overflow: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
 }
 
-#carousel::-webkit-scrollbar, #carousel1::-webkit-scrollbar {
+#carousel2::-webkit-scrollbar, #carousel1::-webkit-scrollbar, #carousel3::-webkit-scrollbar {
     height: 0;
 }
 
-#prev,
-#next,
+#prev2,
+#next2,
 #prev1,
-#next1 {
+#next1,
+#prev3,
+#next3 {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -129,20 +140,20 @@ h2 {
     position: absolute;
 }
 
-#prev, #prev1 {
-    top: 60%;
-    left: -4.5%;
+#prev1, #prev2, #prev3 {
+    top: 50%;
+    left: -6%;
     transform: translate(50%, -50%);
     display: none;
 }
 
-#next, #next1 {
-    top: 60%;
-    right: -4.5%;
+#next1, #next2, #next3 {
+    top: 50%;
+    right: -6%;
     transform: translate(-50%, -50%);
 }
 
-#content, #content1 {
+#content1, #content2, #content3 {
     display: grid;
     grid-auto-flow: column;
     grid-gap: 16px;
@@ -151,20 +162,22 @@ h2 {
 }
 
 .item {
-    object-fit: fill;
+    z-index: 0;
+    object-fit: cover;
     float: left;
-    width: 200px;
-    height: 260px;
-    border-radius: 8px;
+    margin-top: -38px;
+    width: 160px;
+    height: 230px;
+    border-radius: 2px;
     background: green;
 }
 
-#content .score, #content1 .score {
+#content2 .score, #content1 .score, #content3 .score {
     width: 50px;
     height: 50px;
     padding: 7px 5px;
     border-radius: 8px;
-    transform: translateY(60px);
+    transform: translateY(20px);
     float: right;
     margin-right: 10px;
     font-weight: 500;
@@ -172,24 +185,47 @@ h2 {
     text-align: center;
 }
 
-#content .movie-title, #content1 .movie-title {
+#content2 .movie-title, #content1 .movie-title, #content3 .movie-title {
     color: black;
-    margin-top: 200px;
-    text-align: center;
+    margin-top: 120px !important;
+    transform: translateY(7px);
+    cursor: pointer;
+    text-align: left;
     font-family: sans-serif;
-    font-size: 22px;
+    font-weight: 600;
+    font-size: 19px;
 }
 
-#content .movie-title:hover, #content1 .movie-title:hover {
-    color: #f9c22a;
+#content2 .movie-title:hover, #content1 .movie-title:hover, #content3 .movie-title:hover {
+    color: #066ee7;
 }
 
-#wrapper li, #wrapper1 li {
+#wrapper li, #wrapper1 li, #wrapper2 li {
     display: inline-block;
 }
 
-#wrapper .top, #wrapper1 .top {
-    transform: translateY(50px);
-    height: 100px;
+#wrapper .top, #wrapper1 .top, #wrapper2 .top {
+    height: 30px;
     width: 100%;
+}
+
+.top .link1 {
+    font-size: 19px;
+    cursor: pointer;
+    border: 0;
+    background-color: white;
+}
+
+.link2 {
+    border: 0;
+    background-color: white;
+    color: #29d2c7;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+}
+
+.link2:hover, .link1:hover {
+    color: #066ee7;
 }

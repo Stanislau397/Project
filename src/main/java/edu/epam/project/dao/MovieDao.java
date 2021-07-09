@@ -18,6 +18,8 @@ public interface MovieDao {
 
     boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException;
 
+    boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException;
+
     int countMovies() throws DaoException;
 
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException;

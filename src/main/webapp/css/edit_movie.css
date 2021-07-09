@@ -468,3 +468,50 @@ button {
     cursor: pointer;
 }
 
+video {
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 1150px;
+    height: 400px;
+    object-fit: fill;
+}
+
+.bottom {
+    margin-top: 20px;
+    float: left;
+    width: 1180px;
+    height: 560px;
+    border: 1px solid #222028;
+    border-radius: 8px;
+}
+
+.label-for_video {
+    font-family: sans-serif;
+    width: 1150px;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 1.25em;
+    color: grey;
+    background-color: #222028;
+    border: 1px solid #f9c22a;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    padding: 8px 50px;
+    border-radius: 8px;
+}
+
+.bottom button {
+    font-family: sans-serif;
+    width: 1150px;
+    height: 42px;
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 1.25em;
+    color: grey;
+    background-color: #222028;
+    border: 1px solid #f9c22a;
+    cursor: pointer;
+    border-radius: 8px;
+}
+

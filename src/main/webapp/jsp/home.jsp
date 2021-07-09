@@ -14,130 +14,25 @@
     <jsp:include page="static/header.jsp"/>
 </header>
 <body>
-<h2><fmt:message key="label.new_movies"/></h2>
-<div class="new-movie-container">
-    <div class="newest-movies">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="newest_movies">
-            <input type="submit" class="btn" value="<fmt:message key="label.see_more"/>">
-        </form>
-    </div>
-    <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies" varStatus="x">
-        <c:if test="${x.count < 5}">
-            <div class="movie-info">
-                <div class="picture-score">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}"
-                       style="margin-left: -1.5px">
-                        <img src="${pageContext.request.contextPath}${newestMovies.picture}"/>
-                    </a>
-                    <c:if test="${newestMovies.rating.score != 0}">
-                        <c:if test="${newestMovies.rating.score >= 70}">
-                            <div class="movie-rating" style="background-color: #6c3">${newestMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${newestMovies.rating.score < 70 && newestMovies.rating.score > 40}">
-                            <div class="movie-rating" style="background-color: #fc3">${newestMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${newestMovies.rating.score < 40}">
-                            <div class="movie-rating" style="background-color: red">${newestMovies.rating.score}</div>
-                        </c:if>
-                    </c:if>
-                </div>
-                <div class="title">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}">
-                            ${newestMovies.title}</a>
-                </div>
-            </div>
-        </c:if>
-    </c:forEach>
-</div>
-
-<h2><fmt:message key="label.most_rated"/></h2>
-<div class="new-movie-container">
-    <div class="newest-movies">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="most_rated_movies">
-            <input type="submit" class="btn" value="<fmt:message key="label.see_more"/>">
-        </form>
-    </div>
-    <c:forEach items="${requestScope.most_rated_movies_list}" var="mostRatedMovies" varStatus="x">
-        <c:if test="${x.count < 5}">
-            <div class="movie-info">
-                <div class="picture-score">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${mostRatedMovies.movieId}"
-                       style="margin-left: -1.5px">
-                        <img src="${pageContext.request.contextPath}${mostRatedMovies.picture}"/>
-                    </a>
-                    <c:if test="${mostRatedMovies.rating.score != 0}">
-                        <c:if test="${mostRatedMovies.rating.score > 70}">
-                            <div class="movie-rating1"
-                                 style="background-color: #6c3">${mostRatedMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${mostRatedMovies.rating.score < 70 && mostRatedMovies.rating.score > 40}">
-                            <div class="movie-rating1"
-                                 style="background-color: #fc3">${mostRatedMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${mostRatedMovies.rating.score < 40}">
-                            <div class="movie-rating1"
-                                 style="background-color: red">${mostRatedMovies.rating.score}</div>
-                        </c:if>
-                    </c:if>
-                </div>
-                <div class="title">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${mostRatedMovies.movieId}">
-                            ${mostRatedMovies.title}</a>
-                </div>
-            </div>
-        </c:if>
-    </c:forEach>
-</div>
-
-<h2><fmt:message key="label.coming_soon"/></h2>
-<div class="new-movie-container">
-    <div class="newest-movies">
-        <form action="${pageContext.request.contextPath}/controller" method="get">
-            <input type="hidden" name="command" value="upcoming_movies">
-            <input type="submit" class="btn" value="<fmt:message key="label.see_more"/>">
-        </form>
-    </div>
-    <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies" varStatus="x">
-        <c:if test="${x.count < 5}">
-            <div class="movie-info">
-                <div class="picture-score">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}"
-                       style="margin-left: -1.5px">
-                        <img src="${pageContext.request.contextPath}${upcomingMovies.picture}"/>
-                    </a>
-                    <c:if test="${upcomingMovies.rating.score != 0}">
-                        <c:if test="${upcomingMovies.rating.score >= 70}">
-                            <div class="movie-rating"
-                                 style="background-color: #6c3">${upcomingMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score > 40}">
-                            <div class="movie-rating"
-                                 style="background-color: #fc3">${upcomingMovies.rating.score}</div>
-                        </c:if>
-                        <c:if test="${upcomingMovies.rating.score < 40}">
-                            <div class="movie-rating" style="background-color: red">${upcomingMovies.rating.score}</div>
-                        </c:if>
-                    </c:if>
-                </div>
-                <div class="title">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}">
-                            ${upcomingMovies.title}</a>
-                </div>
-            </div>
-        </c:if>
-    </c:forEach>
-</div>
 <div id="wrapper">
     <div class="top">
         <ul>
-            <li><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2></li>
-            <li style="margin-left: 7px">asdasd</li>
+            <li>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="newest_movies">
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2></button>
+                </form>
+            </li>
+            <li style="margin-left: 7px">
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="newest_movies">
+                    <button class="link2"><fmt:message key="label.see_more"/></button>
+                </form>
+            </li>
         </ul>
     </div>
-    <div id="carousel">
-        <div id="content">
+    <div id="carousel1">
+        <div id="content1">
             <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies">
                 <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}"
                    style="margin-left: -1.5px">
@@ -164,7 +59,7 @@
             </c:forEach>
         </div>
     </div>
-    <button id="prev">
+    <button id="prev1">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
@@ -175,7 +70,7 @@
             <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
         </svg>
     </button>
-    <button id="next">
+    <button id="next1">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
@@ -187,36 +82,238 @@
         </svg>
     </button>
 </div>
-<div style="height: 200px"></div>
+<div id="wrapper1">
+    <div class="top">
+        <ul>
+            <li>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="upcoming_movies">
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.coming_soon"/></h2></button>
+                </form>
+            </li>
+            <li style="margin-left: 7px">
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="upcoming_movies">
+                    <button class="link2"><fmt:message key="label.see_more"/></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel2">
+        <div id="content2">
+            <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies">
+                <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}"
+                   style="margin-left: -1.5px">
+                    <c:choose>
+                        <c:when test="${upcomingMovies.rating.score == 0}">
+                            <p class="score"></p>
+                        </c:when>
+                        <c:when test="${upcomingMovies.rating.score >= 70}">
+                            <p class="score" style="background-color: #66cc33"><c:out
+                                    value="${upcomingMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3"><c:out
+                                    value="${upcomingMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${upcomingMovies.rating.score < 40}">
+                            <p class="score" style="background-color: red"><c:out
+                                    value="${upcomingMovies.rating.score}"/></p>
+                        </c:when>
+                    </c:choose>
+                    <img src="${pageContext.request.contextPath}${upcomingMovies.picture}" class="item"/>
+                    <p class="movie-title"><c:out value="${upcomingMovies.title}"/></p>
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+    <button id="prev2">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
+        </svg>
+    </button>
+    <button id="next2">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="36"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/>
+        </svg>
+    </button>
+</div>
+<div id="wrapper2">
+    <div class="top">
+        <ul>
+            <li>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="most_rated_movies">
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.most_rated"/></h2></button>
+                </form>
+            </li>
+            <li style="margin-left: 7px">
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="most_rated_movies">
+                    <button class="link2"><fmt:message key="label.see_more"/></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div id="carousel3">
+        <div id="content3">
+            <c:forEach items="${requestScope.most_rated_movies_list}" var="mostRatedMovies">
+                <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${mostRatedMovies.movieId}"
+                   style="margin-left: -1.5px">
+                    <c:choose>
+                        <c:when test="${mostRatedMovies.rating.score == 0}">
+                            <p class="score"></p>
+                        </c:when>
+                        <c:when test="${mostRatedMovies.rating.score >= 70}">
+                            <p class="score" style="background-color: #66cc33"><c:out
+                                    value="${mostRatedMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${mostRatedMovies.rating.score < 70 && mostRatedMovies.rating.score >= 40}">
+                            <p class="score" style="background-color: #fc3"><c:out
+                                    value="${mostRatedMovies.rating.score}"/></p>
+                        </c:when>
+                        <c:when test="${mostRatedMovies.rating.score < 40}">
+                            <p class="score" style="background-color: red"><c:out
+                                    value="${mostRatedMovies.rating.score}"/></p>
+                        </c:when>
+                    </c:choose>
+                    <img src="${pageContext.request.contextPath}${mostRatedMovies.picture}" class="item"/>
+                    <div class="movie-title">
+                        <p><c:out value="${mostRatedMovies.title}"/></p>
+                    </div>
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+    <button id="prev3">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
+        </svg>
+    </button>
+    <button id="next3">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 24 24"
+        >
+            <path fill="none" d="M0 0h24v24H0V0z"/>
+            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/>
+        </svg>
+    </button>
+</div>
+<div style="height: 50px"></div>
 <script type="text/javascript">
-    const gap = 15;
+    $(document).ready(function () {
+        const gap1 = 10;
 
-    const carousel = document.getElementById("carousel"),
-        content = document.getElementById("content"),
-        next = document.getElementById("next"),
-        prev = document.getElementById("prev");
+        const carousel1 = document.getElementById("carousel1"),
+            content1 = document.getElementById("content1"),
+            next1 = document.getElementById("next1"),
+            prev1 = document.getElementById("prev1");
 
-    next.addEventListener("click", e => {
-        carousel.scrollBy(width + gap, 0);
-        if (carousel.scrollWidth !== 0) {
-            prev.style.display = "flex";
-        }
-        if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-            next.style.display = "none";
-        }
+        next1.addEventListener("click", e => {
+            carousel1.scrollBy(width + gap1, 0);
+            if (carousel1.scrollWidth !== 0) {
+                prev1.style.display = "flex";
+            }
+            if (content1.scrollWidth - width - gap1 <= carousel1.scrollLeft + width) {
+                next1.style.display = "none";
+            }
+        });
+        prev1.addEventListener("click", e => {
+            carousel1.scrollBy(-(width + gap1), 0);
+            if (carousel1.scrollLeft - width - gap1 <= 0) {
+                prev1.style.display = "none";
+            }
+            if (!content1.scrollWidth - width - gap1 <= carousel1.scrollLeft + width) {
+                next1.style.display = "flex";
+            }
+        });
+
+        let width = carousel1.offsetWidth;
+        window.addEventListener("resize", e => (width = carousel1.offsetWidth));
     });
-    prev.addEventListener("click", e => {
-        carousel.scrollBy(-(width + gap), 0);
-        if (carousel.scrollLeft - width - gap <= 0) {
-            prev.style.display = "none";
-        }
-        if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
-            next.style.display = "flex";
-        }
-    });
 
-    let width = carousel.offsetWidth;
-    window.addEventListener("resize", e => (width = carousel.offsetWidth));
+    $(document).ready(function () {
+        const gap2 = 10;
+
+        const carousel2 = document.getElementById("carousel2"),
+            content2 = document.getElementById("content2"),
+            next2 = document.getElementById("next2"),
+            prev2 = document.getElementById("prev2");
+
+        next2.addEventListener("click", e => {
+            carousel2.scrollBy(width + gap2, 0);
+            if (carousel2.scrollWidth !== 0) {
+                prev2.style.display = "flex";
+            }
+            if (content2.scrollWidth - width - gap2 <= carousel2.scrollLeft + width) {
+                next2.style.display = "none";
+            }
+        });
+        prev2.addEventListener("click", e => {
+            carousel2.scrollBy(-(width + gap2), 0);
+            if (carousel2.scrollLeft - width - gap2 <= 0) {
+                prev2.style.display = "none";
+            }
+            if (!content2.scrollWidth - width - gap2 <= carousel2.scrollLeft + width) {
+                next2.style.display = "flex";
+            }
+        });
+
+        let width = carousel2.offsetWidth;
+        window.addEventListener("resize", e => (width = carousel2.offsetWidth));
+    })
+
+    $(document).ready(function () {
+        const gap3 = 10;
+
+        const carousel3 = document.getElementById("carousel3"),
+            content3 = document.getElementById("content3"),
+            next3 = document.getElementById("next3"),
+            prev3 = document.getElementById("prev3");
+
+        next3.addEventListener("click", e => {
+            carousel3.scrollBy(width + gap3, 0);
+            if (carousel3.scrollWidth !== 0) {
+                prev3.style.display = "flex";
+            }
+            if (content3.scrollWidth - width - gap3 <= carousel3.scrollLeft + width) {
+                next3.style.display = "none";
+            }
+        });
+        prev3.addEventListener("click", e => {
+            carousel3.scrollBy(-(width + gap3), 0);
+            if (carousel3.scrollLeft - width - gap3 <= 0) {
+                prev3.style.display = "none";
+            }
+            if (!content3.scrollWidth - width - gap3 <= carousel3.scrollLeft + width) {
+                next3.style.display = "flex";
+            }
+        });
+
+        let width = carousel3.offsetWidth;
+        window.addEventListener("resize", e => (width = carousel3.offsetWidth));
+    })
 </script>
 </body>
 <jsp:include page="static/footer.jsp"/>

@@ -15,8 +15,8 @@ import static edu.epam.project.controller.RouteType.FORWARD;
 import static edu.epam.project.controller.command.RequestParameter.COMMAND;
 
 @WebServlet(urlPatterns = {"/UploadServlet"})
-@MultipartConfig(maxRequestSize = 1024 * 1024 * 5,
-        maxFileSize = 1024 * 1024 * 5 * 5, fileSizeThreshold = 1024 * 1024 * 5 * 5)
+@MultipartConfig(maxRequestSize = 1024 * 1024 * 100,
+        maxFileSize = 1024 * 1024 * 5 * 50, fileSizeThreshold = 1024 * 1024 * 5 * 50)
 public class UploadServlet extends HttpServlet {
 
     @Override

@@ -70,6 +70,7 @@ public enum CommandType {
     DISPLAY_ALL_ACTORS(new DisplayAllActorsCommand()),
     DISPLAY_ALL_DIRECTORS(new DisplayAllDirectorsCommand()),
 
+    UPDATE_MOVIE_TRAILER(new UpdateMovieTrailerCommand()),
     SHOW_ALL_MOVIES(new ShowAllMoviesCommand()),
     CURRENT_YEAR_MOVIES(new CurrentYearMoviesCommand()),
     MOVIES_BY_YEAR(new MoviesByYearCommand()),

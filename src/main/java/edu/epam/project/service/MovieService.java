@@ -18,6 +18,8 @@ public interface MovieService {
 
     boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException;
 
+    boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException;
+
     int countMovies() throws ServiceException;
 
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException;

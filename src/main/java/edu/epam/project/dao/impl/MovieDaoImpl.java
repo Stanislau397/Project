@@ -75,6 +75,22 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException {
+        boolean isTrailerUpdated = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_MOVIE_TRAILER)) {
+            statement.setString(1, trailer);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isTrailerUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isTrailerUpdated;
+    }
+
+    @Override
     public int countMovies() throws DaoException {
         int counter = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

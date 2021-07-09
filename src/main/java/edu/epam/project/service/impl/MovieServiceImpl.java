@@ -60,6 +60,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException {
+        boolean isTrailerUpdated;
+        try {
+            isTrailerUpdated = movieDao.updateMovieTrailerByMovieId(movieId, trailer);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isTrailerUpdated;
+    }
+
+    @Override
     public int countMovies() throws ServiceException {
         int counter;
         try {
