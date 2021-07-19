@@ -27,12 +27,8 @@ public class Main {
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-
-        MovieService movieService = new MovieServiceImpl();
-        Optional<Actor> actorOptional = movieService.findActorInfoByActorId(313);
-
-        Date date = Date.valueOf("2012-07-15");
-        System.out.println(date.getMonth());
+        UserService userService = new UserServiceImpl();
+        System.out.println(userService.updateUserAvatarById(2, "kss"));
     }
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {

@@ -24,8 +24,13 @@
         </div>
         <c:if test="${requestScope.user.userName == sessionScope.user_name || requestScope.user.userName == null}">
             <div class="edit-settings">
-                    <button><a href="${pageContext.request.contextPath}/controller?command=to_user_settings&user_name=Stanislau">Edit settings</a>
+                <form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="to_user_settings">
+                    <input type="hidden" name="user_name" value="${requestScope.user.userName}">
+                    <button type="submit"> Edit settings
                     </button>
+                </form>
+
             </div>
         </c:if>
     </div>

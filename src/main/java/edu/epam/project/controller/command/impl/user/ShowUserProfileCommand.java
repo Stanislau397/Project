@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
+import static edu.epam.project.controller.command.AttributeName.USER_NAME;
 import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
 
 import static edu.epam.project.controller.command.AttributeName.RATED_MOVIES_LIST;
@@ -37,7 +38,10 @@ public class ShowUserProfileCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        String userName = request.getParameter(USER_NAME_PARAMETER);
+        String userName = (String) session.getAttribute(USER_NAME);
+        if (request.getParameter(USER_NAME_PARAMETER) != null) {
+            userName = request.getParameter(USER_NAME_PARAMETER);
+        }
         try {
             Optional<User> userInfo = userService.findUserByUserName(userName);
             List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName);

@@ -20,7 +20,7 @@
 <div class="main-content" id="blur">
     <div class="head">
         <div class="picture">
-            <img src="${pageContext.request.contextPath}/css/image/avatar/default_avatar.png">
+            <img src="${pageContext.request.contextPath}${requestScope.user.avatar}">
         </div>
         <div class="user-info">
             <ul>
