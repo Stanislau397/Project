@@ -11,6 +11,8 @@ public class TableColumn {
     public static final String AGE = "age";
     public static final String HEIGHT = "height";
     public static final String BIRTH_DATE = "birth_date";
+    public static final String COUNTER = "counter";
+    public static final String AVATAR = "avatar";
 
     public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";

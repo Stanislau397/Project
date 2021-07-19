@@ -4,62 +4,38 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="property.text"/>
 <html>
-<head>
     <head>
         <title></title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/test.css">
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
         <style>
-            .image-preview {
-                width: 280px;
-                height: 360px;
-                border: 2px solid #222028;
-                border-radius: 10px;
-                margin-top: 10px;
-                margin-left: 20px;
-                display: flex;
-                align-items: center;
-                font-weight: bold;
-                color: black;
+            .more {
+                position: relative;
+                display: inline-block;
             }
 
-            .image-preview__image {
-                min-width: 280px;
-                height: 360px;
-                object-fit: fill;
-                border-radius: 10px;
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                padding: 12px 16px;
+                z-index: 1;
             }
 
-            .image-preview__default__text {
-                margin-left: 100px;
+            .more:hover .dropdown-content {
+                display: block;
             }
-        </style>
+            </style>
     </head>
-<body>
-<input id="fileupload" type="file" name="files[]" multiple>
-<div class="progress">
-    <div class="meter" style="width: 0%;"></div>
+<div class="more">
+    <span><i class="fa fa-ellipsis-v"></i></span>
+    <div class="dropdown-content">
+        <p>Удалить</p>
+        <p>Редактировать</p>
+    </div>
 </div>
-<div class="data"></div>
-<div id="some-image">
-    <video muted autoplay controls width="200px" height="200px" id="uAvata"></video>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-    $("#fileupload").change(function(evt) {
-        var fileUpload = $(this).get(0).files;
-        readURL(this, "#uAvata");
-    });
-    //Preview image
-    function readURL(inputFile, imgId) {
-        if (inputFile.files && inputFile.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $(imgId).attr('src', e.target.result);
-            }
-            reader.readAsDataURL(inputFile.files[0]);
-        }
-    }
-    // Preview video will read video like: @xxxmatko
-</script>
 </body>
 </html>

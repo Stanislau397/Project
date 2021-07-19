@@ -108,6 +108,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean removeGenreById(long genreId) throws ServiceException {
+        boolean isDeleted;
+        try {
+            isDeleted = movieDao.removeGenreById(genreId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDeleted;
+    }
+
+    @Override
     public boolean addGenreToMovie(long genreId, long movieId) throws ServiceException {
         boolean isGenreAdded;
         try {

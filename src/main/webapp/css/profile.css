@@ -28,8 +28,11 @@ body {
 }
 
 .middle-content .profile-picture img {
+    object-fit: cover;
     height: 100px;
     width: 100px;
+    margin-left: 1px;
+    margin-top: 1px;
     border: 1px solid silver;
     border-radius: 5px;
 }

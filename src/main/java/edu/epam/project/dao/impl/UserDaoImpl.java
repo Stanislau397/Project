@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(4, user.getEmail());
             statement.setString(5, String.valueOf(user.getRole()));
             statement.setBoolean(6, user.isBlocked());
+            statement.setString(7, user.getAvatar());
             int result = statement.executeUpdate();
             isRegistered = (result == 1);
         } catch (SQLException e) {
@@ -74,6 +75,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean updateUserAvatarById(long userId, String avatar) throws DaoException {
+        boolean isUpdated;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_AVATAR)) {
+            statement.setString(1, avatar);
+            statement.setLong(2, userId);
+            int update = statement.executeUpdate();
+            isUpdated = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean changeUserRoleByUserName(String userName, String role) throws DaoException {
         boolean isRoleUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -100,6 +117,7 @@ public class UserDaoImpl implements UserDao {
             resultSet.next();
             User user = new User();
             user.setUserName(resultSet.getString(TableColumn.USER_NAME));
+            user.setAvatar(resultSet.getString(TableColumn.AVATAR));
             user.setBlocked(resultSet.getBoolean(TableColumn.USER_STATUS));
             user.setRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)));
             user.setEmail(resultSet.getString(TableColumn.USER_EMAIL));
@@ -155,6 +173,7 @@ public class UserDaoImpl implements UserDao {
                 User user = new User();
                 user.setUserName(resultSet.getString(TableColumn.USER_NAME));
                 user.setEmail(resultSet.getString(TableColumn.USER_EMAIL));
+                user.setAvatar(resultSet.getString(TableColumn.AVATAR));
                 user.setUserId(resultSet.getLong(TableColumn.USER_ID));
                 user.setRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)));
                 user.setBlocked(resultSet.getBoolean(TableColumn.USER_STATUS));

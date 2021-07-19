@@ -7,7 +7,7 @@ body {
     width: 1330px;
     margin-left: 100px;
     background-color: black;
-    height: 350px;
+    height: 390px;
 }
 
 .top .left {
@@ -36,7 +36,7 @@ body {
 
 .top .right {
     float: left;
-    height: 350px;
+    height: 380px;
     width: 670px;
 }
 
@@ -44,14 +44,14 @@ body {
     object-fit: fill;
     z-index: 1;
     width: 97%;
-    height: 90%;
+    height: 100%;
     margin-left: 10px;
 }
 
 
 .top h1 {
     color: white;
-    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-top: 20px;
     font-size: 2.5em;
     font-weight: 500;
@@ -59,7 +59,7 @@ body {
 }
 
 .top h2 {
-    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-left: 20px;
     color: white;
     font-weight: 500;
@@ -126,13 +126,30 @@ body {
     border-radius: 5px;
 }
 
+.left .date {
+    margin-top: 10px;
+    width: 600px;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.left .date h2 {
+    color: #fdd030;
+}
+
+.left .date h2 p {
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 10px;
+    color: white;
+}
 .top .left .rate-movie {
     margin-top: 10px;
     margin-left: -10px;
 }
 
 .top .left .rate-btn {
-    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: white;
     font-size: 25px;
     border: 0;
@@ -182,13 +199,13 @@ body {
     font-size: 20px;
     display: inline-block;
     margin-left: 15px;
-    font-family: 'Oswald',"proxima_nova","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Oswald', "proxima_nova", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .main {
     background-color: #F0F0F0;
     width: 1330px;
-    min-height: 600px;
+    min-height: 520px;
     height: auto;
     margin-left: 100px;
     border-bottom: 0.5px solid silver;
@@ -196,7 +213,7 @@ body {
 
 .left-side {
     width: 400px;
-    min-height: 600px;
+    min-height: 520px;
     height: auto;
     border-right: 0.5px solid silver;
     float: left;
@@ -208,6 +225,7 @@ body {
 }
 
 .picture img {
+    object-fit: cover;
     border-radius: 5px;
     margin-top: 50px;
     margin-left: 50px;
@@ -304,10 +322,7 @@ body {
     font-size: 15px;
     margin-left: 30px;
     text-align: left;
-}
-
-.right-side .actors button:hover {
-    color: #066ee7;
+    color: #060077;
 }
 
 .rate-movie button {
@@ -397,7 +412,7 @@ body {
     width: 1330px;
     background-color: #F0F0F0;
     margin-left: 100px;
-    min-height: 300px;
+    min-height: 80px;
     border-top: 1px solid grey;
 }
 
@@ -433,157 +448,271 @@ body {
 }
 
 .comment-section h3 {
+    margin-top: 35px;
+    margin-left: 50px;
+    font-family: sans-serif;
+}
+
+.comment-section .user-comments {
     margin-top: 20px;
     margin-left: 50px;
-    font-family: sans-serif;
+    width: 860px;
+    min-height: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid silver;
 }
 
-.comment-section .user-comment {
-    margin-left: 50px;
-    margin-top: 15px;
-    width: 550px;
-    min-height: 200px;
-    height: auto;
-    background-color: #e6e6e6;
+.comment-section .user-comments .user-picture {
+    float: left;
+    width: 80px;
+    text-align: center;
+}
+
+.comment-section .user-comments .user-picture img {
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
     border: 1px solid silver;
+    border-radius: 50%;
 }
 
-.user-comment .user-info, .leave-comment .user-info {
+.comment-section .user-comments .content {
+    float: left;
+    width: 600px;
+    display: block;
+}
+
+.comment-section .user-comments .content .user-name {
     float: top;
-    border-bottom: 1px solid grey;
-    min-width: 550px;
-    width: 550px;
-    min-height: 65px;
-    height: auto;
-    background-color: #e6e6e6;
+    width: 200px;
+    height: 30px;
 }
 
-.user-info .user-picture, .leave-comment .user-info .user-picture {
-    min-width: 65px;
-    width: 50px;
-    min-height: 65px;
-    height: 65px;
-    float: left;
+.comment-section .user-comments .content .user-comment {
+    width: 600px;
+    min-height: 10px;
 }
 
-.user-info .user-picture img, .leave-comment .user-picture img {
-    border: 0.5px solid black;
-    border-radius: 50px;
-    margin-top: 8px;
+.comment-section .user-comments .content .user-comment p {
+    font-size: 17px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.comment-section .user-comments .content .comment-vote {
+    margin-top: 10px;
+    height: 25px;
+    float: top;
+    width: 600px;
+    display: inline-block;
+}
+
+.comment-section .user-comments .content .comment-vote p {
+    display: inline-block;
+}
+
+.comment-section .user-comments .content .comment-vote form {
+    display: inline-block;
+}
+
+.comment-section .user-comments .content .comment-vote .thumb-up-btn, .comment-section .user-comments .content .comment-vote .thumb-down-btn {
+    display: inline-block;
+    font-size: 17px;
     margin-left: 5px;
-    min-width: 50px;
-    width: 50px;
-    min-height: 50px;
-    height: 50px;
-}
-
-.user-info .user-name {
-    padding: 5px 5px;
-    float: left;
-    min-width: 200px;
-    height: 65px;
-    width: 240px;
-    font-weight: bold;
-    background-color: #e6e6e6;
-    border-bottom: 1px solid grey;
-}
-
-.user-info .user-name button {
-    font-family: sans-serif;
-    font-size: 18px;
-    border: none;
-    background-color: #e6e6e6;
-    color: #060077;
     cursor: pointer;
-    outline: none;
+    border: 0;
 }
 
-.user-info .upload-date {
-    float: left;
-    height: 65px;
-    background-color: #e6e6e6;
-    border-bottom: 1px solid grey;
+.comment-section .user-comments .content .comment-vote .thumb-up-btn i {
+    color: #66cc33;
 }
 
-.user-info .upload-date p {
-    margin-top: 7px;
-    margin-left: 46px;
+.comment-section .user-comments .content .comment-vote p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
 }
 
-.user-info .remove-comment button:hover {
-    background-color: #e6e6e6;
-}
-
-.comment-section p {
-    margin-left: 5px;
-    font-family: sans-serif;
-}
-
-.user-comment .text {
-    padding: 8px 8px;
-    float: top;
-    min-height: 100px;
-    height: auto;
-    min-width: 549px;
-    width: 549px;
-    background-color: #e6e6e6;
-    border-right: 1px solid silver;
-}
-
-.user-comment .comment_votes {
-    float: top;
-    min-height: 50px;
-    min-width: 50px;
-    background-color: #e6e6e6;
-}
-
-.user-comment .comment_votes .up_vote {
-    margin-top: 1px;
-    min-width: 90px;
-    margin-left: 340px;
-    float: left;
-}
-
-.user-comment .comment_votes .up_vote button {
-    height: 30px;
-    width: 100px;
-    background-color: white;
-    border: 1px solid silver;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.user-comment .comment_votes .down_vote button {
-    height: 30px;
-    width: 70px;
-    background-color: white;
-    border: 1px solid silver;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.user-comment .comment_votes .down_vote {
-    margin-top: 1px;
-    min-width: 90px;
-    margin-left: 5px;
-    float: left;
-}
-
-.user-comment .down_vote i {
+.comment-section .user-comments .content .comment-vote .thumb-down-btn i {
     color: red;
 }
 
-.user-comment .up_vote i {
-    color: green;
+.comment-section .user-comments .content .user-name-btn {
+    border: 0;
+    cursor: pointer;
+    color: #060077;
 }
 
-.user-comment .comment_votes button:hover {
+.comment-section .user-comments .upload-date {
+    float: left;
+    width: 150px;
+}
+
+.more {
+    margin-top: 2px;
+    margin-left: -20px;
+    align-items: center;
+    position: relative;
+    display: inline-block;
+}
+
+.more span {
+    align-items: center;
+    text-align: center;
     cursor: pointer;
+}
+
+.more i {
+    width: 45px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.more button {
+    border: 0;
+    background-color: #f9f9f9;
+    float: left;
+    font-size: 16px;
+    width: 120px;
+    text-align: left;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.more button:hover {
+    color: #060077;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.more:hover .dropdown-content {
+    width: 138px;
+    margin-left: -90px;
+    display: block;
+    z-index: 5;
+}
+
+.overlay1, .overlay2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay1:target, .overlay2:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pop {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    min-height: 150px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+}
+
+.pop1 {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 450px;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    min-height: 235px;
+    overflow: hidden;
+    transition: all 5s ease-in-out;
+}
+
+.pop1 textarea {
+    margin-top: 10px;
+    resize: none;
+    padding: 10px 10px;
+    font-family: sans-serif;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid silver;
+    width: 100%;
+    height: 120px;
+}
+
+.pop1 textarea:focus {
+    outline: none !important;
+    border: 1px solid silver;
+}
+
+.pop .text, .pop1 .text {
+    text-align: center;
+}
+
+.pop .text h2, .pop1 .text h2 {
+    margin-left: 20px;
+}
+
+.pop .text p {
+    font-family: sans-serif;
+    font-size: 19px;
+    margin-top: 10px;
+    text-align: left;
+    margin-left: 30px;
+}
+
+.pop .close, .pop1 .close {
+    float: right;
+    color: black;
+    width: 10px;
+    margin-top: -10px;
+}
+
+.pop .close:hover, .pop1 .close:hover {
+    color: #060077;
+}
+
+.pop .remove-comment-btn, .pop1 .edit-comment-btn {
+    font-size: 22px;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    height: 35px;
+    border-radius: 8px;
     background-color: #e6e6e6;
+}
+
+.remove-comment-btn:hover, .edit-comment-btn:hover {
+    color: #060077;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .pop {
+        width: 70%;
+    }
 }
 
 .leave-comment {
     background-color: #F0F0F0;
     width: 600px;
-    height: 450px;
+    height: 380px;
     border: 1px solid silver;
     border-radius: 8px;
     margin-top: 5px;
@@ -610,6 +739,7 @@ body {
 }
 
 .leave-comment .user-info .user-picture1 img {
+    object-fit: cover;
     margin-top: 15px;
     margin-left: 15px;
     width: 70px;
@@ -658,10 +788,10 @@ body {
     width: 95%;
     padding: 10px 10px;
     font-size: 22px;
-    height: 250px;
+    height: 190px;
     border-radius: 8px;
     border: 0;
-    background-color: 	rgb(184,184,184);
+    background-color: rgb(184, 184, 184);
 }
 
 .leave-comment .comment textarea:focus {
@@ -675,237 +805,10 @@ body {
     margin-left: 15px;
     border-radius: 8px;
     border: 0;
+    cursor: pointer;
     background-color: #f60;
     font-size: 20px;
     color: white;
     width: 95%;
     height: 40px;
-}
-
-.edit-comment {
-    float: left;
-    width: 10px;
-}
-
-.remove-comment {
-    float: right;
-    margin-top: -20px;
-}
-
-.remove-comment .button .remove-btn {
-    text-align: center;
-    background-color: #eb5757;
-    font-size: 30px;
-    font-weight: bold;
-    font-family: sans-serif;
-    margin-top: -10px;
-    border: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.remove-comment .button .remove-btn i {
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.remove-comment .button .remove-btn:hover {
-    background-color: #eb5757;
-}
-
-.edit-comment .button .edit-btn {
-    text-align: center;
-    background-color: #066ee7;
-    font-size: 30px;
-    font-weight: bold;
-    font-family: sans-serif;
-    border: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-comment .button .edit-btn:hover {
-    background-color: #066ee7;
-    cursor: pointer;
-}
-
-.edit-comment .button .edit-btn i {
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.overlay:target {
-    visibility: visible;
-    opacity: 1;
-}
-
-.popup {
-    position: fixed;
-    top: 30%;
-    left: 35%;
-    width: 500px;
-    padding: 15px;
-    background-color: #e6e6e6;
-    border-radius: 5px;
-    min-height: 150px;
-    overflow: hidden;
-    transition: all 5s ease-in-out;
-    border: 1px solid #222028;
-}
-
-.overlay1 {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    transition: opacity 500ms;
-    visibility: hidden;
-    opacity: 0;
-}
-
-.overlay1:target {
-    visibility: visible;
-    opacity: 1;
-}
-
-.pop {
-    position: fixed;
-    top: 30%;
-    left: 35%;
-    width: 500px;
-    padding: 15px;
-    background-color: silver;
-    border-radius: 5px;
-    min-height: 150px;
-    overflow: hidden;
-    transition: all 5s ease-in-out;
-}
-
-@media screen and (max-width: 700px) {
-    .box {
-        width: 70%;
-    }
-
-    .popup {
-        width: 70%;
-    }
-}
-
-.popup .text {
-    float: left;
-    width: 100%;
-    height: 155px;
-}
-
-.popup .text textarea {
-    width: 450px;
-    height: 150px;
-    border: 2px solid silver;
-    outline: none;
-    resize: none;
-    font-size: 20px;
-    font-family: sans-serif;
-    padding: 10px 10px;
-    border-radius: 10px;
-    background-color: #e6e6e6;
-}
-
-.popup textarea:focus {
-    border: 2px solid #066ee7;
-}
-
-.popup .change {
-    margin-top: 10px;
-    margin-left: 3px;
-    float: left;
-    background-color: #e6e6e6;
-}
-
-.popup h2 {
-    margin-left: 15px;
-}
-
-.popup .change button, .popup .dismiss button {
-    width: 210px;
-    height: 35px;
-    border: 2px solid silver;
-    margin-left: 5px;
-    font-family: sans-serif;
-    font-size: 18px;
-    border-radius: 8px;
-    background-color: #e6e6e6;
-    cursor: pointer;
-}
-
-.popup .dismiss {
-    margin-top: 10px;
-    margin-left: 25px;
-    float: left;
-}
-
-.popup .dismiss .close {
-    margin-left: -5px;
-    color: black;
-    font-family: sans-serif;
-    font-size: 18px;
-    background-color: #e6e6e6;
-}
-
-.pop h2 {
-    margin-top: 5px;
-    margin-left: 120px;
-}
-
-.pop p {
-    font-family: sans-serif;
-    font-size: 16px;
-    margin-top: 5px;
-}
-
-.pop .remove {
-    float: left;
-}
-
-.pop .dismiss {
-    float: left;
-    margin-left: 45px;
-}
-
-.pop .remove .remove-btn, .pop .dismiss button {
-    margin-top: 10px;
-    width: 210px;
-    height: 40px;
-    border: 1px solid grey;
-    cursor: pointer;
-    background-color: silver;
-    border-radius: 10px;
-    font-family: sans-serif;
-    font-size: 20px;
-}
-
-.pop .dismiss .close {
-    color: black;
-    font-family: sans-serif;
-    font-size: 20px;
-    margin-left: -1px;
 }

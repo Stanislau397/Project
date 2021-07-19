@@ -1,11 +1,11 @@
 body {
-    background-color: #1a191f;
+    background-color: rgb(245,245,245);
 }
 
 .top {
     margin-left: 250px;
     height: 65px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid grey;
 }
 
 .top .text1 {
@@ -14,7 +14,7 @@ body {
 }
 
 .top .text1 h2 {
-    color: white;
+    color: black;
     font-family: sans-serif;
     font-weight: 600;
     font-size: 25px;

@@ -37,7 +37,9 @@
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=display_all_directors"><fmt:message
                 key="label.directors"/></a></li>
-        <li class="active"><a>
+        <li class="active"><a
+                href="${pageContext.request.contextPath}/controller?command=to_genres"><fmt:message
+                key="label.genres"/></a></li>
 
 <%--            <--%>
 

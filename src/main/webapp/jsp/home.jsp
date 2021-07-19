@@ -33,29 +33,31 @@
     </div>
     <div id="carousel1">
         <div id="content1">
-            <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies">
-                <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}"
-                   style="margin-left: -1.5px">
-                    <c:choose>
-                        <c:when test="${newestMovies.rating.score == 0}">
-                            <p class="score"></p>
-                        </c:when>
-                        <c:when test="${newestMovies.rating.score >= 70}">
-                            <p class="score" style="background-color: #66cc33"><c:out
-                                    value="${newestMovies.rating.score}"/></p>
-                        </c:when>
-                        <c:when test="${newestMovies.rating.score < 70 && newestMovies.rating.score >= 40}">
-                            <p class="score" style="background-color: #fc3"><c:out
-                                    value="${newestMovies.rating.score}"/></p>
-                        </c:when>
-                        <c:when test="${newestMovies.rating.score < 40}">
-                            <p class="score" style="background-color: red"><c:out
-                                    value="${newestMovies.rating.score}"/></p>
-                        </c:when>
-                    </c:choose>
-                    <img src="${pageContext.request.contextPath}${newestMovies.picture}" class="item"/>
-                    <p class="movie-title"><c:out value="${newestMovies.title}"/></p>
-                </a>
+            <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies" varStatus="counter">
+                <c:if test="${counter.count <= 12}">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}"
+                       style="margin-left: -1.5px">
+                        <c:choose>
+                            <c:when test="${newestMovies.rating.score == 0}">
+                                <p class="score"></p>
+                            </c:when>
+                            <c:when test="${newestMovies.rating.score >= 70}">
+                                <p class="score" style="background-color: #66cc33"><c:out
+                                        value="${newestMovies.rating.score}"/></p>
+                            </c:when>
+                            <c:when test="${newestMovies.rating.score < 70 && newestMovies.rating.score >= 40}">
+                                <p class="score" style="background-color: #fc3"><c:out
+                                        value="${newestMovies.rating.score}"/></p>
+                            </c:when>
+                            <c:when test="${newestMovies.rating.score < 40}">
+                                <p class="score" style="background-color: red"><c:out
+                                        value="${newestMovies.rating.score}"/></p>
+                            </c:when>
+                        </c:choose>
+                        <img src="${pageContext.request.contextPath}${newestMovies.picture}" class="item"/>
+                        <p class="movie-title"><c:out value="${newestMovies.title}"/></p>
+                    </a>
+                </c:if>
             </c:forEach>
         </div>
     </div>

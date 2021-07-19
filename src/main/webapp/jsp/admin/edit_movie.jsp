@@ -196,7 +196,7 @@
                                 <input type="hidden" name="command" value="add_director_to_movie">
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                                 <div class="text">
-                                    <h2 style="color: white"><fmt:message key="label.add_director"/></h2>
+                                    <h2 style="color: black"><fmt:message key="label.add_director"/></h2>
                                     <input type="text" name="first_name"
                                            placeholder="<fmt:message key="label.first_name"/>">
                                     <input type="text" name="last_name"
@@ -204,11 +204,11 @@
                                 </div>
                                 <div class="buttons">
                                     <div class="remove">
-                                        <button type="submit" style="background-color: #1a191f"><fmt:message
+                                        <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: #1a191f; margin-left: 14px"><a class="close"
+                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
                                                                                                         href="#"><fmt:message
                                                 key="label.close"/></a>
                                         </button>
@@ -249,7 +249,7 @@
                                     <div id="pop${counter.count}" class="overlay1">
                                         <div class="pop">
                                             <div class="text">
-                                                <h2><fmt:message key="label.delete_actor"/></h2>
+                                                <h2 style="color: black"><fmt:message key="label.delete_actor"/></h2>
                                                 <p><fmt:message key="label.delete_actor_msg"/></p>
                                             </div>
                                             <div class="buttons">
@@ -296,11 +296,11 @@
                                 </div>
                                 <div class="buttons">
                                     <div class="remove">
-                                        <button type="submit" style="background-color: #1a191f"><fmt:message
+                                        <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: #1a191f; margin-left: 14px"><a class="close"
+                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
                                                                                                         href="#"><fmt:message
                                                 key="label.close"/></a>
                                         </button>
@@ -380,7 +380,7 @@
                                 <input type="hidden" name="command" value="add_genre_to_movie">
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                                 <div class="text">
-                                    <h2 style="color: white"><fmt:message key="label.add_genre"/></h2>
+                                    <h2 style="color: black"><fmt:message key="label.add_genre"/></h2>
                                     <select name="genre_id">
                                         <c:forEach items="${requestScope.genres_list}" var="genres">
                                             <option value="${genres.genreId}"><c:out
@@ -390,11 +390,11 @@
                                 </div>
                                 <div class="buttons">
                                     <div class="remove">
-                                        <button type="submit" style="background-color: #1a191f"><fmt:message
+                                        <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: #1a191f; margin-left: 14px"><a class="close"
+                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
                                                                                                         href="#"><fmt:message
                                                 key="label.close"/></a>
                                         </button>
@@ -407,7 +407,6 @@
             </c:when>
         </c:choose>
     </div>
-
     <script>
         const inpFile = document.getElementById("inpFile");
         const previewContainer = document.getElementById("imagePreview");
@@ -447,5 +446,9 @@
         }
     </script>
 </div>
+<br>
+<br>
+<br>
+<br>
 </body>
 </html>

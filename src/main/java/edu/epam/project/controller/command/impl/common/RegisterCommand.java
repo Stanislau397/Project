@@ -21,6 +21,7 @@ import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMET
 public class RegisterCommand implements Command {
 
     public static final Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private static final String DEFAULT_AVATAR = "/css/image/avatar/default_avatar.png";
     private static UserService userService = new UserServiceImpl();
 
     @Override
@@ -29,9 +30,7 @@ public class RegisterCommand implements Command {
         String userName = request.getParameter(USER_NAME_PARAMETER);
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
         String userEmail = request.getParameter(EMAIL_PARAMETER);
-        User user = new User();
-        user.setUserName(userName);
-        user.setEmail(userEmail);
+        User user = new User(userName, userEmail, DEFAULT_AVATAR);
         try {
             if (userService.register(user, userPassword)) {
                 router.setPagePath(PagePath.HOME_PAGE);

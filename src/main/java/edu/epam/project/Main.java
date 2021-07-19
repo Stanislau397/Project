@@ -31,10 +31,8 @@ public class Main {
         MovieService movieService = new MovieServiceImpl();
         Optional<Actor> actorOptional = movieService.findActorInfoByActorId(313);
 
-        if (actorOptional.isPresent()) {
-            Actor actor = actorOptional.get();
-            System.out.println(actor.getBirthDate());
-        }
+        Date date = Date.valueOf("2012-07-15");
+        System.out.println(date.getMonth());
     }
 
     public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {

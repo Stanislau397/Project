@@ -25,6 +25,7 @@ import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 import static edu.epam.project.controller.command.SessionAttribute.ADMIN;
 import static edu.epam.project.controller.command.SessionAttribute.USER;
 import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR;
+import static edu.epam.project.controller.command.SessionAttribute.USER_AVATAR;
 import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR_MESSAGE;
 import static edu.epam.project.controller.command.SessionAttribute.GUEST;
 
@@ -37,7 +38,6 @@ public class SignInCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        String currentPage = request.getHeader(REFERER);
         String userEmail = request.getParameter(EMAIL_PARAMETER);
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
         User user;
@@ -48,6 +48,7 @@ public class SignInCommand implements Command {
                 if (!(user.isBlocked())) {
                     RoleType role = user.getRole();
                     String userName = user.getUserName();
+                    String userAvatar = user.getAvatar();
                     long userId = user.getUserId();
                     switch (role) {
                         case ADMIN:
@@ -55,6 +56,7 @@ public class SignInCommand implements Command {
                             session.setAttribute(USER_EMAIL, userEmail);
                             session.setAttribute(USER_NAME, userName);
                             session.setAttribute(ADMIN, String.valueOf(role));
+                            session.setAttribute(USER_AVATAR, userAvatar);
                             router.setPagePath(PagePath.INDEX);
                             break;
                         case USER:
@@ -62,6 +64,7 @@ public class SignInCommand implements Command {
                             session.setAttribute(USER_EMAIL, userEmail);
                             session.setAttribute(USER_NAME, userName);
                             session.setAttribute(USER, String.valueOf(role));
+                            session.setAttribute(USER_AVATAR, userAvatar);
                             router.setPagePath(PagePath.INDEX);
                             break;
                         default:

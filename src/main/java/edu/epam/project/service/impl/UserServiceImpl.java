@@ -73,6 +73,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUserAvatarById(long userId, String avatar) throws ServiceException {
+        boolean isUpdated;
+        try {
+            isUpdated = userDao.updateUserAvatarById(userId, avatar);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean changeUserRoleByUserName(String userName, String role) throws ServiceException {
         boolean isRoleUpdated;
         try {

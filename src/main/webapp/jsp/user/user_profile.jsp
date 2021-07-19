@@ -17,20 +17,15 @@
 <div class="middle-content">
     <div class="user">
         <div class="profile-picture">
-            <img src="${pageContext.request.contextPath}/css/image/default_avatar.png">
+            <img src="${pageContext.request.contextPath}${requestScope.user.avatar}">
         </div>
         <div class="user-info">
-            <c:if test="${requestScope.user_name != null}">
-                <h2><c:out value="${requestScope.user_name}"/></h2>
-            </c:if>
-            <c:if test="${requestScope.user_name == null}">
-                <h2><c:out value="${sessionScope.user_name}"/></h2>
-            </c:if>
+            <h2><c:out value="${requestScope.user.userName}"/></h2>
         </div>
-        <c:if test="${requestScope.user_name == sessionScope.user_name || requestScope.user_name == null}">
+        <c:if test="${requestScope.user.userName == sessionScope.user_name || requestScope.user.userName == null}">
             <div class="edit-settings">
-                <button><a href="${pageContext.request.contextPath}/jsp/user/account_settings.jsp">Edit settings</a>
-                </button>
+                    <button><a href="${pageContext.request.contextPath}/controller?command=to_user_settings&user_name=Stanislau">Edit settings</a>
+                    </button>
             </div>
         </c:if>
     </div>

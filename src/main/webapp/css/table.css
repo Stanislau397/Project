@@ -241,7 +241,7 @@ td:last-child {
     left: 40%;
     width: 450px;
     padding: 15px;
-    background: #1a191f;
+    background: #FFF;
     border-radius: 5px;
     min-height: 150px;
     overflow: hidden;
@@ -264,8 +264,13 @@ td:last-child {
     text-align: center;
 }
 
+.pop .text h2 {
+    color: black;
+}
+
 .right .pop .text p {
     font-weight: 150;
+    font-size: 18px;
     margin-left: -3px;
     margin-top: 10px;
 }
@@ -278,6 +283,7 @@ td:last-child {
 
 .right .buttons .dismiss {
     margin-left: 20px;
+    background-color: #FFF;
     margin-top: 5px;
     float: left;
 }
@@ -364,7 +370,7 @@ td:last-child {
     float: left;
 }
 
-.remove-actor {
+.remove-actor, .remove-genre {
     float: left;
     margin-left: 5px;
 }
@@ -374,7 +380,7 @@ td:last-child {
     width: 400px;
     height: 40px;
     border-radius: 8px;
-    background-color: #222028;
+    background-color: #FFF;
     border: 1px solid #1a191f;
     outline: none;
     padding: 5px 12px;
@@ -382,7 +388,7 @@ td:last-child {
 }
 
 .add .pop input:focus{
-    border: 1px solid #f9c22a;
+    border: 1px solid black;
     border-radius: 8px;
 }
 
@@ -426,7 +432,7 @@ td:last-child {
     margin-top: 12px;
     width: 183px;
     height: 42px;
-    border: 2px solid #f9c22a;
+    border: 2px solid black;
     border-radius: 10px;
     font-family: sans-serif;
     font-weight: 300;
@@ -437,17 +443,17 @@ td:last-child {
 .buttons button a, .right .buttons button a {
     width: 183px;
     height: 42px;
-    color: white;
+    color: black;
     text-decoration: none;
     font-family: sans-serif;
 }
 
 .buttons button:hover, .right .buttons button:hover {
-    color: white;
-    border: 2px solid #f9c22a;
+    color: black;
+    border: 2px solid black;
 }
 
-.remove-actor .remove-btn {
+.remove-actor .remove-btn, .remove-genre .remove-btn {
     background-color: #eb5757;
     color: white;
     font-size: 14px;

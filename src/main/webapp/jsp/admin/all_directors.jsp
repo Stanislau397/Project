@@ -74,16 +74,16 @@
                                             <input type="hidden" name="command" value="remove_director">
                                             <input type="hidden" name="director_id" value="${allDirectors.directorId}">
                                             <div class="text">
-                                                <h2 style="color: white"><fmt:message key="label.delete_director"/></h2>
+                                                <h2 style="color: black"><fmt:message key="label.delete_director"/></h2>
                                                 <p class="text"><fmt:message key="label.delete_director_msg"/></p>
                                             </div>
                                             <div class="buttons">
                                                 <div class="remove">
-                                                    <button type="submit" style="background-color: #1a191f"><fmt:message
+                                                    <button type="submit" style="background-color: #FFF; color: black"><fmt:message
                                                             key="label.remove"/></button>
                                                 </div>
                                                 <div class="dismiss">
-                                                    <button style="background-color: #1a191f; margin-left: 14px"><a
+                                                    <button style="background-color: #FFF; margin-left: 14px"><a
                                                             class="close" href="#"><fmt:message
                                                             key="label.close"/></a>
                                                     </button>

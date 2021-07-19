@@ -1230,6 +1230,21 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean removeGenreById(long genreId) throws DaoException {
+        boolean isDeleted;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_BY_ID)) {
+            statement.setLong(1, genreId);
+            int update = statement.executeUpdate();
+            isDeleted = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDeleted;
+    }
+
+    @Override
     public boolean addGenreToMovie(long genreId, long movieId) throws DaoException {
         boolean isGenreAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

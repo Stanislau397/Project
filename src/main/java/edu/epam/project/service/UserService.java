@@ -25,6 +25,8 @@ public interface UserService {
 
     boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException;
 
+    boolean updateUserAvatarById(long userId, String avatar) throws ServiceException;
+
     boolean changeUserRoleByUserName(String userName, String role) throws ServiceException;
 
     List<User> findAll() throws ServiceException;

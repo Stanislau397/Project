@@ -2,24 +2,26 @@ package edu.epam.project.dao;
 
 public class SqlQuery {
 
-    public static final String INSERT_TO_USER = "INSERT INTO users (user_id, user_name, password, email, role, is_active) " +
-            "VALUES(?,?,?,?,?,?)";
-    public static final String SELECT_USER = "SELECT email, password, role, is_active, user_name FROM users WHERE email = (?) and password = (?)";
+    public static final String INSERT_TO_USER = "INSERT INTO users (user_id, user_name, password, email, role, is_active, avatar) " +
+            "VALUES(?,?,?,?,?,?,?)";
+    public static final String SELECT_USER = "SELECT email, password, role, is_active, user_name, avatar FROM users WHERE email = (?) and password = (?)";
     public static final String SELECT_ID_BY_USER_NAME = "SELECT user_id FROM users WHERE user_name = (?)";
     public static final String UPDATE_ROLE_AND_EMAIL = "UPDATE users SET email = (?), role = (?) WHERE user_id = (?)";
     public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_name = (?) and password = (?)";
     public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
-    public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active FROM users WHERE user_name = (?)";
+    public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active, avatar FROM users WHERE user_name = (?)";
     public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users";
     public static final String SELECT_LATEST_USERS = "SELECT user_id, user_name, email, role, is_active FROM users ORDER BY user_id DESC";
     public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_name = (?)";
     public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_name = (?)";
+    public static final String UPDATE_USER_AVATAR = "UPDATE users SET avatar = (?) WHERE user_id = (?)";
     public static final String COUNT_USERS = "SELECT COUNT(*) FROM users";
 
     public static final String INSERT_TO_GENRE = "INSERT INTO genres (genres_id, genre_title) VALUES (?,?)";
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";
     public static final String SELECT_MOVIE_GENRES = "SELECT genre_title, genres_id FROM genres JOIN movie_genres ON genres_id = genre_id_fk WHERE movie_id = (?) " +
             "GROUP BY genres_id";
+    public static final String DELETE_GENRE_BY_ID = "DELETE FROM genres WHERE genres_id = (?)";
     public static final String INSERT_TO_MOVIE_GENRES = "INSERT INTO movie_genres(movie_id, genre_id_fk) VALUES(?,?)";
     public static final String DELETE_GENRE_FROM_MOVIE = "DELETE FROM movie_genres WHERE genre_id_fk = (?) AND movie_id = (?)";
 
@@ -128,8 +130,11 @@ public class SqlQuery {
 
     public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";
-    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT mv.user_name_fk, mv.comment_id, user_comment, post_date, IFNULL(count(comment_up_vote), 0) AS up_votes, IFNULL(count(comment_down_vote), 0) AS down_votes FROM movie_comments mv\n" +
-            "LEFT JOIN comment_votes cv ON mv.comment_id = cv.comment_id_fk WHERE mv.movie_id_fk = (?) group by mv.user_comment";
+    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT mv.user_name_fk, mv.comment_id, user_comment, post_date, IFNULL(count(comment_up_vote), 0) AS up_votes, \n" +
+            "IFNULL(count(comment_down_vote), 0) AS down_votes, COUNT(cv.user_name_fk) AS counter, u.avatar FROM movie_comments mv\n" +
+            "LEFT JOIN comment_votes cv ON mv.comment_id = cv.comment_id_fk\n" +
+            "LEFT JOIN users u ON u.user_name = mv.user_name_fk\n" +
+            "WHERE mv.movie_id_fk = (?) group by mv.user_comment";
     public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
             "AND user_name_fk = (?) AND user_comment = (?)";
     public static final String UPDATE_COMMENT = "UPDATE movie_comments SET user_comment = (?) WHERE user_comment = (?) AND user_name_fk = (?)";

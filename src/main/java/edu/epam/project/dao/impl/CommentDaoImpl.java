@@ -177,13 +177,17 @@ public class CommentDaoImpl implements CommentDao {
             while (resultSet.next()) {
                 Comment comment = new Comment();
                 String userName = resultSet.getString(TableColumn.USER_NAME_FK);
+                String avatar = resultSet.getString(TableColumn.AVATAR);
                 String text = resultSet.getString(TableColumn.COMMENT);
                 long commentId = resultSet.getLong(TableColumn.COMMENT_ID);
                 String postDate = resultSet.getString(TableColumn.COMMENT_POST_DATE);
                 int upVotes = resultSet.getInt(TableColumn.COMMENT_UP_VOTES);
                 int downVotes = resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES);
+                int countComments = resultSet.getInt(TableColumn.COUNTER);
                 comment.setCommentId(commentId);
+                comment.setCountComments(countComments);
                 comment.setUserName(userName);
+                comment.setUserAvatar(avatar);
                 comment.setPostDate(postDate);
                 comment.setText(text);
                 comment.setCommentUpVotes(upVotes);

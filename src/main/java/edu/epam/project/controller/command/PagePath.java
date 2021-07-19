@@ -17,11 +17,12 @@ public class PagePath {
 
     public static final String USER_PROFILE = "jsp/user/user_profile.jsp";
     public static final String CHANGE_USER_NAME = "jsp/user/change_user_name.jsp";
+    public static final String USER_SETTINGS = "jsp/user/account_settings.jsp";
 
     public static final String ALL_USERS_PAGE = "jsp/admin/all_users.jsp";
     public static final String ADMIN_CABINET_PAGE = "jsp/admin/admin_cabinet.jsp";
     public static final String UPLOAD_MOVIE_PAGE = "jsp/admin/upload_movie.jsp";
-    public static final String ADD_GENRE_PAGE = "jsp/admin/add_genre.jsp";
+    public static final String ALL_GENRES_PAGE = "jsp/admin/all_genres.jsp";
     public static final String ALL_MOVIES_PAGE = "jsp/admin/all_movies.jsp";
     public static final String EDIT_MOVIE = "jsp/admin/edit_movie.jsp";
     public static final String EDIT_USER = "jsp/admin/edit_user.jsp";

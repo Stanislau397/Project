@@ -124,6 +124,8 @@ public interface MovieService {
 
     boolean addGenre(Genre genre) throws ServiceException;
 
+    boolean removeGenreById(long genreId) throws ServiceException;
+
     boolean addGenreToMovie(long genreId, long movieId) throws ServiceException;
 
     boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException;

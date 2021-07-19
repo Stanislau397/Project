@@ -11,6 +11,7 @@ public class User extends Entity {
     private RoleType role;
     private String userName;
     private String email;
+    private String avatar;
     private boolean isBlocked;
 
     /**
@@ -44,6 +45,12 @@ public class User extends Entity {
         this.userName = userName;
         this.email = email;
         this.isBlocked = isBlocked;
+    }
+
+    public User(String userName, String email, String avatar) {
+        this.userName = userName;
+        this.email = email;
+        this.avatar = avatar;
     }
 
     /**
@@ -109,6 +116,14 @@ public class User extends Entity {
         return email;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     /**
      * Setter method of userEmail
      *
@@ -147,7 +162,8 @@ public class User extends Entity {
         if (isBlocked != user.isBlocked) return false;
         if (role != user.role) return false;
         if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
-        return email != null ? email.equals(user.email) : user.email == null;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        return avatar != null ? avatar.equals(user.avatar) : user.avatar == null;
     }
 
     @Override
@@ -156,6 +172,7 @@ public class User extends Entity {
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (isBlocked ? 1 : 0);
         return result;
     }

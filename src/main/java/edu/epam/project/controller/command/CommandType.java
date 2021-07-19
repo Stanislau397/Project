@@ -3,9 +3,7 @@ package edu.epam.project.controller.command;
 import edu.epam.project.controller.command.impl.*;
 import edu.epam.project.controller.command.impl.admin.*;
 import edu.epam.project.controller.command.impl.common.*;
-import edu.epam.project.controller.command.impl.user.ChangePasswordCommand;
-import edu.epam.project.controller.command.impl.user.EditCommentCommand;
-import edu.epam.project.controller.command.impl.user.ShowUserProfileCommand;
+import edu.epam.project.controller.command.impl.user.*;
 
 public enum CommandType {
 
@@ -29,6 +27,7 @@ public enum CommandType {
     CHANGE_ACTOR_PICTURE(new ChangeActorPictureCommand()),
     CHANGE_DIRECTOR_PICTURE(new ChangeDirectorPictureCommand()),
     UPDATE_EMAIL_AND_ROLE(new UpdateEmailAndRoleCommand()),
+    CHANGE_AVATAR(new ChangeAvatarCommand()),
 
     OPEN_HOME_PAGE(new OpenHomePageCommand()),
     OPEN_LOGIN_PAGE(new OpenLogInPageCommand()),
@@ -40,8 +39,10 @@ public enum CommandType {
     TO_EDIT_ACTOR(new ToEditActorCommand()),
     TO_EDIT_DIRECTOR(new ToEditDirectorCommand()),
     EDIT_DIRECTOR_INFO(new EditDirectorInfoCommand()),
+    TO_USER_SETTINGS(new ToUserSettingsCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
+    ADD_GENRE(new AddGenreCommand()),
     ADD_GENRE_TO_MOVIE(new AddGenreToMovieCommand()),
     ADD_ACTOR(new AddActorCommand()),
     EDIT_ACTOR(new EditActorCommand()),
@@ -51,12 +52,11 @@ public enum CommandType {
     ADD_DIRECTOR(new AddDirectorCommand()),
     ADD_DIRECTOR_TO_MOVIE(new AddDirectorToMovieCommand()),
     ADD_ACTOR_TO_MOVIE(new AddActorToMovieCommand()),
-    REMOVE_GENRE(new RemoveCommentCommand()),
+    REMOVE_GENRE(new DeleteGenreCommand()),
     REMOVE_ACTOR(new DeleteActorCommand()),
     REMOVE_ACTOR_FROM_MOVIE(new RemoveActorFromMovieCommand()),
     REMOVE_DIRECTOR_FROM_MOVIE(new RemoveDirectorFromMovieCommand()),
     REMOVE_GENRE_FROM_MOVIE(new RemoveGenreFromMovieCommand()),
-    EDIT_MOVIE(new EditMovieCommand()),
     DISPLAY_ACTOR_INFO(new DisplayActorInfoCommand()),
     DISPLAY_DIRECTOR_INFO(new DisplayDirectorInfoCommand()),
     FIND_USER(new SearchUserCommand()),
