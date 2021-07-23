@@ -9,7 +9,7 @@ body {
 }
 
 .navigation {
-    background:	rgb(16,16,16);
+    background: rgb(16, 16, 16);
     width: 100%;
     height: 80px;
 }
@@ -19,7 +19,7 @@ button {
 }
 
 .dropdown {
-    background-color: rgb(16,16,16);
+    background-color: rgb(16, 16, 16);
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -59,19 +59,13 @@ button {
     color: #066ee7;
 }
 
-.language li {
-    width: 100%;
-    height: 100%;
-    display: flex;
-}
-
-.movies, .language {
+.movies, .language, .profile-picture {
     position: relative;
 }
 
 .movies ul {
     position: absolute;
-    background: rgb(16,16,16);
+    background: rgb(16, 16, 16);
     width: 250px;
     height: 200px;
     flex-direction: column;
@@ -83,10 +77,9 @@ button {
 }
 
 .language ul {
-    background-color: rgb(16,16,16);
+    background-color: rgb(16, 16, 16);
     position: absolute;
-    width: 140px;
-    height: 60px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     list-style: none;
@@ -94,6 +87,114 @@ button {
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.4s ease;
+}
+
+.profile-picture ul {
+    background-color: rgb(16, 16, 16);
+    position: absolute;
+    display: flex;
+    width: 280px;
+    margin-left: -89px;
+    flex-direction: column;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.profile-picture ul li button,
+.language ul li button {
+    font-size: 18px;
+    height: 40px;
+    width: 100%;
+    margin-left: 0px;
+    padding: 0px 15px;
+    text-align: left;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.profile-picture ul li ul {
+    margin-left: 0px;
+}
+
+.profile-picture ul li ul button img {
+    width: 25px;
+    height: 18px;
+    border-radius: 0;
+    border: 0;
+    outline: none;
+}
+
+
+.profile-picture i {
+    width: 25px;
+}
+
+.profile-picture ul li button h4,
+.language ul li button h4 {
+    font-family: sans-serif;
+    font-weight: 200;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.language ul li button img {
+    width: 30px;
+    height: 20px;
+    border: 0;
+    outline: none;
+}
+
+
+.profile-picture ul li button:hover,
+.language ul li button:hover {
+    background-color: rgb(40, 40, 40);
+    border: none;
+    outline: none;
+}
+
+.profile-picture button img {
+    object-fit: cover;
+    border: 1px solid rgb(96,96,96);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.profile-picture .profile-info {
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid silver;
+}
+
+.profile-info .profile-img {
+    float: left;
+    width: 65px;
+    height: 100%;
+    text-align: center;
+}
+
+.profile-info .profile-img img {
+    object-fit: cover;
+    border: 1px solid rgb(96,96,96);
+    margin-top: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.profile-info .user-name {
+    float: left;
+    height: 100%;
+}
+
+.user-name p {
+    color: white;
+    font-size: 22px;
+    font-family: sans-serif;
+    margin-top: 10px;
 }
 
 .dropdown button, a {
@@ -109,7 +210,7 @@ button {
     cursor: pointer;
 }
 
-.dropdown button:hover + ul{
+.dropdown button:hover + ul {
     text-decoration: none;
     opacity: 1;
     visibility: visible;
@@ -129,7 +230,8 @@ button {
 }
 
 .dropdown button:focus {
-    outline: none; !important;
+    outline: none;
+!important;
 }
 
 ul:hover {

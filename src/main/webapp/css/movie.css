@@ -29,6 +29,7 @@ h2 {
 form p {
     width: 800px;
     height: auto;
+    display: inline-block !important;
 }
 
 button{

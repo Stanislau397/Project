@@ -8,6 +8,7 @@
     <title>header</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 </head>
@@ -48,51 +49,105 @@
                     </li>
                 </ul>
             </div>
+
             <c:choose>
                 <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
                     <button>
                         <a href="${pageContext.request.contextPath}/jsp/login.jsp" style="margin-left: -4px"><fmt:message key="label.login"/></a>
                     </button>
-                </c:when>
-                <c:when test="${sessionScope.admin != null}">
-                        <form action="${pageContext.request.contextPath}/controller" method="get">
-                            <input type="hidden" name="command" value="to_admin_cabinet">
-                            <button type="submit"><fmt:message key="label.cabinet"/></button>
-                        </form>
-                </c:when>
-                <c:when test="${sessionScope.user != null}">
-                    <form action="${pageContext.request.contextPath}/controller" method="get">
-                        <input type="hidden" name="command" value="show_user_profile">
-                        <button type="submit"><fmt:message key="label.profile"/></button>
-                    </form>
+                    <div class="language">
+                        <button><fmt:message key="label.language"/></button>
+                        <ul>
+                            <li>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="command" value="change_locale">
+                                    <button type="submit" name="language" value="en"><img src="${pageContext.request.contextPath}/css/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                    <input type="hidden" name="command" value="change_locale">
+                                    <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/css/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </c:when>
             </c:choose>
 
-            <div class="language">
-                <button><fmt:message key="label.language"/></button>
-                <ul>
-                    <li>
-                        <form action="${pageContext.request.contextPath}/controller" method="post">
-                            <input type="hidden" name="command" value="change_locale">
-                            <button class="btn" type="submit" name="language" value="en"><fmt:message
-                                    key="label.en"/></button>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="${pageContext.request.contextPath}/controller" method="post">
-                            <input type="hidden" name="command" value="change_locale">
-                            <button class="btn" type="submit" name="language" value="ru"><fmt:message
-                                    key="label.ru"/></button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+            <c:if test="${sessionScope.admin == null || sessionScope.user == null}">
+            </c:if>
 
             <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="sign_out">
-                    <button type="submit"><fmt:message key="label.logout"/></button>
-                </form>
+                <div class="profile-picture">
+                    <button><img src="${pageContext.request.contextPath}${sessionScope.user_avatar}"></button>
+                    <ul>
+                        <li>
+                            <div class="profile-info">
+                                <div class="profile-img">
+                                    <img src="${pageContext.request.contextPath}${sessionScope.user_avatar}">
+                                </div>
+                                <div class="user-name">
+                                    <p><c:out value="${sessionScope.user_name}"/></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <c:choose>
+                                <c:when test="${sessionScope.admin == null && sessionScope.user == null}">
+                                    <button>
+                                        <a href="${pageContext.request.contextPath}/jsp/login.jsp" style="margin-left: -4px"><fmt:message key="label.login"/></a>
+                                    </button>
+                                </c:when>
+                                <c:when test="${sessionScope.admin != null}">
+                                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                                        <input type="hidden" name="command" value="to_admin_cabinet">
+                                        <button type="submit"><i class="fa fa-folder"></i><h4><fmt:message key="label.cabinet"/></h4></button>
+                                    </form>
+                                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                                        <input type="hidden" name="command" value="show_user_profile">
+                                        <button type="submit"><i class="fa fa-user"></i><h4><fmt:message key="label.profile"/></h4></button>
+                                    </form>
+                                </c:when>
+                                <c:when test="${sessionScope.user != null}">
+                                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                                        <input type="hidden" name="command" value="show_user_profile">
+                                        <button type="submit"><i class="fa fa-user"></i><h4><fmt:message key="label.profile"/></h4></button>
+                                    </form>
+                                </c:when>
+                            </c:choose>
+                        </li>
+                        <li>
+                            <form action="${pageContext.request.contextPath}/controller" method="get">
+                                <input type="hidden" name="command" value="to_user_settings">
+                                <input type="hidden" name="user_name" value="${sessionScope.user_name}">
+                                <button type="submit"><i class="fa fa-cog"></i><h4><fmt:message key="label.account_settings"/></h4></button>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="${pageContext.request.contextPath}/controller" method="post">
+                                <input type="hidden" name="command" value="sign_out">
+                            <button type="submit"><i class="fa fa-sign-out"></i><h4><fmt:message key="label.logout"/></h4></button>
+                            </form>
+                        </li>
+                        <li>
+                            <button><i class="fa fa-flag"></i><h4><fmt:message key="label.language"/></h4></button>
+                            <ul>
+                                <li>
+                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                        <input type="hidden" name="command" value="change_locale">
+                                        <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/css/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
+                                    </form>
+                                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                                        <input type="hidden" name="command" value="change_locale">
+                                        <button type="submit" name="language" value="en">
+                                            <img src="${pageContext.request.contextPath}/css/image/thumb2-british-flag-great-britain-silk-flag-of-great-britain.jpg"><h4><fmt:message key="label.en"/></h4></button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </c:if>
         </div>
     </div>
