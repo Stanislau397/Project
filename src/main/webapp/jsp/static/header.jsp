@@ -124,7 +124,7 @@
                                 <button type="submit"><i class="fa fa-cog"></i><h4><fmt:message key="label.account_settings"/></h4></button>
                             </form>
                         </li>
-                        <li>
+                        <li style="border-bottom: 1px solid silver">
                             <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="command" value="sign_out">
                             <button type="submit"><i class="fa fa-sign-out"></i><h4><fmt:message key="label.logout"/></h4></button>
