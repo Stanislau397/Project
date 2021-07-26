@@ -19,7 +19,10 @@ public class SessionAttribute {
     public static final String SIGN_IN_ERROR = "sign_in_error";
     public static final String SIGN_IN_ERROR_MESSAGE = "Your email or password is incorrect!";
     public static final String CHANGE_PASSWORD = "change_password";
-    public static final String ADD_ACTOR_MESSAGE = "add_actor_message";
-    public static final String ADD_DIRECTOR_MESSAGE = "add_director_message";
 
+    public static final String GENRE_SUCCESSFULLY_ADDED = "genre_successfully_added";
+    public static final String GENRE_ALREADY_EXISTS = "genre_already_exists";
+    public static final String GENRE_REMOVED = "genre_removed";
+    public static final String COMMENT_REMOVED = "comment_removed";
+    public static final String COMMENT_EDITED = "comment_edited";
 }

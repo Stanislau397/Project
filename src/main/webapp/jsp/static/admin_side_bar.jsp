@@ -16,6 +16,8 @@
 <nav class="sidebar">
     <div class="text">Admin Panel</div>
     <ul class="drop">
+        <li class="active"><a href="${pageContext.request.contextPath}/controller?command=open_home_page"><fmt:message
+                key="text.label.main"/></a></li>
         <li class="active"><a href="${pageContext.request.contextPath}/controller?command=to_admin_cabinet">Dashboard</a></li>
         <li class="active">
             <a href="#" class="feat-btn"><fmt:message key="label.movies"/>
@@ -40,19 +42,6 @@
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=to_genres"><fmt:message
                 key="label.genres"/></a></li>
-
-<%--            <--%>
-
-        <li class="active"><a
-                href="${pageContext.request.contextPath}/controller?command=show_user_profile"><fmt:message
-                key="label.profile"/></a></li>
-        <li class="active"><a href="${pageContext.request.contextPath}/controller?command=open_home_page"><fmt:message
-                key="text.label.main"/></a></li>
-        <li class="active"><a href="${pageContext.request.contextPath}/controller?command=sign_out"><fmt:message
-                key="label.logout"/></a></li>
-        <li class="active"><a
-                href="${pageContext.request.contextPath}/jsp/admin/edit_actor.jsp"><fmt:message
-                key="label.edit_actor"/></a></li>
     </ul>
 </nav>
 </body>

@@ -18,18 +18,67 @@
         <h2>Dashboard</h2>
     </div>
 </div>
-<div class="main-content">
-    <div class="content">
-        <div class="head">
-            <div class="icon">
-                <i class="fa fa-trophy"></i>
+<div class="icons-container">
+    <a href="${pageContext.request.contextPath}/controller?command=all_movies">
+        <div class="icon">
+            <div class="left">
+                <i class="fa fa-film"></i>
             </div>
-            <div class="name">
-                <p>Top movies</p>
+            <div class="right">
+                <h3><fmt:message key="label.movies"/></h3>
+                <p>90</p>
             </div>
-            <div class="button">
-                <button>Больше</button>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/controller?command=display_all_actors">
+        <div class="icon" style="background-color: #33cccc">
+            <div class="left" style="background-color: #2eb8c7">
+                <i class="fa fa-film"></i>
             </div>
+            <div class="right">
+                <h3><fmt:message key="label.actors"/></h3>
+                <p>45</p>
+            </div>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/controller?command=display_all_directors">
+        <div class="icon" style="background-color: #ffcc00">
+            <div class="left" style="background-color: #e6b80f">
+                <i class="fa fa-film"></i>
+            </div>
+            <div class="right">
+                <h3><fmt:message key="label.directors"/></h3>
+                <p>90</p>
+            </div>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/controller?command=to_genres">
+        <div class="icon" style="background-color: #ff3300">
+            <div class="left" style="background-color: #e62e0f">
+                <i class="fa fa-film"></i>
+            </div>
+            <div class="right">
+                <h3><fmt:message key="label.genres"/></h3>
+                <p>90</p>
+            </div>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/controller?command=all_users">
+        <div class="icon" style="background-color: #00cc00">
+            <div class="left" style="background-color: #00b80f">
+                <i class="fa fa-film"></i>
+            </div>
+            <div class="right">
+                <h3><fmt:message key="label.users"/></h3>
+                <p>90</p>
+            </div>
+        </div>
+    </a>
+</div>
+<div class="content">
+    <div class="table">
+        <div class="table-top">
+            <h3><fmt:message key="label.most_rated"/></h3>
         </div>
         <table class="content-table">
             <thead>
@@ -61,17 +110,9 @@
         </table>
     </div>
 
-    <div class="content">
-        <div class="head">
-            <div class="icon">
-                <i class="fa fa-film"></i>
-            </div>
-            <div class="name">
-                <p>Latest movies</p>
-            </div>
-            <div class="button">
-                <button>Больше</button>
-            </div>
+    <div class="table">
+        <div class="table-top">
+            <h3><fmt:message key="label.latest_movies"/></h3>
         </div>
         <table class="content-table">
             <thead>
@@ -103,17 +144,9 @@
         </table>
     </div>
 
-    <div class="content">
-        <div class="head">
-            <div class="icon">
-                <i class="fa fa-users"></i>
-            </div>
-            <div class="name">
-                <p>Latest users</p>
-            </div>
-            <div class="button">
-                <button>Больше</button>
-            </div>
+    <div class="table">
+        <div class="table-top">
+            <h3><fmt:message key="label.latest_users"/></h3>
         </div>
         <table class="content-table">
             <thead>
@@ -151,18 +184,9 @@
             </tbody>
         </table>
     </div>
-
-    <div class="content">
-        <div class="head">
-            <div class="icon">
-                <i class="fa fa-star"></i>
-            </div>
-            <div class="name">
-                <p>Latest reviews</p>
-            </div>
-            <div class="button">
-                <button>Больше</button>
-            </div>
+    <div class="table">
+        <div class="table-top">
+            <h3><fmt:message key="label.latest_ratings"/></h3>
         </div>
         <table class="content-table">
             <thead>
@@ -200,5 +224,7 @@
         </table>
     </div>
 </div>
+<br>
+<br>
 </body>
 </html>

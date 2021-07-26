@@ -12,10 +12,14 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static edu.epam.project.controller.command.RequestParameter.GENRE_ID;
+import static edu.epam.project.controller.command.RequestParameter.GENRE_TITLE_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
+
+import static edu.epam.project.controller.command.SessionAttribute.GENRE_REMOVED;
 
 public class DeleteGenreCommand implements Command {
 
@@ -25,12 +29,15 @@ public class DeleteGenreCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
+        String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
         long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         try {
             if (movieService.removeGenreById(genreId)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
+                session.setAttribute(GENRE_REMOVED, genreTitle);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

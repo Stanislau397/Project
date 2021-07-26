@@ -240,7 +240,7 @@ button:hover {
 }
 
 .pic a img {
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 5px;
     width: 150px;
     height: 180px;

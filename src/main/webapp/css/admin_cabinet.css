@@ -1,19 +1,22 @@
 body {
-    background-color: #1a191f;
+    background-color: rgb(224,224,224);
 }
 
 .top {
+    float: top;
     margin-left: 250px;
     height: 65px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid grey;
 }
 
 .top .text1 {
     float: left;
+    display: inline-block;
+    color: black;
 }
 
-.top .text1 h2 {
-    color: white;
+.top .text1 h2{
+    color: black;
     font-family: sans-serif;
     font-weight: 600;
     font-size: 25px;
@@ -21,79 +24,97 @@ body {
     margin-left: 10px;
 }
 
-.main-content {
+.icons-container {
+    float: top;
     margin-left: 250px;
+    height: 240px;
 }
 
-.main-content .content {
+a {
+    cursor: pointer;
+}
+
+.icons-container .icon {
     float: left;
     margin-left: 20px;
     margin-top: 20px;
-    width: 600px;
-    height: 320px;
+    width: 293px;
+    height: 80px;
     border-radius: 5px;
-    background-color: #222028;
+    background-color: #9999d6;
 }
 
-.main-content .content .head {
-    width: 100%;
-    height: 60px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.head .icon {
+.icon .left {
     float: left;
-    width: 30px;
-    height: 60px;
+    background-color: #7373c7;
+    width: 90px;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
-.head .icon i {
-    padding: 18px 12px;
-    font-size: 22px;
-    color: #f9ab00;
-}
-
-.head .name {
-    height: 60px;
+.icon .right {
     float: left;
-    width: 430px;
 }
 
-.head .name p {
-    padding: 13px 14px;
-    font-size: 20px;
+.icon .left i {
     color: white;
+    font-size: 50px;
+    margin-left: 17px;
+    margin-top: 12px;
 }
 
-.head .button {
-    float: left;
-    height: 60px;
+.icon .right h3 {
+    font-weight: 300;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 8px;
+    margin-left: 10px;
 }
 
-.head .button button {
-    margin-top: 18px;
-    margin-left: 30px;
-    cursor: pointer;
-    font-size: 16px;
+.icon .right p {
+    margin-left: 10px;
+    margin-top: 5px;
+    color: white;
     font-family: sans-serif;
-    height: 25px;
-    width: 100px;
-    border-radius: 5px;
-    color: white;
-    background-color: #212529;
-    border: 1px solid #212529;
-    outline: none;
+    font-size: 20px;
+    font-weight: 400;
 }
 
-.head .button button:hover {
-    color: #f9ab00;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.content {
+    float: top;
+    margin-left: 270px;
+    width: 1230px;
+    min-height: 680px;
+    border: 1px solid silver;
+}
+
+.content .table {
+    float: left;
+    background-color: white;
+    margin-left: 15px;
+    margin-top: 15px;
+    width: 590px;
+    min-height: 300px;
+}
+
+.table .table-top {
+    width: 100%;
+    height: 30px;
+    background-color: #7373c7;
+}
+
+.table-top h3 {
+    color: white;
+    font-weight: 300;
+    margin-left: 10px;
+    text-transform: uppercase;
 }
 
 .content-table {
     border-collapse: collapse;
     font-size: 1.1em;
-    min-width: 600px;
+    min-width: 590px;
     overflow: hidden;
     font-family: sans-serif;
     color: rgba(255, 255, 255, 0.7);
@@ -104,13 +125,14 @@ body {
     text-align: left;
     font-weight: bold;
     min-width: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);;
+    border-bottom: 1px solid black;
 }
 
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-    color: white;
+    text-align: left;
+    color: black;
     font-family: sans-serif;
     font-size: 14px;
 }
@@ -120,16 +142,17 @@ body {
 }
 
 .content-table button {
-    font-size: 13px;
+    font-size: 14px;
     border: none;
+    text-align: left;
     outline: none;
-    background-color: #222028;
-    color: white;
+    background-color: white;
+    color: black;
     cursor: pointer;
 }
 
 .content-table button:hover {
-    color: #f9c22a;
+    color: #7373c7;
     outline: none;
     border: none;
 }

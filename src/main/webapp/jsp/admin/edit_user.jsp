@@ -24,7 +24,7 @@
         </div>
         <div class="user-info">
             <ul>
-                <li style="color: white"><c:out value="${requestScope.user.userName}"/></li>
+                <li style="color: black"><c:out value="${requestScope.user.userName}"/></li>
                 <c:choose>
                     <c:when test="${requestScope.user.blocked}">
                         <li style="color: red; font-size: 13px">(<fmt:message key="label.banned"/>)</li>
@@ -34,7 +34,7 @@
                     </c:when>
                 </c:choose>
             </ul>
-            <p><fmt:message key="label.rights"/> <c:out value="${requestScope.user.role}"/></p>
+            <p style="color: black"><fmt:message key="label.rights"/> <c:out value="${requestScope.user.role}"/></p>
         </div>
         <div class="navigation">
             <ul>
@@ -52,9 +52,6 @@
                         <button type="submit"><fmt:message key="label.comment"/></button>
                     </form>
                 </li>
-                <li>
-                    <button><fmt:message key="label.scores"/></button>
-                </li>
             </ul>
         </div>
         <div class="right">
@@ -62,8 +59,8 @@
                 <div id="pop" class="overlay1">
                     <div class="pop">
                         <div class="text">
-                            <h2 style="color:white;"><fmt:message key="label.change_status"/></h2>
-                            <p style="color: white;"><fmt:message key="label.change_status_msg"/></p>
+                            <h2 style="color:black;"><fmt:message key="label.change_status"/></h2>
+                            <p style="color: black;"><fmt:message key="label.change_status_msg"/></p>
                         </div>
                         <div class="buttons">
                             <c:choose>
@@ -72,7 +69,7 @@
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="unblock_user">
                                             <input type="hidden" name="user_name" value="${requestScope.user.userName}">
-                                            <button type="submit" style="background: #1a191f;"><fmt:message key="label.change"/></button>
+                                            <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message key="label.change"/></button>
                                         </form>
                                     </div>
                                 </c:when>
@@ -81,13 +78,13 @@
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="block_user">
                                             <input type="hidden" name="user_name" value="${requestScope.user.userName}">
-                                            <button type="submit" style="background: #1a191f;;"><fmt:message key="label.change"/></button>
+                                            <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message key="label.change"/></button>
                                         </form>
                                     </div>
                                 </c:when>
                             </c:choose>
                             <div class="dismiss">
-                                <button style="background: #1a191f;"><a class="close" href="#"><fmt:message key="label.close"/></a></button>
+                                <button style="background: rgb(211,211,211);"><a class="close" href="#"><fmt:message key="label.close"/></a></button>
                             </div>
                         </div>
                     </div>
@@ -128,30 +125,7 @@
                         <li>
                         </li>
                     </ul>
-                    <button type="submit" style="margin-top: 90px"><fmt:message key="label.save"/></button>
-                </form>
-            </div>
-            <div class="change-password">
-                <h2><fmt:message key="label.change_password"/></h2>
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="change_password">
-                    <input type="hidden" name="user_name" value="${requestScope.user.userName}">
-                    <ul>
-                        <li>
-                            <label for="old_password"><fmt:message key="label.old_password"/></label>
-                            <input type="password" id="old_password" name="password">
-                        </li>
-                        <li>
-                            <label for="new_password"><fmt:message key="label.new_password"/></label>
-                            <input type="password" id="new_password" name="new_password">
-                        </li>
-                        <li>
-                            <label for="confirm_password" style="margin-top: 20px"><fmt:message
-                                    key="label.confirm_new_password"/></label>
-                            <input type="password" id="confirm_password" name="confirm_password">
-                        </li>
-                    </ul>
-                    <button type="submit"><fmt:message key="label.change_password"/></button>
+                    <button type="submit" style="margin-top: 90px;"><fmt:message key="label.save"/></button>
                 </form>
             </div>
         </c:when>
@@ -236,21 +210,6 @@ margin-top: 2px"></i></button>
                                                         value="${comments.comment.text}"/></textarea>
                                                 <button type="submit"><fmt:message key="label.save"/></button>
                                             </form>
-                                        </div>
-                                        <div class="votes">
-                                            <div class="up-votes">
-                                                <form action="${pageContext.request.contextPath}/controller"
-                                                      method="post">
-                                                    <input type="hidden" name="command" value="up_vote_comment">
-
-                                                </form>
-                                                <button><i class="fa fa-thumbs-up"></i> <c:out
-                                                        value="${comments.comment.commentUpVotes}"/></button>
-                                            </div>
-                                            <div class="down_votes">
-                                                <button><c:out value="${comments.comment.commentDownVotes}"/> <i
-                                                        class="fa fa-thumbs-down"></i></button>
-                                            </div>
                                         </div>
                                         <a class="close" href="#">&times;</a>
                                     </div>

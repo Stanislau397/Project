@@ -16,7 +16,40 @@ body {
 
 .top .counter {
     float: left;
+    width: 300px;
+}
+
+.top .message {
+    float: left;
+    margin-top: -100px;
     width: 400px;
+    height: 63px;
+    border: 1px solid silver;
+    text-align: center;
+    background-color: rgb(248,248,248);
+    animation: drop 0.7s ease forwards;
+}
+
+@keyframes drop  {
+    0%{}
+    70%{transform: translateY(100px)}
+    100%{transform: translateY(100px)}
+}
+
+.top .message h2 {
+    display: inline-block;
+    font-weight: 200 !important;
+    font-size: 18px !important;
+    text-align: center;
+}
+
+.top .message button {
+    border: 0;
+    background-color: rgb(248,248,248);
+    font-size: 20px;
+    margin-right: 3px;
+    float: right;
+    display: inline-block;
 }
 
 .top .counter p {
@@ -384,7 +417,7 @@ td:last-child {
     border: 1px solid #1a191f;
     outline: none;
     padding: 5px 12px;
-    color: grey;
+    color: black;
 }
 
 .add .pop input:focus{

@@ -22,6 +22,7 @@ public class SqlQuery {
     public static final String SELECT_MOVIE_GENRES = "SELECT genre_title, genres_id FROM genres JOIN movie_genres ON genres_id = genre_id_fk WHERE movie_id = (?) " +
             "GROUP BY genres_id";
     public static final String DELETE_GENRE_BY_ID = "DELETE FROM genres WHERE genres_id = (?)";
+    public static final String FIND_GENRE_BY_TITLE = "SELECT genres_id, genre_title FROM genres WHERE genre_title = (?)";
     public static final String INSERT_TO_MOVIE_GENRES = "INSERT INTO movie_genres(movie_id, genre_id_fk) VALUES(?,?)";
     public static final String DELETE_GENRE_FROM_MOVIE = "DELETE FROM movie_genres WHERE genre_id_fk = (?) AND movie_id = (?)";
 

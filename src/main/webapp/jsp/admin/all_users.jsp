@@ -63,51 +63,61 @@
                         </c:when>
                     </c:choose>
                     <td>
-                                <div class="right">
-                                    <a class="button" href="#pop${counter.count}"><button class="change-role-btn"><i class="fa fa-lock"></i></button></a>
-                                    <div id="pop${counter.count}" class="overlay1">
-                                        <div class="pop">
-                                            <div class="text">
-                                                <h2 style="color:white;"><fmt:message key="label.change_status"/></h2>
-                                                <p style="color: white;"><fmt:message key="label.change_status_msg"/></p>
-                                            </div>
-                                            <div class="buttons">
-                                                <c:choose>
-                                                    <c:when test="${users.blocked}">
-                                                        <div class="change-status">
-                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                                <input type="hidden" name="command" value="unblock_user">
-                                                                <input type="hidden" name="user_name" value="${users.userName}">
-                                                                <button type="submit" class="change-btn" style="background: #1a191f;"><fmt:message key="label.change"/></button>
-                                                            </form>
-                                                        </div>
-                                                    </c:when>
-                                                    <c:when test="${users.blocked == false}">
-                                                        <div class="change-status">
-                                                            <form action="${pageContext.request.contextPath}/controller" method="post">
-                                                                <input type="hidden" name="command" value="block_user">
-                                                                <input type="hidden" name="user_name" value="${users.userName}">
-                                                                <button type="submit" class="chang-btn" style="background: #1a191f;;"><fmt:message key="label.change"/></button>
-                                                            </form>
-                                                        </div>
-                                                    </c:when>
-                                                </c:choose>
-                                                <div class="dismiss">
-                                                    <button style="background: #1a191f;"><a class="close" href="#"><fmt:message key="label.close"/></a></button>
+                        <div class="right">
+                            <a class="button" href="#pop${counter.count}">
+                                <button class="change-role-btn"><i class="fa fa-lock"></i></button>
+                            </a>
+                            <div id="pop${counter.count}" class="overlay1">
+                                <div class="pop">
+                                    <div class="text">
+                                        <h2 style="color:black;"><fmt:message key="label.change_status"/></h2>
+                                        <p style="color: black;"><fmt:message key="label.change_status_msg"/></p>
+                                    </div>
+                                    <div class="buttons">
+                                        <c:choose>
+                                            <c:when test="${users.blocked}">
+                                                <div class="change-status">
+                                                    <form action="${pageContext.request.contextPath}/controller"
+                                                          method="post">
+                                                        <input type="hidden" name="command" value="unblock_user">
+                                                        <input type="hidden" name="user_name" value="${users.userName}">
+                                                        <button type="submit" class="change-btn"
+                                                                style="background-color: 	rgb(211,211,211);">
+                                                            <fmt:message key="label.change"/></button>
+                                                    </form>
                                                 </div>
-                                            </div>
+                                            </c:when>
+                                            <c:when test="${users.blocked == false}">
+                                                <div class="change-status">
+                                                    <form action="${pageContext.request.contextPath}/controller"
+                                                          method="post">
+                                                        <input type="hidden" name="command" value="block_user">
+                                                        <input type="hidden" name="user_name" value="${users.userName}">
+                                                        <button type="submit" class="chang-btn"
+                                                                style="background-color: 	rgb(211,211,211);;">
+                                                            <fmt:message key="label.change"/></button>
+                                                    </form>
+                                                </div>
+                                            </c:when>
+                                        </c:choose>
+                                        <div class="dismiss">
+                                            <button style="background-color: 	rgb(211,211,211);"><a class="close"
+                                                                                                       href="#"><fmt:message
+                                                    key="label.close"/></a></button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="change-role">
-                                    <form action="${pageContext.request.contextPath}/controller" method="get">
-                                        <input type="hidden" name="command" value="to_edit_user">
-                                        <input type="hidden" name="user_name" value="${users.userName}">
-                                        <button type="submit" class="change-role-btn"><i class="fa fa-edit"
-                                                                                         style="color: white; font-size: 20px;"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="change-role">
+                            <form action="${pageContext.request.contextPath}/controller" method="get">
+                                <input type="hidden" name="command" value="to_edit_user">
+                                <input type="hidden" name="user_name" value="${users.userName}">
+                                <button type="submit" class="change-role-btn"><i class="fa fa-edit"
+                                                                                 style="color: white; font-size: 20px;"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
@@ -131,36 +141,46 @@
                 </c:choose>
                 <td>
                     <div class="right">
-                        <a class="button" href="#pop"><button class="change-role-btn"><i class="fa fa-lock"></i></button></a>
+                        <a class="button" href="#pop">
+                            <button class="change-role-btn"><i class="fa fa-lock"></i></button>
+                        </a>
                         <div id="pop" class="overlay1">
                             <div class="pop">
                                 <div class="text">
-                                    <h2 style="color:white;"><fmt:message key="label.change_status"/></h2>
-                                    <p style="color: white;"><fmt:message key="label.change_status_msg"/></p>
+                                    <h2 style="color:black;"><fmt:message key="label.change_status"/></h2>
+                                    <p style="color: black;"><fmt:message key="label.change_status_msg"/></p>
                                 </div>
                                 <div class="buttons">
                                     <c:choose>
                                         <c:when test="${user.blocked}">
                                             <div class="change-status">
-                                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                <form action="${pageContext.request.contextPath}/controller"
+                                                      method="post">
                                                     <input type="hidden" name="command" value="unblock_user">
                                                     <input type="hidden" name="user_name" value="${user.userName}">
-                                                    <button type="submit" class="change-btn" style="background: #1a191f;"><fmt:message key="label.change"/></button>
+                                                    <button type="submit" class="change-btn"
+                                                            style="background-color: 	rgb(211,211,211);"><fmt:message
+                                                            key="label.change"/></button>
                                                 </form>
                                             </div>
                                         </c:when>
                                         <c:when test="${user.blocked == false}">
                                             <div class="change-status">
-                                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                <form action="${pageContext.request.contextPath}/controller"
+                                                      method="post">
                                                     <input type="hidden" name="command" value="block_user">
                                                     <input type="hidden" name="user_name" value="${user.userName}">
-                                                    <button type="submit" class="chang-btn" style="background: #1a191f;;"><fmt:message key="label.change"/></button>
+                                                    <button type="submit" class="chang-btn"
+                                                            style="background-color: 	rgb(211,211,211);"><fmt:message
+                                                            key="label.change"/></button>
                                                 </form>
                                             </div>
                                         </c:when>
                                     </c:choose>
                                     <div class="dismiss">
-                                        <button style="background: #1a191f;"><a class="close" href="#"><fmt:message key="label.close"/></a></button>
+                                        <button style="background-color: 	rgb(211,211,211);"><a class="close"
+                                                                                                   href="#"><fmt:message
+                                                key="label.close"/></a></button>
                                     </div>
                                 </div>
                             </div>

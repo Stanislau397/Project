@@ -1261,6 +1261,26 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException {
+        Optional<Genre> isFound = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_GENRE_BY_TITLE)) {
+            statement.setString(1, genreTitle);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                long genreId = resultSet.getLong(TableColumn.GENRE_ID);
+                String title = resultSet.getString(TableColumn.GENRE_TITLE);
+                Genre genre = new Genre(genreId, title);
+                isFound = Optional.of(genre);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isFound;
+    }
+
+    @Override
     public boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException {
         boolean isGenreRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();

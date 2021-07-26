@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(245,245,245);
+    background-color: rgb(224,224,224);
 }
 
 .top {
@@ -32,7 +32,7 @@ body {
     float: left;
     width: 100%;
     height: 80px;
-    background-color: #222028;
+    background-color: 	rgb(211,211,211);
     border-radius: 10px;
 }
 
@@ -43,14 +43,16 @@ body {
 }
 
 .main-content .head .picture img {
+    object-fit: cover;
     margin-top: 17px;
     margin-left: 20px;
     width: 40px;
     height: 40px;
-    background-color: #212529;
+    background-color: 	rgb(211,211,211);
 }
 
 .main-content .head .user-info {
+    color: black;
     height: 80px;
     width: 210px;
     float: left;
@@ -93,8 +95,8 @@ body {
 .main-content .head .navigation li button {
     margin-top: 10px;
     height: 70px;
-    color: white;
-    background-color: #222028;
+    color: black;
+    background-color: rgb(211, 211, 211);
     font-family: sans-serif;
     text-transform: uppercase;
     font-size: 16px;
@@ -104,8 +106,8 @@ body {
 }
 
 .main-content .head .navigation li button:hover {
-    color: #f9c22a;
-    border-bottom: 2px solid #f9c22a;
+    color: #060077;
+    border-bottom: 2px solid #060077;
 }
 
 .main-content .head .right {
@@ -133,35 +135,15 @@ body {
     margin-top: 30px;
     width: 580px;
     height: 310px;
-    background-color: #1a191f;
-    border: 1px solid #222028;
+    background-color: rgb(224,224,224);
+    border: 1px solid silver;
     border-radius: 10px;
-}
-
-.main-content .change-password {
-    float: left;
-    margin-top: 30px;
-    margin-left: 20px;
-    width: 580px;
-    height: 310px;
-    background-color: #1a191f;
-    border: 1px solid #222028;
-    border-radius: 10px;
-}
-
-.main-content .change-password h2 {
-    margin-left: 20px;
-    margin-top: 25px;
-    color: white;
-    font-size: 18px;
-    font-weight: 150;
-    font-family: sans-serif;
 }
 
 .main-content .edit-user-info h2 {
     margin-left: 20px;
     margin-top: 25px;
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: 150;
     font-family: sans-serif;
@@ -182,50 +164,50 @@ input, label {
 
 input {
     margin-top: 5px;
-    color: #fff;
+    color: black;
     width: 250px;
     height: 45px;
-    background-color: #222028;
+    background-color: rgb(224,224,224);
     font-family: sans-serif;
     font-size: 17px;
     padding: 0 15px;
     border-radius: 10px;
-    border: 0;
+    border: 1px solid black;
     outline: 0;
 }
 
 label {
-    color: white;
+    color: black;
     font-family: sans-serif;
     font-size: 18px;
     margin-left: 5px;
 }
 
 input:focus {
-    border: 2px solid #f9c22a;
+    border: 2px solid #060077;
 }
 
 select {
     margin-top: 3px;
     width: 250px;
     height: 45px;
-    background-color: #222028;
-    color: white;
+    background-color: rgb(224,224,224);
+    border: 1px solid black;
+    color: black;
     font-family: sans-serif;
     font-size: 18px;
     cursor: pointer;
-    border: 0;
     border-radius: 10px;
 }
 
-.main-content .edit-user-info button, .change-password button {
+.main-content .edit-user-info button {
     margin-top: 20px;
     margin-left: 20px;
-    border: 2px solid #f9c22a;
+    border: 2px solid black;
     font-family: sans-serif;
     font-size: 20px;
-    color: white;
-    background-color: #222028;
+    color: black;
+    background-color: rgb(224,224,224);
     border-radius: 10px;
     cursor: pointer;
     width: 180px;
@@ -237,13 +219,13 @@ select {
     font-size: 1.1em;
     width: 100%;
     overflow: hidden;
-    color: rgba(255, 255, 255, 0.7);
+    color: black;
     font-family: sans-serif;
     border-spacing: 0 12px;
 }
 
 .content-table thead tr {
-    color: rgba(255, 255, 255, 0.7);
+    color: black;
     text-transform: uppercase;
     text-align: left;
     font-weight: bold;
@@ -261,13 +243,13 @@ td:last-child {
 }
 
 .content-table td {
-    background-color: #222028;
+    background-color: 	rgb(211,211,211);
 }
 
 .content-table th,
 .content-table td {
     padding: 12px 15px;
-    color: white;
+    color: black;
     font-family: sans-serif;
     font-size: 14px;
 }
@@ -280,7 +262,7 @@ td:last-child {
     font-size: 13px;
     border: none;
     outline: none;
-    background-color: #222028;
+    background-color: 	rgb(211,211,211);
     color: white;
     cursor: pointer;
 }
@@ -355,7 +337,7 @@ button {
     left: 30%;
     width: 600px;
     padding: 15px;
-    background: #1a191f;
+    background-color: 	rgb(211,211,211);
     border-radius: 5px;
     min-height: 150px;
     overflow: hidden;
@@ -366,7 +348,6 @@ button {
 .edit .popup .info {
     width: 100%;
     height: 55px;
-    border-bottom: 1px solid #222028;
 }
 
 .edit .info .picture {
@@ -384,7 +365,6 @@ button {
     width: 100%;
     min-height: 150px;
     overflow: hidden;
-    border-bottom: 1px solid #222028;
 }
 
 .edit .info .votes {
@@ -393,35 +373,36 @@ button {
 
 textarea {
     overflow: hidden;
-    padding: 20px 0;
+    padding: 10px 5px;
     width: 100%;
     height: 150px;
-    background: #1a191f;
+    background: rgb(232,232,232);
     border: 0;
     outline: none;
-    color: white;
+    color: black;
     font-family: sans-serif;
     font-size: 20px;
-    border-bottom: 1px solid #222028;
     font-weight: 150;
     resize: none;
 }
 
 .popup .text button {
     float: right;
+    color: black;
     width: 120px;
     height: 35px;
     font-size: 18px;
     font-weight: 200;
     margin-top: 10px;
+    background-color: 	rgb(211,211,211);
     margin-right: 10px;
-    border: 2px solid #f9c22a;
+    border: 2px solid black;
     font-family: sans-serif;
     border-radius: 5px;
 }
 
 textarea:focus {
-    border-bottom: 1px solid #222028;
+    border: 0;
     outline: none;
 }
 
@@ -435,7 +416,7 @@ textarea:focus {
     top: 5px;
     right: 15px;
     transition: all 200ms;
-    color: white;
+    color: black;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
@@ -474,7 +455,7 @@ textarea:focus {
     left: 40%;
     width: 450px;
     padding: 15px;
-    background: #1a191f;
+    background-color: 	rgb(211,211,211);
     border-radius: 5px;
     min-height: 150px;
     overflow: hidden;
@@ -490,53 +471,6 @@ textarea:focus {
     .pop {
         width: 70%;
     }
-}
-
-.up-votes {
-    margin-top: 12px;
-    float: left;
-}
-
-.down_votes {
-    margin-top: 12px;
-    margin-left: 5px;
-    float: left;
-    border-left: 1px solid #2e2e2e;
-}
-
-.up-votes button {
-    width: 30px;
-    height: 20px;
-    background: #1a191f;
-    border: 0;
-    cursor: pointer;
-    outline: none;
-}
-
-.down_votes button {
-    margin-left: 3px;
-    width: 30px;
-    height: 20px;
-    background: #1a191f;
-    border: 0;
-    cursor: pointer;
-    outline: none;
-}
-
-
-.up-votes button:hover, .down_votes button:hover {
-    border: 0;
-    outline: none;
-}
-
-.up-votes i {
-    font-size: 15px;
-    color: #66cc33;
-}
-
-.down_votes i {
-    font-size: 15px;
-    color: red;
 }
 
 .pop .text, .right .pop .text {
@@ -566,25 +500,25 @@ textarea:focus {
     margin-top: 12px;
     width: 183px;
     height: 42px;
-    border: 2px solid #f9c22a;
+    border: 2px solid black;
     border-radius: 10px;
     font-family: sans-serif;
     font-weight: 300;
     font-size: 18px;
-    color: white;
+    color: black;
 }
 
 .buttons button a, .right .buttons button a {
     width: 183px;
     height: 42px;
-    color: white;
+    color: black;
     text-decoration: none;
     font-family: sans-serif;
 }
 
 .buttons button:hover, .right .buttons button:hover {
-    color: white;
-    border: 2px solid #f9c22a;
+    color: black;
+    border: 2px solid black;
 }
 
 

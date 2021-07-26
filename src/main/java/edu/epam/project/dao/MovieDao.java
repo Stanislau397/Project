@@ -128,6 +128,8 @@ public interface MovieDao {
 
     boolean addGenreToMovie(long genreId, long movieId) throws DaoException;
 
+    Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException;
+
     boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException;
 
     List<Genre> findAllGenres() throws DaoException;

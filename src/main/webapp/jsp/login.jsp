@@ -13,7 +13,7 @@
 <body>
 <div class="form-box">
     <div class="login-box">
-        <span style="color: red">
+        <span id="error" style="color: red">
             ${requestScope.sign_in_error}
         </span>
         <h1><fmt:message key="login.label.authorize"/></h1>

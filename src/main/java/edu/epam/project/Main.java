@@ -3,6 +3,7 @@ package edu.epam.project;
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.Actor;
+import edu.epam.project.entity.Genre;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
@@ -27,11 +28,13 @@ public class Main {
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        UserService userService = new UserServiceImpl();
-        System.out.println(userService.updateUserAvatarById(2, "kss"));
+       MovieDao movieDao = new MovieDaoImpl();
+        System.out.println(isGenreAlreadyExists("Action"));
     }
 
-    public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
-            return Period.between(birthDate, currentDate).getYears();
+    private static boolean isGenreAlreadyExists(String genreTitle) throws DaoException {
+        MovieDao movieDao = new MovieDaoImpl();
+        Optional<Genre> genreOptional = movieDao.findGenreByTitle(genreTitle);
+        return genreOptional.isPresent();
     }
 }

@@ -7,6 +7,7 @@
 <head>
     <title><fmt:message key="label.all_genres"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </head>
 <body>
@@ -17,6 +18,50 @@
     <div class="counter">
         <p>(<c:out value="${requestScope.genres_list.size()}"/>)</p>
     </div>
+    <c:choose>
+        <c:when test="${sessionScope.genre_successfully_added != null}">
+            <div class="message">
+                <div class="head">
+                    <h2><fmt:message key="label.message"/></h2>
+                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
+                </div>
+                <div class="bottom">
+                    <p><c:out value="${sessionScope.genre_successfully_added}"/> <fmt:message
+                            key="label.genre_success"/></p>
+                </div>
+                <c:remove var="genre_successfully_added" scope="session"/>
+            </div>
+        </c:when>
+        <c:when test="${sessionScope.genre_already_exists != null}">
+            <div class="message">
+                <div class="head">
+                    <h2><fmt:message key="label.message"/></h2>
+                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
+                </div>
+                <div class="bottom">
+                    <p style="color: red"><fmt:message key="label.genre_exists">
+                        <fmt:param value="${sessionScope.genre_already_exists}"/>
+                    </fmt:message></p>
+                </div>
+                <c:remove var="genre_already_exists" scope="session"/>
+            </div>
+        </c:when>
+        <c:when test="${sessionScope.genre_removed != null}">
+            <div class="message">
+                <div class="head">
+                    <h2><fmt:message key="label.message"/></h2>
+                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
+                </div>
+                <div class="bottom">
+                    <p><fmt:message key="label.genre_removed">
+                        <fmt:param value="${sessionScope.genre_removed}"/>
+                    </fmt:message></p>
+                </div>
+                <c:remove var="genre_removed" scope="session"/>
+            </div>
+        </c:when>
+    </c:choose>
+
 </div>
 <div class="main-content">
     <div class="add">
@@ -28,7 +73,7 @@
                 <div class="pop">
                     <input type="hidden" name="command" value="add_genre">
                     <div class="text">
-                        <h2 ><fmt:message key="label.add_genre"/></h2>
+                        <h2><fmt:message key="label.add_genre"/></h2>
                         <input type="text" name="genre_title" placeholder="<fmt:message key="label.name"/>">
                     </div>
                     <div class="buttons">
@@ -72,14 +117,16 @@
                                 <div class="pop">
                                     <input type="hidden" name="command" value="remove_genre">
                                     <input type="hidden" name="genre_id" value="${allGenres.genreId}">
+                                    <input type="hidden" name="genre_title" value="${allGenres.genreTitle}">
                                     <div class="text">
                                         <h2><fmt:message key="label.delete_genre"/></h2>
                                         <p class="text"><fmt:message key="label.delete_genre_msg"/></p>
                                     </div>
                                     <div class="buttons">
                                         <div class="remove">
-                                            <button type="submit" style="color: black; background-color: #FFF"><fmt:message
-                                                    key="label.remove"/></button>
+                                            <button type="submit" style="color: black; background-color: #FFF">
+                                                <fmt:message
+                                                        key="label.remove"/></button>
                                         </div>
                                         <div class="dismiss">
                                             <button style=" margin-left: 14px; background-color: #FFF"><a
@@ -101,4 +148,9 @@
 <br>
 <br>
 </body>
+<script type="text/javascript">
+    $('.exit-btn').focus(function () {
+        $('.message').hide().fadeOut('slow');
+    })
+</script>
 </html>

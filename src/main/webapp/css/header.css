@@ -32,13 +32,67 @@ button {
     color: white;
     height: 100%;
     display: table-cell;
-    vertical-align: center;
-    margin-top: 35px;
+    margin-top: 50px;
     margin-right: 30px;
     text-align: right;
     font-family: 'Montserrat';
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 200;
+}
+
+.logo {
+    margin-left: 10px;
+    float: left;
+    min-width: 300px;
+    height: 60px;
+}
+
+.search-box {
+    float: left;
+    min-width: 650px;
+    width: 800px;
+    height: 60px;
+}
+
+.search-box input {
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    transition: 0.5s;
+}
+
+.search-box input[type="text"] {
+    background: rgb(16, 16, 16);
+    border-radius: 8px 0 0 8px;
+    color: white;
+    margin-left: 30px;
+    margin-top: 15px;
+    min-width: 630px;
+    height: 35px;
+    padding: 0 15px;
+    outline: none;
+    border: 1px solid white;
+}
+
+.search-box button[type="submit"] {
+    position: relative;
+    margin-left: -5px !important;
+    height: 35px !important;
+    width: 50px !important;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 0 8px 8px 0 !important;
+    cursor: pointer;
+    background: rgb(16, 16, 16) !important;
+    color: white !important;
+}
+
+.search-box button:hover {
+    border-right: 1px solid white !important;
+    border-top: 1px solid white !important;
+    border-bottom: 1px solid white !important;
+    padding: 0 !important;
 }
 
 .dropdown h1 span {
@@ -226,34 +280,16 @@ button {
     border-bottom-width: 3px;
     border-bottom-style: solid;
     border-bottom-color: red;
-    padding-bottom: 1px;
 }
 
 .dropdown button:focus {
-    outline: none;
-!important;
+    outline: none;!important;
 }
 
 ul:hover {
     opacity: 1;
     visibility: visible;
     transform: translateY(0px);
-}
-
-.search-movie input {
-    margin-top: 30px;
-    margin-right: 180px;
-    height: 30px;
-    border: 1px solid white;
-    border-radius: 5px;
-    width: 350px;
-}
-
-.search-movie button {
-    float: left;
-    width: 25px;
-    margin-left: 355px;
-    margin-top: -55px;
 }
 
 .language .btn {

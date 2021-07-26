@@ -16,13 +16,19 @@
 <nav>
     <div class="navigation">
         <div class="dropdown" style="position: absolute; z-index: 3">
-            <h1>MOVIE<span>APP</span></h1>
+            <div class="logo">
+                <a href="${pageContext.request.contextPath}/controller?command=open_home_page">
+                    <h1>MOVIE<span>APP</span></h1>
+                </a>
+            </div>
 
-                <form class="search-movie" action="${pageContext.request.contextPath}/controller" method="get">
+            <div class="search-box">
+                <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="search_movie">
-                    <input type="text" name="key_word" placeholder="<fmt:message key="label.search_movie"/>">
-                    <button class="icon" type="submit"><i class="fa fa-search"></i></button>
+                    <input type="text" name="key_word">
+                    <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
+            </div>
 
             <form action="${pageContext.request.contextPath}/controller" method="get">
                 <input type="hidden" name="command" value="open_home_page">
@@ -141,7 +147,7 @@
                                     <form action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" name="command" value="change_locale">
                                         <button type="submit" name="language" value="en">
-                                            <img src="${pageContext.request.contextPath}/css/image/thumb2-british-flag-great-britain-silk-flag-of-great-britain.jpg"><h4><fmt:message key="label.en"/></h4></button>
+                                            <img src="${pageContext.request.contextPath}/css/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
                                     </form>
                                 </li>
                             </ul>

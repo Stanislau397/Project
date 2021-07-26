@@ -120,6 +120,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Optional<Genre> findGenreByTitle(String genreTitle) throws ServiceException {
+        Optional<Genre> isFound;
+        try {
+            isFound = movieDao.findGenreByTitle(genreTitle);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isFound;
+    }
+
+    @Override
     public boolean addGenreToMovie(long genreId, long movieId) throws ServiceException {
         boolean isGenreAdded;
         try {

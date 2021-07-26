@@ -16,6 +16,22 @@
 </head>
 <body>
 <div class="top">
+    <c:choose>
+        <c:when test="${sessionScope.comment_removed != null}">
+            <div class="message">
+                <button class="exit-btn"><i class="fa fa-remove"></i></button>
+                <p><fmt:message key="label.comment_removed"/></p>
+                <c:remove var="comment_removed" scope="session"/>
+            </div>
+        </c:when>
+        <c:when test="${sessionScope.comment_edited != null}">
+            <div class="message">
+                <button class="exit-btn"><i class="fa fa-remove"></i></button>
+                <p><fmt:message key="label.comment_update"/></p>
+                <c:remove var="comment_edited" scope="session"/>
+            </div>
+        </c:when>
+    </c:choose>
     <div class="left">
         <div class="title">
             <h1><c:out value="${requestScope.movie_info.title}"/><p><fmt:formatDate
@@ -219,7 +235,8 @@
                             <input type="hidden" name="first_name" value="${directors.firstName}">
                             <input type="hidden" name="last_name" value="${directors.lastName}">
                             <input type="hidden" name="director_id" value="${directors.directorId}">
-                            <button type="submit" style="color:#060077;"><c:out value="${directors.firstName} ${directors.lastName}"/></button>
+                            <button type="submit" style="color:#060077;"><c:out
+                                    value="${directors.firstName} ${directors.lastName}"/></button>
                         </form>
                     </c:forEach>
                 </li>
@@ -355,7 +372,8 @@
                                         </div>
                                         <div class="buttons">
                                             <div class="remove">
-                                                <button class="remove-comment-btn" type="submit"><fmt:message key="label.remove"/></button>
+                                                <button class="remove-comment-btn" type="submit"><fmt:message
+                                                        key="label.remove"/></button>
                                             </div>
                                         </div>
                                     </div>
@@ -377,7 +395,8 @@
                                         <textarea name="updated_text"><c:out value="${comments.text}"/></textarea>
                                         <div class="buttons">
                                             <div class="remove">
-                                                <button class="edit-comment-btn" type="submit"><fmt:message key="label.edit1"/></button>
+                                                <button class="edit-comment-btn" type="submit"><fmt:message
+                                                        key="label.edit1"/></button>
                                             </div>
                                         </div>
                                     </div>
@@ -533,6 +552,10 @@
         $('.star10').mouseleave(function () {
             $('.dynamic').hide();
         });
+    });
+
+    $('.exit-btn').focus(function () {
+        $('.message').hide().fadeOut('slow');
     });
 </script>
 </html>
