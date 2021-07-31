@@ -7,11 +7,22 @@
 <head>
     <title><fmt:message key="label.account_settings"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/settings.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <header>
     <jsp:include page="/jsp/static/header.jsp"/>
 </header>
 <body>
+<div>
+<c:if test="${sessionScope.avatar_edited != null}">
+    <div class="update-message">
+        <button class="exit-btn"><i class="fa fa-remove"></i></button>
+        <p><fmt:message key="label.avatar_update"/></p>
+        <c:set var="user_avatar" scope="session" value="${sessionScope.avatar_edited}"/>
+        <c:remove var="avatar_edited" scope="session"/>
+    </div>
+</c:if>
     <h2><fmt:message key="label.account_settings"/></h2>
     <hr>
     <h3><fmt:message key="label.profile_image"/></h3>
@@ -34,11 +45,11 @@
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="change_password">
             <input type="hidden" name="user_name" value="${requestScope.user.userName}">
-            <input type="password" name="password" placeholder="Current Password"
+            <input type="password" name="password" placeholder="<fmt:message key="label.current_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
-            <input type="password" name="new_password" placeholder="New Password"
+            <input type="password" name="new_password" placeholder="<fmt:message key="label.new_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
-            <input type="password" name="verify_password" placeholder="Verify Password"
+            <input type="password" name="verify_password" placeholder="<fmt:message key="label.verify_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
             <button type="submit" name="submit"><fmt:message key="label.change_password"/></button>
         </form>
@@ -49,6 +60,7 @@
             <c:out value="${sessionScope.change_password}"/>
         </c:if>
     </p>
+</div>
 
     <script>
         const inpFile = document.getElementById("inpFile");
@@ -71,6 +83,10 @@
 
                 reader.readAsDataURL(file);
             }
+        });
+
+        $('.exit-btn').focus(function () {
+            $('.update-message').hide().fadeOut('slow');
         });
     </script>
 </body>

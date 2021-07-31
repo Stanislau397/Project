@@ -3,7 +3,6 @@ package edu.epam.project.controller.command.impl.user;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -13,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,8 @@ import java.io.IOException;
 import static edu.epam.project.controller.command.RequestParameter.USER_ID;
 import static edu.epam.project.controller.command.RequestParameter.FILE;
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
+
+import static edu.epam.project.controller.command.SessionAttribute.AVATAR_EDITED;
 
 public class ChangeAvatarCommand implements Command {
 
@@ -31,6 +33,7 @@ public class ChangeAvatarCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         long userId = Long.parseLong(request.getParameter(USER_ID));
         Part part = request.getPart(FILE);
         String currentPage = request.getHeader(REFERER);
@@ -38,8 +41,10 @@ public class ChangeAvatarCommand implements Command {
         try {
             if (userService.updateUserAvatarById(userId, avatar)) {
                 processUploadedFile(part);
+                session.setAttribute(AVATAR_EDITED, avatar);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
+                System.out.println(session.getAttribute("user_avatar"));
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

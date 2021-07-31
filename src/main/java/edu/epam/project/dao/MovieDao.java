@@ -22,9 +22,11 @@ public interface MovieDao {
 
     int countMovies() throws DaoException;
 
+    int countUserRatedMovies(String userName) throws DaoException;
+
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException;
 
-    List<Movie> findAll() throws DaoException;
+    List<Movie> findAll(int page, int total) throws DaoException;
 
     List<Movie> findAllCurrentYearMovies() throws DaoException;
 
@@ -52,11 +54,15 @@ public interface MovieDao {
 
     List<Movie> findMoviesForActorByActorId(long actorId) throws DaoException;
 
+    Optional<Movie> findLatestHighRatedMovieForUser(String userName) throws DaoException;
+
+    Optional<Movie> findLatestLowRatedMovieForUser(String userName) throws DaoException;
+
     Optional<Movie> findMovieByTitle(String title) throws DaoException;
 
     Optional<Movie> findMovieById(long id) throws DaoException;
 
-    List<Movie> findRatedMoviesByUserName(String userName) throws DaoException;
+    List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws DaoException;
 
     List<Movie> findMoviesByKeyWord(String keyWord) throws DaoException;
 
@@ -133,4 +139,10 @@ public interface MovieDao {
     boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException;
 
     List<Genre> findAllGenres() throws DaoException;
+
+    int countGenres() throws DaoException;
+
+    int countActors() throws DaoException;
+
+    int countDirectors() throws DaoException;
 }

@@ -31,18 +31,6 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public int countAmountOfUserScoresByUserName(String userName) throws ServiceException {
-        int amountOfReviews;
-        try {
-            amountOfReviews = ratingDao.countAmountOfUserScoresByUserName(userName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return amountOfReviews;
-    }
-
-    @Override
     public boolean rateMovie(long movieId, String userName, int score) throws ServiceException {
         boolean isRated;
         try {
@@ -88,5 +76,53 @@ public class RatingServiceImpl implements RatingService {
             throw new ServiceException(e);
         }
         return score;
+    }
+
+    @Override
+    public int countPositiveMovieScores(String userName) throws ServiceException {
+        int countPositive;
+        try {
+            countPositive = ratingDao.countPositiveMovieScores(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return countPositive;
+    }
+
+    @Override
+    public int countMixedMovieScores(String userName) throws ServiceException {
+        int countMixed;
+        try {
+            countMixed = ratingDao.countMixedMovieScores(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return countMixed;
+    }
+
+    @Override
+    public int countNegativeMovieScores(String userName) throws ServiceException {
+        int countNegative;
+        try {
+            countNegative = ratingDao.countNegativeMovieScores(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return countNegative;
+    }
+
+    @Override
+    public int countAllMovieScores(String userName) throws ServiceException {
+        int countAll;
+        try {
+            countAll = ratingDao.countAllMovieScores(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return countAll;
     }
 }

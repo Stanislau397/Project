@@ -26,7 +26,7 @@
             </div>
             <div class="right">
                 <h3><fmt:message key="label.movies"/></h3>
-                <p>90</p>
+                <p><c:out value="${requestScope.count_movies}"/></p>
             </div>
         </div>
     </a>
@@ -37,7 +37,7 @@
             </div>
             <div class="right">
                 <h3><fmt:message key="label.actors"/></h3>
-                <p>45</p>
+                <p><c:out value="${requestScope.count_actors}"/></p>
             </div>
         </div>
     </a>
@@ -48,7 +48,7 @@
             </div>
             <div class="right">
                 <h3><fmt:message key="label.directors"/></h3>
-                <p>90</p>
+                <p><c:out value="${requestScope.count_directors}"/></p>
             </div>
         </div>
     </a>
@@ -59,7 +59,7 @@
             </div>
             <div class="right">
                 <h3><fmt:message key="label.genres"/></h3>
-                <p>90</p>
+                <p><c:out value="${requestScope.count_genres}"/></p>
             </div>
         </div>
     </a>
@@ -70,7 +70,7 @@
             </div>
             <div class="right">
                 <h3><fmt:message key="label.users"/></h3>
-                <p>90</p>
+                <p><c:out value="${requestScope.count_users}"/></p>
             </div>
         </div>
     </a>

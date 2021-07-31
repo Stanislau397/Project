@@ -1,10 +1,9 @@
-select {
-    width: 400px;
+.details,
+.show,
+.hide:target {
+    display: none;
 }
-
-.top {
-    margin-left: 200px;
-    width: 800px;
-    height: 500px;
-    background-color: black;
+.hide:target + .show,
+.hide:target ~ .details {
+    display: block;
 }

@@ -107,6 +107,24 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public int countUserRatedMovies(String userName) throws DaoException {
+        int counter = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNT_USER_RATED_MOVIES)) {
+            statement.setString(1, userName);
+            statement.setString(2, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                counter = resultSet.getInt(TableColumn.COUNTER);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return counter;
+    }
+
+    @Override
     public Optional<Movie> findMoviePosterByMovieId(long movieId) throws DaoException {
         Optional<Movie> moviePoster = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -126,11 +144,13 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> findAll() throws DaoException {
+    public List<Movie> findAll(int page, int total) throws DaoException {
         List<Movie> allMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_MOVIES);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ALL_MOVIES)) {
+            statement.setInt(1, page);
+            statement.setInt(2, total);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
                 Rating rating = new Rating();
@@ -492,6 +512,52 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public Optional<Movie> findLatestHighRatedMovieForUser(String userName) throws DaoException {
+        Optional<Movie> latestHighScoredMovie = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_LATEST_HIGH_SCORE)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setRating(rating);
+                latestHighScoredMovie = Optional.of(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return latestHighScoredMovie;
+    }
+
+    @Override
+    public Optional<Movie> findLatestLowRatedMovieForUser(String userName) throws DaoException {
+        Optional<Movie> latestLowScoredMovie = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_LATEST_LOW_SCORE)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setRating(rating);
+                latestLowScoredMovie = Optional.of(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return latestLowScoredMovie;
+    }
+
+    @Override
     public Optional<Movie> findMovieByTitle(String title) throws DaoException {
         Optional<Movie> isFound;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -547,12 +613,14 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> findRatedMoviesByUserName(String userName) throws DaoException {
+    public List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws DaoException {
         List<Movie> ratedMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_RATED_MOVIES)) {
             statement.setString(1, userName);
             statement.setString(2, userName);
+            statement.setInt(3, start);
+            statement.setInt(4, total);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
@@ -1313,5 +1381,53 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return genres;
+    }
+
+    @Override
+    public int countGenres() throws DaoException {
+        int genres = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_ALL_GENRES);
+            if (resultSet.next()) {
+                genres = resultSet.getInt(TableColumn.COUNTER);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return genres;
+    }
+
+    @Override
+    public int countActors() throws DaoException {
+        int actors = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_ALL_ACTORS);
+            if (resultSet.next()) {
+                actors = resultSet.getInt(TableColumn.COUNTER);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return actors;
+    }
+
+    @Override
+    public int countDirectors() throws DaoException {
+        int directors = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_ALL_DIRECTORS);
+            if (resultSet.next()) {
+                directors = resultSet.getInt(TableColumn.COUNTER);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return directors;
     }
 }

@@ -22,11 +22,17 @@ public interface MovieService {
 
     int countMovies() throws ServiceException;
 
+    int countUserRatedMovies(String userName) throws ServiceException;
+
+    Optional<Movie> findLatestHighRatedMovieForUser(String userName) throws ServiceException;
+
+    Optional<Movie> findLatestLowRatedMovieForUser(String userName) throws ServiceException;
+
     Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException;
 
     Optional<Movie> findMovieByTitle(String title) throws ServiceException;
 
-    List<Movie> findAllMovies() throws ServiceException;
+    List<Movie> findAllMovies(int page, int total) throws ServiceException;
 
     List<Movie> findLatestUploadedMovies() throws ServiceException;
 
@@ -62,7 +68,7 @@ public interface MovieService {
 
     Optional<Movie> findMovieById(long movieId) throws ServiceException;
 
-    List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException;
+    List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws ServiceException;
 
     List<Movie> findMoviesByKeyWord(String keyWord) throws ServiceException;
 
@@ -133,4 +139,10 @@ public interface MovieService {
     boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException;
 
     List<Genre> findAllGenres() throws ServiceException;
+
+    int countGenres() throws ServiceException;
+
+    int countActors() throws ServiceException;
+
+    int countDirectors() throws ServiceException;
 }

@@ -48,6 +48,8 @@ public class AttributeName {
     public static final String LATEST_USERS_LIST = "latest_users_list";
     public static final String LATEST_MOVIES_LIST = "latest_movies_list";
     public static final String LATEST_REVIEWED_MOVIES_LIST = "latest_reviewed_movies_list";
+    public static final String LATEST_LOW_SCORE_MOVIE = "latest_low_score_movie";
+    public static final String LATEST_HIGH_SCORE_MOVIE = "latest_high_score_movie";
     public static final String UPCOMING_MOVIES_BY_GENRE_LIST = "upcoming_movie_by_genre_list";
     public static final String CURRENT_YEAR_MOVIES_BY_GENRE_LIST = "current_year_movies_by_genre_list";
     public static final String NEWEST_MOVIES_BY_GENRE_LIST = "newest_movies_by_genre_list";
@@ -65,4 +67,17 @@ public class AttributeName {
     public static final String ACTORS_BY_KEY_WORDS_LIST = "actors_by_key_words_list";
 
     public static final String MOVIE_INFO = "movie_info";
+
+    public static final String COUNT_MOVIES = "count_movies";
+    public static final String COUNT_ACTORS = "count_actors";
+    public static final String COUNT_DIRECTORS = "count_directors";
+    public static final String COUNT_USERS = "count_users";
+    public static final String COUNT_GENRES = "count_genres";
+    public static final String POSITIVE_REVIEWS = "positive_reviews";
+    public static final String MIXED_REVIEWS = "mixed_reviews";
+    public static final String NEGATIVE_REVIEWS = "negative_reviews";
+    public static final String ALL_REVIEWS = "all_reviews";
+    public static final String PAGES = "pages";
+    public static final String PAGE_ID = "page_id";
+    public static final String COUNT_COMMENTS = "count_comments";
 }

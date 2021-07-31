@@ -25,4 +25,6 @@ public class SessionAttribute {
     public static final String GENRE_REMOVED = "genre_removed";
     public static final String COMMENT_REMOVED = "comment_removed";
     public static final String COMMENT_EDITED = "comment_edited";
+    public static final String AVATAR_EDITED = "avatar_edited";
+    public static final String PASSWORD_EDITED = "password_edited";
 }

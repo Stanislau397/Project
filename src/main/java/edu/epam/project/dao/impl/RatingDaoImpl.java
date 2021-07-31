@@ -37,23 +37,6 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public int countAmountOfUserScoresByUserName(String userName) throws DaoException {
-        int amountOfReviews = 0;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_AMOUNT_OF_REVIEWS)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                amountOfReviews = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return amountOfReviews;
-    }
-
-    @Override
     public boolean rateMovie(long movieId, String userName, int score) throws DaoException {
         boolean isRated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -120,5 +103,73 @@ public class RatingDaoImpl implements RatingDao {
             throw new DaoException(e);
         }
         return score;
+    }
+
+    @Override
+    public int countPositiveMovieScores(String userName) throws DaoException {
+        int countPositive = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNT_POSITIVE_SCORE)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                countPositive = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return countPositive;
+    }
+
+    @Override
+    public int countMixedMovieScores(String userName) throws DaoException {
+        int countMixed = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNT_MIXED_SCORE)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                countMixed = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return countMixed;
+    }
+
+    @Override
+    public int countNegativeMovieScores(String userName) throws DaoException {
+        int countNegative = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNT_NEGATIVE_SCORE)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                countNegative = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return countNegative;
+    }
+
+    @Override
+    public int countAllMovieScores(String userName) throws DaoException {
+        int amountOfReviews = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_AMOUNT_OF_REVIEWS)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                amountOfReviews = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return amountOfReviews;
     }
 }

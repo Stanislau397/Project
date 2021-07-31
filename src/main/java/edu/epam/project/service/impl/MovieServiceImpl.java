@@ -84,6 +84,42 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public int countUserRatedMovies(String userName) throws ServiceException {
+        int countRatedMovies;
+        try {
+            countRatedMovies = movieDao.countUserRatedMovies(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return countRatedMovies;
+    }
+
+    @Override
+    public Optional<Movie> findLatestHighRatedMovieForUser(String userName) throws ServiceException {
+        Optional<Movie> latestHighScoreMovie;
+        try {
+            latestHighScoreMovie = movieDao.findLatestHighRatedMovieForUser(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return latestHighScoreMovie;
+    }
+
+    @Override
+    public Optional<Movie> findLatestLowRatedMovieForUser(String userName) throws ServiceException {
+        Optional<Movie> latestLowScoreMovie;
+        try {
+            latestLowScoreMovie = movieDao.findLatestLowRatedMovieForUser(userName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return latestLowScoreMovie;
+    }
+
+    @Override
     public Optional<Movie> findMoviePosterByMovieId(long movieId) throws ServiceException {
         Optional<Movie> moviePoster;
         try {
@@ -168,6 +204,42 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public int countGenres() throws ServiceException {
+        int genres;
+        try {
+            genres = movieDao.countGenres();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return genres;
+    }
+
+    @Override
+    public int countActors() throws ServiceException {
+        int actors;
+        try {
+            actors = movieDao.countActors();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return actors;
+    }
+
+    @Override
+    public int countDirectors() throws ServiceException {
+        int directors;
+        try {
+            directors = movieDao.countDirectors();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return directors;
+    }
+
+    @Override
     public Optional<Movie> findMovieByTitle(String title) throws ServiceException {
         Optional<Movie> isFound;
         try {
@@ -180,10 +252,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findAllMovies() throws ServiceException {
+    public List<Movie> findAllMovies(int page, int total) throws ServiceException {
         List<Movie> allMovies;
         try {
-            allMovies = movieDao.findAll();
+            allMovies = movieDao.findAll(page, total);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -396,10 +468,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findRatedMoviesByUserName(String userName) throws ServiceException {
+    public List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws ServiceException {
         List<Movie> ratedMovies;
         try {
-            ratedMovies = movieDao.findRatedMoviesByUserName(userName);
+            ratedMovies = movieDao.findRatedMoviesByUserName(userName, start, total);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

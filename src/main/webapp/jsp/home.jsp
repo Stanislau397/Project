@@ -31,6 +31,10 @@
             </li>
         </ul>
     </div>
+    <form action="${pageContext.request.contextPath}/controller" method="get">
+        <input type="hidden" name="command" value="test">
+        <button type="submit" style="color: black">Test</button>
+    </form>
     <div id="carousel1">
         <div id="content1">
             <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies" varStatus="counter">

@@ -29,3 +29,7 @@
 20:00:14.096 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLDataException: Cannot convert string '0' to java.sql.Date value
 20:00:14.096 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLDataException: Cannot convert string '0' to java.sql.Date value
 17:03:17.841 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: Can not issue executeUpdate() or executeLargeUpdate() for SELECTs
+04:03:53.268 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(1), (25)' at line 1
+04:27:27.365 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '- 1,25' at line 1
+04:30:14.447 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(1 - 1),25' at line 1
+04:30:39.196 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-1,25' at line 1

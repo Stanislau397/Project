@@ -2,6 +2,41 @@ body {
     background-color: #F0F0F0;
 }
 
+.update-message {
+    margin-top: -200px;
+    margin-left: 600px;
+    position: absolute;
+    text-align: center;
+    width: 350px;
+    min-height: 75px;
+    border: 1px solid black;
+    background-color: white;
+    z-index: 10;
+    animation: drop 0.7s ease forwards;
+}
+
+@keyframes drop  {
+    0%{}
+    70%{transform: translateY(162px)}
+    100%{transform: translateY(162px)}
+}
+
+.update-message .exit-btn {
+    background-color: white;
+    border: 0;
+    font-size: 20px;
+    float: right;
+    margin-right: 5px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.update-message p {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-top: 30px;
+}
+
 h2 {
     margin-top: 40px;
     margin-left: 250px;
@@ -32,6 +67,7 @@ hr{
     display: block;
     margin-top: 10px;
     margin-left: 370px;
+    padding: 0 8px;
     border: 1px solid silver;
     border-radius: 5px;
 }
@@ -47,6 +83,10 @@ input:checked {
     border: 1px solid silver;
 }
 
+input:focus {
+    border: 1px solid silver;
+}
+
 .password button {
     margin-left: 750px;
     margin-top: -23px;
@@ -59,11 +99,11 @@ input:checked {
 
 .password button {
     margin-top: -30px;
-    border: 1px solid silver;
+    border: 1px solid black;
     font-family: sans-serif;
-    background-color: white;
+    background-color: rgb(245,245,245);
     height: 30px;
-    width: auto;
+    width: 200px;
 }
 
 .password button:hover {
@@ -73,7 +113,7 @@ input:checked {
 
 .image-preview {
     margin-left: 470px;
-    margin-top: -10px;
+    margin-top: -25px;
     width: 200px;
     height: 150px;
     border-radius: 10px;
@@ -106,7 +146,7 @@ input:checked {
     width: 150px;
     height: 30px;
     margin-left: 465px;
-    margin-top: -105px;
+    margin-top: 3px;
     font-size: 1em;
     color: black;
     background-color: 	rgb(245,245,245);

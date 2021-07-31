@@ -27,7 +27,7 @@ public class FindAllMoviesCommand implements Command {
         Router router = new Router();
         try {
             int counter = movieService.countMovies();
-            List<Movie> allMovies = movieService.findAllMovies();
+            List<Movie> allMovies = movieService.findAllMovies(0, 25);
             if (allMovies.size() > 0) {
                 router.setPagePath(PagePath.ALL_MOVIES_PAGE);
                 request.setAttribute(AttributeName.MOVIE_LIST, allMovies);

@@ -290,14 +290,17 @@
         <c:when test="${requestScope.comments != null}">
             <c:forEach items="${requestScope.comments}" var="comments" varStatus="counter">
                 <div class="user-comments">
-                    <div class="user-picture">
-                        <img src="${pageContext.request.contextPath}${comments.userAvatar}">
-                    </div>
+                    <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}">
+                        <div class="user-picture">
+                            <img src="${pageContext.request.contextPath}${comments.userAvatar}">
+                        </div>
+                    </a>
                     <div class="content">
                         <div class="user-name">
                             <form action="${pageContext.request.contextPath}/controller" name="get">
                                 <input type="hidden" name="command" value="show_user_profile">
                                 <input type="hidden" name="user_name" value="${comments.userName}">
+                                <input type="hidden" name="page" value="1">
                                 <button type="submit" class="user-name-btn"><h2><c:out
                                         value="${comments.userName}"/></h2></button>
                             </form>

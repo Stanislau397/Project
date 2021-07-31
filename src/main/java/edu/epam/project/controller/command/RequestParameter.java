@@ -27,6 +27,7 @@ public class RequestParameter {
     public static final String KEY_WORD_PARAMETER = "key_word";
     public static final String UPDATED_TEXT = "updated_text";
     public static final String TEXT = "text";
+    public static final String PAGE_PARAMETER = "page";
 
     public static final String TITLE = "title";
     public static final String COUNTRY = "country";

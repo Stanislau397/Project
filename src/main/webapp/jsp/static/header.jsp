@@ -42,7 +42,7 @@
                         <a href="${pageContext.request.contextPath}/controller?command=newest_movies"><fmt:message key="label.new_movies"/></a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=show_all_movies"><fmt:message key="label.all_movies"/></a>
+                        <a href="${pageContext.request.contextPath}/controller?command=show_all_movies&page=1"><fmt:message key="label.all_movies"/></a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/controller?command=upcoming_movies"><fmt:message key="label.coming_soon"/></a>
