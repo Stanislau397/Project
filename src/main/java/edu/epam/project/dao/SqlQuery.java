@@ -176,6 +176,12 @@ public class SqlQuery {
     public static final String FIND_USER_IN_RATING = "SELECT user_name_fk FROM rating WHERE movie_id_fk = (?) AND user_name_fk = (?)";
     public static final String FIND_MOVIE_SCORE = "SELECT user_score FROM rating WHERE user_name_fk = (?) AND movie_id_fk = (?)";
 
+    public static final String INSERT_TO_COUNTRY = "INSERT INTO countries (country_name) VALUES (?)";
+    public static final String DELETE_FROM_COUNTRY = "DELETE FROM countries WHERE country_id = (?)";
+    public static final String INSERT_TO_MOVIE_COUNTRIES = "INSERT INTO movie_countries (country_id_fk, movie_id_fk) VALUES (?,?)";
+    public static final String DELETE_COUNTRY_FROM_MOVIE = "DELETE FROM movie_countries WHERE movie_id_fk = (?) AND country_id_fk = (?)";
+    public static final String SELECT_ALL_COUNTRIES = "SELECT country_id, country_name FROM countries";
+
     private SqlQuery() {
 
     }

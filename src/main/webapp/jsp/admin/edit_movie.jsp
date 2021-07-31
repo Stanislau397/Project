@@ -208,8 +208,9 @@
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
-                                                                                                        href="#"><fmt:message
+                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a
+                                                class="close"
+                                                href="#"><fmt:message
                                                 key="label.close"/></a>
                                         </button>
                                     </div>
@@ -288,7 +289,7 @@
                                 <input type="hidden" name="command" value="add_actor_to_movie">
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                                 <div class="text">
-                                    <h2 style="color: white"><fmt:message key="label.add_actor"/></h2>
+                                    <h2 style="color: black"><fmt:message key="label.add_actor"/></h2>
                                     <input type="text" name="first_name"
                                            placeholder="<fmt:message key="label.first_name"/>">
                                     <input type="text" name="last_name"
@@ -394,8 +395,9 @@
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
-                                                                                                        href="#"><fmt:message
+                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a
+                                                class="close"
+                                                href="#"><fmt:message
                                                 key="label.close"/></a>
                                         </button>
                                     </div>
@@ -434,6 +436,7 @@
             var fileUpload = $(this).get(0).files;
             readURL(this, "#trailer");
         });
+
         //Preview image
         function readURL(inputFile, imgId) {
             if (inputFile.files && inputFile.files[0]) {
@@ -444,6 +447,19 @@
                 reader.readAsDataURL(inputFile.files[0]);
             }
         }
+
+        $(function () {
+            $('#lstActors').multiselect({
+                includeSelectAllOption: true
+            });
+            $('#btnSelected').click(function () {
+                var selected = $("#lstActors option:selected");
+                var message = "";
+                selected.each(function () {
+                    message += $(this).text() + " " + $(this).val() + "\n";
+                });
+            });
+        });
     </script>
 </div>
 <br>

@@ -278,7 +278,7 @@ td:last-child {
 }
 
 .content-table button:hover {
-    color: #f9c22a;
+    color: #066ee7;
     outline: none;
     border: none;
 }
@@ -418,7 +418,7 @@ button {
 }
 
 .add {
-    height: 100px;
+    height: 300px;
 }
 
 .add .button .add-btn {
@@ -451,14 +451,13 @@ button {
 }
 
 .add .pop input:focus{
-    border: 1px solid #f9c22a;
+    border: 1px solid black;
     border-radius: 8px;
 }
 
 .add .pop select {
     margin-top: 5px;
     width: 400px;
-    height: 40px;
     border-radius: 8px;
     background-color: rgb(211,211,211);
     border: 1px solid #1a191f;

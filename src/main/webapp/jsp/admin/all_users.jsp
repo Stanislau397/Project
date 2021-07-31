@@ -49,6 +49,7 @@
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="show_user_profile">
                             <input type="hidden" name="user_name" value="${users.userName}">
+                            <input type="hidden" name="page" value="1">
                             <button type="submit" class="user_name_btn"><c:out value="${users.userName}"/></button>
                         </form>
                     </td>
@@ -128,7 +129,12 @@
             <tbody>
             <tr>
                 <td><c:out value="${user.userId}"/></td>
-                <td><c:out value="${user.userName}"/></td>
+                <td><form action="${pageContext.request.contextPath}/controller" method="get">
+                    <input type="hidden" name="command" value="show_user_profile">
+                    <input type="hidden" name="user_name" value="${user.userName}">
+                    <input type="hidden" name="page" value="1">
+                    <button type="submit" class="user_name_btn"><c:out value="${user.userName}"/></button>
+                </form></td>
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <c:choose>

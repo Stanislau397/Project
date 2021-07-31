@@ -4,10 +4,7 @@ import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.RatingDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.dao.impl.RatingDaoImpl;
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
-import edu.epam.project.entity.User;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.parser.ActorParser;
@@ -30,10 +27,11 @@ public class Main {
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/js.jsp";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        MovieDao movieDao = new MovieDaoImpl();
-        List<Movie> movies = movieDao.findAll(1, 57);
-        int total = (movies.size() + 25 - 1) / 25;
-        System.out.println(total);
+        MovieService movieService = new MovieServiceImpl();
+        List<Country> countries = movieService.findAllCountries();
+        for (Country country : countries) {
+            System.out.println(country);
+        }
     }
 
     private static boolean isGenreAlreadyExists(String genreTitle) throws DaoException {

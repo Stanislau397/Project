@@ -32,7 +32,7 @@
             <input class="btn" type="submit" value="<fmt:message key="label.login"/>"/>
         </form>
         <div>
-            <a href="${pageContext.request.contextPath}/jsp/register.jsp" style="color: #1a191f"><fmt:message key="label.register"/> </a>
+            <button class="register-btn"><a href="${pageContext.request.contextPath}/jsp/register.jsp" style="color: #1a191f"><fmt:message key="label.register"/> </a></button>
         </div>
     </div>
 </div>

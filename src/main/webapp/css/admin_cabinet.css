@@ -85,8 +85,8 @@ a {
     float: top;
     margin-left: 270px;
     width: 1230px;
-    min-height: 680px;
-    border: 1px solid silver;
+    min-height: 800px;
+    border: 1px solid black;
 }
 
 .content .table {
@@ -95,7 +95,7 @@ a {
     margin-left: 15px;
     margin-top: 15px;
     width: 590px;
-    min-height: 300px;
+    min-height: 320px;
 }
 
 .table .table-top {

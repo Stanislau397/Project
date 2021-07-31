@@ -65,6 +65,7 @@ public class AttributeName {
     public static final String MOVIE_FOR_DIRECTOR_LIST = "movies_for_director_list";
     public static final String DIRECTORS_BY_KEY_WORDS_LIST = "directors_by_key_words_list";
     public static final String ACTORS_BY_KEY_WORDS_LIST = "actors_by_key_words_list";
+    public static final String COUNTRIES_LIST = "countries_list";
 
     public static final String MOVIE_INFO = "movie_info";
 

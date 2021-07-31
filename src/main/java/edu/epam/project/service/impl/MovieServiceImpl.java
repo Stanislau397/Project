@@ -2,10 +2,7 @@ package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Director;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
@@ -201,6 +198,66 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return genres;
+    }
+
+    @Override
+    public boolean addCountry(String countryName) throws ServiceException {
+        boolean isCountryAdded;
+        try {
+            isCountryAdded = movieDao.addCountry(countryName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isCountryAdded;
+    }
+
+    @Override
+    public boolean addCountryToMovie(long countryId, long movieId) throws ServiceException {
+        boolean isCountryAddedToMovie;
+        try {
+            isCountryAddedToMovie = movieDao.addCountryToMovie(movieId, countryId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isCountryAddedToMovie;
+    }
+
+    @Override
+    public boolean removeCountryById(long countryId) throws ServiceException {
+        boolean isCountryRemoved;
+        try {
+            isCountryRemoved = movieDao.removeCountryById(countryId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isCountryRemoved;
+    }
+
+    @Override
+    public boolean removeCountryFromMovie(long movieId, long countryId) throws ServiceException {
+        boolean isCountryRemovedFromMovie;
+        try {
+            isCountryRemovedFromMovie = movieDao.removeCountryFromMovie(movieId, countryId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isCountryRemovedFromMovie;
+    }
+
+    @Override
+    public List<Country> findAllCountries() throws ServiceException {
+        List<Country> allCountries;
+        try {
+            allCountries = movieDao.findAllCountries();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return allCountries;
     }
 
     @Override

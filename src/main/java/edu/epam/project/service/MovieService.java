@@ -1,9 +1,6 @@
 package edu.epam.project.service;
 
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Director;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.ServiceException;
 
 import java.sql.Date;
@@ -139,6 +136,16 @@ public interface MovieService {
     boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException;
 
     List<Genre> findAllGenres() throws ServiceException;
+
+    boolean addCountry(String countryName) throws ServiceException;
+
+    boolean addCountryToMovie(long countryId, long movieId) throws ServiceException;
+
+    boolean removeCountryById(long countryId) throws ServiceException;
+
+    boolean removeCountryFromMovie(long movieId, long countryId) throws ServiceException;
+
+    List<Country> findAllCountries() throws ServiceException;
 
     int countGenres() throws ServiceException;
 

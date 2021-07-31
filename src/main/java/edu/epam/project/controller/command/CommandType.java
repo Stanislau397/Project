@@ -40,6 +40,7 @@ public enum CommandType {
     TO_EDIT_DIRECTOR(new ToEditDirectorCommand()),
     EDIT_DIRECTOR_INFO(new EditDirectorInfoCommand()),
     TO_USER_SETTINGS(new ToUserSettingsCommand()),
+    TO_ALL_COUNTRIES(new DisplayAllCountriesCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),
     ADD_GENRE(new AddGenreCommand()),

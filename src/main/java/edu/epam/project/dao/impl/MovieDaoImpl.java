@@ -1430,4 +1430,85 @@ public class MovieDaoImpl implements MovieDao {
         }
         return directors;
     }
+
+    @Override
+    public boolean addCountry(String countryName) throws DaoException {
+        boolean isCountryAdded;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_COUNTRY)) {
+            statement.setString(1, countryName);
+            int update = statement.executeUpdate();
+            isCountryAdded = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isCountryAdded;
+    }
+
+    @Override
+    public boolean removeCountryById(long countryId) throws DaoException {
+        boolean isCountryRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_FROM_COUNTRY)) {
+            statement.setLong(1, countryId);
+            int update = statement.executeUpdate();
+            isCountryRemoved = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isCountryRemoved;
+    }
+
+    @Override
+    public boolean addCountryToMovie(long movieId, long countryId) throws DaoException {
+        boolean isCountryAddedToMovie;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_MOVIE_COUNTRIES)) {
+            statement.setLong(1, countryId);
+            statement.setLong(2, movieId);
+            int update = statement.executeUpdate();
+            isCountryAddedToMovie = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isCountryAddedToMovie;
+    }
+
+    @Override
+    public List<Country> findAllCountries() throws DaoException {
+        List<Country> allCountries = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_COUNTRIES);
+            while (resultSet.next()) {
+                long countryId = resultSet.getLong(TableColumn.COUNTRY_ID);
+                String countryName = resultSet.getString(TableColumn.COUNTRY_NAME);
+                Country country = new Country(countryId, countryName);
+                allCountries.add(country);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return allCountries;
+    }
+
+    @Override
+    public boolean removeCountryFromMovie(long movieId, long countryId) throws DaoException {
+        boolean isCountryRemovedFromMovie;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COUNTRY_FROM_MOVIE)) {
+            statement.setLong(1, movieId);
+            statement.setLong(2, countryId);
+            int update = statement.executeUpdate();
+            isCountryRemovedFromMovie = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isCountryRemovedFromMovie;
+    }
 }

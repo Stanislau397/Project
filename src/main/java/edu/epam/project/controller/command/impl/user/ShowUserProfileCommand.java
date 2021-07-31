@@ -108,7 +108,7 @@ public class ShowUserProfileCommand implements Command {
     }
 
     private int countPages(String userName) throws ServiceException {
-        int ratedMoviesSize = movieService.countUserRatedMovies(userName);
+        int ratedMoviesSize = movieService.countUserRatedMovies(userName) - 1;
         return (ratedMoviesSize + TOTAL - 1) / TOTAL;
     }
 }

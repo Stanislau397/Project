@@ -1,9 +1,6 @@
 package edu.epam.project.dao;
 
-import edu.epam.project.entity.Actor;
-import edu.epam.project.entity.Director;
-import edu.epam.project.entity.Genre;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 
 import java.sql.Date;
@@ -145,4 +142,14 @@ public interface MovieDao {
     int countActors() throws DaoException;
 
     int countDirectors() throws DaoException;
+
+    boolean addCountry(String countryName) throws DaoException;
+
+    boolean removeCountryById(long countryId) throws DaoException;
+
+    boolean addCountryToMovie(long movieId, long countryId) throws DaoException;
+
+    List<Country> findAllCountries() throws DaoException;
+
+    boolean removeCountryFromMovie(long movieId, long countryId) throws DaoException;
 }

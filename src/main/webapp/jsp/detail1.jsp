@@ -423,6 +423,7 @@
                     <form action="${pageContext.request.contextPath}/controller" name="get">
                         <input type="hidden" name="command" value="show_user_profile">
                         <input type="hidden" name="user_name" value="${sessionScope.user_name}">
+                        <input type="hidden" name="page" value="1">
                         <button type="submit" class="user-name-button"><c:out
                                 value="${sessionScope.user_name}"/></button>
                     </form>

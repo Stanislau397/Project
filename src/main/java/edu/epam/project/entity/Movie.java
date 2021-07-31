@@ -5,11 +5,11 @@ import java.sql.Date;
 public class Movie extends Entity{
 
     private long movieId;
+    private Date releaseDate;
     private String title;
     private int runTime;
     private String country;
     private String description;
-    private Date releaseDate;
     private String picture;
     private String trailer;
     private Genre genre;

@@ -45,7 +45,7 @@ body {
 }
 
 .actor-img .img p {
-    margin-top: 145px;
+    margin-top: 170px;
     font-size: 20px;
     font-family: sans-serif;
 }
@@ -182,7 +182,7 @@ button {
 }
 
 .item {
-    object-fit: fill;
+    object-fit: cover;
     float: left;
     width: 100px;
     height: 120px;
@@ -221,7 +221,7 @@ button:hover {
 
 .films .container {
     width: 740px;
-    height: 195px;
+    height: 165px;
     border-bottom: 1px solid silver;
     margin-left: 55px;
     margin-top: 15px;
@@ -229,28 +229,27 @@ button:hover {
 
 .pic {
     float: left;
-    width: 150px;
-    height: 180px;
+    width: 130px;
+    height: 165px;
 }
 
 .pic a {
     margin-left: -1px;
     width: 150px;
-    height: 180px;
+    height: 165px;
 }
 
 .pic a img {
     object-fit: cover;
     border-radius: 5px;
-    width: 150px;
-    height: 180px;
+    width: 110px;
+    height: 140px;
 }
 
 .movie-title {
-    margin-left: 10px;
     float: left;
     width: 350px;
-    height: 195px;
+    height: 165px;
 }
 
 .movie-title .movie-title-btn {

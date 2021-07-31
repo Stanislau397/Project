@@ -44,6 +44,9 @@ public class TableColumn {
     public static final String DIRECTOR_FIRST_NAME = "first_name";
     public static final String DIRECTOR_LAST_NAME = "last_name";
 
+    public static final String COUNTRY_ID = "country_id";
+    public static final String COUNTRY_NAME = "country_name";
+
     private TableColumn() {
 
     }
