@@ -112,40 +112,6 @@
 
     <div class="table">
         <div class="table-top">
-            <h3><fmt:message key="label.latest_movies"/></h3>
-        </div>
-        <table class="content-table">
-            <thead>
-            <tr>
-                <th><fmt:message key="label.id"/></th>
-                <th><fmt:message key="label.title"/></th>
-                <th><fmt:message key="label.release_date"/></th>
-                <th><fmt:message key="label.genre"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${requestScope.latest_movies_list}" var="latestMovies" varStatus="counter">
-                <c:if test="${counter.count <= 5}">
-                    <tr>
-                        <td><c:out value="${latestMovies.movieId}"/></td>
-                        <td>
-                            <form action="${pageContext.request.contextPath}/controller" method="get">
-                                <input type="hidden" name="command" value="show_movie_details">
-                                <input type="hidden" name="movie_id" value="${latestMovies.movieId}">
-                                <button type="submit"><c:out value="${latestMovies.title}"/></button>
-                            </form>
-                        </td>
-                        <td><c:out value="${latestMovies.releaseDate}"/></td>
-                        <td><c:out value="${latestMovies.genre.genreTitle}"/></td>
-                    </tr>
-                </c:if>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="table">
-        <div class="table-top">
             <h3><fmt:message key="label.latest_users"/></h3>
         </div>
         <table class="content-table">
@@ -193,8 +159,8 @@
             <tr>
                 <th><fmt:message key="label.id"/></th>
                 <th><fmt:message key="label.title"/></th>
-                <th><fmt:message key="label.username"/></th>
-                <th><fmt:message key="label.rating1"/></th>
+                <th><fmt:message key="label.release_date"/></th>
+                <th><fmt:message key="label.genre"/></th>
             </tr>
             </thead>
             <tbody>
@@ -217,6 +183,40 @@
                             </form>
                         </td>
                         <td><i class="fa fa-star"></i> <c:out value="${latestReviewedMovies.rating.score}"/></td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table">
+        <div class="table-top">
+            <h3><fmt:message key="label.latest_movies"/></h3>
+        </div>
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th><fmt:message key="label.id"/></th>
+                <th><fmt:message key="label.title"/></th>
+                <th><fmt:message key="label.release_date"/></th>
+                <th><fmt:message key="label.genre"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${requestScope.latest_movies_list}" var="latestMovies" varStatus="counter">
+                <c:if test="${counter.count <= 5}">
+                    <tr>
+                        <td><c:out value="${latestMovies.movieId}"/></td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/controller" method="get">
+                                <input type="hidden" name="command" value="show_movie_details">
+                                <input type="hidden" name="movie_id" value="${latestMovies.movieId}">
+                                <button type="submit"><c:out value="${latestMovies.title}"/></button>
+                            </form>
+                        </td>
+                        <td><c:out value="${latestMovies.releaseDate}"/></td>
+                        <td><c:out value="${latestMovies.genre.genreTitle}"/></td>
                     </tr>
                 </c:if>
             </c:forEach>
