@@ -16,8 +16,6 @@ public class SessionAttribute {
     public static final String USER_ID = "user_id";
     public static final String USER_AVATAR = "user_avatar";
 
-    public static final String SIGN_IN_ERROR = "sign_in_error";
-    public static final String SIGN_IN_ERROR_MESSAGE = "Your email or password is incorrect!";
     public static final String CHANGE_PASSWORD = "change_password";
 
     public static final String GENRE_SUCCESSFULLY_ADDED = "genre_successfully_added";
@@ -27,4 +25,5 @@ public class SessionAttribute {
     public static final String COMMENT_EDITED = "comment_edited";
     public static final String AVATAR_EDITED = "avatar_edited";
     public static final String PASSWORD_EDITED = "password_edited";
+    public static final String ACTOR_ALREADY_EXISTS = "actor_already_exists";
 }

@@ -162,6 +162,7 @@
         </c:forEach>
     </div>
     <br>
+    <jsp:include page="/jsp/static/footer.jsp"/>
 </div>
 
 <script>

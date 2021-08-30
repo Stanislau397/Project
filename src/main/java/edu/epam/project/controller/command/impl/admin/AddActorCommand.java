@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,9 @@ import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.BIRTH_DATE;
 import static edu.epam.project.controller.command.RequestParameter.FILE;
 
+import static edu.epam.project.controller.command.SessionAttribute.ACTOR;
+import static edu.epam.project.controller.command.SessionAttribute.ACTOR_ALREADY_EXISTS;
+
 public class AddActorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddActorCommand.class);
@@ -34,19 +38,23 @@ public class AddActorCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         Part part = request.getPart(FILE);
-        Set<String> parameterNames = request.getParameterMap().keySet();
         String currentPage = request.getHeader(REFERER);
+        Set<String> parameterNames = request.getParameterMap().keySet();
         Actor actor = new Actor();
+        for (String fieldName : parameterNames) {
+            processFormFields(actor, fieldName, request);
+        }
         try {
-            for (String fieldName : parameterNames) {
-                processFormFields(actor, fieldName, request);
-            }
             processUploadedFile(actor, part);
             if (movieService.addActor(actor)) {
-                router.setRoute(RouteType.REDIRECT);
-                router.setPagePath(currentPage);
+                session.setAttribute(ACTOR, actor);
+            } else {
+                session.setAttribute(ACTOR_ALREADY_EXISTS, actor);
             }
+            router.setRoute(RouteType.REDIRECT);
+            router.setPagePath(currentPage);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

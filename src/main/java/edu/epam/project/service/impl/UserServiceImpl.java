@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,10 +98,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
-        Optional<User> isFound;
+        AccountValidator validator = new AccountValidator();
+        Optional<User> isFound = Optional.empty();
         try {
-            String encryptedPassword = encryptor.encryptPassword(password);
-            isFound = userDao.findByEmailAndPassword(email, encryptedPassword);
+            if (validator.isValidEmail(email) && validator.isValidPassword(password)) {
+                String encryptedPassword = encryptor.encryptPassword(password);
+                isFound = userDao.findByEmailAndPassword(email, encryptedPassword);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

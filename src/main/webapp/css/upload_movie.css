@@ -35,6 +35,7 @@ body {
 }
 
 .image-preview {
+    object-fit: cover;
     background-color: white;
     width: 280px;
     height: 400px;

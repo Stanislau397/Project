@@ -43,6 +43,8 @@ public interface MovieDao {
 
     List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws DaoException;
 
+    List<Movie> findMoviesWithTrailer() throws DaoException;
+
     List<Movie> findCurrentYearMoviesByGenreTitle(String genreTitle) throws DaoException;
 
     List<Movie> findNewestMoviesByGenreTitle(String genreTitle) throws DaoException;

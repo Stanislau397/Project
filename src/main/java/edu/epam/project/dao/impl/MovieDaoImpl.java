@@ -365,6 +365,7 @@ public class MovieDaoImpl implements MovieDao {
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
                 movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setTrailer(resultSet.getString(TableColumn.MOVIE_TRAILER));
                 movie.setRating(rating);
                 upcomingMovies.add(movie);
             }
@@ -401,6 +402,29 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return upcomingMoviesByGenre;
+    }
+
+    @Override
+    public List<Movie> findMoviesWithTrailer() throws DaoException {
+        List<Movie> moviesWithTrailer = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_MOVIES_WITH_TRAILER);
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                Rating rating = new Rating();
+                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
+                movie.setRating(rating);
+                movie.setTrailer(resultSet.getString(TableColumn.MOVIE_TRAILER));
+                movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                moviesWithTrailer.add(movie);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return moviesWithTrailer;
     }
 
     @Override

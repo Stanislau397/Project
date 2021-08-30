@@ -4,7 +4,6 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.controller.command.RequestParameter;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
@@ -19,14 +18,17 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static edu.epam.project.controller.command.RequestParameter.*;
+
+import static edu.epam.project.controller.command.ErrorMessage.LOGIN_ERROR_MSG;
+
+import static edu.epam.project.controller.command.AttributeName.SIGN_IN_ERROR;
+
 import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
 import static edu.epam.project.controller.command.SessionAttribute.USER_EMAIL;
 import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 import static edu.epam.project.controller.command.SessionAttribute.ADMIN;
 import static edu.epam.project.controller.command.SessionAttribute.USER;
-import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR;
 import static edu.epam.project.controller.command.SessionAttribute.USER_AVATAR;
-import static edu.epam.project.controller.command.SessionAttribute.SIGN_IN_ERROR_MESSAGE;
 import static edu.epam.project.controller.command.SessionAttribute.GUEST;
 
 public class SignInCommand implements Command {
@@ -40,12 +42,11 @@ public class SignInCommand implements Command {
         Router router = new Router();
         String userEmail = request.getParameter(EMAIL_PARAMETER);
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
-        User user;
         try {
             Optional<User> userOptional = userService.findByEmailAndPassword(userEmail, userPassword);
             if (userOptional.isPresent()) {
-                user = userOptional.get();
-                if (!(user.isBlocked())) {
+                User user = userOptional.get();
+                if (!user.isBlocked()) {
                     RoleType role = user.getRole();
                     String userName = user.getUserName();
                     String userAvatar = user.getAvatar();
@@ -75,7 +76,7 @@ public class SignInCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            request.setAttribute(SIGN_IN_ERROR, SIGN_IN_ERROR_MESSAGE);
+            request.setAttribute(SIGN_IN_ERROR, LOGIN_ERROR_MSG);
             router.setRoute(RouteType.FORWARD);
             router.setPagePath(PagePath.LOGIN_PAGE);
         }

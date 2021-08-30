@@ -44,7 +44,6 @@ public class ChangeAvatarCommand implements Command {
                 session.setAttribute(AVATAR_EDITED, avatar);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
-                System.out.println(session.getAttribute("user_avatar"));
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

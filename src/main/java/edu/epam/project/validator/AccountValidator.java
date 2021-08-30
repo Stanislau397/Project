@@ -7,23 +7,13 @@ import org.apache.logging.log4j.Logger;
 public class AccountValidator {
 
     public static final Logger logger = LogManager.getLogger(AccountValidator.class);
-    private static final String PASSWORD_REGEX = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
+    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}";
     private static final String USER_NAME_REGEX = "^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$";
     private static final String EMAIL_REGEX = "^[^@]+@[^@]+\\.[^@]+$";
-    private static final String INVALID_LOGIN_MESSAGE = "Invalid login Data";
     private static final String INVALID_PASSWORD_MESSAGE = "Invalid password Data";
     private static final String INVALID_USER_NAME_MESSAGE = "Invalid user name Data";
     private static final String INVALID_EMAIL_MESSAGE = "Invalid email Data";
-    private static final int MIN_LENGTH = 7;
-    private static final int MAX_LENGTH = 25;
-
-    public boolean isValidLogInData(String login, String password) {
-        boolean isCorrectLogIn = isValidUserName(login) && isValidPassword(password);
-        if (!isCorrectLogIn) {
-            logger.log(Level.INFO, INVALID_LOGIN_MESSAGE);
-        }
-        return isCorrectLogIn;
-    }
+    private static final int MAX_PASSWORD_LENGTH = 25;
 
     public boolean isValidAccountData(String userName, String password, String email) {
         boolean isUserName = isValidUserName(userName);
@@ -51,11 +41,10 @@ public class AccountValidator {
 
     public boolean isValidPassword(String password) {
         boolean isPasswordCorrect = password.matches(PASSWORD_REGEX)
-                && password.length() > MIN_LENGTH && password.length() < MAX_LENGTH;
+                && password.length() < MAX_PASSWORD_LENGTH;
         if (!isPasswordCorrect) {
             logger.log(Level.INFO, INVALID_PASSWORD_MESSAGE);
         }
         return isPasswordCorrect;
     }
-
 }

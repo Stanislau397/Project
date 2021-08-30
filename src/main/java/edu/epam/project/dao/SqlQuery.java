@@ -89,12 +89,14 @@ public class SqlQuery {
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = (?) GROUP BY movie_id ORDER BY average DESC";
     public static final String SELECT_NEW_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC";
+    public static final String SELECT_MOVIES_WITH_TRAILER = "SELECT title, picture, trailer, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE trailer IS NOT NULL GROUP BY movie_id ORDER BY movie_id DESC LIMIT 10";
     public static final String SELECT_NEW_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
             "JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
             "JOIN genres g ON mg.genre_id_fk = g.genres_id\n" +
             "LEFT JOIN rating r ON mg.movie_id = r.movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())\n" +
             "AND g.genre_title = ? GROUP BY m.movie_id ORDER BY m.movie_id DESC";
-    public static final String SELECT_UPCOMING_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
+    public static final String SELECT_UPCOMING_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, trailer, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE DATE(release_date) > DATE(NOW()) GROUP BY movie_id ORDER BY release_date";
     public static final String SELECT_UPCOMING_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
             "JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +

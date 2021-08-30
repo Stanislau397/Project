@@ -6,7 +6,6 @@ import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.ServiceException;
-import edu.epam.project.parser.ActorParser;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -30,20 +29,19 @@ public class UploadMovieCommand implements Command {
     private static final Logger logger = LogManager.getLogger(UploadMovieCommand.class);
     private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image";
     private static final String SEPARATOR = "/";
-    private ActorParser actorParser = new ActorParser();
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         Part part = request.getPart(FILE);
-        Set<String> parameterNames = request.getParameterMap().keySet();
         String currentPage = request.getHeader(REFERER);
+        Set<String> parameterNames = request.getParameterMap().keySet();
         Movie movie = new Movie();
+        for (String fieldName : parameterNames) {
+            processMovieFormFields(movie, fieldName, request);
+        }
         try {
-            for (String fieldName : parameterNames) {
-                processMovieFormFields(movie, fieldName, request);
-            }
             processUploadedFile(movie, part);
             if (movieService.add(movie)) {
                 String movieTitle = movie.getTitle();

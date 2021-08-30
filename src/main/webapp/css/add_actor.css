@@ -22,6 +22,38 @@ body {
     margin-left: 10px;
 }
 
+.alert{
+    width:50%;
+    margin: -20px auto;
+    padding:30px;
+    position:relative;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    z-index: 10;
+    animation: drop 0.7s ease forwards;
+}
+
+@keyframes drop  {
+    0%{}
+    70%{transform: translateY(30px)}
+    100%{transform: translateY(30px)}
+}
+.close{
+    color: black;
+    position:absolute;
+    width:30px;
+    height:30px;
+    opacity:0.5;
+    border-width:1px;
+    border-style:solid;
+    border-radius:50%;
+    right:15px;
+    top:25px;
+    text-align:center;
+    font-size:1.6em;
+    cursor:pointer;
+}
+
 .main-content {
     margin-left: 290px;
     margin-top: 40px;

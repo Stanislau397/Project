@@ -47,6 +47,8 @@ public interface MovieService {
 
     List<Movie> findNewestMovies() throws ServiceException;
 
+    List<Movie> findMoviesWithTrailer() throws ServiceException;
+
     List<Movie> findUpcomingMovies() throws ServiceException;
 
     List<Movie> findUpcomingMoviesByGenreTitle(String genreTitle) throws ServiceException;

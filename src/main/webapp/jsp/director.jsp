@@ -165,6 +165,7 @@
             </div>
         </c:forEach>
     </div>
+    <jsp:include page="/jsp/static/footer.jsp"/>
 </div>
 <script type="text/javascript">
     const gap = 20;

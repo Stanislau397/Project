@@ -1,6 +1,56 @@
+footer {
+    margin-top: auto;
+    height: 125px;
+    background: #282d32;
+}
 
-.container {
-    width: 100%;
-    background: black;
-    margin-top: 10px;
+footer .top-1 {
+    vertical-align: center;
+}
+
+footer .top-1 ul {
+    text-align: center;
+}
+
+footer .top-1 ul li a {
+    display: inline-block;
+    padding: 9px 0;
+    border: 1px solid silver;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+}
+
+footer .top-1 ul li a i:hover {
+    color: #066ee7;
+}
+
+footer .top-1 ul li {
+    margin-top: 14px;
+    width: 60px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+footer .top-1 ul li a i {
+    cursor: pointer;
+    color: white;
+    font-size: 35px;
+}
+
+footer .bottom-1 {
+    margin-top: 17px;
+    vertical-align: center;
+}
+
+footer .bottom-1 ul {
+    text-align: center;
+}
+
+footer .bottom-1 ul li {
+    display: inline-block;
+}
+
+footer .bottom-1 ul li a:hover {
+    color: #066ee7;
 }

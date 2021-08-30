@@ -417,6 +417,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<Movie> findMoviesWithTrailer() throws ServiceException {
+        List<Movie> trailers;
+        try {
+            trailers = movieDao.findMoviesWithTrailer();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return trailers;
+    }
+
+    @Override
     public List<Movie> findUpcomingMovies() throws ServiceException {
         List<Movie> upcomingMovies;
         try {

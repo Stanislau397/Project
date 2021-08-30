@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="property.text"/>
 <html>
@@ -47,12 +48,12 @@
                     <li class="name"><fmt:message key="label.birth_date"/></li>
                     <li>
                         <c:choose>
-                            <c:when test="${requestScope.actor.birthDate == null}">
+                            <c:when test="${fn:contains(requestScope.actor.birthDate, 'null')}">
                                 -
                             </c:when>
-                            <c:when test="${requestScope.actor.birthDate != null}">
+                            <c:otherwise>
                                 <c:out value="${requestScope.actor.birthDate}"/>
-                            </c:when>
+                            </c:otherwise>
                         </c:choose>
                     </li>
                     <li class="name"><fmt:message key="label.height"/></li>
@@ -165,6 +166,7 @@
             </div>
         </c:forEach>
     </div>
+    <jsp:include page="/jsp/static/footer.jsp"/>
 </div>
 <script type="text/javascript">
     const gap = 20;

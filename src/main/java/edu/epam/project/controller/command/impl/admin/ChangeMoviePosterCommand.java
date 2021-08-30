@@ -35,8 +35,8 @@ public class ChangeMoviePosterCommand implements Command {
         String picturePath = getPicturePath(part);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
+            processUploadedFile(part);
             if (movieService.updateMoviePosterByMovieId(picturePath, movieId)) {
-                processUploadedFile(part);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

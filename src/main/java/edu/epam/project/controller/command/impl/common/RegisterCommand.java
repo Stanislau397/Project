@@ -18,10 +18,13 @@ import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PAR
 import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
 
+import static edu.epam.project.controller.command.AttributeName.REGISTER_SUCCESS;
+
 public class RegisterCommand implements Command {
 
-    public static final Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
     private static final String DEFAULT_AVATAR = "/css/image/avatar/default_avatar.png";
+    private static final String REGISTER_SUCCESS_MSG = "registration was successful";
     private static UserService userService = new UserServiceImpl();
 
     @Override
@@ -33,12 +36,12 @@ public class RegisterCommand implements Command {
         User user = new User(userName, userEmail, DEFAULT_AVATAR);
         try {
             if (userService.register(user, userPassword)) {
-                router.setPagePath(PagePath.HOME_PAGE);
+                router.setPagePath(PagePath.LOGIN_PAGE);
+                router.setRoute(RouteType.FORWARD);
+                request.setAttribute(REGISTER_SUCCESS, REGISTER_SUCCESS_MSG);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
-            router.setRoute(RouteType.REDIRECT);
-            router.setPagePath(PagePath.REGISTER_PAGE);
         }
         return router;
     }

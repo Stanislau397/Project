@@ -1,6 +1,7 @@
 package edu.epam.project.controller.command.impl;
 
 import edu.epam.project.controller.Router;
+import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Genre;
@@ -39,6 +40,7 @@ public class MoviesByGenreCommand implements Command {
             if (moviesByGenre.size() > 0) {
                 request.setAttribute(GENRES_LIST, genres);
                 request.setAttribute(MOVIES_BY_GENRE_LIST, moviesByGenre);
+                request.setAttribute(AttributeName.GENRE_ATTRIBUTE, genreTitle);
                 router.setPagePath(PagePath.MOVIE_PAGE);
             }
         } catch (ServiceException e) {

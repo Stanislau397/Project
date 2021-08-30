@@ -20,7 +20,8 @@
             <li>
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="newest_movies">
-                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2></button>
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2>
+                    </button>
                 </form>
             </li>
             <li style="margin-left: 7px">
@@ -31,10 +32,6 @@
             </li>
         </ul>
     </div>
-    <form action="${pageContext.request.contextPath}/controller" method="get">
-        <input type="hidden" name="command" value="test">
-        <button type="submit" style="color: black">Test</button>
-    </form>
     <div id="carousel1">
         <div id="content1">
             <c:forEach items="${requestScope.newest_movies_list}" var="newestMovies" varStatus="counter">
@@ -94,7 +91,8 @@
             <li>
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="upcoming_movies">
-                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.coming_soon"/></h2></button>
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.coming_soon"/></h2>
+                    </button>
                 </form>
             </li>
             <li style="margin-left: 7px">
@@ -162,7 +160,8 @@
             <li>
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="most_rated_movies">
-                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.most_rated"/></h2></button>
+                    <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.most_rated"/></h2>
+                    </button>
                 </form>
             </li>
             <li style="margin-left: 7px">
@@ -226,11 +225,51 @@
         </svg>
     </button>
 </div>
-<div style="height: 50px"></div>
+<h2 style="margin-left: 140px; margin-top: 40px"><fmt:message key="label.trailers"/></h2>
+<div class="trailers-container">
+    <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
+        <c:if test="${counter.count == 1}">
+            <img class="img1" src="${pageContext.request.contextPath}${trailers.picture}">
+        </c:if>
+    </c:forEach>
+    <div class="titles">
+        <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
+            <button class="title-btn"
+                    id="${pageContext.request.contextPath}${trailers.trailer}"
+                    value="${pageContext.request.contextPath}${trailers.picture}">
+                <p>${counter.count} <c:out value="${trailers.title}"/></p>
+                <c:choose>
+                    <c:when test="${trailers.rating.score >= 70}">
+                        <span style="background-color: #66cc33"><p>${trailers.rating.score}</p></span>
+                    </c:when>
+                    <c:when test="${trailers.rating.score < 70 && trailers.rating.score >= 40}">
+                        <span style="background-color: #f9c22a"><p>${trailers.rating.score}</p></span>
+                    </c:when>
+                    <c:when test="${trailers.rating.score < 40 && trailers.rating.score > 0}">
+                        <span style="background-color: red"><p>${trailers.rating.score}</p></span>
+                    </c:when>
+                    <c:otherwise>
+                        <span><p>tbd</p></span>
+                    </c:otherwise>
+                </c:choose>
+
+            </button>
+        </c:forEach>
+    </div>
+    <div class="trailer">
+        <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
+            <c:if test="${counter.count == 1}">
+                <video controls class="movie-trailer"
+                       src="${pageContext.request.contextPath}${trailers.trailer}"></video>
+            </c:if>
+        </c:forEach>
+    </div>
+</div>
+<br>
+<br>
 <script type="text/javascript">
     $(document).ready(function () {
         const gap1 = 10;
-
         const carousel1 = document.getElementById("carousel1"),
             content1 = document.getElementById("content1"),
             next1 = document.getElementById("next1"),
@@ -319,6 +358,13 @@
 
         let width = carousel3.offsetWidth;
         window.addEventListener("resize", e => (width = carousel3.offsetWidth));
+    });
+
+    $(document).ready(function () {
+        $('.title-btn').click(function () {
+            $('.img1').attr('src', $(this).attr("value"))
+            $('.movie-trailer').attr('src', $(this).attr("id"))
+        })
     })
 </script>
 </body>

@@ -290,7 +290,7 @@
         <c:when test="${requestScope.comments != null}">
             <c:forEach items="${requestScope.comments}" var="comments" varStatus="counter">
                 <div class="user-comments">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}&page=1">
                         <div class="user-picture">
                             <img src="${pageContext.request.contextPath}${comments.userAvatar}">
                         </div>
@@ -442,10 +442,10 @@
                 </form>
             </div>
         </div>
-        <div style="height: 20px">
-
-        </div>
     </c:if>
+    <br>
+    <br>
+    <jsp:include page="static/footer.jsp"/>
 </div>
 </body>
 <script type="text/javascript">

@@ -163,6 +163,36 @@
         </div>
     </c:when>
     <c:when test="${requestScope.movies_by_genre_list != null}">
+        <div class="filter">
+            <h4><fmt:message key="label.filter"/></h4>
+            <div class="genre-container" id="genre-container">
+                <button><c:out value="${requestScope.genre}"/></button>
+                <ul>
+                    <li>
+                        <form action="${pageContext.request.contextPath}/controller" method="get">
+                            <input type="hidden" name="command" value="movies_by_genre">
+                            <c:forEach items="${requestScope.genres_list}" var="genres">
+                                <input class="btn" type="submit" name="genre_title" value="${genres.genreTitle}">
+                            </c:forEach>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="year-container" id="year-container">
+                <button><fmt:message key="label.year"/></button>
+                <ul>
+                    <li>
+                        <form action="${pageContext.request.contextPath}/controller" method="get">
+                            <input type="hidden" name="command" value="movies_by_year">
+                            <c:forEach items="${requestScope.movie_years_list}" var="years">
+                                <input class="btn" type="submit" name="movie_year" value="${years}">
+                            </c:forEach>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="hr1">
         <div class="center-content">
             <c:forEach items="${movies_by_genre_list}" var="moviesByGenre" varStatus="counter">
                 <div class="side">
@@ -759,6 +789,7 @@
         <hr class="hr1">
     </c:when>
 </c:choose>
+<br>
 </body>
 <jsp:include page="static/footer.jsp"/>
 </html>

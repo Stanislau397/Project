@@ -181,6 +181,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
+            throw new DaoException(e);
         }
         return isFound;
     }

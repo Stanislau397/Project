@@ -66,6 +66,7 @@ public class AttributeName {
     public static final String DIRECTORS_BY_KEY_WORDS_LIST = "directors_by_key_words_list";
     public static final String ACTORS_BY_KEY_WORDS_LIST = "actors_by_key_words_list";
     public static final String COUNTRIES_LIST = "countries_list";
+    public static final String TRAILERS_LIST = "trailers_list";
 
     public static final String MOVIE_INFO = "movie_info";
 
@@ -81,4 +82,7 @@ public class AttributeName {
     public static final String PAGES = "pages";
     public static final String PAGE_ID = "page_id";
     public static final String COUNT_COMMENTS = "count_comments";
+
+    public static final String REGISTER_SUCCESS = "register_success";
+    public static final String SIGN_IN_ERROR = "sign_in_error";
 }

@@ -62,6 +62,10 @@
             <c:out value="${sessionScope.change_password}"/>
         </c:if>
     </p>
+    <br>
+    <br>
+    <br>
+    <jsp:include page="/jsp/static/footer.jsp"/>
 </div>
 
 <script>
