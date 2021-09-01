@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class MovieValidator {
 
-    private static final Pattern RELEASE_DATE_PATTERN = Pattern.compile("([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))");
+    private static final Pattern RELEASE_DATE_PATTERN = Pattern.compile("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$");
     private static final Pattern RUN_TIME_PATTERN = Pattern.compile("^\\d+$");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^.{1,800}$");
     private static final Pattern TITLE_PATTERN = Pattern.compile("^.{1,80}$");
@@ -25,9 +25,4 @@ public class MovieValidator {
         return description.matches(DESCRIPTION_PATTERN.pattern());
     }
 
-    public static void main(String[] args) {
-        if ("Las".matches(TITLE_PATTERN.pattern())) {
-            System.out.println("ad");
-        }
-    }
 }

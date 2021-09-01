@@ -26,7 +26,7 @@ import static edu.epam.project.controller.command.AttributeName.PAGES;
 public class ShowAllMoviesCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ShowAllMoviesCommand.class);
-    private static final int TOTAL = 25;
+    private static final int TOTAL = 15;
     private MovieService movieService = new MovieServiceImpl();
 
     @Override

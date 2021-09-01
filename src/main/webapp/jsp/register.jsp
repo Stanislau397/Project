@@ -143,12 +143,15 @@
             if (password === confirm_password) {
                 $('#confirm-password-text-box').css('borderBottom', '1px solid green');
                 $('#confirm-password-error').hide();
+                $('.btn').prop('disabled', false);
             } else if (confirm_password === '') {
                 $('#confirm-password-text-box').css('borderBottom', '1px solid black');
                 $('#confirm-password-error').hide();
+                $('.btn').prop('disabled', true);
             } else {
                 $('#confirm-password-text-box').css('borderBottom', '1px solid red');
                 $('#confirm-password-error').show();
+                $('.btn').prop('disabled', true);
             }
         }
     })

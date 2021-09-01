@@ -82,6 +82,7 @@ public class AttributeName {
     public static final String PAGES = "pages";
     public static final String PAGE_ID = "page_id";
     public static final String COUNT_COMMENTS = "count_comments";
+    public static final String YEAR = "movie_year";
 
     public static final String REGISTER_SUCCESS = "register_success";
     public static final String SIGN_IN_ERROR = "sign_in_error";

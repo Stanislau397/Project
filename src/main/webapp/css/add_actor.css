@@ -1,5 +1,5 @@
 body {
-    background-color: 	rgb(245,245,245);
+    background-color: 	rgb(224,224,224);
 }
 
 .top {
@@ -65,7 +65,7 @@ body {
     margin-top: 20px;
     width: 320px;
     height: 490px;
-    background-color: 	rgb(245,245,245);
+    background-color: rgb(224,224,224);
     border: 1px solid silver;
     border-radius: 10px;
 }
@@ -77,6 +77,7 @@ body {
 
 .right {
     float: left;
+    background-color: rgb(224,224,224);
 }
 
 .right button {
@@ -87,7 +88,7 @@ body {
     margin-top: 10px;
     font-size: 1.25em;
     color: black;
-    background-color: 	rgb(245,245,245);
+    background-color: 	rgb(224,224,224);
     border: 1px solid black;
     cursor: pointer;
     border-radius: 8px;
@@ -110,7 +111,7 @@ body {
 .image-preview__image {
     min-width: 280px;
     height: 360px;
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -133,7 +134,7 @@ body {
     margin-top: 10px;
     font-size: 1.25em;
     color: black;
-    background-color: 	rgb(245,245,245);
+    background-color: rgb(224,224,224);
     border: 1px solid black;
     display: inline-block;
     cursor: pointer;
@@ -147,10 +148,15 @@ body {
     margin-left: 30px;
     width: 830px;
     height: 490px;
-    background-color: 	rgb(245,245,245);
+    background-color: rgb(224,224,224);
     border: 1px solid silver;
     border-radius: 10px;
 }
+
+.info .input-space {
+    height: 350px;
+}
+
 
 .info label {
     display: inline-block;
@@ -165,7 +171,7 @@ body {
     margin-top: 10px;
     width: 630px;
     height: 40px;
-    background-color: 	rgb(245,245,245);
+    background-color: rgb(224,224,224);
     border: 1px solid silver;
     outline: 0;
     font-size: 18px;
@@ -176,15 +182,49 @@ body {
 
 .info button {
     font-family: sans-serif;
-    float: right;
-    margin-top: 265px;
-    width: 260px;
+    margin-top: 28px;
+    margin-left: 50px;
+    width: 735px;
     height: 42px;
     margin-right: 20px;
     font-size: 1.25em;
     color: black;
-    background-color: 	rgb(245,245,245);
+    background-color: 	rgb(224,224,224);
     border: 1px solid black;
     cursor: pointer;
     border-radius: 8px;
+}
+
+.arrow-5 {
+    background: #eb5757;
+    text-align: left;
+    color: #fff;
+    padding: 10px 10px;
+    margin-top: 15px;
+}
+
+.arrow-5-top {
+    margin-left: 140px;
+    position: relative;
+    z-index: 10;
+    width: 550px;
+}
+
+.arrow-5-top::after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    border: 0;
+}
+
+.arrow-5-top::after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    margin-left: -10px;
+    left: 10%;
+    border-bottom: 10px solid #eb5757;
+    top: -8px;
 }

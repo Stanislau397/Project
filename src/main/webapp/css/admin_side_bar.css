@@ -105,7 +105,6 @@
     font-size: 22px;
     transition: transform 0.4s;
 }
-
 .sidebar .drop li a span.rotate {
     transform: translateY(-50%) rotate(-180deg);
 }

@@ -489,12 +489,13 @@ body {
 }
 
 .comment-section .user-comments {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 50px;
-    width: 860px;
+    width: 865px;
     min-height: 10px;
     overflow: hidden;
-    border-bottom: 1px solid silver;
+    border-radius: 8px;
+    border: 2px solid #ccc;
 }
 
 .comment-section .user-comments .user-picture {
@@ -505,6 +506,7 @@ body {
 
 .comment-section .user-comments .user-picture img {
     object-fit: cover;
+    margin-top: 5px;
     width: 60px;
     height: 60px;
     border: 1px solid silver;
@@ -519,6 +521,7 @@ body {
 
 .comment-section .user-comments .content .user-name {
     float: top;
+    margin-top: 5px;
     width: 200px;
     height: 30px;
 }
@@ -577,12 +580,13 @@ body {
 }
 
 .comment-section .user-comments .upload-date {
+    margin-top: 5px;
     float: left;
     width: 150px;
 }
 
 .more {
-    margin-top: 2px;
+    margin-top: 7px;
     margin-left: -20px;
     align-items: center;
     position: relative;

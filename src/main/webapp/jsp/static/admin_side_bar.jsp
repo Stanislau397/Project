@@ -20,7 +20,8 @@
                 key="text.label.main"/></a></li>
         <li class="active"><a href="${pageContext.request.contextPath}/controller?command=to_admin_cabinet">Dashboard</a></li>
         <li class="active">
-            <a href="#" class="feat-btn"><fmt:message key="label.movies"/>
+            <a href="#" class="feat-btn">
+                <fmt:message key="label.movies"/>
                 <span class="fa fa-caret-down first"></span>
             </a>
             <ul class="feat-show">

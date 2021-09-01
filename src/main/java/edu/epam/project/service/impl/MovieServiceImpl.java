@@ -6,6 +6,7 @@ import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
+import edu.epam.project.validator.ActorValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -575,12 +576,17 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public boolean addActor(Actor actor) throws ServiceException {
         boolean isAdded = false;
+        ActorValidator validator = new ActorValidator();
         String firstName = actor.getFirstName();
         String lastName = actor.getLastName();
+        String birthDate = actor.getBirthDate();
         try {
             boolean actorExist = isActorAlreadyExists(firstName, lastName);
             if (!actorExist) {
-                isAdded = movieDao.addActor(actor);
+                if (validator.isValidFirstName(firstName) && validator.isValidLastName(lastName)
+                        && validator.isValidBirthDate(birthDate)) {
+                    isAdded = movieDao.addActor(actor);
+                }
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);

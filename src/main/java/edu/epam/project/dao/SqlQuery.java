@@ -110,9 +110,9 @@ public class SqlQuery {
             "JOIN genres g ON mg.genre_id_fk = g.genres_id\n" +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())\n" +
             "AND g.genre_title = (?) GROUP BY m.movie_id ORDER BY release_date";
-    public static final String SELECT_MOVIES_BY_GENRE_AND_YEAR = "SELECT m.movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
+    public static final String SELECT_MOVIES_BY_GENRE_AND_YEAR = "SELECT m.movie_id, title, release_date, time, country, description, picture, g.genre_title, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk LEFT JOIN movie_genres mg ON m.movie_id = mg.movie_id\n" +
-            "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = ifnull(?, genre_title) AND YEAR(release_date) = IFNULL(?, YEAR(release_date)) GROUP BY mg.movie_id";
+            "LEFT JOIN genres g ON g.genres_id = mg.genre_id_fk WHERE genre_title = ifnull(?, genre_title) AND YEAR(release_date) = IFNULL(?, YEAR(release_date)) GROUP BY mg.movie_id ORDER BY average";
     public static final String SELECT_MOVIES_YEARS = "SELECT DISTINCT YEAR(release_date) FROM movies ORDER BY YEAR(release_date) DESC";
     public static final String SELECT_BEST_MOVIES_FOR_ACTOR = "SELECT AVG(user_score) AS average, title, picture, m.movie_id FROM movies m JOIN movie_cast mc ON m.movie_id = mc.movie_id\n" +
             "LEFT JOIN rating r ON mc.movie_id = r.movie_id_fk WHERE actor_id_fk = (?) GROUP BY m.movie_id HAVING average >= 60 ORDER BY average DESC";

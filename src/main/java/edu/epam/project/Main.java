@@ -27,12 +27,9 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}";
+    private static final String PASSWORD_REGEX = "\\d{3}";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        AccountValidator validator = new AccountValidator();
-        int length = 7;
-        String psw = "Adsdasj3mm";
-        System.out.println(validator.isValidPassword(psw));
+        System.out.println("1234".matches(PASSWORD_REGEX));
     }
 }

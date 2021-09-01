@@ -278,7 +278,7 @@ public class MovieDaoImpl implements MovieDao {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIES_BY_GENRE_AND_YEAR)) {
             statement.setString(1, genre.getGenreTitle());
-            statement.setInt(2, year);
+            statement.setObject(2, year);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
@@ -291,6 +291,7 @@ public class MovieDaoImpl implements MovieDao {
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
                 movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
+                movie.setGenre(genre);
                 movie.setRating(rating);
                 moviesByGenreAndYear.add(movie);
             }
