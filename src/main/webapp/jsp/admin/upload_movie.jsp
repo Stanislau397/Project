@@ -19,7 +19,7 @@
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
           rel="stylesheet" type="text/css"/>
 </head>
-<body>
+<body style="background-color: rgb(240,240,240)">
 <div class="top">
     <div class="text1">
         <h2><fmt:message key="label.upload_movie"/></h2>
@@ -41,28 +41,35 @@
 
                 <div class="mb-3">
                     <label for="title" class="form-label"><fmt:message key="label.title"/></label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="title"
+                           style="background-color: rgb(240,240,240)">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label"><fmt:message key="label.summery"/></label>
-                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                              style="background-color: rgb(240,240,240)"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="release_date" class="form-label"><fmt:message key="label.release_date"/></label>
-                    <input type="text" class="form-control" id="release_date" name="release_date">
+                    <input type="text" class="form-control" id="release_date" name="release_date"
+                           style="background-color: rgb(240,240,240)">
                 </div>
                 <div class="mb-3">
                     <label for="run_time" class="form-label"><fmt:message key="label.runtime"/></label>
-                    <input type="text" class="form-control" id="run_time" name="run_time">
+                    <input type="text" class="form-control" id="run_time" name="run_time"
+                           style="background-color: rgb(240,240,240)">
                 </div>
                 <div class="mb-3">
                     <label for="country" class="form-label"><fmt:message key="label.country"/></label>
-                    <input type="text" class="form-control" id="country" name="country">
+                    <input type="text" class="form-control" id="country" name="country"
+                           style="background-color: rgb(240,240,240)">
                 </div>
                 <div class="mb-3">
                     <label for="select-country lstGenres" class="form-label"><fmt:message key="label.genres"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstGenres"
-                            multiple="multiple" data-live-search="true" name="genres" required>
+                            multiple="multiple" data-live-search="true" name="genres"
+                            style="background-color: rgb(240,240,240)"
+                            required>
                         <c:forEach items="${requestScope.genres_list}" var="genres">
                             <option data-tokens="${genres.genreTitle}"
                                     value="${genres.genreId}"><c:out value="${genres.genreTitle}"/></option>
@@ -70,9 +77,12 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="select-country lstDirectors" class="form-label"><fmt:message key="label.director"/></label>
+                    <label for="select-country lstDirectors" class="form-label"><fmt:message
+                            key="label.director"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstDirectors"
-                            multiple="multiple" data-live-search="true" required name="director">
+                            multiple="multiple" data-live-search="true"
+                            style="background-color: rgb(240,240,240)"
+                            required name="director">
                         <c:forEach items="${requestScope.directors_list}" var="allDirectors">
                             <option data-tokens="${allDirectors.firstName} ${allDirectors.lastName}"
                                     value="${allDirectors.directorId}"><c:out value="${allDirectors.firstName}"/>
@@ -83,9 +93,12 @@
                 <div class="mb-3">
                     <label for="select-country lstActors" class="form-label"><fmt:message key="label.actors"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstActors"
-                            multiple="multiple" data-live-search="true" required name="actors">
+                            multiple="multiple" data-live-search="true"
+                            style="background-color: rgb(240,240,240)"
+                            required name="actors">
                         <c:forEach items="${requestScope.actors_list}" var="allActors">
-                            <option data-tokens="${allActors.firstName} ${allActors.lastName}"
+                            <option style="background-color: rgb(240,240,240)"
+                                    data-tokens="${allActors.firstName} ${allActors.lastName}"
                                     value="${allActors.actorId}"><c:out value="${allActors.firstName}"/>
                                 <c:out value="${allActors.lastName}"/></option>
                         </c:forEach>

@@ -7,6 +7,7 @@
 <head>
     <title><fmt:message key="label.all_genres"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
 </head>
@@ -47,51 +48,35 @@
             </div>
         </form>
     </div>
-    <c:choose>
-        <c:when test="${sessionScope.genre_successfully_added != null}">
-            <div class="message">
-                <div class="head">
-                    <h2><fmt:message key="label.message"/></h2>
-                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
-                </div>
-                <div class="bottom">
-                    <p><c:out value="${sessionScope.genre_successfully_added}"/> <fmt:message
-                            key="label.genre_success"/></p>
-                </div>
-                <c:remove var="genre_successfully_added" scope="session"/>
-            </div>
-        </c:when>
-        <c:when test="${sessionScope.genre_already_exists != null}">
-            <div class="message">
-                <div class="head">
-                    <h2><fmt:message key="label.message"/></h2>
-                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
-                </div>
-                <div class="bottom">
-                    <p style="color: red"><fmt:message key="label.genre_exists">
-                        <fmt:param value="${sessionScope.genre_already_exists}"/>
-                    </fmt:message></p>
-                </div>
-                <c:remove var="genre_already_exists" scope="session"/>
-            </div>
-        </c:when>
-        <c:when test="${sessionScope.genre_removed != null}">
-            <div class="message">
-                <div class="head">
-                    <h2><fmt:message key="label.message"/></h2>
-                    <button class="exit-btn"><i class="fa fa-remove"></i></button>
-                </div>
-                <div class="bottom">
-                    <p><fmt:message key="label.genre_removed">
-                        <fmt:param value="${sessionScope.genre_removed}"/>
-                    </fmt:message></p>
-                </div>
-                <c:remove var="genre_removed" scope="session"/>
-            </div>
-        </c:when>
-    </c:choose>
-
 </div>
+<c:choose>
+    <c:when test="${sessionScope.genre_successfully_added != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><c:out value="${sessionScope.genre_successfully_added}"/> <fmt:message
+                    key="label.genre_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_successfully_added" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.genre_already_exists != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.genre_exists">
+                <fmt:param value="${sessionScope.genre_already_exists}"/>
+            </fmt:message></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_already_exists" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.genre_removed != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.genre_removed">
+                <fmt:param value="${sessionScope.genre_removed}"/>
+            </fmt:message></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_removed" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
     <table class="content-table">
         <thead>
@@ -151,8 +136,10 @@
 <br>
 </body>
 <script type="text/javascript">
-    $('.exit-btn').focus(function () {
-        $('.message').hide().fadeOut('slow');
-    })
+    $(".close").click(function () {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+    });
 </script>
 </html>

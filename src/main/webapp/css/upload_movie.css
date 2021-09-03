@@ -1,11 +1,12 @@
 body {
-    background-color: 	rgb(245,245,245);
+    background: rgb(240,240,240);
 }
 
 .top {
     margin-left: 250px;
     height: 65px;
     border-bottom: 1px solid grey;
+    background-color: rgb(240,240,240);
 }
 
 .top .text1 {
@@ -28,6 +29,8 @@ body {
     margin-left: 300px;
     margin-top: 20px;
     border: 1px solid grey;
+    background-color: rgb(240,240,240);
+    border-radius: 8px;
 }
 
 .left {
@@ -36,7 +39,7 @@ body {
 
 .image-preview {
     object-fit: cover;
-    background-color: white;
+    background-color: rgb(240,240,240);
     width: 280px;
     height: 400px;
     border: 1px solid grey;
@@ -76,7 +79,7 @@ body {
     margin-top: 22px;
     font-size: 1.25em;
     color: black;
-    background-color: white;
+    background-color: rgb(240,240,240);
     border: 1px solid grey;
     display: inline-block;
     cursor: pointer;
@@ -108,7 +111,7 @@ body {
     float: right;
     margin-top: 15px;
     margin-right: 45px;
-    background-color: white;
+    background-color: rgb(240,240,240);
     border: 2px solid grey;
     border-radius: 8px;
     cursor: pointer;
