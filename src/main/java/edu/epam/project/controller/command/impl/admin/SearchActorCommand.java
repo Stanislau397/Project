@@ -19,6 +19,7 @@ import java.util.List;
 import static edu.epam.project.controller.command.RequestParameter.KEY_WORD_PARAMETER;
 
 import static edu.epam.project.controller.command.AttributeName.ACTORS_BY_KEY_WORDS_LIST;
+import static edu.epam.project.controller.command.AttributeName.COUNTER;
 
 public class SearchActorCommand implements Command {
 
@@ -31,7 +32,9 @@ public class SearchActorCommand implements Command {
         String keyWords = request.getParameter(KEY_WORD_PARAMETER);
         try {
             List<Actor> actorsByKeyWords = movieService.findActorsByKeyWords(keyWords);
+            int counter = actorsByKeyWords.size();
             request.setAttribute(ACTORS_BY_KEY_WORDS_LIST, actorsByKeyWords);
+            request.setAttribute(COUNTER, counter);
             router.setPagePath(PagePath.ALL_ACTORS);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

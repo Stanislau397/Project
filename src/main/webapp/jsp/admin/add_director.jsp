@@ -5,22 +5,22 @@
 <fmt:setBundle basename="property.text"/>
 <html>
 <head>
-    <title><fmt:message key="label.add_actor"/></title>
+    <title><fmt:message key="label.add_director"/></title>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/add_actor.css">
 </head>
 <body>
 <div class="top">
     <div class="text1">
-        <h2><fmt:message key="label.add_actor"/></h2>
+        <h2><fmt:message key="label.add_director"/></h2>
     </div>
 </div>
 <c:choose>
-    <c:when test="${sessionScope.actor != null}">
+    <c:when test="${sessionScope.director != null}">
         <div class="alert" style="background-color: #66cc33">
-            <h3><c:out value="${sessionScope.actor}"/> <fmt:message key="label.added_to_application"/></h3>
+            <h3><c:out value="${sessionScope.director}"/> <fmt:message key="label.added_to_application"/></h3>
             <a class="close"><i class="fa fa-close"></i></a>
-            <c:remove var="actor" scope="session"/>
+            <c:remove var="director" scope="session"/>
         </div>
     </c:when>
     <c:when test="${sessionScope.actor_already_exists != null}">

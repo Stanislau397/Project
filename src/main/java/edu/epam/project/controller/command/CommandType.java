@@ -55,6 +55,7 @@ public enum CommandType {
     ADD_ACTOR_TO_MOVIE(new AddActorToMovieCommand()),
     REMOVE_GENRE(new DeleteGenreCommand()),
     REMOVE_ACTOR(new DeleteActorCommand()),
+    REMOVE_DIRECTOR(new DeleteDirectorCommand()),
     REMOVE_ACTOR_FROM_MOVIE(new RemoveActorFromMovieCommand()),
     REMOVE_DIRECTOR_FROM_MOVIE(new RemoveDirectorFromMovieCommand()),
     REMOVE_GENRE_FROM_MOVIE(new RemoveGenreFromMovieCommand()),

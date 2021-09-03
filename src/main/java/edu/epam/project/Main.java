@@ -27,9 +27,9 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    private static final String PASSWORD_REGEX = "\\d{3}";
+    private static final String PASSWORD_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        System.out.println("1234".matches(PASSWORD_REGEX));
+        System.out.println("1.8".matches(PASSWORD_REGEX));
     }
 }

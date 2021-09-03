@@ -177,8 +177,7 @@ public class Director extends Entity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(directorId).append(" ").append(lastName)
-                .append(" ").append(firstName);
+        sb.append(lastName).append(" ").append(firstName);
         return sb.toString();
     }
 }

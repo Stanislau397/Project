@@ -15,6 +15,36 @@
         <h2><fmt:message key="label.edit_actor"/> (<c:out value="${requestScope.director.firstName}"/> <c:out value="${requestScope.director.lastName}"/>)</h2>
     </div>
 </div>
+<c:choose>
+    <c:when test="${sessionScope.changed_data != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_director_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_data" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_director_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="error" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.changed_picture != null}">
+        <div class="alert" style="background-color: #66cc33"">
+            <h3><fmt:message key="label.edit_picture_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_picture" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.picture_error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_picture_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="picture_error" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
     <div class="edit-picture">
         <form action="${pageContext.request.contextPath}/UploadServlet" method="post"
@@ -55,7 +85,8 @@
                 <input type="hidden" name="director_id" value="${requestScope.director.directorId}">
                 <label for="first_name"><fmt:message key="label.first_name"/> </label>
                 <input type="text" id="first_name" name="first_name"
-                       value="${requestScope.director.firstName}">
+                       value="${requestScope.director.firstName}"
+                required>
                 <div class="arrow-5 arrow-5-top" id="first-name-error">
                     <fmt:message key="label.first_name_error"/>
                 </div>

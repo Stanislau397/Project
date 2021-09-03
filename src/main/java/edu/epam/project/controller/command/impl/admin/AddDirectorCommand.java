@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,8 @@ import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
 import static edu.epam.project.controller.command.RequestParameter.BIRTH_DATE;
 import static edu.epam.project.controller.command.RequestParameter.FILE;
 
+import static edu.epam.project.controller.command.SessionAttribute.DIRECTOR;
+
 public class AddDirectorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddDirectorCommand.class);
@@ -34,6 +37,7 @@ public class AddDirectorCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         Part part = request.getPart(FILE);
         Set<String> parameterNames = request.getParameterMap().keySet();
         String currentPage = request.getHeader(REFERER);
@@ -44,6 +48,7 @@ public class AddDirectorCommand implements Command {
             }
             processUploadedFile(director, part);
             if (movieService.addDirector(director)) {
+                session.setAttribute(DIRECTOR, director);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

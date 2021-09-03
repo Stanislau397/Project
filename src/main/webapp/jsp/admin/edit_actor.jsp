@@ -15,6 +15,36 @@
         <h2><fmt:message key="label.edit_actor"/> (<c:out value="${requestScope.actor.firstName}"/> <c:out value="${requestScope.actor.lastName}"/>)</h2>
     </div>
 </div>
+<c:choose>
+    <c:when test="${sessionScope.changed_data != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_actor_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_data" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_actor_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="error" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.changed_picture != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_picture_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_picture" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.picture_error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_picture_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="picture_error" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
     <div class="edit-picture">
         <form action="${pageContext.request.contextPath}/UploadServlet" method="post"
@@ -78,6 +108,9 @@
                                required>
                     </c:when>
                 </c:choose>
+                <div class="arrow-5 arrow-5-top" id="height-error">
+                    <fmt:message key="label.height_error"/>
+                </div>
                 <label for="birth-date"><fmt:message key="label.birth_date"/></label>
                 <c:choose>
                     <c:when test="${requestScope.actor.birthDate == null}">
@@ -110,6 +143,7 @@
         $('#first-name-error').hide();
         $('#last-name-error').hide();
         $('#birth-date-error').hide();
+        $('#height-error').hide();
 
         inpFile.addEventListener("change", function () {
             const file = this.files[0];
@@ -145,6 +179,10 @@
         $('#birth-date').focusout( function () {
             validateBirthDate();
         });
+
+        $('#height').focusout( function () {
+            validateHeight();
+        })
 
         function validateFirstName() {
             var first_name = $('#first_name').val();
@@ -190,6 +228,23 @@
             } else {
                 $('#birth-date').css('border', '2px solid red');
                 $('#birth-date-error').show();
+                $('#btn').prop('disabled', true);
+            }
+        }
+
+        function validateHeight() {
+            var height = $('#height').val();
+            var height_regex = /[+-]?([0-9]*[.])?[0-9]+/;
+            if (height.match(height_regex)) {
+                $('#height-error').hide();
+                $('#height').css('border', '2px solid #66cc33');
+            } else if (height === '') {
+                $('#height-error').hide();
+                $('#height').css('border', '2px solid silver');
+                $('#btn').prop('disabled', false);
+            } else {
+                $('#height-error').show();
+                $('#height').css('border', '2px solid red');
                 $('#btn').prop('disabled', true);
             }
         }
