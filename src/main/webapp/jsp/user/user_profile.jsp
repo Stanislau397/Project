@@ -17,7 +17,8 @@
 <div class="middle-content">
     <div class="user">
         <div class="profile-picture">
-            <img src="${pageContext.request.contextPath}${requestScope.user.avatar}">
+            <img
+                    src="${pageContext.request.contextPath}${requestScope.user.avatar}">
         </div>
         <div class="user-info">
             <h2><c:out value="${requestScope.user.userName}"/></h2>

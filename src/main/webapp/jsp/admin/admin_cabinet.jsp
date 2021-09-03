@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="icons-container">
-    <a href="${pageContext.request.contextPath}/controller?command=all_movies">
+    <a href="${pageContext.request.contextPath}/controller?command=all_movies&page=1">
         <div class="icon">
             <div class="left">
                 <i class="fa fa-film"></i>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </a>
-    <a href="${pageContext.request.contextPath}/controller?command=display_all_actors">
+    <a href="${pageContext.request.contextPath}/controller?command=display_all_actors&page=1">
         <div class="icon" style="background-color: #33cccc">
             <div class="left" style="background-color: #2eb8c7">
                 <i class="fa fa-film"></i>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </a>
-    <a href="${pageContext.request.contextPath}/controller?command=display_all_directors">
+    <a href="${pageContext.request.contextPath}/controller?command=display_all_directors&page=1">
         <div class="icon" style="background-color: #ffcc00">
             <div class="left" style="background-color: #e6b80f">
                 <i class="fa fa-film"></i>

@@ -99,11 +99,11 @@ public interface MovieDao {
 
     Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
 
-    List<Actor> findAllActors() throws DaoException;
+    List<Actor> findAllActors(int start, int total) throws DaoException;
 
     List<Actor> findActorsByKeyWords(String keyWords) throws DaoException;
 
-    List<Director> findAllDirectors() throws DaoException;
+    List<Director> findAllDirectors(int start, int total) throws DaoException;
 
     List<Director> findDirectorsByKeyWords(String keyWords) throws DaoException;
 
@@ -114,6 +114,8 @@ public interface MovieDao {
     boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws DaoException;
 
     boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName, Date birthDate, double height) throws DaoException;
+
+    boolean removeDirectorById(long directorId) throws DaoException;
 
     boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException;
 

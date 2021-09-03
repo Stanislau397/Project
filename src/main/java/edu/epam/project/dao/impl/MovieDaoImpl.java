@@ -1038,11 +1038,13 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Actor> findAllActors() throws DaoException {
+    public List<Actor> findAllActors(int start, int total) throws DaoException {
         List<Actor> allActors = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_ACTORS);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ALL_ACTORS)) {
+            statement.setInt(1, start);
+            statement.setInt(2, total);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 long actorId = resultSet.getLong(TableColumn.ACTOR_ID);
                 String firstName = resultSet.getString(TableColumn.ACTOR_FIRST_NAME);
@@ -1079,11 +1081,13 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Director> findAllDirectors() throws DaoException {
+    public List<Director> findAllDirectors(int start, int total) throws DaoException {
         List<Director> allDirectors = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_DIRECTORS);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ALL_DIRECTORS)) {
+            statement.setInt(1, start);
+            statement.setInt(2, total);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 long directorId = resultSet.getLong(TableColumn.DIRECTOR_ID);
                 String firstName = resultSet.getString(TableColumn.DIRECTOR_FIRST_NAME);
@@ -1187,6 +1191,21 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isUpdated;
+    }
+
+    @Override
+    public boolean removeDirectorById(long directorId) throws DaoException {
+        boolean isDeleted;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_DIRECTOR)) {
+            statement.setLong(1, directorId);
+            int update = statement.executeUpdate();
+            isDeleted = (update == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDeleted;
     }
 
     @Override

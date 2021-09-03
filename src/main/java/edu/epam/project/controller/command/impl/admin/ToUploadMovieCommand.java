@@ -32,9 +32,11 @@ public class ToUploadMovieCommand implements Command {
     public Router execute(HttpServletRequest request) throws IOException, ServletException {
         Router router = new Router();
         try {
+            int totalActors = movieService.countActors();
+            int totalDirectors = movieService.countDirectors();
             List<Genre> genres = movieService.findAllGenres();
-            List<Actor> allActors = movieService.findAllActors();
-            List<Director> allDirectors = movieService.findAllDirectors();
+            List<Actor> allActors = movieService.findAllActors(0, totalActors);
+            List<Director> allDirectors = movieService.findAllDirectors(0,totalDirectors);
             request.setAttribute(GENRES_LIST, genres);
             request.setAttribute(ACTORS_LIST, allActors);
             request.setAttribute(DIRECTORS_LIST, allDirectors);

@@ -111,6 +111,27 @@
         </c:choose>
         </tbody>
     </table>
+    <div class="pagination">
+        <div class="title">
+            <p><fmt:message key="label.page"/> </p>
+        </div>
+        <div class="pagination-number">
+            <c:forEach begin="1" end="${requestScope.pages}" varStatus="loop">
+                <c:choose>
+                    <c:when test="${requestScope.page_number == loop.count}">
+                        <a style="color: #2f80ed"
+                           href="${pageContext.request.contextPath}/controller?command=all_movies&page=${loop.count}">${loop.count}
+                        </a>
+                    </c:when>
+                    <c:when test="${requestScope.page_number != loop.count}">
+                        <a href="${pageContext.request.contextPath}/controller?command=all_movies&page=${loop.count}">${loop.count}</a>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+        </div>
+    </div>
 </div>
+<br>
+<br>
 </body>
 </html>

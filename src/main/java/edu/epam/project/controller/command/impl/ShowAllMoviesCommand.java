@@ -20,6 +20,7 @@ import static edu.epam.project.controller.command.RequestParameter.PAGE_PARAMETE
 
 import static edu.epam.project.controller.command.AttributeName.MOVIE_LIST;
 import static edu.epam.project.controller.command.AttributeName.MOVIE_YEARS_LIST;
+import static edu.epam.project.controller.command.AttributeName.PAGE_NUMBER;
 import static edu.epam.project.controller.command.AttributeName.GENRES_LIST;
 import static edu.epam.project.controller.command.AttributeName.PAGES;
 
@@ -33,6 +34,7 @@ public class ShowAllMoviesCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         int page = getPageNumber(request);
+        int pageNumber = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
         try {
             List<Movie> movies = movieService.findAllMovies(page, TOTAL);
             List<Integer> years= movieService.findAllMovieYears();
@@ -44,7 +46,7 @@ public class ShowAllMoviesCommand implements Command {
                 request.setAttribute(MOVIE_YEARS_LIST, years);
                 request.setAttribute(GENRES_LIST, genres);
                 request.setAttribute(PAGES, amountOfPages);
-                request.setAttribute("page1", Integer.parseInt(request.getParameter(PAGE_PARAMETER)));
+                request.setAttribute(PAGE_NUMBER, pageNumber);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -18,6 +18,35 @@
     <div class="counter">
         <p>(<c:out value="${requestScope.genres_list.size()}"/>)</p>
     </div>
+    <div class="add">
+        <a class="button" href="#pop">
+            <button class="add-btn"><fmt:message key="label.add_genre"/></button>
+        </a>
+        <form action="${pageContext.request.contextPath}/controller" method="post">
+            <div id="pop" class="overlay1">
+                <div class="pop">
+                    <input type="hidden" name="command" value="add_genre">
+                    <div class="text">
+                        <h2><fmt:message key="label.add_genre"/></h2>
+                        <input type="text" name="genre_title" placeholder="<fmt:message key="label.name"/>">
+                    </div>
+                    <div class="buttons">
+                        <div class="remove">
+                            <button type="submit" style="background-color: #FFF; color: black"><fmt:message
+                                    key="label.add"/></button>
+                        </div>
+                        <a class="close"
+                           style="margin-top: -20px; margin-left: 5px"
+                           href="#">
+                            <i class="fa fa-close"
+                               style="margin-top: 1px; margin-left: 1px; color: black">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <c:choose>
         <c:when test="${sessionScope.genre_successfully_added != null}">
             <div class="message">
@@ -64,34 +93,6 @@
 
 </div>
 <div class="main-content">
-    <div class="add">
-        <a class="button" href="#pop">
-            <button class="add-btn"><fmt:message key="label.add_genre"/></button>
-        </a>
-        <form action="${pageContext.request.contextPath}/controller" method="post">
-            <div id="pop" class="overlay1">
-                <div class="pop">
-                    <input type="hidden" name="command" value="add_genre">
-                    <div class="text">
-                        <h2><fmt:message key="label.add_genre"/></h2>
-                        <input type="text" name="genre_title" placeholder="<fmt:message key="label.name"/>">
-                    </div>
-                    <div class="buttons">
-                        <div class="remove">
-                            <button type="submit" style="background-color: #FFF; color: black"><fmt:message
-                                    key="label.add"/></button>
-                        </div>
-                        <div class="dismiss">
-                            <button style="background-color: #FFF; margin-left: 14px"><a
-                                    class="close" href="#"><fmt:message
-                                    key="label.close"/></a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
     <table class="content-table">
         <thead>
         <tr>
@@ -128,12 +129,13 @@
                                                 <fmt:message
                                                         key="label.remove"/></button>
                                         </div>
-                                        <div class="dismiss">
-                                            <button style=" margin-left: 14px; background-color: #FFF"><a
-                                                    class="close" href="#"><fmt:message
-                                                    key="label.close"/></a>
-                                            </button>
-                                        </div>
+                                        <a class="close"
+                                           style="margin-top: -20px; margin-left: 5px"
+                                           href="#">
+                                            <i class="fa fa-close"
+                                               style="margin-top: 3px; margin-left: 1px; color: black">
+                                            </i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

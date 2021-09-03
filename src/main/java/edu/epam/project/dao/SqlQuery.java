@@ -30,7 +30,7 @@ public class SqlQuery {
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
     public static final String DELETE_ACTOR_BY_NAME = "DELETE FROM actors WHERE first_name = (?)";
     public static final String UPDATE_ACTOR_PICTURE = "UPDATE actors SET picture = (?) WHERE actor_id = (?)";
-    public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors";
+    public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors LIMIT ?,?";
     public static final String SELECT_ACTOR_INFO = "SELECT actor_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date,null) AS birth_date,  (\n" +
             "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) -                             \n" +
             "    (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))\n" +
@@ -49,6 +49,7 @@ public class SqlQuery {
 
     public static final String INSERT_TO_DIRECTOR = "INSERT INTO director (director_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
     public static final String UPDATE_DIRECTOR_INFO = "UPDATE director SET first_name = (?), last_name = (?), height = (?), birth_date = (?) WHERE director_id = (?)";
+    public static final String DELETE_DIRECTOR = "DELETE FROM director WHERE director_id = (?)";
     public static final String UPDATE_DIRECTOR_PICTURE = "UPDATE director SET picture = (?) WHERE director_id = (?)";
     public static final String FIND_DIRECTORS_BY_MOVIE_ID = "SELECT director_id, first_name, last_name FROM director JOIN movie_direction " +
             "ON director_id = director_id_fk where movie_id_fk = (?)";
@@ -58,7 +59,7 @@ public class SqlQuery {
             "    (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))\n" +
             "  ) AS age FROM director WHERE director_id = (?)";
     public static final String SELECT_DIRECTORS_BY_KEY_WORDS = "SELECT director_id, first_name, last_name FROM director WHERE CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', ? ,'%') GROUP BY director_id";
-    public static final String SELECT_ALL_DIRECTORS = "SELECT director_id, first_name, last_name FROM director";
+    public static final String SELECT_ALL_DIRECTORS = "SELECT director_id, first_name, last_name FROM director LIMIT ?,?";
     public static final String SELECT_MOVIES_FOR_DIRECTOR = "SELECT m.movie_id, m.title, m.release_date, m.picture, IFNULL(AVG(user_score), 0) AS user_score FROM director d\n" +
             "JOIN movie_direction md ON d.director_id = md.director_id_fk\n" +
             "JOIN movies m ON md.movie_id_fk = m.movie_id\n" +

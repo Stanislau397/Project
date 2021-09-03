@@ -14,7 +14,22 @@
 </head>
 <body>
 <nav class="sidebar">
-    <div class="text">Admin Panel</div>
+    <div class="info-container">
+        <div class="avatar">
+            <img class="user-avatar"
+                    src="${pageContext.request.contextPath}${sessionScope.user_avatar}">
+        </div>
+        <div class="user-info">
+            <h2 class="user-name">
+                <c:out value="${sessionScope.user_name}"/>
+            </h2>
+            <p class="user-role">
+                <c:if test="${sessionScope.admin != null}">
+                    <fmt:message key="label.admin"/>
+                </c:if>
+            </p>
+        </div>
+    </div>
     <ul class="drop">
         <li class="active"><a href="${pageContext.request.contextPath}/controller?command=open_home_page"><fmt:message
                 key="text.label.main"/></a></li>
@@ -27,7 +42,7 @@
             <ul class="feat-show">
                 <li><a href="${pageContext.request.contextPath}/controller?command=to_upload_movie"><fmt:message
                         key="label.upload_movie"/></a></li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=all_movies"><fmt:message
+                <li><a href="${pageContext.request.contextPath}/controller?command=all_movies&page=1"><fmt:message
                         key="label.all_movies"/></a></li>
             </ul>
         </li>
@@ -35,10 +50,10 @@
         <li class="active"><a href="${pageContext.request.contextPath}/controller?command=all_users"><fmt:message
                 key="label.all_users"/></a></li>
         <li class="active"><a
-                href="${pageContext.request.contextPath}/controller?command=display_all_actors"><fmt:message
+                href="${pageContext.request.contextPath}/controller?command=display_all_actors&page=1"><fmt:message
                 key="label.actors"/></a></li>
         <li class="active"><a
-                href="${pageContext.request.contextPath}/controller?command=display_all_directors"><fmt:message
+                href="${pageContext.request.contextPath}/controller?command=display_all_directors&page=1"><fmt:message
                 key="label.directors"/></a></li>
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=to_genres"><fmt:message

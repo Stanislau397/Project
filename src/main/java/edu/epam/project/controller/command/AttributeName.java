@@ -29,6 +29,7 @@ public class AttributeName {
     public static final String ADMIN_ROLE = "admin_role";
     public static final String USER_ROLE = "user_role";
     public static final String COUNTER = "counter";
+    public static final String PAGE_NUMBER = "page_number";
     public static final String ERROR_404 = "error_404";
 
     public static final String ERROR = "error";

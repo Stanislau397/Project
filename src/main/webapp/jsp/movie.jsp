@@ -100,12 +100,12 @@
                 <div class="pagination-number">
                     <c:forEach begin="1" end="${requestScope.pages}" varStatus="loop">
                         <c:choose>
-                            <c:when test="${requestScope.page1 == loop.count}">
+                            <c:when test="${requestScope.page_number == loop.count}">
                                 <a style="color: #2f80ed"
                                         href="${pageContext.request.contextPath}/controller?command=show_all_movies&page=${loop.count}">${loop.count}
                                 </a>
                             </c:when>
-                            <c:when test="${requestScope.page1 != loop.count}">
+                            <c:when test="${requestScope.page_number != loop.count}">
                                 <a href="${pageContext.request.contextPath}/controller?command=show_all_movies&page=${loop.count}">${loop.count}</a>
                             </c:when>
                         </c:choose>

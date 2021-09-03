@@ -734,10 +734,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Actor> findAllActors() throws ServiceException {
+    public List<Actor> findAllActors(int start, int total) throws ServiceException {
         List<Actor> allActors;
         try {
-            allActors = movieDao.findAllActors();
+            allActors = movieDao.findAllActors(start, total);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -771,6 +771,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public boolean removeDirectorById(long directorId) throws ServiceException {
+        boolean isDeleted;
+        try {
+            isDeleted = movieDao.removeDirectorById(directorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDeleted;
     }
 
     @Override
@@ -913,10 +925,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Director> findAllDirectors() throws ServiceException {
+    public List<Director> findAllDirectors(int start, int total) throws ServiceException {
         List<Director> allDirectors;
         try {
-            allDirectors = movieDao.findAllDirectors();
+            allDirectors = movieDao.findAllDirectors(start, total);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

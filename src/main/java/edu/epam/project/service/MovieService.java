@@ -97,11 +97,13 @@ public interface MovieService {
 
     List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
 
-    List<Actor> findAllActors() throws ServiceException;
+    List<Actor> findAllActors(int start, int total) throws ServiceException;
 
     List<Actor> findActorsByKeyWords(String keyWords) throws ServiceException;
 
     boolean addDirector(Director director) throws ServiceException;
+
+    boolean removeDirectorById(long directorId) throws ServiceException;
 
     Optional<Director> findDirectorInfoByDirectorId(long directorId) throws ServiceException;
 
@@ -125,7 +127,7 @@ public interface MovieService {
 
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
 
-    List<Director> findAllDirectors() throws ServiceException;
+    List<Director> findAllDirectors(int start, int total) throws ServiceException;
 
     boolean addGenre(Genre genre) throws ServiceException;
 

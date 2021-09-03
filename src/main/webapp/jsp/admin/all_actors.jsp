@@ -8,6 +8,7 @@
     <title><fmt:message key="label.actors"/></title>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
@@ -15,15 +16,15 @@
     <div class="text1">
         <h2><fmt:message key="label.actors"/></h2>
     </div>
-    <div class="counter">
-        <c:choose>
-            <c:when test="${requestScope.actors_list != null}">
-                <p>(<c:out value="${requestScope.actors_list.size()}"/>)</p>
-            </c:when>
-            <c:when test="${requestScope.actors_by_key_words_list != null}">
-                <p>(<c:out value="${requestScope.actors_by_key_words_list.size()}"/>)</p>
-            </c:when>
-        </c:choose>
+    <c:if test="${requestScope.counter != null}">
+        <div class="counter">
+            <p>(<c:out value="${requestScope.counter}"/>)</p>
+        </div>
+    </c:if>
+    <div class="add">
+        <a class="button" href="${pageContext.request.contextPath}/jsp/admin/add_actor.jsp">
+            <button class="add-btn"><fmt:message key="label.add_actor"/></button>
+        </a>
     </div>
     <div class="search">
         <form action="${pageContext.request.contextPath}/controller" method="get">
@@ -33,12 +34,23 @@
         </form>
     </div>
 </div>
+<c:choose>
+    <c:when test="${sessionScope.actor_removed != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.remove_actor_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="actor_removed" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.remove_actor_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="error" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
-    <div class="add">
-        <a class="button" href="${pageContext.request.contextPath}/jsp/admin/add_actor.jsp">
-            <button class="add-btn"><fmt:message key="label.add_actor"/></button>
-        </a>
-    </div>
     <table class="content-table">
         <thead>
         <tr>
@@ -60,7 +72,8 @@
                         <td><c:out value="${allActors.actorId}"/></td>
                         <td>
                             <div class="edit-actor">
-                                <a class="button" href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${allActors.actorId}">
+                                <a class="button"
+                                   href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${allActors.actorId}">
                                     <button class="edit-btn"><i class="fa fa-edit"></i></button>
                                 </a>
                             </div>
@@ -79,15 +92,16 @@
                                             </div>
                                             <div class="buttons">
                                                 <div class="remove">
-                                                    <button type="submit" style="background-color: #FFF;color: black"><fmt:message
+                                                    <button type="submit" style="background-color: #FFF; color: black"><fmt:message
                                                             key="label.remove"/></button>
                                                 </div>
-                                                <div class="dismiss">
-                                                    <button style="background-color: #FFF; margin-left: 14px"><a
-                                                            class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
+                                                <a class="close"
+                                                   style="margin-top: -20px; margin-left: 5px"
+                                                   href="#">
+                                                    <i class="fa fa-close"
+                                                       style="margin-top: 3px; margin-left: 1px; color: black">
+                                                    </i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +120,8 @@
                         <td><c:out value="${actorsByKeyWords.actorId}"/></td>
                         <td>
                             <div class="edit-actor">
-                                <a class="button" href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${actorsByKeyWords.actorId}">
+                                <a class="button"
+                                   href="${pageContext.request.contextPath}/controller?command=to_edit_actor&actor_id=${actorsByKeyWords.actorId}">
                                     <button class="edit-btn"><i class="fa fa-edit"></i></button>
                                 </a>
                             </div>
@@ -120,20 +135,21 @@
                                             <input type="hidden" name="command" value="remove_actor">
                                             <input type="hidden" name="actor_id" value="${actorsByKeyWords.actorId}">
                                             <div class="text">
-                                                <h2 style="color: white"><fmt:message key="label.delete_actor"/></h2>
+                                                <h2 style="color: black"><fmt:message key="label.delete_actor"/></h2>
                                                 <p class="text"><fmt:message key="label.delete_actor_msg"/></p>
                                             </div>
                                             <div class="buttons">
                                                 <div class="remove">
-                                                    <button type="submit" style="background-color: #1a191f"><fmt:message
+                                                    <button type="submit" style="background-color: #FFF; color: black"><fmt:message
                                                             key="label.remove"/></button>
                                                 </div>
-                                                <div class="dismiss">
-                                                    <button style="background-color: #1a191f; margin-left: 14px"><a
-                                                            class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
+                                                    <a class="close"
+                                                       style="margin-top: -20px; margin-left: 5px"
+                                                       href="#">
+                                                        <i class="fa fa-close"
+                                                           style="margin-top: 3px; margin-left: 1px; color: black">
+                                                        </i>
+                                                    </a>
                                             </div>
                                         </div>
                                     </div>
@@ -146,6 +162,34 @@
         </c:choose>
         </tbody>
     </table>
+    <div class="pagination">
+        <div class="title">
+            <p><fmt:message key="label.page"/></p>
+        </div>
+        <div class="pagination-number">
+            <c:forEach begin="1" end="${requestScope.pages}" varStatus="loop">
+                <c:choose>
+                    <c:when test="${requestScope.page_number == loop.count}">
+                        <a style="color: #2f80ed"
+                           href="${pageContext.request.contextPath}/controller?command=display_all_actors&page=${loop.count}">${loop.count}
+                        </a>
+                    </c:when>
+                    <c:when test="${requestScope.page_number != loop.count}">
+                        <a href="${pageContext.request.contextPath}/controller?command=display_all_actors&page=${loop.count}">${loop.count}</a>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+        </div>
+    </div>
 </div>
+<br>
+<br>
+<script type="text/javascript">
+    $(".close").click(function () {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+    });
+</script>
 </body>
 </html>
