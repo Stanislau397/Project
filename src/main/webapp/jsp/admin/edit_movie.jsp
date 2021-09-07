@@ -8,6 +8,7 @@
     <title><fmt:message key="label.edit"/></title>
     <jsp:include page="/jsp/static/admin_side_bar.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/edit_movie.css">
+    <script src="${pageContext.request.contextPath}/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
@@ -23,6 +24,50 @@
         </c:choose>
     </div>
 </div>
+<c:choose>
+    <c:when test="${sessionScope.changed_data != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_movie_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_data" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.changed_picture != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_picture_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_picture" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.changed_trailer != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.edit_trailer_success"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="changed_trailer" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_movie_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="error" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.trailer_error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.trailer_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="trailer_error" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.picture_error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.edit_picture_error"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="picture_error" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
     <div class="head">
         <div class="navigation">
@@ -85,44 +130,61 @@
                         </div>
                     </form>
                 </div>
-                <div class="edit-title-date-time-description">
-                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                        <input type="hidden" name="command" value="update_movie">
-                        <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                        <label for="title"><fmt:message key="label.title"/> </label>
-                        <input type="text" id="title" name="title"
-                               pattern="^.{1,80}$"
-                               title="До 80 символов" required
-                               value="${requestScope.movie_info.title}">
-                        <label for="run_time"><fmt:message key="label.runtime"/></label>
-                        <input type="text" id="run_time" name="run_time"
-                               style="margin-left: 85px"
-                               pattern="^\d+$"
-                               title="123" required
-                               value="${requestScope.movie_info.runTime}">
-                        <label for="date"><fmt:message key="label.release_date"/></label>
-                        <input type="text" id="date" name="release_date"
-                               style="margin-left: 22px"
-                               pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
-                               title="1995-11-19" required
-                               value="${requestScope.movie_info.releaseDate}">
-                        <label for="description"><fmt:message key="label.summery"/></label>
-                        <textarea id="description" name="description"><c:out
-                                value="${requestScope.movie_info.description}"/></textarea>
-                        <button type="submit"><fmt:message key="label.save"/></button>
-                    </form>
-                </div>
                 <div class="bottom">
                     <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="command" value="update_movie_trailer">
                         <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
                         <div id="video">
-                            <video muted autoplay controls id="trailer" src="${pageContext.request.contextPath}${requestScope.movie_info.trailer}"></video>
+                            <video controls id="trailer" src="${pageContext.request.contextPath}${requestScope.movie_info.trailer}"></video>
                         </div>
                         <label for="fileupload" id="file" class="label-for_video"><fmt:message key="label.choose"/></label>
                         <input id="fileupload" type="file" name="file" class="inputFile" multiple>
                         <button type="submit"><fmt:message key="label.change"/></button>
                     </form>
+                    <br>
+                    <br>
+                </div>
+                <div class="edit-title-date-time-description">
+                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                        <div class="info-container">
+                            <input type="hidden" name="command" value="update_movie">
+                            <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                            <label for="title"><fmt:message key="label.title"/> </label>
+                            <input type="text" id="title" name="title"
+                                   required
+                                   value="${requestScope.movie_info.title}">
+                            <div class="arrow-5 arrow-5-top" id="title-error">
+                                <fmt:message key="label.title_example"/>
+                            </div>
+                            <label for="run_time"><fmt:message key="label.runtime"/></label>
+                            <input type="text" id="run_time" name="run_time"
+                                   style="margin-left: 85px"
+                                   placeholder="<fmt:message key="label.run_time_example"/>"
+                                   required
+                                   value="${requestScope.movie_info.runTime}">
+                            <div class="arrow-5 arrow-5-top" id="run-time-error">
+                                <fmt:message key="label.run_time_error"/>
+                            </div>
+                            <label for="release_date"><fmt:message key="label.release_date"/></label>
+                            <input type="text" id="release_date" name="release_date"
+                                   style="margin-left: 22px"
+                                   placeholder="<fmt:message key="label.date_example"/>"
+                                   required
+                                   value="${requestScope.movie_info.releaseDate}">
+                            <div class="arrow-5 arrow-5-top" id="release-date-error">
+                                <fmt:message key="label.date_error"/>
+                            </div>
+                            <label for="description"><fmt:message key="label.summery"/></label>
+                            <textarea id="description" name="description"><c:out
+                                    value="${requestScope.movie_info.description}"/></textarea>
+                        </div>
+                        <div class="arrow-5 arrow-5-top" id="description-error">
+                            <fmt:message key="label.description_example"/>
+                        </div>
+                        <button type="submit" id="edit-movie-btn"><fmt:message key="label.save"/></button>
+                    </form>
+                    <br>
+                    <br>
                 </div>
             </c:when>
 
@@ -410,6 +472,7 @@
         </c:choose>
     </div>
     <script>
+
         const inpFile = document.getElementById("inpFile");
         const previewContainer = document.getElementById("imagePreview");
         const previewImage = previewContainer.querySelector(".image-preview__image");
@@ -437,7 +500,6 @@
             readURL(this, "#trailer");
         });
 
-        //Preview image
         function readURL(inputFile, imgId) {
             if (inputFile.files && inputFile.files[0]) {
                 var reader = new FileReader();
@@ -459,6 +521,12 @@
                     message += $(this).text() + " " + $(this).val() + "\n";
                 });
             });
+        });
+
+        $(".close").click(function () {
+            $(this)
+                .parent(".alert")
+                .fadeOut();
         });
     </script>
 </div>

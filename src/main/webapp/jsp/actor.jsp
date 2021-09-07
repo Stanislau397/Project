@@ -1,6 +1,8 @@
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="today" value="<%=new Date()%>"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="property.text"/>
@@ -82,10 +84,10 @@
                                style="margin-left: -1.5px">
                                 <c:choose>
                                     <c:when test="${bestMoviesForActor.rating.score >= 70}">
-                                        <p class="score" style="background-color: #66cc33"><c:out value="${bestMoviesForActor.rating.score}"/></p>
+                                        <p class="score" style="background-color: #66cc33"><c:out value="${bestMoviesForActor.rating.score / 10}"/></p>
                                     </c:when>
                                     <c:when test="${bestMoviesForActor.rating.score < 70}">
-                                        <p class="score" style="background-color: #f9c22a"><c:out value="${bestMoviesForActor.rating.score}"/></p>
+                                        <p class="score" style="background-color: #f9c22a"><c:out value="${bestMoviesForActor.rating.score / 10}"/></p>
                                     </c:when>
                                 </c:choose>
                                 <img src="${pageContext.request.contextPath}${bestMoviesForActor.picture}"
@@ -129,9 +131,13 @@
         </div>
     </div>
     <div class="films">
-        <h3><fmt:message key="label.all_filmography"/></h3>
+        <h3 class="filmography"><fmt:message key="label.all_filmography"/></h3>
         <c:forEach items="${requestScope.movies_for_actor_list}" var="moviesForActor">
             <div class="container">
+                <div class="movie-year">
+                    <p><fmt:formatDate
+                            value="${moviesForActor.releaseDate}" pattern="yyyy"/></p>
+                </div>
                 <div class="pic">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForActor.movieId}">
                         <img src="${pageContext.request.contextPath}${moviesForActor.picture}">
@@ -144,22 +150,19 @@
                             <button type="submit" class="movie-title-btn"><c:out value="${moviesForActor.title}"/></button>
                         </form>
                 </div>
-                <div class="movie-year">
-                    <p><c:out value="${moviesForActor.releaseDate}"/></p>
-                </div>
                 <div class="movie-score">
                     <c:choose>
                         <c:when test="${moviesForActor.rating.score >= 70}">
-                            <p style="background-color: #66cc33"><c:out value="${moviesForActor.rating.score}"/></p>
+                            <p style="background-color: #66cc33"><c:out value="${moviesForActor.rating.score / 10}"/></p>
                         </c:when>
                         <c:when test="${moviesForActor.rating.score < 70 && moviesForActor.rating.score >= 40}">
-                            <p style="background-color: #f9c22a"><c:out value="${moviesForActor.rating.score}"/></p>
+                            <p style="background-color: #f9c22a"><c:out value="${moviesForActor.rating.score / 10}"/></p>
                         </c:when>
                         <c:when test="${moviesForActor.rating.score < 40 && moviesForActor.rating.score > 0}">
-                            <p style="background-color: red"><c:out value="${moviesForActor.rating.score}"/></p>
+                            <p style="background-color: red"><c:out value="${moviesForActor.rating.score / 10}"/></p>
                         </c:when>
                         <c:when test="${moviesForActor.rating.score == 0}">
-                            <fmt:message key="label.rating"/>
+                            <p style="color: white; background-color: lightslategray">tbd</p>
                         </c:when>
                     </c:choose>
                 </div>

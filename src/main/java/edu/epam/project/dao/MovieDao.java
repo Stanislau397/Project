@@ -13,7 +13,7 @@ public interface MovieDao {
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws DaoException;
 
-    boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException;
+    boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException;
 
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException;
 

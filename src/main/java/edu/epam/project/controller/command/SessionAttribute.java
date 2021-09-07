@@ -31,7 +31,9 @@ public class SessionAttribute {
     public static final String DIRECTOR_EXISTS = "director_already_exists";
     public static final String CHANGED_DATA = "changed_data";
     public static final String CHANGED_PICTURE = "changed_picture";
+    public static final String CHANGED_TRAILER = "changed_trailer";
     public static final String ERROR = "error";
     public static final String PICTURE_ERROR = "picture_error";
+    public static final String TRAILER_ERROR = "trailer_error";
     public static final String DELETE_ERROR = "delete_error";
 }

@@ -1,6 +1,9 @@
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="today" value="<%=new Date()%>"/>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="property.text"/>
 <html>
@@ -47,12 +50,12 @@
                     <li class="name"><fmt:message key="label.birth_date"/></li>
                     <li>
                         <c:choose>
-                            <c:when test="${requestScope.director.birthDate == null}">
+                            <c:when test="${fn:contains(requestScope.director.birthDate, 'null')}">
                                 -
                             </c:when>
-                            <c:when test="${requestScope.director.birthDate != null}">
+                            <c:otherwise>
                                 <c:out value="${requestScope.director.birthDate}"/>
-                            </c:when>
+                            </c:otherwise>
                         </c:choose>
                     </li>
                     <li class="name"><fmt:message key="label.height"/></li>
@@ -128,9 +131,13 @@
         </div>
     </div>
     <div class="films">
-        <h3><fmt:message key="label.all_filmography"/></h3>
+        <h3 class="filmography"><fmt:message key="label.all_filmography"/></h3>
         <c:forEach items="${requestScope.movies_for_director_list}" var="moviesForDirector">
             <div class="container">
+                <div class="movie-year">
+                    <p><fmt:formatDate
+                            value="${moviesForDirector.releaseDate}" pattern="yyyy"/></p>
+                </div>
                 <div class="pic">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForDirector.movieId}">
                         <img src="${pageContext.request.contextPath}${moviesForDirector.picture}">
@@ -142,9 +149,6 @@
                         <input type="hidden" name="movie_id" value="${moviesForDirector.movieId}">
                         <button type="submit" class="movie-title-btn"><c:out value="${moviesForDirector.title}"/></button>
                     </form>
-                </div>
-                <div class="movie-year">
-                    <p><c:out value="${moviesForDirector.releaseDate}"/></p>
                 </div>
                 <div class="movie-score">
                     <c:choose>

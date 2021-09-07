@@ -56,7 +56,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException {
+    public boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE)) {

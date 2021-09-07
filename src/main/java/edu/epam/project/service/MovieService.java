@@ -13,7 +13,7 @@ public interface MovieService {
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
 
-    boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException;
+    boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException;
 
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException;
 

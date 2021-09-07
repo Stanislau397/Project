@@ -27,9 +27,9 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    private static final String PASSWORD_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
+    private static final String PASSWORD_REGEX = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
 
     public static void main(String[] args) throws ServiceException, DaoException {
-        System.out.println("1.8".matches(PASSWORD_REGEX));
+        System.out.println("2020-12-32".matches(PASSWORD_REGEX));
     }
 }

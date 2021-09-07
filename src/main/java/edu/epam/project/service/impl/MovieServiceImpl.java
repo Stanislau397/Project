@@ -7,6 +7,7 @@ import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.validator.ActorValidator;
+import edu.epam.project.validator.MovieValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,11 +46,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean updateTitleRunTimeReleaseDateDescriptionByMovieId(String title, int runTime, Date releaseDate, String description, long movie_id)
+    public boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id)
             throws ServiceException {
-        boolean isUpdated;
+        MovieValidator validator = new MovieValidator();
+        boolean isUpdated = false;
         try {
-            isUpdated = movieDao.updateTitleRunTimeReleaseDateDescriptionByMovieId(title, runTime, releaseDate, description, movie_id);
+            if (validator.isTitleValid(title)
+                    && validator.isDescriptionValid(description)
+                    && validator.isRunTimeValid(runTime)
+                    && validator.isReleaseDateValid(String.valueOf(releaseDate))) {
+                isUpdated = movieDao.updateMovieInfoById(title, runTime, releaseDate, description, movie_id);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
