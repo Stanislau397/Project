@@ -91,6 +91,8 @@ public interface MovieDao {
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws DaoException;
 
+    boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws DaoException;
+
     Optional<Actor> findActorInfoByActorId(long actorId) throws DaoException;
 
     List<Actor> findActorsByMovieId(long movieId) throws DaoException;
@@ -121,6 +123,8 @@ public interface MovieDao {
 
     boolean isDirectorAlreadyExists(Director director) throws DaoException;
 
+    boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws DaoException;
+
     boolean addDirectorToMovieByMovieId(Director director, long movieId) throws DaoException;
 
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws DaoException;
@@ -134,6 +138,8 @@ public interface MovieDao {
     boolean removeGenreById(long genreId) throws DaoException;
 
     boolean addGenreToMovie(long genreId, long movieId) throws DaoException;
+
+    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException;
 
     Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException;
 

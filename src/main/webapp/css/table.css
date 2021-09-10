@@ -459,7 +459,7 @@ td:last-child {
     font-weight: 300;
     font-size: 18px;
     color: white;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .buttons button a, .right .buttons button a {

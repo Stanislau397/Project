@@ -91,6 +91,8 @@ public interface MovieService {
 
     boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException;
 
+    boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws ServiceException;
+
     Optional<Actor> findActorInfoByActorId(long actorId) throws ServiceException;
 
     Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws ServiceException;
@@ -125,6 +127,8 @@ public interface MovieService {
 
     boolean isDirectorAlreadyExists(Director director) throws ServiceException;
 
+    boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws ServiceException;
+
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
 
     List<Director> findAllDirectors(int start, int total) throws ServiceException;
@@ -134,6 +138,8 @@ public interface MovieService {
     boolean removeGenreById(long genreId) throws ServiceException;
 
     Optional<Genre> findGenreByTitle(String genreTitle) throws ServiceException;
+
+    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws ServiceException;
 
     boolean addGenreToMovie(long genreId, long movieId) throws ServiceException;
 

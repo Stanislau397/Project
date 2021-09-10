@@ -945,6 +945,24 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws DaoException {
+        boolean isActorFound = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_ACTOR_FOR_MOVIE)) {
+            statement.setLong(1, actorId);
+            statement.setLong(2, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isActorFound = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isActorFound;
+    }
+
+    @Override
     public Optional<Actor> findActorInfoByActorId(long actorId) throws DaoException {
         Optional<Actor> actorInfo = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -1243,6 +1261,24 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws DaoException {
+        boolean isDirectorFound = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_DIRECTOR_FOR_MOVIE)) {
+            statement.setLong(1, directorId);
+            statement.setLong(2, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isDirectorFound = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isDirectorFound;
+    }
+
+    @Override
     public boolean addDirectorToMovieByMovieId(Director director, long movieId) throws DaoException {
         boolean isDirectorAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -1370,6 +1406,24 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isGenreAdded;
+    }
+
+    @Override
+    public boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException {
+        boolean isFound = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_GENRE)) {
+            statement.setLong(1, movieId);
+            statement.setLong(2, genreId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isFound = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isFound;
     }
 
     @Override

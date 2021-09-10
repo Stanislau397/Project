@@ -30,6 +30,8 @@ public class Main {
     private static final String PASSWORD_REGEX = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
 
     public static void main(String[] args) throws ServiceException, DaoException {
+        MovieDao movieDao = new MovieDaoImpl();
+        System.out.println(movieDao.isGenreAlreadyExistsForMovie(1, 2));
         System.out.println("2020-12-32".matches(PASSWORD_REGEX));
     }
 }

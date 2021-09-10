@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/edit_movie.css">
     <script src="${pageContext.request.contextPath}/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css"
+          rel="stylesheet"/>
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
+            type="text/javascript"></script>
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+          rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="top">
@@ -46,9 +55,23 @@
             <c:remove var="changed_trailer" scope="session"/>
         </div>
     </c:when>
+    <c:when test="${sessionScope.genre_successfully_added != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.add_genre_to_movie"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_successfully_added" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.genre_removed != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.genre_removed_from_movie"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_removed" scope="session"/>
+        </div>
+    </c:when>
     <c:when test="${sessionScope.error != null}">
         <div class="alert" style="background-color: #eb5757">
-            <h3><fmt:message key="label.edit_movie_error"/></h3>
+            <h3><fmt:message key="label.genre_removed_error_msg"/></h3>
             <a class="close"><i class="fa fa-close"></i></a>
             <c:remove var="error" scope="session"/>
         </div>
@@ -65,6 +88,20 @@
             <h3><fmt:message key="label.edit_picture_error"/></h3>
             <a class="close"><i class="fa fa-close"></i></a>
             <c:remove var="picture_error" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.genre_already_exists != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.genre_exists_for_movie"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_already_exists" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.delete_genre_error != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><fmt:message key="label.add_genre_to_movie"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="genre_successfully_added" scope="session"/>
         </div>
     </c:when>
 </c:choose>
@@ -233,11 +270,13 @@
                                                         <button type="submit"><fmt:message key="label.remove"/></button>
                                                     </form>
                                                 </div>
-                                                <div class="dismiss">
-                                                    <button><a class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
+                                                <a class="close"
+                                                   style="margin-top: -20px; margin-left: 5px"
+                                                   href="#">
+                                                    <i class="fa fa-close"
+                                                       style="margin-top: 1px; margin-left: 1px; color: black">
+                                                    </i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -259,23 +298,31 @@
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                                 <div class="text">
                                     <h2 style="color: black"><fmt:message key="label.add_director"/></h2>
-                                    <input type="text" name="first_name"
-                                           placeholder="<fmt:message key="label.first_name"/>">
-                                    <input type="text" name="last_name"
-                                           placeholder="<fmt:message key="label.last_name"/>">
+                                <div class="mb-3">
+                                    <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstActors"
+                                            multiple="multiple" data-live-search="true"
+                                            style="background-color: rgb(240,240,240)"
+                                            required name="actors">
+                                        <c:forEach items="${requestScope.actors_list}" var="allActors">
+                                            <option style="background-color: rgb(240,240,240)"
+                                                    data-tokens="${allActors.firstName} ${allActors.lastName}"
+                                                    value="${allActors.actorId}"><c:out value="${allActors.firstName}"/>
+                                                <c:out value="${allActors.lastName}"/></option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <div class="buttons">
                                     <div class="remove">
                                         <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.add"/></button>
                                     </div>
-                                    <div class="dismiss">
-                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a
-                                                class="close"
-                                                href="#"><fmt:message
-                                                key="label.close"/></a>
-                                        </button>
-                                    </div>
+                                    <a class="close"
+                                       style="margin-top: -20px; margin-left: 5px"
+                                       href="#">
+                                        <i class="fa fa-close"
+                                           style="margin-top: 1px; margin-left: 1px; color: black">
+                                        </i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -285,6 +332,28 @@
 
 
             <c:when test="${requestScope.actors_list != null}">
+                <div class="add-actor">
+                    <form action="${pageContext.request.contextPath}/controller" method="post">
+                        <div class="mb-3" style="float: left; width: 80%">
+                                <input type="hidden" name="command" value="add_actor_to_movie">
+                                <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
+                                <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstActors"
+                                        multiple="multiple" data-live-search="true"
+                                        style="background-color: rgb(240,240,240)"
+                                        required name="actors">
+                                    <c:forEach items="${requestScope.all_actors_list}" var="allActors">
+                                        <option
+                                                data-tokens="${allActors.firstName} ${allActors.lastName}"
+                                                value="${allActors.actorId}"><c:out value="${allActors.firstName}"/>
+                                            <c:out value="${allActors.lastName}"/></option>
+                                    </c:forEach>
+                                </select>
+                        </div>
+                        <div class="add-actor-right">
+                            <button type="submit" class="add-actor-btn"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </form>
+                </div>
                 <table class="content-table">
                     <thead>
                     <tr>
@@ -327,11 +396,13 @@
                                                         <button type="submit"><fmt:message key="label.remove"/></button>
                                                     </form>
                                                 </div>
-                                                <div class="dismiss">
-                                                    <button><a class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
+                                                <a class="close"
+                                                   style="margin-top: -20px; margin-left: 5px"
+                                                   href="#">
+                                                    <i class="fa fa-close"
+                                                       style="margin-top: 1px; margin-left: 1px; color: black">
+                                                    </i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -341,38 +412,6 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <div class="add">
-                    <a class="button" href="#pop">
-                        <button class="add-btn"><fmt:message key="label.add_actor"/></button>
-                    </a>
-                    <form action="${pageContext.request.contextPath}/controller" method="post">
-                        <div id="pop" class="overlay2">
-                            <div class="pop">
-                                <input type="hidden" name="command" value="add_actor_to_movie">
-                                <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
-                                <div class="text">
-                                    <h2 style="color: black"><fmt:message key="label.add_actor"/></h2>
-                                    <input type="text" name="first_name"
-                                           placeholder="<fmt:message key="label.first_name"/>">
-                                    <input type="text" name="last_name"
-                                           placeholder="<fmt:message key="label.last_name"/>">
-                                </div>
-                                <div class="buttons">
-                                    <div class="remove">
-                                        <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
-                                                key="label.add"/></button>
-                                    </div>
-                                    <div class="dismiss">
-                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a class="close"
-                                                                                                        href="#"><fmt:message
-                                                key="label.close"/></a>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </c:when>
 
             <c:when test="${requestScope.movie_genres_list != null}">
@@ -419,11 +458,13 @@
                                                         <button type="submit"><fmt:message key="label.remove"/></button>
                                                     </form>
                                                 </div>
-                                                <div class="dismiss">
-                                                    <button><a class="close" href="#"><fmt:message
-                                                            key="label.close"/></a>
-                                                    </button>
-                                                </div>
+                                                <a class="close"
+                                                   style="margin-top: -20px; margin-left: 5px"
+                                                   href="#">
+                                                    <i class="fa fa-close"
+                                                       style="margin-top: 1px; margin-left: 1px; color: black">
+                                                    </i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -457,11 +498,13 @@
                                                 key="label.add"/></button>
                                     </div>
                                     <div class="dismiss">
-                                        <button style="background-color: rgb(211,211,211); margin-left: 14px"><a
-                                                class="close"
-                                                href="#"><fmt:message
-                                                key="label.close"/></a>
-                                        </button>
+                                        <a class="close"
+                                           style="margin-top: -20px; margin-left: 5px"
+                                           href="#">
+                                            <i class="fa fa-close"
+                                               style="margin-top: 1px; margin-left: 1px; color: black">
+                                            </i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

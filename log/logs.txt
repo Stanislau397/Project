@@ -40,3 +40,4 @@
 20:07:01.509 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
 03:23:07.957 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
 03:23:24.471 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+01:41:56.033 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: Can not issue executeUpdate() or executeLargeUpdate() for SELECTs

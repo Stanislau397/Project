@@ -21,6 +21,7 @@ public class SqlQuery {
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";
     public static final String SELECT_MOVIE_GENRES = "SELECT genre_title, genres_id FROM genres JOIN movie_genres ON genres_id = genre_id_fk WHERE movie_id = (?) " +
             "GROUP BY genres_id";
+    public static final String FIND_MOVIE_GENRE = "SELECT movie_id, genre_id_fk FROM movie_genres WHERE movie_id = (?) AND genre_id_fk = (?)";
     public static final String DELETE_GENRE_BY_ID = "DELETE FROM genres WHERE genres_id = (?)";
     public static final String FIND_GENRE_BY_TITLE = "SELECT genres_id, genre_title FROM genres WHERE genre_title = (?)";
     public static final String INSERT_TO_MOVIE_GENRES = "INSERT INTO movie_genres(movie_id, genre_id_fk) VALUES(?,?)";
@@ -35,6 +36,7 @@ public class SqlQuery {
             "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) -                             \n" +
             "    (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))\n" +
             "  ) AS age FROM actors WHERE actor_id = (?)";
+    public static final String FIND_ACTOR_FOR_MOVIE = "SELECT movie_id, actor_id_fk FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
     public static final String UPDATE_ACTOR = "UPDATE actors SET first_name = (?), last_name = (?), birth_date = (?), height = (?) WHERE actor_id = (?)";
     public static final String DELETE_ACTOR = "DELETE FROM actors WHERE actor_id = (?)";
     public static final String FIND_ACTORS_BY_MOVIE_ID = "SELECT actor_id, first_name, last_name FROM actors JOIN movie_cast " +
@@ -58,6 +60,7 @@ public class SqlQuery {
             "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) -                             \n" +
             "    (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))\n" +
             "  ) AS age FROM director WHERE director_id = (?)";
+    public static final String SELECT_DIRECTOR_FOR_MOVIE = "SELECT director_id_fk, movie_id_fk FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
     public static final String SELECT_DIRECTORS_BY_KEY_WORDS = "SELECT director_id, first_name, last_name FROM director WHERE CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', ? ,'%') GROUP BY director_id";
     public static final String SELECT_ALL_DIRECTORS = "SELECT director_id, first_name, last_name FROM director LIMIT ?,?";
     public static final String SELECT_MOVIES_FOR_DIRECTOR = "SELECT m.movie_id, m.title, m.release_date, m.picture, IFNULL(AVG(user_score), 0) AS user_score FROM director d\n" +
@@ -83,7 +86,7 @@ public class SqlQuery {
     public static final String SELECT_MOVIES_FOR_ACTOR = "SELECT first_name, last_name, m.movie_id, m.release_date, m.picture, m.title, IFNULL(AVG(user_score), 0) AS user_score FROM actors a \n" +
             "JOIN movie_cast mc ON a.actor_id = mc.actor_id_fk\n" +
             "JOIN movies m ON mc.movie_id = m.movie_id\n" +
-            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE mc.actor_id_fk = (?) GROUP BY m.movie_id";
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE mc.actor_id_fk = (?) GROUP BY m.movie_id ORDER BY YEAR(m.release_date) DESC";
     public static final String FIND_CURRENT_YEAR_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY average DESC";
     public static final String SELECT_MOVIE_BY_YEAR = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +

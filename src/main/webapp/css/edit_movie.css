@@ -280,12 +280,6 @@ td:last-child {
     cursor: pointer;
 }
 
-.content-table button:hover {
-    color: #066ee7;
-    outline: none;
-    border: none;
-}
-
 button {
     cursor: pointer;
 }
@@ -377,23 +371,17 @@ button {
     float: left;
 }
 
-.buttons .dismiss, .right .buttons .dismiss {
-    margin-left: 20px;
-    margin-top: 5px;
-    float: left;
-}
-
 .buttons button, .right .buttons button {
     margin-top: 12px;
-    width: 183px;
+    width: 400px;
     height: 42px;
-    background-color: rgb(211,211,211);
     border: 2px solid black;
     border-radius: 10px;
     font-family: sans-serif;
     font-weight: 300;
     font-size: 18px;
     color: black;
+    background-color: rgb(211,211,211);
 }
 
 .buttons button a, .right .buttons button a {
@@ -585,3 +573,22 @@ video {
     cursor:pointer;
 }
 
+.add-actor {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.add-actor-right {
+    float: left;
+}
+
+.add-actor-btn {
+    display: inline-block;
+    margin-left: 10px;
+    width: 50px;
+    height: 35px;
+    border: 0;
+    border-radius: 5px;
+    background: rgb(220,220,220);
+    font-size: 20px;
+}

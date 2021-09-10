@@ -1,6 +1,5 @@
 package edu.epam.project.controller.command.impl.admin;
 
-import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
@@ -23,6 +22,7 @@ import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 
 import static edu.epam.project.controller.command.AttributeName.ACTORS_LIST;
 import static edu.epam.project.controller.command.AttributeName.MOVIE_TITLE;
+import static edu.epam.project.controller.command.AttributeName.ALL_ACTORS_LIST;
 
 public class DisplayMovieActorsCommand implements Command {
 
@@ -33,12 +33,14 @@ public class DisplayMovieActorsCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         String movieTitle = request.getParameter(TITLE);
-        System.out.println(movieTitle);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
+            int totalActors = movieService.countActors();
             List<Actor> actors = movieService.findActorsByMovieId(movieId);
+            List<Actor> allActors = movieService.findAllActors(0, totalActors);
             request.setAttribute(ACTORS_LIST, actors);
             request.setAttribute(MOVIE_TITLE, movieTitle);
+            request.setAttribute(ALL_ACTORS_LIST, allActors);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);
             router.setPagePath(PagePath.EDIT_MOVIE);
         } catch (ServiceException e) {

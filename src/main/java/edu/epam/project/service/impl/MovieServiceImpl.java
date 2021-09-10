@@ -173,6 +173,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws ServiceException {
+        boolean isFound;
+        try {
+            isFound = movieDao.isGenreAlreadyExistsForMovie(movieId, genreId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isFound;
+    }
+
+    @Override
     public boolean addGenreToMovie(long genreId, long movieId) throws ServiceException {
         boolean isGenreAdded;
         try {
@@ -705,6 +717,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws ServiceException {
+        boolean isActorFound;
+        try {
+            isActorFound = movieDao.isActorAlreadyExistsInMovie(actorId, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isActorFound;
+    }
+
+    @Override
     public Optional<Actor> findActorInfoByActorId(long actorId) throws ServiceException {
         Optional<Actor> actorInfo;
         try {
@@ -917,6 +941,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isDirectorExists;
+    }
+
+    @Override
+    public boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws ServiceException {
+        boolean isDirectorFound;
+        try {
+            isDirectorFound = movieDao.isDirectorAlreadyExistsInMovie(directorId, movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDirectorFound;
     }
 
     @Override

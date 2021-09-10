@@ -36,4 +36,5 @@ public class SessionAttribute {
     public static final String PICTURE_ERROR = "picture_error";
     public static final String TRAILER_ERROR = "trailer_error";
     public static final String DELETE_ERROR = "delete_error";
+    public static final String DELETE_GENRE_ERROR = "delete_genre_error";
 }
