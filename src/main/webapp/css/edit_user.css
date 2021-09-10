@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(224,224,224);
+    background-color: rgb(240,240,240);
 }
 
 .top {
@@ -92,6 +92,10 @@ body {
     margin-left: 7px;
 }
 
+.main-content .head .navigation li:hover {
+    background-color: rgb(211, 211, 211);;
+}
+
 .main-content .head .navigation li button {
     margin-top: 10px;
     height: 70px;
@@ -107,6 +111,7 @@ body {
 
 .main-content .head .navigation li button:hover {
     color: #060077;
+    background-color: rgb(211, 211, 211);
     border-bottom: 2px solid #060077;
 }
 
@@ -133,9 +138,9 @@ body {
 .main-content .edit-user-info {
     float: left;
     margin-top: 30px;
-    width: 580px;
-    height: 310px;
-    background-color: rgb(224,224,224);
+    width: 550px;
+    height: 210px;
+    background-color: rgb(240,240,240);
     border: 1px solid silver;
     border-radius: 10px;
 }
@@ -145,33 +150,45 @@ body {
     margin-top: 25px;
     color: black;
     font-size: 18px;
-    font-weight: 150;
+    font-weight: 600;
     font-family: sans-serif;
 }
 
-.main-content .edit-user-info ul, .change-password ul {
-    margin-top: 20px;
+.main-content .edit-user-info ul {
+    margin-top: 10px;
 }
 
-.main-content .edit-user-info ul li, .change-password ul li {
+.main-content .edit-user-info ul li{
+    margin-top: 5px;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 
-input, label {
-    display: block;
+.main-content .edit-user-info ul li:hover {
+    background-color: rgb(224,224,224);
+}
+
+label {
+    width: 200px;
+}
+
+input, label, p {
+    display: inline-block;
+}
+
+p {
+    width: 300px;
 }
 
 input {
     margin-top: 5px;
     color: black;
-    width: 250px;
-    height: 45px;
-    background-color: rgb(224,224,224);
+    width: 220px;
+    height: 30px;
+    background-color: rgb(240,240,240);
     font-family: sans-serif;
     font-size: 17px;
     padding: 0 15px;
-    border-radius: 10px;
     border: 1px solid black;
     outline: 0;
 }
@@ -188,30 +205,28 @@ input:focus {
 }
 
 select {
-    margin-top: 3px;
-    width: 250px;
-    height: 45px;
-    background-color: rgb(224,224,224);
+    width: 300px;
+    height: 20px;
+    background-color: rgb(240,240,240);
     border: 1px solid black;
     color: black;
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     cursor: pointer;
-    border-radius: 10px;
 }
 
 .main-content .edit-user-info button {
+    float: right;
+    margin-right: 25px;
     margin-top: 20px;
-    margin-left: 20px;
     border: 2px solid black;
     font-family: sans-serif;
     font-size: 20px;
     color: black;
-    background-color: rgb(224,224,224);
-    border-radius: 10px;
+    background-color: rgb(240,240,240);
     cursor: pointer;
     width: 180px;
-    height: 45px;
+    height: 30px;
 }
 
 .content-table {
@@ -376,8 +391,8 @@ textarea {
     padding: 10px 5px;
     width: 100%;
     height: 150px;
-    background: rgb(232,232,232);
-    border: 0;
+    background: rgb(211,211,211);
+    border: 1px solid silver;
     outline: none;
     color: black;
     font-family: sans-serif;
@@ -402,7 +417,7 @@ textarea {
 }
 
 textarea:focus {
-    border: 0;
+    border: 1px solid silver;
     outline: none;
 }
 
@@ -498,7 +513,7 @@ textarea:focus {
 
 .buttons button, .right .buttons button {
     margin-top: 12px;
-    width: 183px;
+    width: 400px;
     height: 42px;
     border: 2px solid black;
     border-radius: 10px;
@@ -519,6 +534,38 @@ textarea:focus {
 .buttons button:hover, .right .buttons button:hover {
     color: black;
     border: 2px solid black;
+}
+
+.alert{
+    width:50%;
+    margin: -20px auto;
+    padding:30px;
+    position:relative;
+    border-radius:5px;
+    box-shadow:0 0 15px 5px #ccc;
+    z-index: 10;
+    animation: drop 0.7s ease forwards;
+}
+
+@keyframes drop  {
+    0%{}
+    70%{transform: translateY(20px)}
+    100%{transform: translateY(20px)}
+}
+.close{
+    color: black;
+    position:absolute;
+    width:30px;
+    height:30px;
+    opacity:0.5;
+    border-width:1px;
+    border-style:solid;
+    border-radius:50%;
+    right:15px;
+    top:25px;
+    text-align:center;
+    font-size:1.6em;
+    cursor:pointer;
 }
 
 

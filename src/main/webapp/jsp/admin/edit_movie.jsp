@@ -247,7 +247,6 @@
                         </div>
                         <label for="run_time"><fmt:message key="label.runtime"/></label>
                         <input type="text" id="run_time" name="run_time"
-                               style="margin-left: 85px"
                                placeholder="<fmt:message key="label.run_time_example"/>"
                                required
                                value="${requestScope.movie_info.runTime}">
@@ -256,7 +255,6 @@
                         </div>
                         <label for="release_date"><fmt:message key="label.release_date"/></label>
                         <input type="text" id="release_date" name="release_date"
-                               style="margin-left: 22px"
                                placeholder="<fmt:message key="label.date_example"/>"
                                required
                                value="${requestScope.movie_info.releaseDate}">
@@ -597,15 +595,13 @@
             });
         });
     });
-
-    $(function () {
-        $(".close").click(function () {
-            $(this)
-                .parent(".alert")
-                .fadeOut();
-        });
-    })
-
+</script>
+<script type="text/javascript">
+    $(".close").click(function () {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+    });
 </script>
 </div>
 <br>

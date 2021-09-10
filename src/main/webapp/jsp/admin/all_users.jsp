@@ -28,6 +28,26 @@
         </form>
     </div>
 </div>
+<c:choose>
+    <c:when test="${sessionScope.blocked_user != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><c:out value="${sessionScope.blocked_user}"/>
+                <fmt:message key="label.block_user_success"/>
+            </h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="blocked_user" scope="session"/>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.unblocked_user != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><c:out value="${sessionScope.unblocked_user}"/>
+                <fmt:message key="label.unblock_user_success"/>
+            </h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="unblocked_user" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="main-content">
     <table class="content-table">
         <thead>
@@ -83,7 +103,7 @@
                                                         <input type="hidden" name="command" value="unblock_user">
                                                         <input type="hidden" name="user_name" value="${users.userName}">
                                                         <button type="submit" class="change-btn"
-                                                                style="background-color: 	rgb(211,211,211);">
+                                                                style="background-color: rgb(211,211,211); width: 400px; color: black">
                                                             <fmt:message key="label.change"/></button>
                                                     </form>
                                                 </div>
@@ -95,17 +115,19 @@
                                                         <input type="hidden" name="command" value="block_user">
                                                         <input type="hidden" name="user_name" value="${users.userName}">
                                                         <button type="submit" class="chang-btn"
-                                                                style="background-color: 	rgb(211,211,211);;">
+                                                                style="background-color: 	rgb(211,211,211);">
                                                             <fmt:message key="label.change"/></button>
                                                     </form>
                                                 </div>
                                             </c:when>
                                         </c:choose>
-                                        <div class="dismiss">
-                                            <button style="background-color: 	rgb(211,211,211);"><a class="close"
-                                                                                                       href="#"><fmt:message
-                                                    key="label.close"/></a></button>
-                                        </div>
+                                        <a class="close"
+                                           style="margin-top: -20px; margin-left: 5px"
+                                           href="#">
+                                            <i class="fa fa-close"
+                                               style="margin-top: 3px; color: black">
+                                            </i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -129,12 +151,14 @@
             <tbody>
             <tr>
                 <td><c:out value="${user.userId}"/></td>
-                <td><form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="show_user_profile">
-                    <input type="hidden" name="user_name" value="${user.userName}">
-                    <input type="hidden" name="page" value="1">
-                    <button type="submit" class="user_name_btn"><c:out value="${user.userName}"/></button>
-                </form></td>
+                <td>
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="show_user_profile">
+                        <input type="hidden" name="user_name" value="${user.userName}">
+                        <input type="hidden" name="page" value="1">
+                        <button type="submit" class="user_name_btn"><c:out value="${user.userName}"/></button>
+                    </form>
+                </td>
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <c:choose>
@@ -207,5 +231,12 @@
         </c:if>
     </table>
 </div>
+<script type="text/javascript">
+    $(".close").click(function () {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+    });
+</script>
 </body>
 </html>

@@ -37,4 +37,7 @@ public class SessionAttribute {
     public static final String TRAILER_ERROR = "trailer_error";
     public static final String DELETE_ERROR = "delete_error";
     public static final String DELETE_GENRE_ERROR = "delete_genre_error";
+    public static final String BLOCKED_USER = "blocked_user";
+    public static final String UNBLOCKED_USER = "unblocked_user";
+    public static final String CHANGED_ROLE = "changed_role";
 }
