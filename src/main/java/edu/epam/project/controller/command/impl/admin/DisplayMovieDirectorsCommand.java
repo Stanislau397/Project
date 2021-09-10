@@ -21,6 +21,7 @@ import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 import static edu.epam.project.controller.command.RequestParameter.TITLE;
 
 import static edu.epam.project.controller.command.AttributeName.DIRECTORS_LIST;
+import static edu.epam.project.controller.command.AttributeName.ALL_DIRECTORS_LIST;
 
 public class DisplayMovieDirectorsCommand implements Command {
 
@@ -32,10 +33,12 @@ public class DisplayMovieDirectorsCommand implements Command {
         Router router = new Router();
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         String movieTitle = request.getParameter(TITLE);
-        List<Director> directors;
         try {
-            directors = movieService.findDirectorsByMovieId(movieId);
+            int totalDirectors = movieService.countDirectors();
+            List<Director> directors = movieService.findDirectorsByMovieId(movieId);
+            List<Director> allDirectors = movieService.findAllDirectors(0, totalDirectors);
             request.setAttribute(DIRECTORS_LIST, directors);
+            request.setAttribute(ALL_DIRECTORS_LIST, allDirectors);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);
             request.setAttribute(AttributeName.MOVIE_TITLE, movieTitle);
             router.setPagePath(PagePath.EDIT_MOVIE);

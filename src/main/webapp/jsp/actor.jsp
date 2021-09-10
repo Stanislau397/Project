@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="today" value="<%=new Date()%>"/>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="property.text"/>
 <html>
@@ -73,61 +73,6 @@
                     <li>${requestScope.movies_for_actor_list.size()}</li>
                 </ul>
             </div>
-            <c:if test="${requestScope.best_movies_for_actor_list.size() > 0}">
-                <h2><fmt:message key="label.best_movies"/></h2>
-            </c:if>
-            <div id="wrapper">
-                <div id="carousel">
-                    <div id="content">
-                        <c:forEach items="${requestScope.best_movies_for_actor_list}" var="bestMoviesForActor">
-                            <a class="movie-picture" href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${bestMoviesForActor.movieId}"
-                               style="margin-left: -1.5px">
-                                <c:choose>
-                                    <c:when test="${bestMoviesForActor.rating.score >= 70}">
-                                        <p class="score" style="background-color: #66cc33"><c:out value="${bestMoviesForActor.rating.score / 10}"/></p>
-                                    </c:when>
-                                    <c:when test="${bestMoviesForActor.rating.score < 70}">
-                                        <p class="score" style="background-color: #f9c22a"><c:out value="${bestMoviesForActor.rating.score / 10}"/></p>
-                                    </c:when>
-                                </c:choose>
-                                <img src="${pageContext.request.contextPath}${bestMoviesForActor.picture}"
-                                     class="item"/>
-                                <form action="${pageContext.request.contextPath}/controller" method="get">
-                                    <input type="hidden" name="command" value="show_movie_details">
-                                    <input type="hidden" name="movie_id" value="${bestMoviesForActor.movieId}">
-                                    <button type="submit" class="title"><c:out value="${bestMoviesForActor.title}"/></button>
-                                </form>
-                            </a>
-                        </c:forEach>
-                    </div>
-                </div>
-                <c:choose>
-                    <c:when test="${requestScope.best_movies_for_actor_list.size() > 2}">
-                        <button id="prev">
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                            >
-                                <path fill="none" d="M0 0h24v24H0V0z"/>
-                                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z"/>
-                            </svg>
-                        </button>
-                        <button id="next">
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                            >
-                                <path fill="none" d="M0 0h24v24H0V0z"/>
-                                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z"/>
-                            </svg>
-                        </button>
-                    </c:when>
-                </c:choose>
-            </div>
         </div>
     </div>
     <div class="films">
@@ -144,19 +89,21 @@
                     </a>
                 </div>
                 <div class="movie-title">
-                        <form action="${pageContext.request.contextPath}/controller" method="get">
-                            <input type="hidden" name="command" value="show_movie_details">
-                            <input type="hidden" name="movie_id" value="${moviesForActor.movieId}">
-                            <button type="submit" class="movie-title-btn"><c:out value="${moviesForActor.title}"/></button>
-                        </form>
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="show_movie_details">
+                        <input type="hidden" name="movie_id" value="${moviesForActor.movieId}">
+                        <button type="submit" class="movie-title-btn"><c:out value="${moviesForActor.title}"/></button>
+                    </form>
                 </div>
                 <div class="movie-score">
                     <c:choose>
                         <c:when test="${moviesForActor.rating.score >= 70}">
-                            <p style="background-color: #66cc33"><c:out value="${moviesForActor.rating.score / 10}"/></p>
+                            <p style="background-color: #66cc33"><c:out
+                                    value="${moviesForActor.rating.score / 10}"/></p>
                         </c:when>
                         <c:when test="${moviesForActor.rating.score < 70 && moviesForActor.rating.score >= 40}">
-                            <p style="background-color: #f9c22a"><c:out value="${moviesForActor.rating.score / 10}"/></p>
+                            <p style="background-color: #f9c22a"><c:out
+                                    value="${moviesForActor.rating.score / 10}"/></p>
                         </c:when>
                         <c:when test="${moviesForActor.rating.score < 40 && moviesForActor.rating.score > 0}">
                             <p style="background-color: red"><c:out value="${moviesForActor.rating.score / 10}"/></p>

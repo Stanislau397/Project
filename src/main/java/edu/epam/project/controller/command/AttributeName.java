@@ -88,4 +88,5 @@ public class AttributeName {
     public static final String REGISTER_SUCCESS = "register_success";
     public static final String SIGN_IN_ERROR = "sign_in_error";
     public static final String ALL_ACTORS_LIST = "all_actors_list";
+    public static final String ALL_DIRECTORS_LIST = "all_directors_list";
 }
