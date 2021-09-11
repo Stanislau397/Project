@@ -29,9 +29,9 @@ import static edu.epam.project.controller.command.ErrorMessage.EDIT_TRAILER_ERRO
 public class UpdateMovieTrailerCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UpdateMovieTrailerCommand.class);
-    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/trailer";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/trailer/";
+    private static final String TRAILER_PATH = "localhost:8080/trailer";
     private static final String EDIT_TRAILER_SUCCESS_MSG = "Trailer has been updated.";
-    private static final String SEPARATOR = "/";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
@@ -59,12 +59,13 @@ public class UpdateMovieTrailerCommand implements Command {
 
     private String getSavePath(Part part) {
         String fileName = part.getSubmittedFileName();
-        return (DIRECTORY_PATH + SEPARATOR + fileName);
+        return (DIRECTORY_PATH + fileName);
     }
 
     private String getTrailerPath(Part part) {
         String savePath = getSavePath(part);
-        return savePath.substring(savePath.indexOf("/trailer"));
+        String pictureName = savePath.substring(savePath.lastIndexOf("/"));
+        return TRAILER_PATH + pictureName;
     }
 
     private void processUploadedFile(Part part) throws IOException {

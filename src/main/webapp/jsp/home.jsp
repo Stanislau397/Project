@@ -55,7 +55,7 @@
                                         value="${newestMovies.rating.score}"/></p>
                             </c:when>
                         </c:choose>
-                        <img src="${pageContext.request.contextPath}${newestMovies.picture}" class="item"/>
+                        <img src="http://${newestMovies.picture}" class="item"/>
                         <p class="movie-title"><c:out value="${newestMovies.title}"/></p>
                     </a>
                 </c:if>
@@ -125,7 +125,7 @@
                                     value="${upcomingMovies.rating.score}"/></p>
                         </c:when>
                     </c:choose>
-                    <img src="${pageContext.request.contextPath}${upcomingMovies.picture}" class="item"/>
+                    <img src="http://${upcomingMovies.picture}" class="item"/>
                     <p class="movie-title"><c:out value="${upcomingMovies.title}"/></p>
                 </a>
             </c:forEach>
@@ -194,7 +194,7 @@
                                     value="${mostRatedMovies.rating.score}"/></p>
                         </c:when>
                     </c:choose>
-                    <img src="${pageContext.request.contextPath}${mostRatedMovies.picture}" class="item"/>
+                    <img src="http://${mostRatedMovies.picture}" class="item"/>
                     <div class="movie-title">
                         <p><c:out value="${mostRatedMovies.title}"/></p>
                     </div>
@@ -229,7 +229,7 @@
 <div class="trailers-container">
     <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
         <c:if test="${counter.count == 1}">
-            <img class="img1" src="${pageContext.request.contextPath}${trailers.picture}">
+            <img class="img1" src="http://${trailers.picture}">
         </c:if>
     </c:forEach>
     <div class="titles">

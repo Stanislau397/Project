@@ -26,7 +26,7 @@
                 </c:when>
                 <c:when test="${requestScope.director.picture != null}">
                     <div class="img">
-                        <img src="${pageContext.request.contextPath}${requestScope.director.picture}"/>
+                        <img src="http://${requestScope.director.picture}"/>
                     </div>
                 </c:when>
             </c:choose>
@@ -74,6 +74,18 @@
                 </ul>
             </div>
         </div>
+        <c:if test="${requestScope.best_movies_for_director_list.size() != 0}">
+            <div class="best-movies">
+                <h2><fmt:message key="label.best_movies"/></h2>
+                <c:forEach items="${requestScope.best_movies_for_director_list}" var="bestMoviesForDirector">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${bestMoviesForDirector.movieId}">
+                        <button type="submit"><c:out value="${bestMoviesForDirector.title}"/></button>
+                    </form>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
     <div class="films">
         <h3 class="filmography"><fmt:message key="label.all_filmography"/></h3>
@@ -85,7 +97,7 @@
                 </div>
                 <div class="pic">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForDirector.movieId}">
-                        <img src="${pageContext.request.contextPath}${moviesForDirector.picture}">
+                        <img src="http://${moviesForDirector.picture}">
                     </a>
                 </div>
                 <div class="movie-title">
@@ -107,7 +119,7 @@
                             <p style="background-color: red"><c:out value="${moviesForDirector.rating.score}"/></p>
                         </c:when>
                         <c:when test="${moviesForDirector.rating.score == 0}">
-                            <fmt:message key="label.rating"/>
+                            <p style="color: white; background-color: lightslategray">tbd</p>
                         </c:when>
                     </c:choose>
                 </div>

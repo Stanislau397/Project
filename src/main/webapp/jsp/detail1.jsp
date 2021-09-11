@@ -202,7 +202,7 @@
     <div class="right">
         <c:if test="${requestScope.movie_info.trailer != null}">
             <video controls autoplay muted
-                   src="${pageContext.request.contextPath}${requestScope.movie_info.trailer}"></video>
+                   src="http://${requestScope.movie_info.trailer}"></video>
         </c:if>
     </div>
 </div>
@@ -210,48 +210,67 @@
     <c:if test="${requestScope.movie_info != null}">
         <div class="left-side">
             <div class="picture">
-                <img src="${pageContext.request.contextPath}${movie_info.picture}"/>
+                <img src="http://${movie_info.picture}"/>
             </div>
         </div>
         <div class="middle">
             <h3><fmt:message key="label.movie_detail"/></h3>
-            <hr>
             <ul>
                 <li class="name"><fmt:message key="label.country"/></li>
                 <li class="value">${movie_info.country}</li>
             </ul>
-            <hr>
             <ul>
                 <li class="name"><fmt:message key="label.genre"/></li>
-                <li class="value">${movie_info.genre.genreTitle}</li>
-            </ul>
-            <hr>
-            <ul>
-                <li class="name"><fmt:message key="label.director"/></li>
                 <li class="value">
-                    <c:forEach items="${requestScope.directors_list}" var="directors">
-                        <form action="${pageContext.request.contextPath}/controller" method="get">
-                            <input type="hidden" name="command" value="display_director_info">
-                            <input type="hidden" name="first_name" value="${directors.firstName}">
-                            <input type="hidden" name="last_name" value="${directors.lastName}">
-                            <input type="hidden" name="director_id" value="${directors.directorId}">
-                            <button type="submit" style="color:#060077;"><c:out
-                                    value="${directors.firstName} ${directors.lastName}"/></button>
-                        </form>
+                    <c:forEach items="${requestScope.movie_genres_list}" var="movieGenres" varStatus="counter">
+                        <c:choose>
+                            <c:when test="${counter.count != requestScope.movie_genres_list.size()}">
+                                <c:out value="${movieGenres.genreTitle},"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${movieGenres.genreTitle}"/>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
                 </li>
             </ul>
-            <hr>
+            <ul>
+                <li class="name"><fmt:message key="label.director"/></li>
+                <li class="value">
+                    <c:forEach items="${requestScope.directors_list}" var="directors" varStatus="counter">
+                        <c:choose>
+                            <c:when test="${requestScope.directors_list.size() != counter.count}">
+                                <form action="${pageContext.request.contextPath}/controller" method="get">
+                                    <input type="hidden" name="command" value="display_director_info">
+                                    <input type="hidden" name="first_name" value="${directors.firstName}">
+                                    <input type="hidden" name="last_name" value="${directors.lastName}">
+                                    <input type="hidden" name="director_id" value="${directors.directorId}">
+                                    <button type="submit" style="color:#060077;"><c:out
+                                            value="${directors.firstName} ${directors.lastName},"/></button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="${pageContext.request.contextPath}/controller" method="get">
+                                    <input type="hidden" name="command" value="display_director_info">
+                                    <input type="hidden" name="first_name" value="${directors.firstName}">
+                                    <input type="hidden" name="last_name" value="${directors.lastName}">
+                                    <input type="hidden" name="director_id" value="${directors.directorId}">
+                                    <button type="submit" style="color:#060077;"><c:out
+                                            value="${directors.firstName} ${directors.lastName}"/></button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </li>
+            </ul>
             <ul>
                 <li class="name"><fmt:message key="label.runtime"/></li>
                 <li class="value">${movie_info.runTime} <fmt:message key="label.min"/></li>
             </ul>
-            <hr>
             <ul>
                 <li class="name"><fmt:message key="label.summery"/></li>
                 <li class="value">${movie_info.description}</li>
             </ul>
-            <hr>
         </div>
     </c:if>
     <div class="right-side">
@@ -292,7 +311,7 @@
                 <div class="user-comments">
                     <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}&page=1">
                         <div class="user-picture">
-                            <img src="${pageContext.request.contextPath}${comments.userAvatar}">
+                            <img src="http://${comments.userAvatar}">
                         </div>
                     </a>
                     <div class="content">
@@ -417,7 +436,7 @@
         <div class="leave-comment">
             <div class="user-info">
                 <div class="user-picture1">
-                    <img src="${pageContext.request.contextPath}${sessionScope.user_avatar}">
+                    <img src="http://${sessionScope.user_avatar}">
                 </div>
                 <div class="user-name">
                     <form action="${pageContext.request.contextPath}/controller" name="get">

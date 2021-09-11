@@ -31,8 +31,8 @@ import static edu.epam.project.controller.command.SessionAttribute.ACTOR_ALREADY
 public class AddActorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddActorCommand.class);
-    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image/actor/";
-    private static final String SEPARATOR = "/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/image/actor/";
+    private static final String IMAGE_PATH = "localhost:8080/image/actor";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
@@ -80,12 +80,13 @@ public class AddActorCommand implements Command {
 
     private String getSavePath(Part part) {
         String fileName = part.getSubmittedFileName();
-        return (DIRECTORY_PATH + SEPARATOR + fileName);
+        return (DIRECTORY_PATH + fileName);
     }
 
     private String getPicturePath(Part part) {
         String savePath = getSavePath(part);
-        return savePath.substring(savePath.indexOf("/css"));
+        String pictureName = savePath.substring(savePath.lastIndexOf("/"));
+        return IMAGE_PATH + pictureName;
     }
 
     private void processUploadedFile(Actor actor, Part part) throws IOException {

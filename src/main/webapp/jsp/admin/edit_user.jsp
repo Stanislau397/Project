@@ -69,7 +69,7 @@
 <div class="main-content" id="blur">
     <div class="head">
         <div class="picture">
-            <img src="${pageContext.request.contextPath}${requestScope.user.avatar}">
+            <img src="http://${requestScope.user.avatar}">
         </div>
         <div class="user-info">
             <ul>
@@ -168,11 +168,11 @@
                     <ul style="display: inline-block">
                         <li>
                             <label for="user_name"><fmt:message key="label.username"/></label>
-                            <p id="user_name"><c:out value="${requestScope.user.userName}"/></p>
+                            <p id="user_name" class="info"><c:out value="${requestScope.user.userName}"/></p>
                         </li>
                         <li>
                             <label for="email"><fmt:message key="label.email"/></label>
-                            <p id="email"><c:out value="${requestScope.user.email}"/></p>
+                            <p id="email" class="info"><c:out value="${requestScope.user.email}"/></p>
                         </li>
                         <li>
                             <label for="rights" style="margin-top: 2px"><fmt:message key="label.rights"/></label>
@@ -266,7 +266,7 @@ margin-top: 2px"></i></button>
                                     <div class="popup">
                                         <div class="info">
                                             <div class="picture">
-                                                <img src="${pageContext.request.contextPath}${requestScope.user.avatar}">
+                                                <img src="http://${requestScope.user.avatar}">
                                             </div>
                                             <div class="user-info">
                                                 <p><c:out value="${comments.comment.userName}"/></p>

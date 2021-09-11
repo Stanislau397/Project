@@ -27,8 +27,8 @@ import static edu.epam.project.controller.command.RequestParameter.*;
 public class UploadMovieCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UploadMovieCommand.class);
-    private static final String DIRECTORY_PATH = "C:/project/src/main/webapp/css/image";
-    private static final String SEPARATOR = "/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/image/movie/";
+    private static final String IMAGE_PATH = "localhost:8080/image/movie";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
@@ -65,12 +65,13 @@ public class UploadMovieCommand implements Command {
 
     private String getSavePath(Part part) {
         String fileName = part.getSubmittedFileName();
-        return (DIRECTORY_PATH + SEPARATOR + fileName);
+        return (DIRECTORY_PATH + fileName);
     }
 
     private String getPicturePath(Part part) {
         String savePath = getSavePath(part);
-        return savePath.substring(savePath.indexOf("/css"));
+        String pictureName = savePath.substring(savePath.lastIndexOf("/"));
+        return IMAGE_PATH + pictureName;
     }
 
     private void processGenreFormField(HttpServletRequest request, long movieId) throws ServiceException {

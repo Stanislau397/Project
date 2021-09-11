@@ -295,7 +295,7 @@ body {
 
 .middle ul {
     margin-left: 50px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .middle li {
@@ -303,17 +303,22 @@ body {
 }
 
 .middle .name {
-    font-family: sans-serif;
+    font-family: Helvetica,Arial,sans-serif;
     position: absolute;
     width: 180px;
     color: darkgrey;
+    font-size: 17px;
 }
 
 .middle .value {
-    font-family: sans-serif;
+    font-family: Helvetica,Arial,sans-serif;
     margin-left: 150px;
-    width: auto;
-    height: auto;
+}
+
+.middle .value form {
+    display: inline-block;
+    margin-left: 0;
+    width: 125px;
 }
 
 .middle .value button {
@@ -321,8 +326,8 @@ body {
     height: 25px;
     cursor: pointer;
     border: 0;
-    font-family: sans-serif;
-    font-size: 15px;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 16px;
     text-align: left;
 }
 
@@ -352,7 +357,7 @@ body {
     height: 25px;
     cursor: pointer;
     border: 0;
-    font-family: sans-serif;
+    font-family: Helvetica,Arial,sans-serif;
     margin-top: 1px;
     font-size: 15px;
     margin-left: 30px;

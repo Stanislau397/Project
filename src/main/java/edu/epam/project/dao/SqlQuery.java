@@ -128,7 +128,7 @@ public class SqlQuery {
     public static final String SELECT_MOST_RATED_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id HAVING AVG(user_score) >= 80 ORDER BY AVG(user_score) DESC";
     public static final String FIND_MOVIE_BY_KEY_WORD = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(avg(user_score), " + 0 + ") AS average FROM movies " +
-            "LEFT JOIN rating ON movie_id_fk = movie_id WHERE title LIKE CONCAT( '%',?,'%') GROUP BY movie_id_fk";
+            "LEFT JOIN rating ON movie_id_fk = movie_id WHERE title LIKE CONCAT( '%',?,'%') GROUP BY movie_id";
     public static final String SELECT_RATED_MOVIES = "SELECT m.user_comment, m.post_date,  r.user_score, title, picture, movie_id FROM movie_comments m , rating r, movies e WHERE\n" +
             "m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) \n" +
             "GROUP BY movie_id ORDER BY r.rating_id DESC LIMIT ?,?";

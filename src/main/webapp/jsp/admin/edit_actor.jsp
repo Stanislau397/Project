@@ -56,7 +56,7 @@
                 <div class="image-preview" id="imagePreview">
                     <c:choose>
                         <c:when test="${requestScope.actor.picture != null}">
-                            <img src="${pageContext.request.contextPath}${requestScope.actor.picture}"
+                            <img src="http://${requestScope.actor.picture}"
                                  alt="Image"
                                  style="margin-left: -2px"
                                  class="image-preview__image">

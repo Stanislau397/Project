@@ -86,12 +86,12 @@
 
             <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
                 <div class="profile-picture">
-                    <button><img src="${pageContext.request.contextPath}${sessionScope.user_avatar}"></button>
+                    <button><img src="http://${sessionScope.user_avatar}"></button>
                     <ul>
                         <li>
                             <div class="profile-info">
                                 <div class="profile-img">
-                                    <img src="${pageContext.request.contextPath}${sessionScope.user_avatar}">
+                                    <img src="http://${sessionScope.user_avatar}">
                                 </div>
                                 <div class="user-name">
                                     <p><c:out value="${sessionScope.user_name}"/></p>

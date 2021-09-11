@@ -31,7 +31,7 @@
         </div>
     </c:when>
     <c:when test="${sessionScope.changed_picture != null}">
-        <div class="alert" style="background-color: #66cc33"">
+        <div class="alert" style="background-color: #66cc33">
             <h3><fmt:message key="label.edit_picture_success"/></h3>
             <a class="close"><i class="fa fa-close"></i></a>
             <c:remove var="changed_picture" scope="session"/>
@@ -55,7 +55,7 @@
                 <div class="image-preview" id="imagePreview">
                     <c:choose>
                         <c:when test="${requestScope.director.picture != null}">
-                            <img src="${pageContext.request.contextPath}${requestScope.director.picture}"
+                            <img src="http://${requestScope.director.picture}"
                                  alt="Image"
                                  style="margin-left: -2px"
                                  class="image-preview__image">

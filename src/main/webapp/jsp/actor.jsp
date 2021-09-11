@@ -26,7 +26,7 @@
                 </c:when>
                 <c:when test="${requestScope.actor.picture != null}">
                     <div class="img">
-                        <img src="${pageContext.request.contextPath}${requestScope.actor.picture}"/>
+                        <img src="http://${requestScope.actor.picture}"/>
                     </div>
                 </c:when>
             </c:choose>
@@ -74,6 +74,18 @@
                 </ul>
             </div>
         </div>
+        <c:if test="${requestScope.best_movies_for_actor_list.size() != 0}">
+            <div class="best-movies">
+                <h2><fmt:message key="label.best_movies"/></h2>
+                <c:forEach items="${requestScope.best_movies_for_actor_list}" var="bestMoviesForActor">
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input hidden name="command" value="show_movie_details">
+                        <input hidden name="movie_id" value="${bestMoviesForActor.movieId}">
+                        <button type="submit"><c:out value="${bestMoviesForActor.title}"/></button>
+                    </form>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
     <div class="films">
         <h3 class="filmography"><fmt:message key="label.all_filmography"/></h3>
@@ -85,7 +97,7 @@
                 </div>
                 <div class="pic">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForActor.movieId}">
-                        <img src="${pageContext.request.contextPath}${moviesForActor.picture}">
+                        <img src="http://${moviesForActor.picture}">
                     </a>
                 </div>
                 <div class="movie-title">

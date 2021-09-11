@@ -176,7 +176,7 @@ input, label, p {
     display: inline-block;
 }
 
-p {
+.info {
     width: 300px;
 }
 
