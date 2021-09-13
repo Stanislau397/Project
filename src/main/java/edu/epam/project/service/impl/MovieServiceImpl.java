@@ -269,6 +269,30 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public boolean isCountryAlreadyExists(String countryName) throws ServiceException {
+        boolean isCountryExists;
+        try {
+            isCountryExists = movieDao.isCountryAlreadyExists(countryName);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isCountryExists;
+    }
+
+    @Override
+    public boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws ServiceException {
+        boolean isExists;
+        try {
+            isExists = movieDao.isCountryAlreadyExistsInMovie(movieId, countryId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isExists;
+    }
+
+    @Override
     public List<Country> findAllCountries() throws ServiceException {
         List<Country> allCountries;
         try {
@@ -278,6 +302,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return allCountries;
+    }
+
+    @Override
+    public List<Country> findCountriesForMovieById(long movieId) throws ServiceException {
+        List<Country> movieCountries;
+        try {
+            movieCountries = movieDao.findCountriesForMovieById(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return movieCountries;
     }
 
     @Override

@@ -159,7 +159,13 @@ public interface MovieDao {
 
     boolean addCountryToMovie(long movieId, long countryId) throws DaoException;
 
+    boolean isCountryAlreadyExists(String countryName) throws DaoException;
+
+    boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws DaoException;
+
     List<Country> findAllCountries() throws DaoException;
+
+    List<Country> findCountriesForMovieById(long movieId) throws DaoException;
 
     boolean removeCountryFromMovie(long movieId, long countryId) throws DaoException;
 }

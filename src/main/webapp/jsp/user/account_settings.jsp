@@ -36,7 +36,8 @@
             <span class="image-preview__default__text"></span>
         </div>
         <input type="file" name="file" id="inpFile" class="inputFile" required>
-        <label for="inpFile"><fmt:message key="label.choose"/></label>
+        <label for="inpFile">
+        </label>
         <button type="submit" style="display: block" class="avatar-btn"><fmt:message key="label.change"/></button>
     </form>
     <hr>

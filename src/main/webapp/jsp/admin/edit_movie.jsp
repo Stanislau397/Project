@@ -54,6 +54,16 @@
             <c:remove var="changed_picture" scope="session"/>
         </div>
     </c:when>
+    <c:when test="${sessionScope.country_removed != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.remove_country_success"/></h3>
+            <a class="close">
+                <i class="fa fa-close"
+                   style="margin-top: 3px">
+                </i></a>
+            <c:remove var="country_removed" scope="session"/>
+        </div>
+    </c:when>
     <c:when test="${sessionScope.actor_removed != null}">
         <div class="alert" style="background-color: #66cc33">
             <h3><fmt:message key="label.remove_actor_success"/></h3>
@@ -164,6 +174,14 @@
                         <input type="hidden" name="command" value="to_edit_movie">
                         <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
                         <button type="submit"><fmt:message key="label.description"/></button>
+                    </form>
+                </li>
+                <li>
+                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="display_movie_countries">
+                        <input type="hidden" name="title" value="${requestScope.title}">
+                        <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
+                        <button type="submit"><fmt:message key="label.countries"/></button>
                     </form>
                 </li>
                 <li>
@@ -541,6 +559,87 @@
                 </div>
             </form>
         </div>
+    </c:when>
+
+    <c:when test="${requestScope.movie_countries_list != null}">
+        <div class="add-country">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
+                <input type="hidden" name="command" value="add_country_to_movie">
+                <input type="hidden" name="movie_id" value="${requestScope.movie_id}">
+                <div class="mb-3" style="float: left; width: 80%">
+                    <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstCountries"
+                            multiple="multiple" data-live-search="true"
+                            style="background-color: rgb(240,240,240)"
+                            required name="countries">
+                        <c:forEach items="${requestScope.countries_list}" var="allCountries">
+                            <option data-tokens="${allCountries.countryName}"
+                                    value="${allCountries.countryId}"><c:out value="${allCountries.countryName}"/></option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="add-country-right">
+                    <button type="submit" class="add-country-btn"><i class="fa fa-plus"></i></button>
+                </div>
+            </form>
+        </div>
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th><fmt:message key="label.movie"/></th>
+                <th><fmt:message key="label.name"/></th>
+                <th><fmt:message key="label.id"/></th>
+                <th><fmt:message key="label.operation"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${requestScope.movie_countries_list}" var="movieCountries" varStatus="counter">
+                <tr>
+                    <td><c:out value="${counter.count}"/></td>
+                    <td><c:out value="${requestScope.title}"/></td>
+                    <td><c:out value="${movieCountries.countryName}"/></td>
+                    <td>
+                        <c:out value="${movieCountries.countryId}"/></td>
+                    <td>
+                        <div class="remove">
+                            <a class="button" href="#pop${counter.count}">
+                                <button class="edit-btn" style="background-color: #eb5757"><i
+                                        class="fa fa-trash"></i></button>
+                            </a>
+                            <div id="pop${counter.count}" class="overlay1">
+                                <div class="pop">
+                                    <div class="text">
+                                        <h2 style="color: black"><fmt:message key="label.remove_country"/></h2>
+                                        <p><fmt:message key="label.delete_country_msg"/></p>
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="remove">
+                                            <form action="${pageContext.request.contextPath}/controller"
+                                                  method="post">
+                                                <input type="hidden" name="command"
+                                                       value="remove_country_from_movie">
+                                                <input type="hidden" name="movie_id"
+                                                       value="${requestScope.movie_id}">
+                                                <input type="hidden" name="country_id" value="${movieCountries.countryId}">
+                                                <button type="submit"><fmt:message key="label.remove"/></button>
+                                            </form>
+                                        </div>
+                                        <a class="close"
+                                           style="margin-top: -20px; margin-left: 5px"
+                                           href="#">
+                                            <i class="fa fa-close"
+                                               style="margin-top: 3px; margin-left: 1px; color: black">
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </c:when>
     </c:choose>
 </div>

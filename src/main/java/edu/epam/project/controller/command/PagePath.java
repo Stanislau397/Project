@@ -32,5 +32,5 @@ public class PagePath {
     public static final String DIRECTOR_PAGE = "jsp/director.jsp";
     public static final String EDIT_ACTOR_PAGE = "jsp/admin/edit_actor.jsp";
     public static final String EDIT_DIRECTOR_PAGE = "jsp/admin/edit_director.jsp";
-    public static final String COUNTRIES_PAGE = "jsp/admin/country.jsp";
+    public static final String COUNTRIES_PAGE = "jsp/admin/all_countries.jsp";
 }

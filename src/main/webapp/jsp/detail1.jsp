@@ -215,62 +215,83 @@
         </div>
         <div class="middle">
             <h3><fmt:message key="label.movie_detail"/></h3>
-            <ul>
-                <li class="name"><fmt:message key="label.country"/></li>
-                <li class="value">${movie_info.country}</li>
-            </ul>
-            <ul>
-                <li class="name"><fmt:message key="label.genre"/></li>
-                <li class="value">
-                    <c:forEach items="${requestScope.movie_genres_list}" var="movieGenres" varStatus="counter">
-                        <c:choose>
-                            <c:when test="${counter.count != requestScope.movie_genres_list.size()}">
-                                <c:out value="${movieGenres.genreTitle},"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:out value="${movieGenres.genreTitle}"/>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </li>
-            </ul>
-            <ul>
-                <li class="name"><fmt:message key="label.director"/></li>
-                <li class="value">
-                    <c:forEach items="${requestScope.directors_list}" var="directors" varStatus="counter">
-                        <c:choose>
-                            <c:when test="${requestScope.directors_list.size() != counter.count}">
-                                <form action="${pageContext.request.contextPath}/controller" method="get">
-                                    <input type="hidden" name="command" value="display_director_info">
-                                    <input type="hidden" name="first_name" value="${directors.firstName}">
-                                    <input type="hidden" name="last_name" value="${directors.lastName}">
-                                    <input type="hidden" name="director_id" value="${directors.directorId}">
-                                    <button type="submit" style="color:#060077;"><c:out
-                                            value="${directors.firstName} ${directors.lastName},"/></button>
-                                </form>
-                            </c:when>
-                            <c:otherwise>
-                                <form action="${pageContext.request.contextPath}/controller" method="get">
-                                    <input type="hidden" name="command" value="display_director_info">
-                                    <input type="hidden" name="first_name" value="${directors.firstName}">
-                                    <input type="hidden" name="last_name" value="${directors.lastName}">
-                                    <input type="hidden" name="director_id" value="${directors.directorId}">
-                                    <button type="submit" style="color:#060077;"><c:out
-                                            value="${directors.firstName} ${directors.lastName}"/></button>
-                                </form>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </li>
-            </ul>
-            <ul>
-                <li class="name"><fmt:message key="label.runtime"/></li>
-                <li class="value">${movie_info.runTime} <fmt:message key="label.min"/></li>
-            </ul>
-            <ul>
-                <li class="name"><fmt:message key="label.summery"/></li>
-                <li class="value">${movie_info.description}</li>
-            </ul>
+            <c:if test="${requestScope.movie_countries_list.size() != 0}">
+                <ul>
+                    <li class="name"><fmt:message key="label.country"/></li>
+                    <li class="value">
+                        <c:forEach items="${requestScope.movie_countries_list}" var="movieCountries" varStatus="counter">
+                            <c:choose>
+                                <c:when test="${requestScope.movie_countries_list.size() != counter.count}">
+                                    <c:out value="${movieCountries.countryName},"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${movieCountries.countryName}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </li>
+                </ul>
+            </c:if>
+            <c:if test="${requestScope.movie_genres_list.size() != 0}">
+                <ul>
+                    <li class="name"><fmt:message key="label.genre"/></li>
+                    <li class="value">
+                        <c:forEach items="${requestScope.movie_genres_list}" var="movieGenres" varStatus="counter">
+                            <c:choose>
+                                <c:when test="${counter.count != requestScope.movie_genres_list.size()}">
+                                    <c:out value="${movieGenres.genreTitle},"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${movieGenres.genreTitle}"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </li>
+                </ul>
+            </c:if>
+            <c:if test="${requestScope.directors_list.size() != 0}">
+                <ul>
+                    <li class="name"><fmt:message key="label.director"/></li>
+                    <li class="value">
+                        <c:forEach items="${requestScope.directors_list}" var="directors" varStatus="counter">
+                            <c:choose>
+                                <c:when test="${requestScope.directors_list.size() != counter.count}">
+                                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                                        <input type="hidden" name="command" value="display_director_info">
+                                        <input type="hidden" name="first_name" value="${directors.firstName}">
+                                        <input type="hidden" name="last_name" value="${directors.lastName}">
+                                        <input type="hidden" name="director_id" value="${directors.directorId}">
+                                        <button type="submit" style="color:#060077;"><c:out
+                                                value="${directors.firstName} ${directors.lastName},"/></button>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <form action="${pageContext.request.contextPath}/controller" method="get">
+                                        <input type="hidden" name="command" value="display_director_info">
+                                        <input type="hidden" name="first_name" value="${directors.firstName}">
+                                        <input type="hidden" name="last_name" value="${directors.lastName}">
+                                        <input type="hidden" name="director_id" value="${directors.directorId}">
+                                        <button type="submit" style="color:#060077;"><c:out
+                                                value="${directors.firstName} ${directors.lastName}"/></button>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </li>
+                </ul>
+            </c:if>
+            <c:if test="${requestScope.movie_info.runTime != null}">
+                <ul>
+                    <li class="name"><fmt:message key="label.runtime"/></li>
+                    <li class="value">${movie_info.runTime} <fmt:message key="label.min"/></li>
+                </ul>
+            </c:if>
+            <c:if test="${requestScope.movie_info.description != null}">
+                <ul>
+                    <li class="name"><fmt:message key="label.summery"/></li>
+                    <li class="value">${movie_info.description}</li>
+                </ul>
+            </c:if>
         </div>
     </c:if>
     <div class="right-side">

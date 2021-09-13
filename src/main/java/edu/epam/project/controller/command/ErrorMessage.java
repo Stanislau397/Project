@@ -10,6 +10,7 @@ public class ErrorMessage {
     public static final String DELETE_DIRECTOR_ERROR_MSG = "Could not delete director!";
     public static final String DELETE_ACTOR_ERROR_MSG = "Could not delete actor!";
     public static final String DELETE_GENRE_ERROR_MSG = "Could not delete this genre!";
+    public static final String DELETE_COUNTRY_ERROR_MSG = "Could not delete this country!";
     public static final String EDIT_ACTOR_ERROR = "Could not edit actor info!";
     public static final String EDIT_DIRECTOR_ERROR = "Could not edit director info!";
     public static final String EDIT_PICTURE_ERROR = "Could not edit picture data!";

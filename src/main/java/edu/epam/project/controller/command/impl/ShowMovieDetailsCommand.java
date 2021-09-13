@@ -27,6 +27,7 @@ import static edu.epam.project.controller.command.AttributeName.DIRECTORS_LIST;
 import static edu.epam.project.controller.command.AttributeName.USER_SCORE;
 import static edu.epam.project.controller.command.AttributeName.RATED_MOVIE;
 import static edu.epam.project.controller.command.AttributeName.MOVIE_GENRES_LIST;
+import static edu.epam.project.controller.command.AttributeName.MOVIE_COUNTRIES_LIST;
 
 public class ShowMovieDetailsCommand implements Command {
 
@@ -48,6 +49,7 @@ public class ShowMovieDetailsCommand implements Command {
             List<Actor> actors = movieService.findActorsByMovieId(movieId);
             List<Director> directors = movieService.findDirectorsByMovieId(movieId);
             List<Genre> movieGenres = movieService.findMovieGenresByMovieId(movieId);
+            List<Country> movieCountries = movieService.findCountriesForMovieById(movieId);
             Optional<Movie> optionalMovie = movieService.findMovieById(movieId);
             int userScore = ratingService.findMovieScoreByUserNameAndMovieId(userName, movieId);
             boolean isRated = ratingService.isUserAlreadyVoted(userName, movieId);
@@ -64,6 +66,7 @@ public class ShowMovieDetailsCommand implements Command {
             request.setAttribute(DIRECTORS_LIST, directors);
             request.setAttribute(COMMENTS_LIST, comments);
             request.setAttribute(MOVIE_GENRES_LIST, movieGenres);
+            request.setAttribute(MOVIE_COUNTRIES_LIST, movieCountries);
             request.setAttribute("user_score", userScore);
             router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
         } catch (ServiceException e) {

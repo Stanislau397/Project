@@ -235,8 +235,8 @@
     <div class="titles">
         <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
             <button class="title-btn"
-                    id="${pageContext.request.contextPath}${trailers.trailer}"
-                    value="${pageContext.request.contextPath}${trailers.picture}">
+                    id="http://${trailers.trailer}"
+                    value="http://${trailers.picture}">
                 <p>${counter.count} <c:out value="${trailers.title}"/></p>
                 <c:choose>
                     <c:when test="${trailers.rating.score >= 70}">
@@ -260,7 +260,7 @@
         <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
             <c:if test="${counter.count == 1}">
                 <video controls class="movie-trailer"
-                       src="${pageContext.request.contextPath}${trailers.trailer}"></video>
+                       src="http://${trailers.trailer}"></video>
             </c:if>
         </c:forEach>
     </div>

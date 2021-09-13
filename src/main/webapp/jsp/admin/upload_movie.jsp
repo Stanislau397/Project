@@ -60,15 +60,20 @@
                            style="background-color: rgb(240,240,240)">
                 </div>
                 <div class="mb-3">
-                    <label for="country" class="form-label"><fmt:message key="label.country"/></label>
-                    <input type="text" class="form-control" id="country" name="country"
-                           style="background-color: rgb(240,240,240)">
+                    <label for="select-country lstGenres" class="form-label"><fmt:message key="label.country"/></label>
+                    <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstCountries"
+                            multiple="multiple" data-live-search="true" name="countries"
+                            required>
+                        <c:forEach items="${requestScope.countries_list}" var="allCountries">
+                            <option data-tokens="${allCountries.countryName}"
+                                    value="${allCountries.countryId}"><c:out value="${allCountries.countryName}"/></option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="select-country lstGenres" class="form-label"><fmt:message key="label.genres"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstGenres"
                             multiple="multiple" data-live-search="true" name="genres"
-                            style="background-color: rgb(240,240,240)"
                             required>
                         <c:forEach items="${requestScope.genres_list}" var="genres">
                             <option data-tokens="${genres.genreTitle}"
@@ -81,7 +86,6 @@
                             key="label.director"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstDirectors"
                             multiple="multiple" data-live-search="true"
-                            style="background-color: rgb(240,240,240)"
                             required name="director">
                         <c:forEach items="${requestScope.directors_list}" var="allDirectors">
                             <option data-tokens="${allDirectors.firstName} ${allDirectors.lastName}"
@@ -94,7 +98,6 @@
                     <label for="select-country lstActors" class="form-label"><fmt:message key="label.actors"/></label>
                     <select class="form-control selectpicker" data-dropup-auto="false" id="select-country lstActors"
                             multiple="multiple" data-live-search="true"
-                            style="background-color: rgb(240,240,240)"
                             required name="actors">
                         <c:forEach items="${requestScope.actors_list}" var="allActors">
                             <option style="background-color: rgb(240,240,240)"

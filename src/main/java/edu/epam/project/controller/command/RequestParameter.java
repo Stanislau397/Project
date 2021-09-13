@@ -18,6 +18,7 @@ public class RequestParameter {
     public static final String NEW_USER_NAME = "new_user_name";
     public static final String MOVIE_ID = "movie_id";
     public static final String ACTOR_ID = "actor_id";
+    public static final String COUNTRY_ID = "country_id";
     public static final String PICTURE_PATH = "picture_path";
     public static final String DIRECTOR_ID = "director_id";
     public static final String COMMENT = "comment";
@@ -28,6 +29,7 @@ public class RequestParameter {
     public static final String UPDATED_TEXT = "updated_text";
     public static final String TEXT = "text";
     public static final String PAGE_PARAMETER = "page";
+    public static final String COUNTRIES = "countries";
 
     public static final String TITLE = "title";
     public static final String COUNTRY = "country";

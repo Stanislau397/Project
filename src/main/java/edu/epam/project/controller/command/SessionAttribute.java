@@ -19,9 +19,13 @@ public class SessionAttribute {
     public static final String CHANGE_PASSWORD = "change_password";
 
     public static final String GENRE_SUCCESSFULLY_ADDED = "genre_successfully_added";
+    public static final String COUNTRY_SUCCESSFULLY_ADDED = "country_successfully_added";
     public static final String DIRECTOR_REMOVED = "director_successfully_removed";
     public static final String ACTOR_REMOVED = "actor_removed";
+    public static final String COUNTRY_REMOVED = "country_removed";
     public static final String GENRE_ALREADY_EXISTS = "genre_already_exists";
+    public static final String COUNTRY_ALREADY_EXISTS = "country_already_exists";
+    public static final String COUNTRY_NAME = "country_name";
     public static final String GENRE_REMOVED = "genre_removed";
     public static final String COMMENT_REMOVED = "comment_removed";
     public static final String COMMENT_EDITED = "comment_edited";

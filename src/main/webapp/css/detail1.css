@@ -295,7 +295,7 @@ body {
 
 .middle ul {
     margin-left: 50px;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .middle li {
@@ -313,16 +313,15 @@ body {
 .middle .value {
     font-family: Helvetica,Arial,sans-serif;
     margin-left: 150px;
+    font-size: 16px;
 }
 
 .middle .value form {
     display: inline-block;
     margin-left: 0;
-    width: 125px;
 }
 
 .middle .value button {
-    width: 170px;
     height: 25px;
     cursor: pointer;
     border: 0;
@@ -533,6 +532,7 @@ body {
 
 .comment-section .user-comments .content .user-comment {
     width: 600px;
+    word-break: break-all;
     min-height: 10px;
 }
 

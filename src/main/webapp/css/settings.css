@@ -116,7 +116,7 @@ input:focus {
     margin-top: -25px;
     width: 200px;
     height: 150px;
-    border-radius: 10px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -127,7 +127,7 @@ input:focus {
     min-width: 150px;
     height: 150px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 
 .image-preview__default__text {
@@ -142,15 +142,16 @@ input:focus {
 }
 
 .inputFile + label {
+    position: absolute;
     font-family: sans-serif;
     width: 150px;
-    height: 30px;
-    margin-left: 465px;
-    margin-top: 3px;
+    height: 150px;
+    border-radius: 3px;
+    margin-left: 469px;
+    margin-top: -150px;
+    background-color: transparent;
     font-size: 1em;
     color: black;
-    background-color: 	rgb(245,245,245);
-    border: 1px solid black;
     display: inline-block;
     cursor: pointer;
     padding: 5px 45px;

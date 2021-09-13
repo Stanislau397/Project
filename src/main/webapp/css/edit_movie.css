@@ -241,7 +241,7 @@ body {
     text-align: left;
     font-weight: bold;
     min-width: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 td:first-child {
@@ -326,7 +326,7 @@ button {
 }
 .pop {
     position: fixed;
-    top: 30%;
+    top: 32%;
     left: 40%;
     width: 450px;
     padding: 15px;
@@ -571,16 +571,16 @@ video {
     cursor:pointer;
 }
 
-.add-actor {
+.add-actor, .add-country {
     margin-top: 20px;
     width: 100%;
 }
 
-.add-actor-right {
+.add-actor-right, .add-country-right {
     float: left;
 }
 
-.add-actor-btn {
+.add-actor-btn, .add-country-btn {
     display: inline-block;
     margin-left: 10px;
     width: 50px;

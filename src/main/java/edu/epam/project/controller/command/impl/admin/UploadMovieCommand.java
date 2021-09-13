@@ -52,6 +52,7 @@ public class UploadMovieCommand implements Command {
                     processActorFormField(request, movie);
                     processDirectorFormField(request, movie);
                     processGenreFormField(request, movieId);
+                    processCountryFormField(request, movieId);
                 }
                 router.setPagePath(PagePath.MOVIE_PAGE);
             }
@@ -75,29 +76,48 @@ public class UploadMovieCommand implements Command {
     }
 
     private void processGenreFormField(HttpServletRequest request, long movieId) throws ServiceException {
-        String[] genres = request.getParameterValues(GENRES);
-        System.out.println(Arrays.toString(genres));
-        for (String genre : genres) {
-            long genreId = Long.parseLong(genre);
-            movieService.addGenreToMovie(genreId, movieId);
+        String[] genres;
+        if (request.getParameterValues(GENRES) != null) {
+            genres = request.getParameterValues(GENRES);
+            for (String genre : genres) {
+                long genreId = Long.parseLong(genre);
+                movieService.addGenreToMovie(genreId, movieId);
+            }
         }
     }
 
     private void processActorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
         long movieId = movie.getMovieId();
-        String[] actors = request.getParameterValues(ACTORS);
-        for (String actor : actors) {
-            long actorId = Long.parseLong(actor);
-            movieService.addActorToMovieById(actorId, movieId);
+        String[] actors;
+        if (request.getParameterValues(ACTORS) != null) {
+            actors = request.getParameterValues(ACTORS);
+            for (String actor : actors) {
+                long actorId = Long.parseLong(actor);
+                movieService.addActorToMovieById(actorId, movieId);
+            }
         }
     }
 
     private void processDirectorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
         long movieId = movie.getMovieId();
-        String[] directors = request.getParameterValues(DIRECTOR);
-        for (String director : directors) {
-            long directorId = Long.parseLong(director);
-            movieService.addDirectorToMovieById(directorId, movieId);
+        String[] directors;
+        if (request.getParameterValues(DIRECTOR) != null) {
+            directors = request.getParameterValues(DIRECTOR);
+            for (String director : directors) {
+                long directorId = Long.parseLong(director);
+                movieService.addDirectorToMovieById(directorId, movieId);
+            }
+        }
+    }
+
+    private void processCountryFormField(HttpServletRequest request, long movieId) throws ServiceException {
+        String[] countries;
+        if (request.getParameterValues(COUNTRIES) != null) {
+            countries = request.getParameterValues(COUNTRIES);
+            for (String country : countries) {
+                long countryId = Long.parseLong(country);
+                movieService.addCountryToMovie(countryId, movieId);
+            }
         }
     }
 
@@ -114,10 +134,6 @@ public class UploadMovieCommand implements Command {
             case TITLE:
                 String title = request.getParameter(TITLE);
                 movie.setTitle(title);
-                break;
-            case COUNTRY:
-                String country = request.getParameter(COUNTRY);
-                movie.setCountry(country);
                 break;
             case RUN_TIME:
                 int runTime = Integer.parseInt(request.getParameter(RUN_TIME));

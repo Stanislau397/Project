@@ -27,9 +27,8 @@ public class MovieDaoImpl implements MovieDao {
             statement.setString(2, movie.getTitle());
             statement.setDate(3, movie.getReleaseDate());
             statement.setInt(4, movie.getRunTime());
-            statement.setString(5, movie.getCountry());
-            statement.setString(6, movie.getDescription());
-            statement.setString(7, movie.getPicture());
+            statement.setString(5, movie.getDescription());
+            statement.setString(6, movie.getPicture());
             int update = statement.executeUpdate();
             isAdded = (update == 1);
         } catch (SQLException e) {
@@ -1576,6 +1575,41 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public boolean isCountryAlreadyExists(String countryName) throws DaoException {
+        boolean isCountryExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY)) {
+            statement.setString(1, countryName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isCountryExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isCountryExists;
+    }
+
+    @Override
+    public boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws DaoException {
+        boolean isExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_FOR_MOVIE)) {
+            statement.setLong(1, movieId);
+            statement.setLong(2, countryId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isExists;
+    }
+
+    @Override
     public List<Country> findAllCountries() throws DaoException {
         List<Country> allCountries = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -1592,6 +1626,26 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return allCountries;
+    }
+
+    @Override
+    public List<Country> findCountriesForMovieById(long movieId) throws DaoException {
+        List<Country> movieCountries = new ArrayList<>();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_COUNTRIES)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                long countryId = resultSet.getLong(TableColumn.COUNTRY_ID);
+                String countryName = resultSet.getString(TableColumn.COUNTRY_NAME);
+                Country country = new Country(countryId, countryName);
+                movieCountries.add(country);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return movieCountries;
     }
 
     @Override

@@ -31,7 +31,5 @@ public class Main {
 
     public static void main(String[] args) throws ServiceException, DaoException {
         MovieDao movieDao = new MovieDaoImpl();
-        System.out.println(movieDao.isGenreAlreadyExistsForMovie(1, 2));
-        System.out.println("2020-12-32".matches(PASSWORD_REGEX));
     }
 }

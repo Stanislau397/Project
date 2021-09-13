@@ -155,7 +155,13 @@ public interface MovieService {
 
     boolean removeCountryFromMovie(long movieId, long countryId) throws ServiceException;
 
+    boolean isCountryAlreadyExists(String countryName) throws ServiceException;
+
+    boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws ServiceException;
+
     List<Country> findAllCountries() throws ServiceException;
+
+    List<Country> findCountriesForMovieById(long movieId) throws ServiceException;
 
     int countGenres() throws ServiceException;
 

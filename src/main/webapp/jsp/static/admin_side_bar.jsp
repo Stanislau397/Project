@@ -58,6 +58,9 @@
         <li class="active"><a
                 href="${pageContext.request.contextPath}/controller?command=to_genres"><fmt:message
                 key="label.genres"/></a></li>
+        <li class="active"><a
+                href="${pageContext.request.contextPath}/controller?command=display_all_countries"><fmt:message
+                key="label.countries"/></a></li>
     </ul>
 </nav>
 </body>

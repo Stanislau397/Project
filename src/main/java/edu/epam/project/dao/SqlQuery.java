@@ -66,13 +66,13 @@ public class SqlQuery {
     public static final String SELECT_MOVIES_FOR_DIRECTOR = "SELECT m.movie_id, m.title, m.release_date, m.picture, IFNULL(AVG(user_score), 0) AS user_score FROM director d\n" +
             "JOIN movie_direction md ON d.director_id = md.director_id_fk\n" +
             "JOIN movies m ON md.movie_id_fk = m.movie_id\n" +
-            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE md.director_id_fk = (?) GROUP BY r.movie_id_fk";
+            "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE md.director_id_fk = (?) GROUP BY m.movie_id ORDER BY m.release_date DESC";
     public static final String INSERT_DIRECTOR_TO_MOVIE = "INSERT INTO movie_direction (director_id_fk, movie_id_fk) VALUES(?,?)";
     public static final String INSERT_TO_MOVIE_DIRECTION = "INSERT INTO movie_direction (movie_id_fk, director_id_fk) VALUES (?,?)";
     public static final String COUNT_ALL_DIRECTORS = "SELECT COUNT(director_id) AS counter FROM director";
 
-    public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, country, description, picture) " +
-            "VALUES (?,?,?,?,?,?,?)";
+    public static final String INSERT_TO_MOVIE = "INSERT INTO movies (movie_id, title, release_date, time, description, picture) " +
+            "VALUES (?,?,?,?,?,?)";
     public static final String UPDATE_MOVIE_POSTER = "UPDATE movies SET picture = (?) WHERE movie_id = (?)";
     public static final String UPDATE_MOVIE_TRAILER = "UPDATE movies SET trailer = (?) WHERE movie_id = (?)";
     public static final String UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE = "UPDATE movies SET title = (?), time = (?), release_date = (?), description = (?) WHERE movie_id = (?)";
@@ -187,6 +187,13 @@ public class SqlQuery {
     public static final String INSERT_TO_MOVIE_COUNTRIES = "INSERT INTO movie_countries (country_id_fk, movie_id_fk) VALUES (?,?)";
     public static final String DELETE_COUNTRY_FROM_MOVIE = "DELETE FROM movie_countries WHERE movie_id_fk = (?) AND country_id_fk = (?)";
     public static final String SELECT_ALL_COUNTRIES = "SELECT country_id, country_name FROM countries";
+    public static final String SELECT_MOVIE_COUNTRIES = "SELECT c.country_id, c.country_name FROM countries c\n" +
+            "JOIN movie_countries mc ON c.country_id = mc.country_id_fk\n" +
+            "WHERE mc.movie_id_fk = (?) GROUP BY c.country_id";
+    public static final String SELECT_COUNTRY_FOR_MOVIE = "SELECT c.country_id FROM countries c\n" +
+            "JOIN movie_countries mc ON c.country_id = mc.country_id_fk \n" +
+            "WHERE mc.movie_id_fk = (?) AND mc.country_id_fk = (?)";
+    public static final String SELECT_COUNTRY = "SELECT country_name FROM countries WHERE country_name = (?)";
 
     private SqlQuery() {
 

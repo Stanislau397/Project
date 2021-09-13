@@ -43,6 +43,7 @@ public class AttributeName {
     public static final String MOVIES_BY_CURRENT_YEAR_LIST = "movies_by_current_year_list";
     public static final String BEST_MOVIES_FOR_ACTOR_LIST = "best_movies_for_actor_list";
     public static final String BEST_MOVIES_FOR_DIRECTOR_LIST = "best_movies_for_director_list";
+    public static final String MOVIE_COUNTRIES_LIST = "movie_countries_list";
     public static final String GENRES_LIST = "genres_list";
     public static final String MOVIE_POSTER = "movie_poster";
     public static final String MOVIE_GENRES_LIST = "movie_genres_list";
