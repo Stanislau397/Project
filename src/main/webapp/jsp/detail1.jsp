@@ -280,7 +280,7 @@
                     </li>
                 </ul>
             </c:if>
-            <c:if test="${requestScope.movie_info.runTime != null}">
+            <c:if test="${requestScope.movie_info.runTime != 0}">
                 <ul>
                     <li class="name"><fmt:message key="label.runtime"/></li>
                     <li class="value">${movie_info.runTime} <fmt:message key="label.min"/></li>

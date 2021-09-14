@@ -20,7 +20,7 @@
     <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
           rel="stylesheet" type="text/css"/>
 </head>
-<body>
+<body style="background-color: rgb(240,240,240)">
 <div class="top">
     <div class="text1">
         <c:choose>
@@ -164,6 +164,13 @@
             <c:remove var="genre_successfully_added" scope="session"/>
         </div>
     </c:when>
+    <c:when test="${sessionScope.invalid_input != null}">
+        <div class="alert" style="background-color: #eb5757">
+            <h3><c:out value="${sessionScope.invalid_input}"/></h3>
+            <a class="close"><i class="fa fa-close"></i></a>
+            <c:remove var="invalid_input" scope="session"/>
+        </div>
+    </c:when>
 </c:choose>
 <div class="main-content">
     <div class="head">
@@ -213,7 +220,7 @@
 
         <c:choose>
         <c:when test="${requestScope.movie_info != null}">
-            <div class="edit-poster">
+            <div class="edit-poster" style="background-color: rgb(245,245,245)">
                 <form action="${pageContext.request.contextPath}/UploadServlet" method="post"
                       enctype="multipart/form-data">
                     <input type="hidden" name="command" value="change_movie_poster">
@@ -235,7 +242,7 @@
                     </div>
                 </form>
             </div>
-            <div class="bottom">
+            <div class="bottom" style="background-color: rgb(245,245,245)">
                 <form action="${pageContext.request.contextPath}/UploadServlet" method="post"
                       enctype="multipart/form-data">
                     <input type="hidden" name="command" value="update_movie_trailer">
@@ -251,7 +258,7 @@
                 <br>
                 <br>
             </div>
-            <div class="edit-title-date-time-description">
+            <div class="edit-title-date-time-description" style="background-color: rgb(245,245,245)">
                 <form action="${pageContext.request.contextPath}/controller" method="post">
                     <div class="info-container">
                         <input type="hidden" name="command" value="update_movie">
@@ -286,7 +293,7 @@
                     <div class="arrow-5 arrow-5-top" id="description-error">
                         <fmt:message key="label.description_example"/>
                     </div>
-                    <button type="submit" id="edit-movie-btn"><fmt:message key="label.save"/></button>
+                    <button type="submit" id="btn"><fmt:message key="label.change"/></button>
                 </form>
                 <br>
                 <br>

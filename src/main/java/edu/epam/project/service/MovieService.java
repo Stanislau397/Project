@@ -1,6 +1,7 @@
 package edu.epam.project.service;
 
 import edu.epam.project.entity.*;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
 import java.sql.Date;
@@ -9,11 +10,11 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    boolean add(Movie movie) throws ServiceException;
+    boolean add(Movie movie) throws ServiceException, InvalidInputException;
 
     boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
 
-    boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException;
+    boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException, InvalidInputException;
 
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException;
 

@@ -15,6 +15,8 @@ public class SessionAttribute {
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ID = "user_id";
     public static final String USER_AVATAR = "user_avatar";
+    public static final String MOVIE_TITLE_ATTR = "movie_title_attr";
+    public static final String MOVIE_ID_ATTR = "movie_id_attr";
 
     public static final String CHANGE_PASSWORD = "change_password";
 
@@ -44,4 +46,5 @@ public class SessionAttribute {
     public static final String BLOCKED_USER = "blocked_user";
     public static final String UNBLOCKED_USER = "unblocked_user";
     public static final String CHANGED_ROLE = "changed_role";
+    public static final String INVALID_INPUT = "invalid_input";
 }

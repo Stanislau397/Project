@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -22,6 +23,7 @@ import static edu.epam.project.controller.command.ErrorMessage.EDIT_MOVIE_ERROR_
 
 import static edu.epam.project.controller.command.SessionAttribute.CHANGED_DATA;
 import static edu.epam.project.controller.command.SessionAttribute.ERROR;
+import static edu.epam.project.controller.command.SessionAttribute.INVALID_INPUT;
 
 public class UpdateMovieCommand implements Command {
 
@@ -47,8 +49,11 @@ public class UpdateMovieCommand implements Command {
             }
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
+            session.setAttribute(INVALID_INPUT, e.getMessage());
+            router.setRoute(RouteType.REDIRECT);
+            router.setPagePath(currentPage);
         }
         return router;
     }

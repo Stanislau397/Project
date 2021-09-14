@@ -27,9 +27,12 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-    private static final String PASSWORD_REGEX = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$";
+    private static final String PASSWORD_REGEX = "([^\\\\s]+(\\\\.(?i)(jpe?g|png|gif|bmp))$)";
+    static final Pattern REGEX = Pattern.compile("([^\\s]+(\\.(?i)(jpg|png|gif|bmp|jpeg))$)");
+    private static final Pattern RELEASE_DATE_PATTERN = Pattern.compile("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$");
 
     public static void main(String[] args) throws ServiceException, DaoException {
         MovieDao movieDao = new MovieDaoImpl();
+        System.out.println("2021-05-05s".matches(RELEASE_DATE_PATTERN.pattern()));
     }
 }

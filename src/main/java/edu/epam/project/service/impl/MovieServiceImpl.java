@@ -4,6 +4,7 @@ import edu.epam.project.dao.MovieDao;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.validator.ActorValidator;
@@ -22,10 +23,23 @@ public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao = new MovieDaoImpl();
 
     @Override
-    public boolean add(Movie movie) throws ServiceException {
-        boolean isAdded;
+    public boolean add(Movie movie) throws ServiceException, InvalidInputException {
+        MovieValidator validator = new MovieValidator();
+        String imagePath = movie.getPicture();
+        String movieTitle = movie.getTitle();
+        String movieDescription = movie.getDescription();
+        String releaseDate = String.valueOf(movie.getReleaseDate());
+        int runTime = movie.getRunTime();
+        boolean isAdded = false;
         try {
-            isAdded = movieDao.add(movie);
+            if (!movieTitle.isEmpty() && !releaseDate.isEmpty()) {
+                validator.isImageValid(imagePath);
+                validator.isTitleValid(movieTitle);
+                validator.isDescriptionValid(movieDescription);
+                validator.isReleaseDateValid(releaseDate);
+                validator.isRunTimeValid(runTime);
+                isAdded = movieDao.add(movie);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -47,7 +61,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id)
-            throws ServiceException {
+            throws ServiceException, InvalidInputException {
         MovieValidator validator = new MovieValidator();
         boolean isUpdated = false;
         try {

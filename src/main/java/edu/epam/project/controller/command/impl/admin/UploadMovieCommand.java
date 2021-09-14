@@ -3,8 +3,8 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
-import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Movie;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -14,26 +14,33 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
 import static edu.epam.project.controller.command.RequestParameter.*;
+
+import static edu.epam.project.controller.command.SessionAttribute.MOVIE_TITLE_ATTR;
+import static edu.epam.project.controller.command.SessionAttribute.MOVIE_ID_ATTR;
+import static edu.epam.project.controller.command.SessionAttribute.INVALID_INPUT;
 
 public class UploadMovieCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UploadMovieCommand.class);
     private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/image/movie/";
     private static final String IMAGE_PATH = "localhost:8080/image/movie";
+    private static final String DEFAULT_MOVIE_IMAGE = "localhost:8080/image/movie/default-movie-image.jpg";
+    private static final String DEFAULT_DESCRIPTION = "The plot is currently unknown.";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
+        HttpSession session = request.getSession();
         Part part = request.getPart(FILE);
         String currentPage = request.getHeader(REFERER);
         Set<String> parameterNames = request.getParameterMap().keySet();
@@ -49,15 +56,19 @@ public class UploadMovieCommand implements Command {
                 if (movieOptional.isPresent()) {
                     movie = movieOptional.get();
                     long movieId = movie.getMovieId();
-                    processActorFormField(request, movie);
-                    processDirectorFormField(request, movie);
+                    processActorFormField(request, movieId);
+                    processDirectorFormField(request, movieId);
                     processGenreFormField(request, movieId);
                     processCountryFormField(request, movieId);
+                    session.setAttribute(MOVIE_TITLE_ATTR, movieTitle);
+                    session.setAttribute(MOVIE_ID_ATTR, movieId);
                 }
-                router.setPagePath(PagePath.MOVIE_PAGE);
+                router.setRoute(RouteType.REDIRECT);
+                router.setPagePath(currentPage);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
+            session.setAttribute(INVALID_INPUT, e.getMessage());
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);
         }
@@ -86,8 +97,7 @@ public class UploadMovieCommand implements Command {
         }
     }
 
-    private void processActorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
-        long movieId = movie.getMovieId();
+    private void processActorFormField(HttpServletRequest request, long movieId) throws ServiceException {
         String[] actors;
         if (request.getParameterValues(ACTORS) != null) {
             actors = request.getParameterValues(ACTORS);
@@ -98,8 +108,7 @@ public class UploadMovieCommand implements Command {
         }
     }
 
-    private void processDirectorFormField(HttpServletRequest request, Movie movie) throws ServiceException {
-        long movieId = movie.getMovieId();
+    private void processDirectorFormField(HttpServletRequest request, long movieId) throws ServiceException {
         String[] directors;
         if (request.getParameterValues(DIRECTOR) != null) {
             directors = request.getParameterValues(DIRECTOR);
@@ -124,9 +133,13 @@ public class UploadMovieCommand implements Command {
     private void processUploadedFile(Movie movie, Part part) throws IOException {
         String savePath = getSavePath(part);
         String picturePath = getPicturePath(part);
-        movie.setPicture(picturePath);
-        File file = new File(savePath);
-        part.write(file + File.separator);
+        if (part.getSubmittedFileName().isEmpty()) {
+            movie.setPicture(DEFAULT_MOVIE_IMAGE);
+        } else {
+            movie.setPicture(picturePath);
+            File file = new File(savePath);
+            part.write(file + File.separator);
+        }
     }
 
     private void processMovieFormFields(Movie movie, String fieldName, HttpServletRequest request) throws ServletException, IOException {
@@ -136,11 +149,21 @@ public class UploadMovieCommand implements Command {
                 movie.setTitle(title);
                 break;
             case RUN_TIME:
-                int runTime = Integer.parseInt(request.getParameter(RUN_TIME));
-                movie.setRunTime(runTime);
+                int runTime;
+                if (!request.getParameter(RUN_TIME).isEmpty()) {
+                    runTime = Integer.parseInt(request.getParameter(RUN_TIME));
+                    movie.setRunTime(runTime);
+                } else {
+                    movie.setRunTime(0);
+                }
             case DESCRIPTION:
-                String description = request.getParameter(DESCRIPTION);
-                movie.setDescription(description);
+                String description;
+                if (!request.getParameter(DESCRIPTION).isEmpty()) {
+                    description = request.getParameter(DESCRIPTION);
+                    movie.setDescription(description);
+                } else {
+                    movie.setDescription(DEFAULT_DESCRIPTION);
+                }
                 break;
             case RELEASE_DATE:
                 Date releaseDate = Date.valueOf(request.getParameter(RELEASE_DATE));
