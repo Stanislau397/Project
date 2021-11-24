@@ -1,5 +1,7 @@
 package edu.epam.project.controller.command.impl.admin;
 
+import java.io.File;
+import java.io.IOException;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
@@ -16,8 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.Optional;
 import java.util.Set;
@@ -31,9 +31,9 @@ import static edu.epam.project.controller.command.SessionAttribute.INVALID_INPUT
 public class UploadMovieCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UploadMovieCommand.class);
-    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/image/movie/";
-    private static final String IMAGE_PATH = "localhost:8080/image/movie";
-    private static final String DEFAULT_MOVIE_IMAGE = "localhost:8080/image/movie/default-movie-image.jpg";
+    private static final String DIRECTORY_PATH = "/usr/local/tomcat/webapps/storage/image/poster/";
+    private static final String IMAGE_PATH = "http://77.223.98.30/storage/image/poster/";
+    private static final String DEFAULT_MOVIE_IMAGE = "http://77.223.98.30/project-1.0-SNAPSHOT/image/default-movie-image.jpg";
     private static final String DEFAULT_DESCRIPTION = "The plot is currently unknown.";
     private MovieService movieService = new MovieServiceImpl();
 

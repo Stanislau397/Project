@@ -228,7 +228,7 @@
                     <input type="hidden" name="picture_path" value="${requestScope.movie_info.picture}">
                     <div class="left">
                         <div class="image-preview" id="imagePreview">
-                            <img src="http://${requestScope.movie_info.picture}"
+                            <img src="${requestScope.movie_info.picture}"
                                  alt="Image"
                                  class="image-preview__image">
                             <span class="image-preview__default__text"></span>
@@ -249,7 +249,7 @@
                     <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
                     <div id="video">
                         <video controls id="trailer"
-                               src="http://${requestScope.movie_info.trailer}"></video>
+                               src="${requestScope.movie_info.trailer}"></video>
                     </div>
                     <label for="fileupload" id="file" class="label-for_video"><fmt:message key="label.choose"/></label>
                     <input id="fileupload" type="file" name="file" class="inputFile" multiple required>

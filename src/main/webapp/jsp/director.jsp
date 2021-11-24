@@ -19,16 +19,16 @@
     <div class="head">
         <div class="actor-img">
             <c:choose>
-                <c:when test="${requestScope.director.picture == null}">
+                <c:when test="${requestScope.director.picture != null}">
+                    <div class="img">
+                        <img src="${requestScope.director.picture}"/>
+                    </div>
+                </c:when>
+                <c:otherwise>
                     <div class="img">
                         <p><fmt:message key="label.no_photo"/></p>
                     </div>
-                </c:when>
-                <c:when test="${requestScope.director.picture != null}">
-                    <div class="img">
-                        <img src="http://${requestScope.director.picture}"/>
-                    </div>
-                </c:when>
+                </c:otherwise>
             </c:choose>
         </div>
         <div class="actor-info">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="pic">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesForDirector.movieId}">
-                        <img src="http://${moviesForDirector.picture}">
+                        <img src="${moviesForDirector.picture}">
                     </a>
                 </div>
                 <div class="movie-title">

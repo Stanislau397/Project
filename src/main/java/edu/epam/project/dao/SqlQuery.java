@@ -92,7 +92,7 @@ public class SqlQuery {
     public static final String SELECT_MOVIE_BY_YEAR = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = (?) GROUP BY movie_id ORDER BY average DESC";
     public static final String SELECT_NEW_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
-            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC";
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC LIMIT ?,?";
     public static final String SELECT_MOVIES_WITH_TRAILER = "SELECT title, picture, trailer, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE trailer IS NOT NULL GROUP BY movie_id ORDER BY movie_id DESC LIMIT 10";
     public static final String SELECT_NEW_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
@@ -143,6 +143,7 @@ public class SqlQuery {
             "JOIN rating r ON mc.movie_id_fk = r.movie_id_fk \n" +
             "JOIN users u ON u.user_name = r.user_name_fk GROUP BY r.movie_id_fk ORDER BY r.rating_id DESC";
     public static final String COUNT_ALL_MOVIES = "SELECT COUNT(movie_id) FROM movies";
+    public static final String COUNT_NEWEST_MOVIES = "SELECT COUNT(movie_id) AS counter FROM movies WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())";
 
     public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
             "VALUES (?,?,?,?)";

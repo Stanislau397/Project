@@ -24,13 +24,14 @@ import static edu.epam.project.controller.command.AttributeName.TRAILERS_LIST;
 public class OpenHomePageCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(OpenHomePageCommand.class);
+    private static final int TOTAL = 12;
     private MovieService movieService = new MovieServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         try {
-            List<Movie> newestMovies = movieService.findNewestMovies();
+            List<Movie> newestMovies = movieService.findNewestMovies(0, TOTAL);
             List<Movie> mostRatedMovies = movieService.findMostRatedMovies();
             List<Movie> upcomingMovies = movieService.findUpcomingMovies();
             List<Movie> trailers = movieService.findMoviesWithTrailer();

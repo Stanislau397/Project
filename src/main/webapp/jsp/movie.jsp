@@ -52,7 +52,7 @@
             <c:forEach items="${movie_list}" var="movies">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${movies.movieId}">
-                        <img class="image" src="http://${movies.picture}">
+                        <img class="image" src="${movies.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -122,7 +122,7 @@
             <c:forEach items="${movies_by_key_word_list}" var="moviesByKeyWord" varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesByKeyWord.movieId}">
-                        <img class="image" src="http://${moviesByKeyWord.picture}">
+                        <img class="image" src="${moviesByKeyWord.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -200,7 +200,7 @@
             <c:forEach items="${movies_by_genre_list}" var="moviesByGenre" varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesByGenre.movieId}">
-                        <img class="image" src="http://${moviesByGenre.picture}">
+                        <img class="image" src="${moviesByGenre.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -268,7 +268,7 @@
             <c:forEach items="${movies_by_current_year_list}" var="currentYearMovies">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${currentYearMovies.movieId}">
-                        <img class="image" src="http://${currentYearMovies.picture}">
+                        <img class="image" src="${currentYearMovies.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -339,7 +339,7 @@
                        varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${currentYearMoviesByGenre.movieId}">
-                        <img class="image" src="http://${currentYearMoviesByGenre.picture}">
+                        <img class="image" src="${currentYearMoviesByGenre.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -387,7 +387,7 @@
             <c:forEach items="${movies_by_year_list}" var="moviesByYear" varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesByYear.movieId}">
-                        <img class="image" src="http://${moviesByYear.picture}">
+                        <img class="image" src="${moviesByYear.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -440,6 +440,7 @@
                     <li>
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="newest_movies">
+                            <input type="hidden" name="page" value="1">
                             <input class="btn" type="submit" value="<fmt:message key="label.all_genres"/>">
                         </form>
                         <form action="${pageContext.request.contextPath}/controller" method="get">
@@ -457,7 +458,7 @@
             <c:forEach items="${newest_movies_list}" var="newestMovies">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMovies.movieId}">
-                        <img class="image" src="http://${newestMovies.picture}">
+                        <img class="image" src="${newestMovies.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -498,6 +499,25 @@
                 </div>
                 <hr>
             </c:forEach>
+            <div class="pagination">
+                <div class="title">
+                    <p><fmt:message key="label.page"/> </p>
+                </div>
+                <div class="pagination-number">
+                    <c:forEach begin="1" end="${requestScope.pages}" varStatus="loop">
+                        <c:choose>
+                            <c:when test="${requestScope.page_number == loop.count}">
+                                <a style="color: #2f80ed"
+                                   href="${pageContext.request.contextPath}/controller?command=newest_movies&page=${loop.count}">${loop.count}
+                                </a>
+                            </c:when>
+                            <c:when test="${requestScope.page_number != loop.count}">
+                                <a href="${pageContext.request.contextPath}/controller?command=newest_movies&page=${loop.count}">${loop.count}</a>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
     </c:when>
     <c:when test="${requestScope.newest_movies_by_genre_list != null}">
@@ -510,6 +530,7 @@
                     <li>
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="newest_movies">
+                            <input type="hidden" name="page" value="1">
                             <input class="btn" type="submit" value="<fmt:message key="label.all_genres"/>">
                         </form>
                         <form action="${pageContext.request.contextPath}/controller" method="get">
@@ -528,7 +549,7 @@
                        varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${newestMoviesByGenre.movieId}">
-                        <img class="image" src="http://${newestMoviesByGenre.picture}">
+                        <img class="image" src="${newestMoviesByGenre.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -576,7 +597,7 @@
             <c:forEach items="${most_rated_movies_list}" var="mostRatedMovies" varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${mostRatedMovies.movieId}">
-                        <img class="image" src="http://${mostRatedMovies.picture}">
+                        <img class="image" src="${mostRatedMovies.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -646,7 +667,7 @@
             <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies" varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}">
-                        <img class="image" src="http://${upcomingMovies.picture}">
+                        <img class="image" src="${upcomingMovies.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -717,7 +738,7 @@
                        varStatus="counter">
                 <div class="side">
                     <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMoviesByGenre.movieId}">
-                        <img class="image" src="http://${upcomingMoviesByGenre.picture}">
+                        <img class="image" src="${upcomingMoviesByGenre.picture}">
                     </a>
                 </div>
                 <div class="middle">
@@ -823,7 +844,7 @@
                     <c:forEach items="${requestScope.movies_by_genre_and_year_list}" var="moviesByGenreAndYear">
                         <div class="side">
                             <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${moviesByGenreAndYear.movieId}">
-                                <img class="image" src="http://${moviesByGenreAndYear.picture}">
+                                <img class="image" src="${moviesByGenreAndYear.picture}">
                             </a>
                         </div>
                         <div class="middle">

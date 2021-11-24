@@ -2,7 +2,6 @@ package edu.epam.project.entity;
 
 /**
  * Class represents user
- *
  * @author Stanislau Kachan
  */
 public class User extends Entity {
@@ -15,7 +14,7 @@ public class User extends Entity {
     private boolean isBlocked;
 
     /**
-     * Constructor for User Object
+     * Empty constructor for User Object
      * with no parameters
      */
     public User() {

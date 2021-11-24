@@ -202,7 +202,7 @@
     <div class="right">
         <c:if test="${requestScope.movie_info.trailer != null}">
             <video controls autoplay muted
-                   src="http://${requestScope.movie_info.trailer}"></video>
+                   src="${requestScope.movie_info.trailer}"></video>
         </c:if>
     </div>
 </div>
@@ -210,7 +210,7 @@
     <c:if test="${requestScope.movie_info != null}">
         <div class="left-side">
             <div class="picture">
-                <img src="http://${movie_info.picture}"/>
+                <img src="${requestScope.movie_info.picture}"/>
             </div>
         </div>
         <div class="middle">
@@ -310,183 +310,189 @@
         </div>
     </div>
 </div>
-<div class="comment-section">
-    <c:choose>
-        <c:when test="${requestScope.comments.size() > 0}">
-            <h3><fmt:message key="label.comments"/></h3>
-        </c:when>
-        <c:when test="${requestScope.movie_info.releaseDate.after(today)}">
-            <h3><fmt:message key="label.review_msg"/> <c:out value="${requestScope.movie_info.releaseDate}"/></h3>
-        </c:when>
-        <c:when test="${requestScope.comments.size() == 0}">
-            <h3><fmt:message key="label.no_comments"/></h3>
-        </c:when>
-    </c:choose>
-    <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
-        <button class="scroll-down"><i class="fa fa-plus"></i>
-            <p><fmt:message key="label.write_comment"/></p></button>
-    </c:if>
-    <c:choose>
-        <c:when test="${requestScope.comments != null}">
-            <c:forEach items="${requestScope.comments}" var="comments" varStatus="counter">
-                <div class="user-comments">
-                    <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}&page=1">
-                        <div class="user-picture">
-                            <img src="http://${comments.userAvatar}">
+<c:choose>
+    <c:when test="${requestScope.movie_info.releaseDate.after(today)}">
+        <div class="comment-section">
+            <jsp:include page="static/footer.jsp"/>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="comment-section">
+            <c:choose>
+                <c:when test="${requestScope.comments.size() > 0}">
+                    <h3><fmt:message key="label.comments"/></h3>
+                </c:when>
+                <c:when test="${requestScope.comments.size() == 0}">
+                    <h3><fmt:message key="label.no_comments"/></h3>
+                </c:when>
+            </c:choose>
+            <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
+                <button class="scroll-down"><i class="fa fa-plus"></i>
+                    <p><fmt:message key="label.write_comment"/></p></button>
+            </c:if>
+            <c:choose>
+                <c:when test="${requestScope.comments != null}">
+                    <c:forEach items="${requestScope.comments}" var="comments" varStatus="counter">
+                        <div class="user-comments">
+                            <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}&page=1">
+                                <div class="user-picture">
+                                    <img src="${comments.userAvatar}">
+                                </div>
+                            </a>
+                            <div class="content">
+                                <div class="user-name">
+                                    <form action="${pageContext.request.contextPath}/controller" name="get">
+                                        <input type="hidden" name="command" value="show_user_profile">
+                                        <input type="hidden" name="user_name" value="${comments.userName}">
+                                        <input type="hidden" name="page" value="1">
+                                        <button type="submit" class="user-name-btn"><h2><c:out
+                                                value="${comments.userName}"/></h2></button>
+                                    </form>
+                                </div>
+                                <div class="user-comment">
+                                    <p><c:out value="${comments.text}"/></p>
+                                </div>
+                                <div class="comment-vote">
+                                    <p><c:out value="${comments.commentUpVotes}"/>
+                                        <fmt:message key="label.of"/>
+                                        <c:out value="${comments.countComments}"/>
+                                        <fmt:message key="label.found_helpful"/>
+                                    </p>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.user != null || sessionScope.admin != null}">
+                                            <c:if test="${sessionScope.user_name != comments.userName}">
+                                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                    <input type="hidden" name="command" value="up_vote_comment">
+                                                    <input type="hidden" name="movie_id"
+                                                           value="${requestScope.movie_info.movieId}">
+                                                    <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                                    <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
+                                                        <c:out value="${comments.commentUpVotes}"/></button>
+                                                </form>
+                                                <form action="${pageContext.request.contextPath}/controller" method="post">
+                                                    <input type="hidden" name="command" value="down_vote_comment">
+                                                    <input type="hidden" name="movie_id"
+                                                           value="${requestScope.movie_info.movieId}">
+                                                    <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                                    <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
+                                                        <c:out value="${comments.commentDownVotes}"/></button>
+                                                </form>
+                                            </c:if>
+                                            <c:if test="${sessionScope.user_name == comments.userName}">
+                                                <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
+                                                    <c:out value="${comments.commentUpVotes}"/></button>
+                                                <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
+                                                    <c:out value="${comments.commentDownVotes}"/></button>
+                                            </c:if>
+                                        </c:when>
+                                        <c:when test="${sessionScope.user == null || sessionScope.admin == null}">
+                                            <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
+                                                <c:out value="${comments.commentUpVotes}"/></button>
+                                            <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
+                                                <c:out value="${comments.commentDownVotes}"/></button>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <div class="upload-date">
+                                <p><c:out value="${comments.postDate}"/></p>
+                            </div>
+                            <div class="more">
+                                <c:if test="${sessionScope.admin != null || sessionScope.user_name == comments.userName}">
+                                    <span><i class="fa fa-ellipsis-v"></i></span>
+                                </c:if>
+                                <div class="dropdown-content">
+                                    <a class="button" href="#pop${counter.count}">
+                                        <button><fmt:message key="label.remove"/></button>
+                                    </a>
+                                    <div id="pop${counter.count}" class="overlay1">
+                                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                                            <input type="hidden" name="command" value="remove_comment">
+                                            <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                                            <input type="hidden" name="comment" value="${comments.text}">
+                                            <input type="hidden" name="user_name" value="${comments.userName}">
+                                            <div class="pop">
+                                                <a class="close" href="#"><i class="fa fa-close"></i></a>
+                                                <div class="text">
+                                                    <h2><fmt:message key="label.comment_delete1"/></h2>
+                                                    <p><fmt:message key="label.comment_delete"/></p>
+                                                </div>
+                                                <div class="buttons">
+                                                    <div class="remove">
+                                                        <button class="remove-comment-btn" type="submit"><fmt:message
+                                                                key="label.remove"/></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <a class="button" href="#pop1${counter.count}">
+                                        <button><fmt:message key="label.edit1"/></button>
+                                    </a>
+                                    <div id="pop1${counter.count}" class="overlay2">
+                                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                                            <input type="hidden" name="command" value="edit_comment">
+                                            <input type="hidden" name="text" value="${comments.text}">
+                                            <input type="hidden" name="user_name" value="${comments.userName}">
+                                            <div class="pop1">
+                                                <a class="close" href="#"><i class="fa fa-close"></i></a>
+                                                <div class="text">
+                                                    <h2><fmt:message key="label.edit_comment"/></h2>
+                                                </div>
+                                                <textarea name="updated_text"><c:out value="${comments.text}"/></textarea>
+                                                <div class="buttons">
+                                                    <div class="remove">
+                                                        <button class="edit-comment-btn" type="submit"><fmt:message
+                                                                key="label.edit1"/></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </a>
-                    <div class="content">
+                    </c:forEach>
+                    <br>
+                </c:when>
+            </c:choose>
+            <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
+                <h3><fmt:message key="label.write_comment"/></h3>
+                <div class="leave-comment">
+                    <div class="user-info">
+                        <div class="user-picture1">
+                            <img src="${sessionScope.user_avatar}">
+                        </div>
                         <div class="user-name">
                             <form action="${pageContext.request.contextPath}/controller" name="get">
                                 <input type="hidden" name="command" value="show_user_profile">
-                                <input type="hidden" name="user_name" value="${comments.userName}">
+                                <input type="hidden" name="user_name" value="${sessionScope.user_name}">
                                 <input type="hidden" name="page" value="1">
-                                <button type="submit" class="user-name-btn"><h2><c:out
-                                        value="${comments.userName}"/></h2></button>
+                                <button type="submit" class="user-name-button"><c:out
+                                        value="${sessionScope.user_name}"/></button>
+                            </form>
+                            <form action="${pageContext.request.contextPath}/controller" name="get">
+                                <input type="hidden" name="command" value="sign_out">
+                                <button type="submit" class="log-out-button"><fmt:message key="label.logout"/></button>
                             </form>
                         </div>
-                        <div class="user-comment">
-                            <p><c:out value="${comments.text}"/></p>
-                        </div>
-                        <div class="comment-vote">
-                            <p><c:out value="${comments.commentUpVotes}"/>
-                                <fmt:message key="label.of"/>
-                                <c:out value="${comments.countComments}"/>
-                                <fmt:message key="label.found_helpful"/>
-                            </p>
-                            <c:choose>
-                                <c:when test="${sessionScope.user != null || sessionScope.admin != null}">
-                                    <c:if test="${sessionScope.user_name != comments.userName}">
-                                        <form action="${pageContext.request.contextPath}/controller" method="post">
-                                            <input type="hidden" name="command" value="up_vote_comment">
-                                            <input type="hidden" name="movie_id"
-                                                   value="${requestScope.movie_info.movieId}">
-                                            <input type="hidden" name="comment_id" value="${comments.commentId}">
-                                            <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                                <c:out value="${comments.commentUpVotes}"/></button>
-                                        </form>
-                                        <form action="${pageContext.request.contextPath}/controller" method="post">
-                                            <input type="hidden" name="command" value="down_vote_comment">
-                                            <input type="hidden" name="movie_id"
-                                                   value="${requestScope.movie_info.movieId}">
-                                            <input type="hidden" name="comment_id" value="${comments.commentId}">
-                                            <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                                <c:out value="${comments.commentDownVotes}"/></button>
-                                        </form>
-                                    </c:if>
-                                    <c:if test="${sessionScope.user_name == comments.userName}">
-                                        <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                            <c:out value="${comments.commentUpVotes}"/></button>
-                                        <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                            <c:out value="${comments.commentDownVotes}"/></button>
-                                    </c:if>
-                                </c:when>
-                                <c:when test="${sessionScope.user == null || sessionScope.admin == null}">
-                                    <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                        <c:out value="${comments.commentUpVotes}"/></button>
-                                    <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                        <c:out value="${comments.commentDownVotes}"/></button>
-                                </c:when>
-                            </c:choose>
-                        </div>
                     </div>
-                    <div class="upload-date">
-                        <p><c:out value="${comments.postDate}"/></p>
-                    </div>
-                    <div class="more">
-                        <c:if test="${sessionScope.admin != null || sessionScope.user_name == comments.userName}">
-                            <span><i class="fa fa-ellipsis-v"></i></span>
-                        </c:if>
-                        <div class="dropdown-content">
-                            <a class="button" href="#pop${counter.count}">
-                                <button><fmt:message key="label.remove"/></button>
-                            </a>
-                            <div id="pop${counter.count}" class="overlay1">
-                                <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <input type="hidden" name="command" value="remove_comment">
-                                    <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                                    <input type="hidden" name="comment" value="${comments.text}">
-                                    <input type="hidden" name="user_name" value="${comments.userName}">
-                                    <div class="pop">
-                                        <a class="close" href="#"><i class="fa fa-close"></i></a>
-                                        <div class="text">
-                                            <h2><fmt:message key="label.comment_delete1"/></h2>
-                                            <p><fmt:message key="label.comment_delete"/></p>
-                                        </div>
-                                        <div class="buttons">
-                                            <div class="remove">
-                                                <button class="remove-comment-btn" type="submit"><fmt:message
-                                                        key="label.remove"/></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <a class="button" href="#pop1${counter.count}">
-                                <button><fmt:message key="label.edit1"/></button>
-                            </a>
-                            <div id="pop1${counter.count}" class="overlay2">
-                                <form action="${pageContext.request.contextPath}/controller" method="post">
-                                    <input type="hidden" name="command" value="edit_comment">
-                                    <input type="hidden" name="text" value="${comments.text}">
-                                    <input type="hidden" name="user_name" value="${comments.userName}">
-                                    <div class="pop1">
-                                        <a class="close" href="#"><i class="fa fa-close"></i></a>
-                                        <div class="text">
-                                            <h2><fmt:message key="label.edit_comment"/></h2>
-                                        </div>
-                                        <textarea name="updated_text"><c:out value="${comments.text}"/></textarea>
-                                        <div class="buttons">
-                                            <div class="remove">
-                                                <button class="edit-comment-btn" type="submit"><fmt:message
-                                                        key="label.edit1"/></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="comment">
+                        <form action="${pageContext.request.contextPath}/controller" method="post">
+                            <input type="hidden" name="command" value="leave_comment">
+                            <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                            <textarea name="comment"></textarea>
+                            <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
+                        </form>
                     </div>
                 </div>
-            </c:forEach>
+            </c:if>
             <br>
-        </c:when>
-    </c:choose>
-    <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
-        <h3><fmt:message key="label.write_comment"/></h3>
-        <div class="leave-comment">
-            <div class="user-info">
-                <div class="user-picture1">
-                    <img src="http://${sessionScope.user_avatar}">
-                </div>
-                <div class="user-name">
-                    <form action="${pageContext.request.contextPath}/controller" name="get">
-                        <input type="hidden" name="command" value="show_user_profile">
-                        <input type="hidden" name="user_name" value="${sessionScope.user_name}">
-                        <input type="hidden" name="page" value="1">
-                        <button type="submit" class="user-name-button"><c:out
-                                value="${sessionScope.user_name}"/></button>
-                    </form>
-                    <form action="${pageContext.request.contextPath}/controller" name="get">
-                        <input type="hidden" name="command" value="sign_out">
-                        <button type="submit" class="log-out-button"><fmt:message key="label.logout"/></button>
-                    </form>
-                </div>
-            </div>
-            <div class="comment">
-                <form action="${pageContext.request.contextPath}/controller" method="post">
-                    <input type="hidden" name="command" value="leave_comment">
-                    <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                    <textarea name="comment"></textarea>
-                    <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
-                </form>
-            </div>
+            <br>
+            <jsp:include page="static/footer.jsp"/>
         </div>
-    </c:if>
-    <br>
-    <br>
-    <jsp:include page="static/footer.jsp"/>
-</div>
+    </c:otherwise>
+</c:choose>
 </body>
 <script type="text/javascript">
     $(document).ready(function () {

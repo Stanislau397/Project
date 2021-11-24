@@ -3,6 +3,7 @@ package edu.epam.project.dao;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,8 @@ public interface MovieDao {
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException;
 
     int countMovies() throws DaoException;
+
+    int countNewestMovies() throws DaoException;
 
     int countUserRatedMovies(String userName) throws DaoException;
 
@@ -37,7 +40,7 @@ public interface MovieDao {
 
     List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException;
 
-    List<Movie> findNewestMovies() throws DaoException;
+    List<Movie> findNewestMovies(int page, int total) throws DaoException;
 
     List<Movie> findUpcomingMovies() throws DaoException;
 

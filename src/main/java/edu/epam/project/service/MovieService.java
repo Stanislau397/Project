@@ -4,6 +4,7 @@ import edu.epam.project.entity.*;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public interface MovieService {
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException;
 
     int countMovies() throws ServiceException;
+
+    int countNewestMovies() throws ServiceException;
 
     int countUserRatedMovies(String userName) throws ServiceException;
 
@@ -46,7 +49,7 @@ public interface MovieService {
 
     List<Genre> findMovieGenresByMovieId(long movieId) throws ServiceException;
 
-    List<Movie> findNewestMovies() throws ServiceException;
+    List<Movie> findNewestMovies(int page, int total) throws ServiceException;
 
     List<Movie> findMoviesWithTrailer() throws ServiceException;
 

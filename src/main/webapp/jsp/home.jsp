@@ -20,6 +20,7 @@
             <li>
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="newest_movies">
+                    <input type="hidden" name="page" value="1">
                     <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.new_movies"/></h2>
                     </button>
                 </form>
@@ -27,6 +28,7 @@
             <li style="margin-left: 7px">
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="newest_movies">
+                    <input type="hidden" name="page" value="1">
                     <button class="link2"><fmt:message key="label.see_more"/></button>
                 </form>
             </li>
@@ -55,7 +57,7 @@
                                         value="${newestMovies.rating.score}"/></p>
                             </c:when>
                         </c:choose>
-                        <img src="http://${newestMovies.picture}" class="item"/>
+                        <img src="${newestMovies.picture}" class="item"/>
                         <p class="movie-title"><c:out value="${newestMovies.title}"/></p>
                     </a>
                 </c:if>
@@ -125,7 +127,7 @@
                                     value="${upcomingMovies.rating.score}"/></p>
                         </c:when>
                     </c:choose>
-                    <img src="http://${upcomingMovies.picture}" class="item"/>
+                    <img src="${upcomingMovies.picture}" class="item"/>
                     <p class="movie-title"><c:out value="${upcomingMovies.title}"/></p>
                 </a>
             </c:forEach>
@@ -194,7 +196,7 @@
                                     value="${mostRatedMovies.rating.score}"/></p>
                         </c:when>
                     </c:choose>
-                    <img src="http://${mostRatedMovies.picture}" class="item"/>
+                    <img src="${mostRatedMovies.picture}" class="item"/>
                     <div class="movie-title">
                         <p><c:out value="${mostRatedMovies.title}"/></p>
                     </div>
@@ -229,14 +231,14 @@
 <div class="trailers-container">
     <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
         <c:if test="${counter.count == 1}">
-            <img class="img1" src="http://${trailers.picture}">
+            <img class="img1" src="${trailers.picture}">
         </c:if>
     </c:forEach>
     <div class="titles">
         <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
             <button class="title-btn"
-                    id="http://${trailers.trailer}"
-                    value="http://${trailers.picture}">
+                    id="${trailers.trailer}"
+                    value="${trailers.picture}">
                 <p>${counter.count} <c:out value="${trailers.title}"/></p>
                 <c:choose>
                     <c:when test="${trailers.rating.score >= 70}">
@@ -260,7 +262,7 @@
         <c:forEach items="${requestScope.trailers_list}" var="trailers" varStatus="counter">
             <c:if test="${counter.count == 1}">
                 <video controls class="movie-trailer"
-                       src="http://${trailers.trailer}"></video>
+                       src="${trailers.trailer}"></video>
             </c:if>
         </c:forEach>
     </div>

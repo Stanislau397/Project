@@ -39,7 +39,8 @@ public class ShowAllMoviesCommand implements Command {
             List<Movie> movies = movieService.findAllMovies(page, TOTAL);
             List<Integer> years= movieService.findAllMovieYears();
             List<Genre> genres = movieService.findAllGenres();
-            int amountOfPages = countPages(movies);
+            int moviesSize = movieService.countMovies();
+            int amountOfPages = countPages(moviesSize);
             if (movies.size() > 0) {
                 router.setPagePath(PagePath.MOVIE_PAGE);
                 request.setAttribute(MOVIE_LIST, movies);
@@ -61,8 +62,7 @@ public class ShowAllMoviesCommand implements Command {
         return pageId == 1 ? 0 : (pageId - 1) * TOTAL + 1;
     }
 
-    private int countPages(List<Movie> movies) throws ServiceException {
-        int moviesSize = movieService.countMovies();
+    private int countPages(int moviesSize) throws ServiceException {
         return (moviesSize + TOTAL - 1) / TOTAL;
     }
 }

@@ -57,7 +57,7 @@ public class ShowUserProfileCommand implements Command {
         Router router = new Router();
         String userName = (String) session.getAttribute(USER_NAME);
         int pageId = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
-        int start = getStartPoint(request, pageId);
+        int start = getStartPoint(pageId);
         if (request.getParameter(USER_NAME_PARAMETER) != null) {
             userName = request.getParameter(USER_NAME_PARAMETER);
         }
@@ -103,7 +103,7 @@ public class ShowUserProfileCommand implements Command {
         return router;
     }
 
-    private int getStartPoint(HttpServletRequest request, int pageId) {
+    private int getStartPoint(int pageId) {
         return pageId == 1 ? 0 : (pageId - 1) * TOTAL + 1;
     }
 

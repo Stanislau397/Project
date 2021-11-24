@@ -17,6 +17,7 @@ public class Director extends Entity {
 
     /**
      * Constructor for Director object
+     * with no parameters
      */
     public Director() {
 
@@ -24,8 +25,6 @@ public class Director extends Entity {
 
     /**
      * Constructor for Director object
-     * with given parameters:
-     *
      * @param directorId long value of directorId
      * @param firstName  String object of firstName
      * @param lastName   String object of lastName
@@ -39,7 +38,6 @@ public class Director extends Entity {
     /**
      * Constructor for Director object
      * with given parameters
-     *
      * @param firstName String object of firstName
      * @param lastName  String object of lastName
      */

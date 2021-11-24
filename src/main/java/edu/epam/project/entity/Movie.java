@@ -15,6 +15,7 @@ public class Movie extends Entity{
     private Genre genre;
     private Comment comment;
     private Rating rating;
+    private byte[] poster;
 
     public Movie() {
 
@@ -36,6 +37,14 @@ public class Movie extends Entity{
         this.picture = picture;
         this.comment = comment;
         this.rating = rating;
+    }
+
+    public byte[] getPoster() {
+        return poster;
+    }
+
+    public void setPoster(byte[] poster) {
+        this.poster = poster;
     }
 
     public Movie(String title, int runTime, String country, String description, Date releaseDate, String picture) {

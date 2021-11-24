@@ -39,7 +39,7 @@
                 <button><fmt:message key="label.movies"/></button>
                 <ul style="margin: 0px">
                     <li>
-                        <a href="${pageContext.request.contextPath}/controller?command=newest_movies"><fmt:message key="label.new_movies"/></a>
+                        <a href="${pageContext.request.contextPath}/controller?command=newest_movies&page=1"><fmt:message key="label.new_movies"/></a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/controller?command=show_all_movies&page=1"><fmt:message key="label.all_movies"/></a>
@@ -67,13 +67,13 @@
                             <li>
                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="command" value="change_locale">
-                                    <button type="submit" name="language" value="en"><img src="${pageContext.request.contextPath}/css/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
+                                    <button type="submit" name="language" value="en"><img src="${pageContext.request.contextPath}/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
                                 </form>
                             </li>
                             <li>
                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                     <input type="hidden" name="command" value="change_locale">
-                                    <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/css/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
+                                    <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
                                 </form>
                             </li>
                         </ul>
@@ -86,12 +86,12 @@
 
             <c:if test="${sessionScope.admin != null || sessionScope.user != null}">
                 <div class="profile-picture">
-                    <button><img src="http://${sessionScope.user_avatar}"></button>
+                    <button><img src="${sessionScope.user_avatar}"></button>
                     <ul>
                         <li>
                             <div class="profile-info">
                                 <div class="profile-img">
-                                    <img src="http://${sessionScope.user_avatar}">
+                                    <img src="${sessionScope.user_avatar}">
                                 </div>
                                 <div class="user-name">
                                     <p><c:out value="${sessionScope.user_name}"/></p>
@@ -143,12 +143,12 @@
                                 <li>
                                     <form action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" name="command" value="change_locale">
-                                        <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/css/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
+                                        <button type="submit" name="language" value="ru"><img src="${pageContext.request.contextPath}/image/Flag_of_Russia.png"><h4><fmt:message key="label.ru"/></h4></button>
                                     </form>
                                     <form action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" name="command" value="change_locale">
                                         <button type="submit" name="language" value="en">
-                                            <img src="${pageContext.request.contextPath}/css/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
+                                            <img src="${pageContext.request.contextPath}/image/Flag-United-Kingdom.jpg"><h4><fmt:message key="label.en"/></h4></button>
                                     </form>
                                 </li>
                             </ul>

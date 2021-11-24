@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -100,6 +101,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return counter;
+    }
+
+    @Override
+    public int countNewestMovies() throws ServiceException {
+        int amountOfNewestMovies;
+        try {
+            amountOfNewestMovies = movieDao.countNewestMovies();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return amountOfNewestMovies;
     }
 
     @Override
@@ -475,10 +488,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findNewestMovies() throws ServiceException {
+    public List<Movie> findNewestMovies(int page, int total) throws ServiceException {
         List<Movie> newestMovies;
         try {
-            newestMovies = movieDao.findNewestMovies();
+            newestMovies = movieDao.findNewestMovies(page, total);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

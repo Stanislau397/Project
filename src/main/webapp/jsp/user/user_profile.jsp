@@ -18,7 +18,7 @@
     <div class="user">
         <div class="profile-picture">
             <img
-                    src="http://${requestScope.user.avatar}">
+                    src="${requestScope.user.avatar}">
         </div>
         <div class="user-info">
             <h2><c:out value="${requestScope.user.userName}"/></h2>
@@ -117,7 +117,7 @@
         <div class="history">
             <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${ratedMovies.movieId}">
                 <div class="movie-poster">
-                    <img src="http://${ratedMovies.picture}">
+                    <img src="${ratedMovies.picture}">
                 </div>
             </a>
             <div class="user-score">

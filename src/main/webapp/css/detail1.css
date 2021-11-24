@@ -243,14 +243,14 @@ body {
     min-height: 520px;
     height: auto;
     margin-left: 100px;
-    border-bottom: 0.5px solid silver;
+    border-bottom: 0.5px solid rgb(248,248,248);
 }
 
 .left-side {
     width: 400px;
     min-height: 520px;
     height: auto;
-    border-right: 0.5px solid silver;
+    border-right: 0.5px solid rgb(248,248,248);
     float: left;
 }
 
@@ -284,6 +284,7 @@ body {
 
 .middle h3 {
     margin-top: 50px;
+    height: 50px;
     margin-left: 50px;
     font-family: sans-serif;
 }
@@ -449,10 +450,10 @@ body {
 
 .comment-section {
     width: 1330px;
-    background-color: #F0F0F0;
+    background-color: rgb(248,248,248);
     margin-left: 100px;
     min-height: 80px;
-    border-top: 1px solid grey;
+    border-top: 1px solid rgb(248,248,248);
 }
 
 .comment-section .scroll-down {
@@ -493,13 +494,12 @@ body {
 }
 
 .comment-section .user-comments {
-    margin-top: 10px;
+    margin-top: 12px;
     margin-left: 50px;
     width: 865px;
     min-height: 10px;
     overflow: hidden;
     border-radius: 8px;
-    border: 2px solid #ccc;
 }
 
 .comment-section .user-comments .user-picture {
@@ -513,7 +513,6 @@ body {
     margin-top: 5px;
     width: 60px;
     height: 60px;
-    border: 1px solid silver;
     border-radius: 50%;
 }
 
@@ -560,6 +559,7 @@ body {
 .comment-section .user-comments .content .comment-vote .thumb-up-btn, .comment-section .user-comments .content .comment-vote .thumb-down-btn {
     display: inline-block;
     font-size: 17px;
+    background-color: rgb(248,248,248);
     margin-left: 5px;
     cursor: pointer;
     border: 0;
@@ -579,6 +579,7 @@ body {
 }
 
 .comment-section .user-comments .content .user-name-btn {
+    background-color: rgb(248,248,248);
     border: 0;
     cursor: pointer;
     color: #060077;

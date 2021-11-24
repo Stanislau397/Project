@@ -1,5 +1,6 @@
 package edu.epam.project.controller;
 
+import edu.epam.project.connection.ConnectionPool;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.CommandProvider;
 import edu.epam.project.controller.command.impl.common.EmptyCommand;
@@ -39,5 +40,11 @@ public class UploadServlet extends HttpServlet {
         } else {
             response.sendRedirect(currentPage);
         }
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool connectionPool = ConnectionPool.INSTANCE;
+        connectionPool.destroyPool();
     }
 }

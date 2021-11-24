@@ -106,6 +106,22 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
+    public int countNewestMovies() throws DaoException {
+        int amountOfNewestMovies = 0;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SqlQuery.COUNT_NEWEST_MOVIES);
+            if (resultSet.next()) {
+                amountOfNewestMovies = resultSet.getInt(TableColumn.COUNTER);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return amountOfNewestMovies;
+    }
+
+    @Override
     public int countUserRatedMovies(String userName) throws DaoException {
         int counter = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
@@ -322,11 +338,13 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Movie> findNewestMovies() throws DaoException {
+    public List<Movie> findNewestMovies(int page, int total) throws DaoException {
         List<Movie> newestMovies = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_NEW_MOVIES);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_NEW_MOVIES)) {
+            statement.setInt(1, page);
+            statement.setInt(2, total);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
                 Rating rating = new Rating();

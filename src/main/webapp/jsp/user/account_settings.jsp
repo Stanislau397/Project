@@ -30,7 +30,7 @@
         <input type="hidden" name="command" value="change_user_avatar">
         <input type="hidden" name="user_id" value="${requestScope.user.userId}">
         <div class="image-preview" id="imagePreview">
-            <img src="http://${requestScope.user.avatar}"
+            <img src="${requestScope.user.avatar}"
                  alt="Image"
                  class="image-preview__image" style="margin-left: -2px">
             <span class="image-preview__default__text"></span>

@@ -1,27 +1,52 @@
 package edu.epam.project.entity;
 
+/**
+ * Class represents movieCountry
+ * @author Stanislau Kachan
+ */
 public class Country extends Entity {
 
     private long countryId;
     private String countryName;
 
+    /**
+     * Constructor of Country object
+     * @param countryId long value of countryId
+     * @param countryName String value of countryName
+     */
     public Country(long countryId, String countryName) {
         this.countryId = countryId;
         this.countryName = countryName;
     }
 
+    /**
+     * Getter method of countryId
+     * @return long value of countryId
+     */
     public long getCountryId() {
         return countryId;
     }
 
+    /**
+     * Setter method of countryId
+     * @param countryId long value of countryId
+     */
     public void setCountryId(long countryId) {
         this.countryId = countryId;
     }
 
+    /**
+     * Getter method of countryName
+     * @return String object of countryName
+     */
     public String getCountryName() {
         return countryName;
     }
 
+    /**
+     * Setter method of countryName
+     * @param countryName String object of countryName
+     */
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }

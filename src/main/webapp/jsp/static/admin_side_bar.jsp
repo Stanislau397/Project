@@ -17,7 +17,7 @@
     <div class="info-container">
         <div class="avatar">
             <img class="user-avatar"
-                    src="http://${sessionScope.user_avatar}">
+                    src="${sessionScope.user_avatar}">
         </div>
         <div class="user-info">
             <h2 class="user-name">

@@ -16,7 +16,8 @@ public class Actor extends Entity {
     private int age;
 
     /**
-     * Constructor for Actor object
+     * Empty constructor for Actor object
+     * with no parameters
      */
     public Actor() {
 
@@ -24,8 +25,6 @@ public class Actor extends Entity {
 
     /**
      * Constructor for Actor object
-     * with given parameters:
-     *
      * @param firstName String object of firstName
      * @param lastName  String object of lastName
      */
@@ -36,8 +35,6 @@ public class Actor extends Entity {
 
     /**
      * Constructor for Actor object
-     * with given parameters:
-     *
      * @param actorId   long value of actorId
      * @param firstName String object of firstName
      * @param lastName  String object of lastName
@@ -48,6 +45,13 @@ public class Actor extends Entity {
         this.lastName = lastName;
     }
 
+    /**
+     * Constructor for Actor Object
+     * @param actorId long value of actorId
+     * @param firstName String value of firstName
+     * @param lastName String value of lastName
+     * @param picture String value of actorImage
+     */
     public Actor(long actorId, String firstName, String lastName, String picture) {
         this.actorId = actorId;
         this.firstName = firstName;
@@ -55,6 +59,15 @@ public class Actor extends Entity {
         this.picture = picture;
     }
 
+    /**
+     * Constructor for Actor Object
+     * @param actorId long value of actorId
+     * @param firstName String value of firstName
+     * @param lastName String value of lastName
+     * @param picture String value of actorImage
+     * @param height double value of actorHeight
+     * @param age int value of actorAge
+     */
     public Actor(long actorId, String firstName, String lastName, String picture, double height, int age) {
         this.actorId = actorId;
         this.firstName = firstName;
@@ -66,7 +79,6 @@ public class Actor extends Entity {
 
     /**
      * Getter method of actorId
-     *
      * @return long value of actorId
      */
     public long getActorId() {
@@ -75,7 +87,6 @@ public class Actor extends Entity {
 
     /**
      * Setter method of actorId
-     *
      * @param actorId long value of actorId
      */
     public void setActorId(long actorId) {
@@ -84,7 +95,6 @@ public class Actor extends Entity {
 
     /**
      * Getter method of firstName
-     *
      * @return String object of firstName
      */
     public String getFirstName() {
@@ -93,7 +103,6 @@ public class Actor extends Entity {
 
     /**
      * Setter method of firstName
-     *
      * @param firstName String object of firstName
      */
     public void setFirstName(String firstName) {
@@ -102,7 +111,6 @@ public class Actor extends Entity {
 
     /**
      * Getter method of lastName
-     *
      * @return String object of lastName
      */
     public String getLastName() {
@@ -111,44 +119,76 @@ public class Actor extends Entity {
 
     /**
      * Setter method of lastName
-     *
      * @param lastName String object of lastName
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Getter method of actorImage
+     * @return String value of actorImage
+     */
     public String getPicture() {
         return picture;
     }
 
+    /**
+     * Setter method of actorImage
+     * @param picture String object of actorImage
+     */
     public void setPicture(String picture) {
         this.picture = picture;
     }
 
+    /**
+     * Getter method of actorHeight
+     * @return double value of actorHeight
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Setter method of actorHeight
+     * @param height double value of actorHeight
+     */
     public void setHeight(double height) {
         this.height = height;
     }
 
+    /**
+     * Getter method of actorAge
+     * @return int value of actorAge
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * Setter method of actorAge
+     * @param age ing value of actorAge
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
+    /**
+     * Getter method of actorBirthDate
+     * @return String object of actorBirthDate
+     */
     public String getBirthDate() {
         return birthDate;
     }
 
+    /**
+     * Setter method of actorBirthDate
+     * @param birthDate String object of actorBirthDate
+     */
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
+
 
     @Override
     public boolean equals(Object o) {
