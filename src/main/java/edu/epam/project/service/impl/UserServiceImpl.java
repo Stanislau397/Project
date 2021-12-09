@@ -5,6 +5,7 @@ import edu.epam.project.dao.impl.UserDaoImpl;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.util.PasswordEncryptor;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private static UserDao userDao = new UserDaoImpl();
 
     @Override
-    public boolean register(User user, String password) throws ServiceException {
+    public boolean register(User user, String password) throws ServiceException, InvalidInputException {
         boolean isRegistered = false;
         AccountValidator validator = new AccountValidator();
         PasswordEncryptor encryptor = new PasswordEncryptor();
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws ServiceException {
+    public boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws ServiceException, InvalidInputException {
         boolean isUpdated = false;
         AccountValidator validator = new AccountValidator();
         try {
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException {
+    public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
         Optional<User> isFound = Optional.empty();
@@ -137,14 +138,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws ServiceException {
+    public boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws ServiceException, InvalidInputException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
         boolean isPasswordChanged = false;
         try {
             if (validator.isValidPassword(newPassword) && validator.isValidPassword(confirmNewPassword)
                     && newPassword.equals(confirmNewPassword)) {
-
                 String encryptedPassword = encryptor.encryptPassword(password);
                 String encryptedNewPassword = encryptor.encryptPassword(newPassword);
                 isPasswordChanged = userDao.changePassword(user, encryptedPassword, encryptedNewPassword, confirmNewPassword);
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeUserName(String oldUserName, String newUserName) throws ServiceException {
+    public boolean changeUserName(String oldUserName, String newUserName) throws ServiceException, InvalidInputException {
         boolean isUserNameChanged = false;
         AccountValidator validator = new AccountValidator();
         try {

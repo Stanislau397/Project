@@ -41,3 +41,27 @@
 03:23:07.957 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
 03:23:24.471 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
 01:41:56.033 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLException: Can not issue executeUpdate() or executeLargeUpdate() for SELECTs
+20:05:58.993 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+20:06:51.502 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+20:09:44.569 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid email Data
+20:10:49.830 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+20:11:41.364 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+20:13:18.636 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+20:15:19.995 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+20:16:33.802 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+20:16:44.635 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+20:16:44.649 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid email Data
+20:16:44.651 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid password Data
+20:16:44.655 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+20:21:59.616 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid first name data
+20:23:21.518 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid last name data
+20:25:09.371 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid birth date data
+20:25:18.633 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid birth date data
+20:25:18.655 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid first name data
+20:25:18.661 [main] INFO  edu.epam.project.validator.ActorValidator - Invalid last name data
+20:28:04.729 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid image data!
+20:30:33.721 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid title data!
+20:41:49.190 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid release date data!
+20:47:29.826 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid image data!
+20:47:29.840 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid release date data!
+20:47:29.844 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid title data!

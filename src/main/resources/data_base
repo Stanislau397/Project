@@ -1,4 +1,4 @@
-url=jdbc:mysql://77.223.98.30:3306/movie?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
+url=jdbc:mysql://localhost:3306/movie?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
 driver=com.mysql.cj.jdbc.Driver
 user=root
 password=ldkjs397

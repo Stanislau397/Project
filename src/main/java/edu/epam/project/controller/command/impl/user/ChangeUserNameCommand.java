@@ -4,6 +4,7 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -36,7 +37,7 @@ public class ChangeUserNameCommand implements Command {
                 session.setAttribute(USER_NAME, newUserName);
                 router.setPagePath(PagePath.USER_PROFILE);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(PagePath.CHANGE_USER_NAME);

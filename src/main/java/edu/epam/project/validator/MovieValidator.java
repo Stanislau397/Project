@@ -15,6 +15,7 @@ public class MovieValidator {
     private static final Pattern RUN_TIME_PATTERN = Pattern.compile("^\\d+$");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^.{1,1500}$");
     private static final Pattern TITLE_PATTERN = Pattern.compile("^.{1,80}$");
+
     private static final String INVALID_IMAGE_MSG = "Invalid image data!";
     private static final String INVALID_TITLE_MSG = "Invalid title data!";
     private static final String INVALID_RELEASE_DATE_MSG = "Invalid release date data!";

@@ -77,7 +77,7 @@ public interface MovieService {
 
     List<Movie> findMoviesForActorByActorId(long actorId) throws ServiceException;
 
-    boolean addActor(Actor actor) throws ServiceException;
+    boolean addActor(Actor actor) throws ServiceException, InvalidInputException;
 
     boolean addActorToMovieById(long actorId, long movieId) throws ServiceException;
 

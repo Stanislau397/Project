@@ -656,7 +656,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean addActor(Actor actor) throws ServiceException {
+    public boolean addActor(Actor actor) throws ServiceException, InvalidInputException {
         boolean isAdded = false;
         ActorValidator validator = new ActorValidator();
         String firstName = actor.getFirstName();

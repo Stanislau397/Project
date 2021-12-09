@@ -5,6 +5,7 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.User;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -40,7 +41,7 @@ public class RegisterCommand implements Command {
                 router.setRoute(RouteType.FORWARD);
                 request.setAttribute(REGISTER_SUCCESS, REGISTER_SUCCESS_MSG);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
         }
         return router;

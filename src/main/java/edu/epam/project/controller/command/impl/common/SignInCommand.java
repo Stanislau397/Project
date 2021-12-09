@@ -6,6 +6,7 @@ import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -74,7 +75,7 @@ public class SignInCommand implements Command {
                     }
                 }
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             request.setAttribute(SIGN_IN_ERROR, LOGIN_ERROR_MSG);
             router.setRoute(RouteType.FORWARD);

@@ -11,6 +11,7 @@ public class SecurityConfig {
 
     static {
         SECURITY_PAGE.add(CommandType.TO_EDIT_MOVIE);
+        SECURITY_PAGE.add(CommandType.TO_ADMIN_CABINET);
     }
 
     public static boolean isSecurityPage(CommandType commandType) {

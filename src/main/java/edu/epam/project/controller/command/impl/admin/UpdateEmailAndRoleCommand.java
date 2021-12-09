@@ -4,6 +4,7 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.RoleType;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -34,7 +35,7 @@ public class UpdateEmailAndRoleCommand implements Command {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
         }
         return router;

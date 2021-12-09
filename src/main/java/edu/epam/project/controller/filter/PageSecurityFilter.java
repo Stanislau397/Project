@@ -14,6 +14,7 @@ import java.util.Locale;
 
 @WebFilter(filterName = "PageSecurityFilter")
 public class PageSecurityFilter implements Filter {
+    
     public void init(FilterConfig config) throws ServletException {
     }
 
@@ -26,10 +27,16 @@ public class PageSecurityFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        String requestURI2 = req.getServletPath()
-                .substring(1, req.getServletPath().lastIndexOf('.')).replaceAll("/", "_");
-        CommandType commandName = CommandType.valueOf(requestURI2.toUpperCase());
+        String requestURI2 = req.getQueryString();
+        int indexOfEqual = requestURI2.indexOf("=") + 1;
+        int indexOfAmpersand = requestURI2.indexOf("&");
+        String URI2 = requestURI2.substring(indexOfEqual).toUpperCase();
+        if (requestURI2.contains("&")) {
+            URI2 = requestURI2.substring(indexOfEqual, indexOfAmpersand).toUpperCase();
+        }
+        CommandType commandName = CommandType.valueOf(URI2);
         if (SecurityConfig.isSecurityPage(commandName)) {
+            System.out.println(1);
         }
         chain.doFilter(request, response);
     }
