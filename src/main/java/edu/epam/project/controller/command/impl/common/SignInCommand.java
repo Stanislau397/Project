@@ -47,7 +47,8 @@ public class SignInCommand implements Command {
             Optional<User> userOptional = userService.findByEmailAndPassword(userEmail, userPassword);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
-                if (!user.isBlocked()) {
+                boolean isBlocked = user.getStatus();
+                if (!isBlocked) {
                     RoleType role = user.getRole();
                     String userName = user.getUserName();
                     String userAvatar = user.getAvatar();

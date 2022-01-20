@@ -11,13 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.COMMENT;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
-
-import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
+import static edu.epam.project.controller.command.RequestParameter.USER_ID;
 
 public class LeaveCommentCommand implements Command {
 
@@ -27,14 +25,12 @@ public class LeaveCommentCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String userName = (String) session.getAttribute(USER_NAME);
+        long userId = Long.parseLong(request.getParameter(USER_ID));
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         String comment = request.getParameter(COMMENT);
-        String id = request.getParameter(MOVIE_ID);
-        long movieId = Long.parseLong(id);
         try {
-            if (commentService.leaveComment(userName, movieId, comment)) {
+            if (commentService.leaveComment(userId, movieId, comment)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

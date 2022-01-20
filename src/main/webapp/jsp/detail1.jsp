@@ -215,45 +215,45 @@
         </div>
         <div class="middle">
             <h3><fmt:message key="label.movie_detail"/></h3>
-            <c:if test="${requestScope.movie_countries_list.size() != 0}">
+            <c:if test="${requestScope.movie_info.countries.size() != 0}">
                 <ul>
                     <li class="name"><fmt:message key="label.country"/></li>
                     <li class="value">
-                        <c:forEach items="${requestScope.movie_countries_list}" var="movieCountries" varStatus="counter">
+                        <c:forEach items="${requestScope.movie_info.countries}" var="countries" varStatus="counter">
                             <c:choose>
-                                <c:when test="${requestScope.movie_countries_list.size() != counter.count}">
-                                    <c:out value="${movieCountries.countryName},"/>
+                                <c:when test="${requestScope.movie_info.countries.size() != counter.count}">
+                                    <c:out value="${countries.countryName},"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="${movieCountries.countryName}"/>
+                                    <c:out value="${countries.countryName}"/>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                     </li>
                 </ul>
             </c:if>
-            <c:if test="${requestScope.movie_genres_list.size() != 0}">
+            <c:if test="${requestScope.movie_info.genres.size() != 0}">
                 <ul>
                     <li class="name"><fmt:message key="label.genre"/></li>
                     <li class="value">
-                        <c:forEach items="${requestScope.movie_genres_list}" var="movieGenres" varStatus="counter">
+                        <c:forEach items="${requestScope.movie_info.genres}" var="genres" varStatus="counter">
                             <c:choose>
                                 <c:when test="${counter.count != requestScope.movie_genres_list.size()}">
-                                    <c:out value="${movieGenres.genreTitle},"/>
+                                    <c:out value="${genres.genreTitle},"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:out value="${movieGenres.genreTitle}"/>
+                                    <c:out value="${genres.genreTitle}"/>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                     </li>
                 </ul>
             </c:if>
-            <c:if test="${requestScope.directors_list.size() != 0}">
+            <c:if test="${requestScope.movie_info.directors.size() != 0}">
                 <ul>
                     <li class="name"><fmt:message key="label.director"/></li>
                     <li class="value">
-                        <c:forEach items="${requestScope.directors_list}" var="directors" varStatus="counter">
+                        <c:forEach items="${requestScope.movie_info.directors}" var="directors" varStatus="counter">
                             <c:choose>
                                 <c:when test="${requestScope.directors_list.size() != counter.count}">
                                     <form action="${pageContext.request.contextPath}/controller" method="get">
@@ -283,13 +283,13 @@
             <c:if test="${requestScope.movie_info.runTime != 0}">
                 <ul>
                     <li class="name"><fmt:message key="label.runtime"/></li>
-                    <li class="value">${movie_info.runTime} <fmt:message key="label.min"/></li>
+                    <li class="value">${requestScope.movie_info.runTime} <fmt:message key="label.min"/></li>
                 </ul>
             </c:if>
             <c:if test="${requestScope.movie_info.description != null}">
                 <ul>
                     <li class="name"><fmt:message key="label.summery"/></li>
-                    <li class="value">${movie_info.description}</li>
+                    <li class="value">${requestScope.movie_info.description}</li>
                 </ul>
             </c:if>
         </div>
@@ -297,7 +297,7 @@
     <div class="right-side">
         <div class="actors">
             <h3><fmt:message key="label.starring"/></h3>
-            <c:forEach items="${requestScope.actors_list}" var="actors">
+            <c:forEach items="${requestScope.movie_info.actors}" var="actors">
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="display_actor_info">
                     <input type="hidden" name="actor_id" value="${actors.actorId}">
@@ -319,66 +319,59 @@
     <c:otherwise>
         <div class="comment-section">
             <c:choose>
-                <c:when test="${requestScope.comments.size() > 0}">
+                <c:when test="${requestScope.movie_info.comments.size() > 0}">
                     <h3><fmt:message key="label.comments"/></h3>
                 </c:when>
-                <c:when test="${requestScope.comments.size() == 0}">
+                <c:otherwise>
                     <h3><fmt:message key="label.no_comments"/></h3>
-                </c:when>
+                </c:otherwise>
             </c:choose>
             <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
                 <button class="scroll-down"><i class="fa fa-plus"></i>
                     <p><fmt:message key="label.write_comment"/></p></button>
             </c:if>
             <c:choose>
-                <c:when test="${requestScope.comments != null}">
-                    <c:forEach items="${requestScope.comments}" var="comments" varStatus="counter">
+                <c:when test="${requestScope.movie_info.comments != null}">
+                    <c:forEach items="${requestScope.movie_info.comments}" var="comments" varStatus="counter">
                         <div class="user-comments">
-                            <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.userName}&page=1">
+                            <a href="${pageContext.request.contextPath}/controller?command=show_user_profile&user_name=${comments.user.userName}&page=1">
                                 <div class="user-picture">
-                                    <img src="${comments.userAvatar}">
+                                    <img src="${comments.user.avatar}">
                                 </div>
                             </a>
                             <div class="content">
                                 <div class="user-name">
                                     <form action="${pageContext.request.contextPath}/controller" name="get">
                                         <input type="hidden" name="command" value="show_user_profile">
-                                        <input type="hidden" name="user_name" value="${comments.userName}">
+                                        <input type="hidden" name="user_name" value="${comments.user.userName}">
                                         <input type="hidden" name="page" value="1">
                                         <button type="submit" class="user-name-btn"><h2><c:out
-                                                value="${comments.userName}"/></h2></button>
+                                                value="${comments.user.userName}"/></h2></button>
                                     </form>
                                 </div>
                                 <div class="user-comment">
                                     <p><c:out value="${comments.text}"/></p>
                                 </div>
                                 <div class="comment-vote">
-                                    <p><c:out value="${comments.commentUpVotes}"/>
-                                        <fmt:message key="label.of"/>
-                                        <c:out value="${comments.countComments}"/>
-                                        <fmt:message key="label.found_helpful"/>
-                                    </p>
                                     <c:choose>
                                         <c:when test="${sessionScope.user != null || sessionScope.admin != null}">
-                                            <c:if test="${sessionScope.user_name != comments.userName}">
+                                            <c:if test="${sessionScope.user_name != comments.user.userName}">
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="up_vote_comment">
-                                                    <input type="hidden" name="movie_id"
-                                                           value="${requestScope.movie_info.movieId}">
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                                    <input type="hidden" name="user_id" value="${sessionScope.user_id}">
                                                     <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
                                                         <c:out value="${comments.commentUpVotes}"/></button>
                                                 </form>
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="down_vote_comment">
-                                                    <input type="hidden" name="movie_id"
-                                                           value="${requestScope.movie_info.movieId}">
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                                    <input type="hidden" name="user_id" value="${sessionScope.user_id}">
                                                     <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
                                                         <c:out value="${comments.commentDownVotes}"/></button>
                                                 </form>
                                             </c:if>
-                                            <c:if test="${sessionScope.user_name == comments.userName}">
+                                            <c:if test="${sessionScope.user_name == comments.user.userName}">
                                                 <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
                                                     <c:out value="${comments.commentUpVotes}"/></button>
                                                 <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
@@ -395,10 +388,10 @@
                                 </div>
                             </div>
                             <div class="upload-date">
-                                <p><c:out value="${comments.postDate}"/></p>
+                                <p><fmt:formatDate value="${comments.postDate}" pattern="dd-MM-yyyy | HH:mm"/></p>
                             </div>
                             <div class="more">
-                                <c:if test="${sessionScope.admin != null || sessionScope.user_name == comments.userName}">
+                                <c:if test="${sessionScope.admin != null || sessionScope.user_name == comments.user.userName}">
                                     <span><i class="fa fa-ellipsis-v"></i></span>
                                 </c:if>
                                 <div class="dropdown-content">
@@ -408,9 +401,7 @@
                                     <div id="pop${counter.count}" class="overlay1">
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="remove_comment">
-                                            <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                                            <input type="hidden" name="comment" value="${comments.text}">
-                                            <input type="hidden" name="user_name" value="${comments.userName}">
+                                            <input type="hidden" name="comment_id" value="${comments.commentId}">
                                             <div class="pop">
                                                 <a class="close" href="#"><i class="fa fa-close"></i></a>
                                                 <div class="text">
@@ -433,7 +424,7 @@
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="edit_comment">
                                             <input type="hidden" name="text" value="${comments.text}">
-                                            <input type="hidden" name="user_name" value="${comments.userName}">
+                                            <input type="hidden" name="user_name" value="${comments.user.userName}">
                                             <div class="pop1">
                                                 <a class="close" href="#"><i class="fa fa-close"></i></a>
                                                 <div class="text">
@@ -481,6 +472,7 @@
                         <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="command" value="leave_comment">
                             <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                            <input type="hidden" name="user_id" value="${sessionScope.user_id}">
                             <textarea name="comment"></textarea>
                             <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
                         </form>

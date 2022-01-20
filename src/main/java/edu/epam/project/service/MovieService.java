@@ -69,7 +69,7 @@ public interface MovieService {
 
     List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws ServiceException;
 
-    Optional<Movie> findMovieById(long movieId) throws ServiceException;
+    Movie findMovieById(long movieId) throws ServiceException;
 
     List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws ServiceException;
 

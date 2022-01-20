@@ -670,7 +670,7 @@ public class MovieDaoImpl implements MovieDao {
                 Comment comment = new Comment();
                 rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 comment.setText(resultSet.getString(TableColumn.COMMENT));
-                comment.setPostDate(resultSet.getString(TableColumn.COMMENT_POST_DATE));
+                comment.setPostDate(resultSet.getTimestamp(TableColumn.COMMENT_POST_DATE));
                 movie.setMovieId(resultSet.getInt(TableColumn.MOVIE_ID));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
@@ -746,8 +746,11 @@ public class MovieDaoImpl implements MovieDao {
                 Movie movie = new Movie();
                 Comment comment = new Comment();
                 Rating rating = new Rating();
+                User user = User.newUserBuilder()
+                        .withUserName(resultSet.getString(TableColumn.USER_NAME))
+                        .build();
                 comment.setText(resultSet.getString(TableColumn.COMMENT));
-                comment.setUserName(resultSet.getString(TableColumn.USER_NAME));
+                comment.setUser(user);
                 rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));

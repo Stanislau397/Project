@@ -29,8 +29,8 @@ import static edu.epam.project.controller.command.ErrorMessage.EDIT_TRAILER_ERRO
 public class UpdateMovieTrailerCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(UpdateMovieTrailerCommand.class);
-    private static final String DIRECTORY_PATH = "/usr/local/tomcat/webapps/storage/trailer/";
-    private static final String TRAILER_PATH = "http://77.223.98.30/storage/trailer/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/trailer/";
+    private static final String TRAILER_PATH = "http://localhost:8080/trailer/";
     private static final String EDIT_TRAILER_SUCCESS_MSG = "Trailer has been updated.";
     private MovieService movieService = new MovieServiceImpl();
 

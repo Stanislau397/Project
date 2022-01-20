@@ -13,10 +13,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
-import static edu.epam.project.controller.command.RequestParameter.REFERER;
-
+import static edu.epam.project.controller.command.RequestParameter.*;
 import static edu.epam.project.controller.command.SessionAttribute.BLOCKED_USER;
+import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class BlockUserCommand implements Command {
 
@@ -28,9 +27,10 @@ public class BlockUserCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String userName = request.getParameter(USER_NAME_PARAMETER);
+        long userId = Long.parseLong(request.getParameter(USER_ID));
+        String userName = request.getParameter(USER_NAME);
         try {
-            if (userService.updateUserStatusByUserName(true, userName)) {
+            if (userService.updateStatusById(true, userId)) {
                 session.setAttribute(BLOCKED_USER, userName);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);

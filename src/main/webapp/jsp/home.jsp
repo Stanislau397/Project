@@ -93,6 +93,7 @@
             <li>
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="upcoming_movies">
+                    <input type="hidden" name="page" value="1">
                     <button class="link1"><h2 style=" margin-left: 0"><fmt:message key="label.coming_soon"/></h2>
                     </button>
                 </form>
@@ -100,6 +101,7 @@
             <li style="margin-left: 7px">
                 <form action="${pageContext.request.contextPath}/controller" method="get">
                     <input type="hidden" name="command" value="upcoming_movies">
+                    <input type="hidden" name="page" value="1">
                     <button class="link2"><fmt:message key="label.see_more"/></button>
                 </form>
             </li>
@@ -107,37 +109,39 @@
     </div>
     <div id="carousel2">
         <div id="content2">
-            <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies">
-                <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}"
-                   style="margin-left: -1.5px">
-                    <c:choose>
-                        <c:when test="${upcomingMovies.rating.score == 0}">
-                            <p class="score"></p>
-                        </c:when>
-                        <c:when test="${upcomingMovies.rating.score >= 70}">
-                            <p class="score" style="background-color: #66cc33"><c:out
-                                    value="${upcomingMovies.rating.score}"/></p>
-                        </c:when>
-                        <c:when test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score >= 40}">
-                            <p class="score" style="background-color: #fc3"><c:out
-                                    value="${upcomingMovies.rating.score}"/></p>
-                        </c:when>
-                        <c:when test="${upcomingMovies.rating.score < 40}">
-                            <p class="score" style="background-color: red"><c:out
-                                    value="${upcomingMovies.rating.score}"/></p>
-                        </c:when>
-                    </c:choose>
-                    <img src="${upcomingMovies.picture}" class="item"/>
-                    <p class="movie-title"><c:out value="${upcomingMovies.title}"/></p>
-                </a>
+            <c:forEach items="${requestScope.upcoming_movies_list}" var="upcomingMovies" varStatus="counter">
+                <c:if test="${counter.count <= 12}">
+                    <a href="${pageContext.request.contextPath}/controller?command=show_movie_details&movie_id=${upcomingMovies.movieId}"
+                       style="margin-left: -1.5px">
+                        <c:choose>
+                            <c:when test="${upcomingMovies.rating.score == 0}">
+                                <p class="score"></p>
+                            </c:when>
+                            <c:when test="${upcomingMovies.rating.score >= 70}">
+                                <p class="score" style="background-color: #66cc33"><c:out
+                                        value="${upcomingMovies.rating.score}"/></p>
+                            </c:when>
+                            <c:when test="${upcomingMovies.rating.score < 70 && upcomingMovies.rating.score >= 40}">
+                                <p class="score" style="background-color: #fc3"><c:out
+                                        value="${upcomingMovies.rating.score}"/></p>
+                            </c:when>
+                            <c:when test="${upcomingMovies.rating.score < 40}">
+                                <p class="score" style="background-color: red"><c:out
+                                        value="${upcomingMovies.rating.score}"/></p>
+                            </c:when>
+                        </c:choose>
+                        <img src="${upcomingMovies.picture}" class="item"/>
+                        <p class="movie-title"><c:out value="${upcomingMovies.title}"/></p>
+                    </a>
+                </c:if>
             </c:forEach>
         </div>
     </div>
     <button id="prev2">
         <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="36"
-                height="36"
+                width="35"
+                height="35"
                 viewBox="0 0 24 24"
         >
             <path fill="none" d="M0 0h24v24H0V0z"/>
@@ -148,7 +152,7 @@
         <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
-                height="36"
+                height="35"
                 viewBox="0 0 24 24"
         >
             <path fill="none" d="M0 0h24v24H0V0z"/>

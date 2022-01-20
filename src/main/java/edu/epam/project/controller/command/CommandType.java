@@ -26,7 +26,6 @@ public enum CommandType {
     CHANGE_LOCALE(new ChangeLocaleCommand()),
     CHANGE_ACTOR_PICTURE(new ChangeActorPictureCommand()),
     CHANGE_DIRECTOR_PICTURE(new ChangeDirectorPictureCommand()),
-    UPDATE_EMAIL_AND_ROLE(new UpdateEmailAndRoleCommand()),
     CHANGE_USER_AVATAR(new ChangeAvatarCommand()),
 
     OPEN_HOME_PAGE(new OpenHomePageCommand()),

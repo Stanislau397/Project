@@ -27,8 +27,8 @@ import static edu.epam.project.controller.command.SessionAttribute.USER_AVATAR;
 public class ChangeAvatarCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(ChangeAvatarCommand.class);
-    private static final String DIRECTORY_PATH = "/usr/local/tomcat/webapps/storage/image/user/";
-    private static final String IMAGE_PATH = "http://77.223.98.30/storage/image/user/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/avatar/";
+    private static final String IMAGE_PATH = "http://localhost:8080/image/avatar/";
     private UserService userService = new UserServiceImpl();
 
     @Override
@@ -40,7 +40,7 @@ public class ChangeAvatarCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         String avatar = getPicturePath(part);
         try {
-            if (userService.updateUserAvatarById(userId, avatar)) {
+            if (userService.updateAvatarById(userId, avatar)) {
                 processUploadedFile(part);
                 session.setAttribute(AVATAR_EDITED, avatar);
                 session.setAttribute(USER_AVATAR, avatar);

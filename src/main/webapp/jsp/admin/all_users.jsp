@@ -76,10 +76,10 @@
                     <td><c:out value="${users.email}"/></td>
                     <td><c:out value="${users.role}"/></td>
                     <c:choose>
-                        <c:when test="${users.blocked == false}">
+                        <c:when test="${users.status == false}">
                             <td style="color: green"><fmt:message key="label.active"/></td>
                         </c:when>
-                        <c:when test="${users.blocked}">
+                        <c:when test="${users.status}">
                             <td style="color:red;"><fmt:message key="label.blocked"/></td>
                         </c:when>
                     </c:choose>
@@ -96,24 +96,24 @@
                                     </div>
                                     <div class="buttons">
                                         <c:choose>
-                                            <c:when test="${users.blocked}">
+                                            <c:when test="${users.status}">
                                                 <div class="change-status">
                                                     <form action="${pageContext.request.contextPath}/controller"
                                                           method="post">
                                                         <input type="hidden" name="command" value="unblock_user">
-                                                        <input type="hidden" name="user_name" value="${users.userName}">
+                                                        <input type="hidden" name="user_id" value="${users.userId}">
                                                         <button type="submit" class="change-btn"
                                                                 style="background-color: rgb(211,211,211); width: 400px; color: black">
                                                             <fmt:message key="label.change"/></button>
                                                     </form>
                                                 </div>
                                             </c:when>
-                                            <c:when test="${users.blocked == false}">
+                                            <c:when test="${users.status == false}">
                                                 <div class="change-status">
                                                     <form action="${pageContext.request.contextPath}/controller"
                                                           method="post">
                                                         <input type="hidden" name="command" value="block_user">
-                                                        <input type="hidden" name="user_name" value="${users.userName}">
+                                                        <input type="hidden" name="user_id" value="${users.userId}">
                                                         <button type="submit" class="chang-btn"
                                                                 style="background-color: 	rgb(211,211,211);">
                                                             <fmt:message key="label.change"/></button>
@@ -162,10 +162,10 @@
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <c:choose>
-                    <c:when test="${user.blocked == false}">
+                    <c:when test="${requestScope.user.status == false}">
                         <td style="color: #66cc33"><fmt:message key="label.active"/></td>
                     </c:when>
-                    <c:when test="${user.blocked}">
+                    <c:when test="${requestScope.user.status}">
                         <td style="color: #eb5757"><fmt:message key="label.blocked"/></td>
                     </c:when>
                 </c:choose>
@@ -182,24 +182,24 @@
                                 </div>
                                 <div class="buttons">
                                     <c:choose>
-                                        <c:when test="${user.blocked}">
+                                        <c:when test="${user.status}">
                                             <div class="change-status">
                                                 <form action="${pageContext.request.contextPath}/controller"
                                                       method="post">
                                                     <input type="hidden" name="command" value="unblock_user">
-                                                    <input type="hidden" name="user_name" value="${user.userName}">
+                                                    <input type="hidden" name="user_id" value="${user.userId}">
                                                     <button type="submit" class="change-btn"
                                                             style="background-color: 	rgb(211,211,211);"><fmt:message
                                                             key="label.change"/></button>
                                                 </form>
                                             </div>
                                         </c:when>
-                                        <c:when test="${user.blocked == false}">
+                                        <c:when test="${user.status == false}">
                                             <div class="change-status">
                                                 <form action="${pageContext.request.contextPath}/controller"
                                                       method="post">
                                                     <input type="hidden" name="command" value="block_user">
-                                                    <input type="hidden" name="user_name" value="${user.userName}">
+                                                    <input type="hidden" name="user_id" value="${user.userId}">
                                                     <button type="submit" class="chang-btn"
                                                             style="background-color: 	rgb(211,211,211);"><fmt:message
                                                             key="label.change"/></button>
@@ -219,7 +219,7 @@
                     <div class="change-role">
                         <form action="${pageContext.request.contextPath}/controller" method="get">
                             <input type="hidden" name="command" value="to_edit_user">
-                            <input type="hidden" name="user_name" value="${user.userName}">
+                            <input type="hidden" name="user_name" value="${requestScope.user.userName}">
                             <button type="submit" class="change-role-btn"><i class="fa fa-edit"
                                                                              style="color: white; font-size: 20px;"></i>
                             </button>

@@ -32,8 +32,8 @@ import static edu.epam.project.controller.command.SessionAttribute.ACTOR_ALREADY
 public class AddActorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddActorCommand.class);
-    private static final String DIRECTORY_PATH = "/usr/local/tomcat/webapps/storage/image/actor/";
-    private static final String IMAGE_PATH = "http://77.223.98.30/storage/image/actor/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/actor/";
+    private static final String IMAGE_PATH = "http://localhost:8080/image/actor/";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override

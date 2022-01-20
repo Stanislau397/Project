@@ -7,11 +7,11 @@ import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
-import edu.epam.project.util.CurrentDate;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -21,18 +21,29 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
 
     @Override
-    public boolean leaveComment(String userName, long movieId, String comment) throws ServiceException {
-        CurrentDate currentDate = new CurrentDate();
-        Date date = new Date();
-        String postDate = currentDate.getCurrentDate(date);
+    public boolean leaveComment(long userId, long movieId, String comment) throws ServiceException {
         boolean isLeft;
+        Date date = new Date();
+        Timestamp postDate = new Timestamp(date.getTime());
         try {
-            isLeft = commentDao.leaveCommentByUserId(movieId, userName, comment, postDate);
+            isLeft = commentDao.leaveComment(movieId, userId, comment, postDate);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return isLeft;
+    }
+
+    @Override
+    public boolean deleteCommentById(long commentId) throws ServiceException {
+        boolean isDeleted;
+        try {
+            isDeleted = commentDao.deleteCommentById(commentId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return isDeleted;
     }
 
     @Override
@@ -48,13 +59,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException {
+    public boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException {
         boolean isUpVoted;
         try {
-            if (userAlreadyDownVoted(commentId, user_name, 1)) {
-                commentDao.removeUserVote(commentId, user_name);
+            if (userAlreadyDownVoted(commentId, userId, 1)) {
+                commentDao.removeUserVote(commentId, userId);
             }
-            isUpVoted = commentDao.upVoteComment(commentId, user_name, movieId, upVote);
+            isUpVoted = commentDao.upVoteComment(commentId, userId, upVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -63,13 +74,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException {
+    public boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException {
         boolean isDownVoted;
         try {
-            if (userAlreadyUpVoted(commentId, user_name, 1)) {
-                commentDao.removeUserVote(commentId, user_name);
+            if (userAlreadyUpVoted(commentId, userId, 1)) {
+                commentDao.removeUserVote(commentId, userId);
             }
-            isDownVoted = commentDao.downVoteComment(commentId, user_name, movieId, downVote);
+            isDownVoted = commentDao.downVoteComment(commentId, userId, downVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -78,10 +89,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws ServiceException {
+    public boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException {
         boolean isUserVoted;
         try {
-            isUserVoted = commentDao.userAlreadyUpVoted(commentId, userName, upVote);
+            isUserVoted = commentDao.userAlreadyUpVoted(commentId, userId, upVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -90,10 +101,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws ServiceException {
+    public boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException {
         boolean isUserDownVoted;
         try {
-            isUserDownVoted = commentDao.userAlreadyDownVoted(commentId, userName, downVote);
+            isUserDownVoted = commentDao.userAlreadyDownVoted(commentId, userId, downVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -102,10 +113,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean removeUserVote(long commentId, String userName) throws ServiceException {
+    public boolean removeUserVote(long commentId, long userId) throws ServiceException {
         boolean isVoteRemoved;
         try {
-            isVoteRemoved = commentDao.removeUserVote(commentId, userName);
+            isVoteRemoved = commentDao.removeUserVote(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -147,18 +158,6 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
         return userComments;
-    }
-
-    @Override
-    public boolean removeComment(long movieId, String userName, String comment) throws ServiceException {
-        boolean isRemoved;
-        try {
-            isRemoved = commentDao.removeComment(movieId, userName, comment);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isRemoved;
     }
 
     @Override

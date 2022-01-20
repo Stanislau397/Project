@@ -11,106 +11,24 @@ public class User extends Entity {
     private String userName;
     private String email;
     private String avatar;
-    private boolean isBlocked;
+    private boolean status;
 
-    /**
-     * Empty constructor for User Object
-     * with no parameters
-     */
-    public User() {
+    private User() {
 
     }
 
-    /**
-     * Constructor for User Object
-     * with given parameters:
-     *
-     * @param userId    long value of userId
-     * @param role      RoleType object of userRole
-     * @param userName  String object of userName
-     * @param email     String object of userEmail
-     * @param isBlocked boolean value of userStatus
-     */
-    public User(long userId, RoleType role, String userName, String email, boolean isBlocked) {
-        this.userId = userId;
-        this.role = role;
-        this.userName = userName;
-        this.email = email;
-        this.isBlocked = isBlocked;
-    }
-
-    public User(RoleType role, String userName, String email, boolean isBlocked) {
-        this.role = role;
-        this.userName = userName;
-        this.email = email;
-        this.isBlocked = isBlocked;
-    }
-
-    public User(String userName, String email, String avatar) {
-        this.userName = userName;
-        this.email = email;
-        this.avatar = avatar;
-    }
-
-    /**
-     * Getter method of userId
-     *
-     * @return long value of userId
-     */
     public long getUserId() {
         return userId;
     }
 
-    /**
-     * Setter method of userId
-     *
-     * @param userId long value of userId
-     */
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * Getter method of userRole
-     *
-     * @return RoleType Object of userRole
-     */
     public RoleType getRole() {
         return role;
     }
 
-    /**
-     * Setter method of userRole
-     *
-     * @param role RoleType object of userRole
-     */
-    public void setRole(RoleType role) {
-        this.role = role;
-    }
-
-    /**
-     * Getter method of userName
-     *
-     * @return String object of userName
-     */
     public String getUserName() {
         return userName;
     }
 
-    /**
-     * Setter method of userName
-     *
-     * @param userName String object of userName
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * Getter method of userEmail
-     *
-     * @return String object of userEmail
-     */
     public String getEmail() {
         return email;
     }
@@ -119,35 +37,12 @@ public class User extends Entity {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public boolean getStatus() {
+        return status;
     }
 
-    /**
-     * Setter method of userEmail
-     *
-     * @param email String object of userEmail
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Getter method of userStatus
-     *
-     * @return boolean value of userStatus
-     */
-    public boolean isBlocked() {
-        return isBlocked;
-    }
-
-    /**
-     * Setter method of userStatus
-     *
-     * @param blocked boolean value of userStatus
-     */
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
+    public static UserBuilder newUserBuilder() {
+        return new User().new UserBuilder();
     }
 
     @Override
@@ -158,7 +53,7 @@ public class User extends Entity {
         User user = (User) o;
 
         if (userId != user.userId) return false;
-        if (isBlocked != user.isBlocked) return false;
+        if (status != user.status) return false;
         if (role != user.role) return false;
         if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
@@ -172,16 +67,48 @@ public class User extends Entity {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
-        result = 31 * result + (isBlocked ? 1 : 0);
+        result = 31 * result + (status ? 1 : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(userId).append(" ").append(role)
-                .append(" ").append(userName).append(" ")
-                .append(email).append(" ").append(isBlocked);
-        return sb.toString();
+    public class UserBuilder {
+
+        private UserBuilder() {
+
+        }
+
+        public UserBuilder withUserId(long userId) {
+            User.this.userId = userId;
+            return this;
+        }
+
+        public UserBuilder withRole(RoleType role) {
+            User.this.role = role;
+            return this;
+        }
+
+        public UserBuilder withUserName(String userName) {
+            User.this.userName = userName;
+            return this;
+        }
+
+        public UserBuilder withEmail(String email) {
+            User.this.email = email;
+            return this;
+        }
+
+        public UserBuilder withAvatar(String avatar) {
+            User.this.avatar = avatar;
+            return this;
+        }
+
+        public UserBuilder withStatus(boolean status) {
+            User.this.status = status;
+            return this;
+        }
+
+        public User build() {
+            return User.this;
+        }
     }
 }

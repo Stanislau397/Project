@@ -30,8 +30,8 @@ import static edu.epam.project.controller.command.SessionAttribute.DIRECTOR;
 public class AddDirectorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddDirectorCommand.class);
-    private static final String DIRECTORY_PATH = "/usr/local/tomcat/webapps/storage/image/director/";
-    private static final String IMAGE_PATH = "http://77.223.98.30/storage/image/director/";
+    private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/director/";
+    private static final String IMAGE_PATH = "http://localhost:8080/image/director/";
     private MovieService movieService = new MovieServiceImpl();
 
     @Override

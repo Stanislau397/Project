@@ -8,27 +8,27 @@ import java.util.List;
 
 public interface CommentService {
 
-    boolean leaveComment(String userName, long movieId, String comment) throws ServiceException;
+    boolean leaveComment(long userId, long movieId, String comment) throws ServiceException;
+
+    boolean deleteCommentById(long commentId) throws ServiceException;
 
     boolean updateComment(String updatedText, String text, String userName) throws ServiceException;
 
-    boolean upVoteComment(long commentId, String user_name, long movieId, int upVote) throws ServiceException;
+    boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException;
 
-    boolean downVoteComment(long commentId, String user_name, long movieId, int downVote) throws ServiceException;
+    boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException;
 
-    boolean userAlreadyUpVoted(long commentId, String userName, int upVote) throws ServiceException;
+    boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException;
 
-    boolean userAlreadyDownVoted(long commentId, String userName, int downVote) throws ServiceException;
+    boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException;
 
-    boolean removeUserVote(long commentId, String userName) throws ServiceException;
+    boolean removeUserVote(long commentId, long userId) throws ServiceException;
 
     Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws ServiceException;
 
     List<Comment> findCommentsByMovieId(long movieId) throws ServiceException;
 
     List<Movie> findCommentsByUserName(String userName) throws ServiceException;
-
-    boolean removeComment(long movieId, String userName, String comment) throws ServiceException;
 
     int countUserCommentsByUserName(String userName) throws ServiceException;
 }

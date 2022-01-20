@@ -29,14 +29,11 @@ public class ToEditMovieCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(RequestParameter.MOVIE_ID));
         Movie movie;
         try {
-            Optional<Movie> optionalMovie = movieService.findMovieById(movieId);
-            if (optionalMovie.isPresent()) {
-                movie = optionalMovie.get();
-                request.setAttribute(AttributeName.MOVIE_INFO, movie);
-                request.setAttribute(AttributeName.MOVIE_ID, movieId);
-                request.setAttribute(AttributeName.MOVIE_TITLE, movie.getTitle());
-                router.setPagePath(PagePath.EDIT_MOVIE);
-            }
+            movie = movieService.findMovieById(movieId);
+            request.setAttribute(AttributeName.MOVIE_INFO, movie);
+            request.setAttribute(AttributeName.MOVIE_ID, movieId);
+            request.setAttribute(AttributeName.MOVIE_TITLE, movie.getTitle());
+            router.setPagePath(PagePath.EDIT_MOVIE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

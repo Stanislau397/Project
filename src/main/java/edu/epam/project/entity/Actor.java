@@ -1,7 +1,7 @@
 package edu.epam.project.entity;
 
 /**
- * Class represents movie actor
+ * Class represents actor for movie
  *
  * @author Stanislau Kachan
  */
@@ -77,118 +77,61 @@ public class Actor extends Entity {
         this.age = age;
     }
 
-    /**
-     * Getter method of actorId
-     * @return long value of actorId
-     */
     public long getActorId() {
         return actorId;
     }
 
-    /**
-     * Setter method of actorId
-     * @param actorId long value of actorId
-     */
     public void setActorId(long actorId) {
         this.actorId = actorId;
     }
 
-    /**
-     * Getter method of firstName
-     * @return String object of firstName
-     */
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     * Setter method of firstName
-     * @param firstName String object of firstName
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    /**
-     * Getter method of lastName
-     * @return String object of lastName
-     */
     public String getLastName() {
         return lastName;
     }
 
-    /**
-     * Setter method of lastName
-     * @param lastName String object of lastName
-     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    /**
-     * Getter method of actorImage
-     * @return String value of actorImage
-     */
     public String getPicture() {
         return picture;
     }
 
-    /**
-     * Setter method of actorImage
-     * @param picture String object of actorImage
-     */
     public void setPicture(String picture) {
         this.picture = picture;
     }
 
-    /**
-     * Getter method of actorHeight
-     * @return double value of actorHeight
-     */
     public double getHeight() {
         return height;
     }
 
-    /**
-     * Setter method of actorHeight
-     * @param height double value of actorHeight
-     */
     public void setHeight(double height) {
         this.height = height;
     }
 
-    /**
-     * Getter method of actorAge
-     * @return int value of actorAge
-     */
     public int getAge() {
         return age;
     }
 
-    /**
-     * Setter method of actorAge
-     * @param age ing value of actorAge
-     */
     public void setAge(int age) {
         this.age = age;
     }
 
-    /**
-     * Getter method of actorBirthDate
-     * @return String object of actorBirthDate
-     */
     public String getBirthDate() {
         return birthDate;
     }
 
-    /**
-     * Setter method of actorBirthDate
-     * @param birthDate String object of actorBirthDate
-     */
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
-
 
     @Override
     public boolean equals(Object o) {

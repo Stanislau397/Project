@@ -16,14 +16,14 @@ public class FileUploader {
         return (directory_path + fileName);
     }
 
-    public static String getPicturePath(Part part, String image_path, String directory_path) {
-        String savePath = getSavePath(part, directory_path);
+    public static String getPicturePath(Part part, String imagePath, String directoryPath) {
+        String savePath = getSavePath(part, directoryPath);
         String pictureName = savePath.substring(savePath.lastIndexOf("/"));
-        return image_path + pictureName;
+        return imagePath + pictureName;
     }
 
-    public static void processUploadedFile(Part part, String directory_path) throws IOException {
-        String savePath = getSavePath(part, directory_path);
+    public static void processUploadedFile(Part part, String directoryPath) throws IOException {
+        String savePath = getSavePath(part, directoryPath);
         File file = new File(savePath);
         part.write(file + File.separator);
     }

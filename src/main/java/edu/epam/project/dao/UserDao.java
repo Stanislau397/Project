@@ -1,6 +1,5 @@
 package edu.epam.project.dao;
 
-import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 
@@ -9,29 +8,23 @@ import java.util.Optional;
 
 public interface UserDao {
 
-    boolean register(User user, String password) throws DaoException;
+    boolean register(User user, String password) throws DaoException; //completed
 
-    boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws DaoException;
+    boolean changePasswordByIdAndPassword(long userId, String password, String newPassword) throws DaoException; //completed
 
-    Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;
+    boolean updateStatusById(long userId, boolean status) throws DaoException; //completed
 
-    int countAmountOfUsers() throws DaoException;
+    boolean updateAvatarById(long userId, String avatar) throws DaoException; //completed
 
-    long findUserIdByUserName(String userName) throws DaoException;
+    boolean changeRoleById(long userId, String role) throws DaoException; //completed
 
-    Optional<User> findUserByUserName(String userName) throws DaoException;
+    int countUsers() throws DaoException; //completed
 
-    boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws DaoException;
+    Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;  //completed
 
-    boolean changeUserName(String userName, String newUserName) throws DaoException;
+    Optional<User> findUserByUserName(String userName) throws DaoException; //completed
 
-    boolean updateUserStatusByUserName(String userName, boolean status) throws DaoException;
+    List<User> findAll() throws DaoException; //completed
 
-    boolean updateUserAvatarById(long userId, String avatar) throws DaoException;
-
-    boolean changeUserRoleByUserName(String userName, String role) throws DaoException;
-
-    List<User> findAll() throws DaoException;
-
-    List<User> findLatestRegisteredUsers() throws DaoException;
+    List<User> findLatestRegisteredUsers() throws DaoException;  //todo
 }

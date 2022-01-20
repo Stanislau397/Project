@@ -29,14 +29,10 @@ public class UserServiceImpl implements UserService {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         String userEmail = user.getEmail();
         String userName = user.getUserName();
-        user.setBlocked(false);
-        user.setRole(RoleType.USER);
         try {
             if (validator.isValidAccountData(userName, password, userEmail)) {
                 String encryptedPassword = encryptor.encryptPassword(password);
                 isRegistered = userDao.register(user, encryptedPassword);
-                long userId = userDao.findUserIdByUserName(userName);
-                user.setUserId(userId);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
@@ -46,25 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateEmailAndRoleByUserId(String email, RoleType role, long userId) throws ServiceException, InvalidInputException {
-        boolean isUpdated = false;
-        AccountValidator validator = new AccountValidator();
-        try {
-            if (validator.isValidEmail(email)) {
-                isUpdated = userDao.updateEmailAndRoleByUserId(email, role, userId);
-            }
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isUpdated;
-    }
-
-    @Override
-    public boolean updateUserStatusByUserName(boolean status, String userName) throws ServiceException {
+    public boolean updateStatusById(boolean status, long userId) throws ServiceException {
         boolean isUpdated;
         try {
-            isUpdated = userDao.updateUserStatusByUserName(userName, status);
+            isUpdated = userDao.updateStatusById(userId, status);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -73,10 +54,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserAvatarById(long userId, String avatar) throws ServiceException {
+    public boolean updateAvatarById(long userId, String avatar) throws ServiceException {
         boolean isUpdated;
         try {
-            isUpdated = userDao.updateUserAvatarById(userId, avatar);
+            isUpdated = userDao.updateAvatarById(userId, avatar);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -85,10 +66,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeUserRoleByUserName(String userName, String role) throws ServiceException {
+    public boolean changeRoleById(long userId, String role) throws ServiceException {
         boolean isRoleUpdated;
         try {
-            isRoleUpdated = userDao.changeUserRoleByUserName(userName, role);
+            isRoleUpdated = userDao.changeRoleById(userId, role);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -129,7 +110,7 @@ public class UserServiceImpl implements UserService {
     public int countAmountOfUsers() throws ServiceException {
         int amountOfUsers;
         try {
-            amountOfUsers = userDao.countAmountOfUsers();
+            amountOfUsers = userDao.countUsers();
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -138,37 +119,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(User user, String password, String newPassword, String confirmNewPassword) throws ServiceException, InvalidInputException {
+    public boolean changePassword(long userId, String password, String newPassword, String confirmNewPassword) throws ServiceException, InvalidInputException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
         boolean isPasswordChanged = false;
         try {
-            if (validator.isValidPassword(newPassword) && validator.isValidPassword(confirmNewPassword)
-                    && newPassword.equals(confirmNewPassword)) {
-                String encryptedPassword = encryptor.encryptPassword(password);
+            if (validator.isValidPassword(newPassword) && newPassword.equals(confirmNewPassword)) {
+                String encryptedOldPassword = encryptor.encryptPassword(password);
                 String encryptedNewPassword = encryptor.encryptPassword(newPassword);
-                isPasswordChanged = userDao.changePassword(user, encryptedPassword, encryptedNewPassword, confirmNewPassword);
+                isPasswordChanged = userDao.changePasswordByIdAndPassword(userId, encryptedOldPassword, encryptedNewPassword);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return isPasswordChanged;
-    }
-
-    @Override
-    public boolean changeUserName(String oldUserName, String newUserName) throws ServiceException, InvalidInputException {
-        boolean isUserNameChanged = false;
-        AccountValidator validator = new AccountValidator();
-        try {
-            if (validator.isValidUserName(newUserName)) {
-                isUserNameChanged = userDao.changeUserName(oldUserName, newUserName);
-            }
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isUserNameChanged;
     }
 
     @Override

@@ -138,24 +138,25 @@ body {
 .main-content .edit-user-info {
     float: left;
     margin-top: 30px;
-    width: 550px;
-    height: 210px;
+    width: 55%;
+    height: 240px;
+    margin-left: 150px;
     background-color: rgb(240,240,240);
     border: 1px solid silver;
     border-radius: 10px;
 }
 
 .main-content .edit-user-info h2 {
-    margin-left: 20px;
+    margin-left: 40px;
     margin-top: 25px;
     color: black;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     font-family: sans-serif;
 }
 
 .main-content .edit-user-info ul {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .main-content .edit-user-info ul li{
@@ -165,53 +166,34 @@ body {
 }
 
 .main-content .edit-user-info ul li:hover {
-    background-color: rgb(224,224,224);
+    background-color: unset;
 }
-
-label {
-    width: 200px;
-}
-
 input, label, p {
     display: inline-block;
 }
 
 .info {
     width: 300px;
-}
-
-input {
-    margin-top: 5px;
-    color: black;
-    width: 220px;
-    height: 30px;
-    background-color: rgb(240,240,240);
     font-family: sans-serif;
-    font-size: 17px;
-    padding: 0 15px;
-    border: 1px solid black;
-    outline: 0;
+    font-size: 22px;
 }
 
 label {
+    width: 280px;
     color: black;
     font-family: sans-serif;
-    font-size: 18px;
-    margin-left: 5px;
-}
-
-input:focus {
-    border: 2px solid #060077;
+    font-size: 23px;
+    margin-left: 20px;
 }
 
 select {
     width: 300px;
-    height: 20px;
+    height: 38px;
     background-color: rgb(240,240,240);
     border: 1px solid black;
     color: black;
     font-family: sans-serif;
-    font-size: 15px;
+    font-size: 22px;
     cursor: pointer;
 }
 

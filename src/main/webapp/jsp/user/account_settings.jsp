@@ -45,14 +45,14 @@
     <div class="password">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="change_password">
-            <input type="hidden" name="user_name" value="${requestScope.user.userName}">
+            <input type="hidden" name="user_id" value="${sessionScope.user_id}">
             <input type="password" name="password" placeholder="<fmt:message key="label.current_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
             <input type="password" name="new_password" id="new_password"
                    class="new_password"
                    placeholder="<fmt:message key="label.new_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
-            <input type="password" name="verify_password" placeholder="<fmt:message key="label.verify_password"/>"
+            <input type="password" name="confirm_password" placeholder="<fmt:message key="label.verify_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
             <button type="submit" name="submit"><fmt:message key="label.change_password"/></button>
         </form>

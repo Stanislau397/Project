@@ -69,16 +69,16 @@
 <div class="main-content" id="blur">
     <div class="head">
         <div class="picture">
-            <img src="http://${requestScope.user.avatar}">
+            <img src="${requestScope.user.avatar}">
         </div>
         <div class="user-info">
             <ul>
                 <li style="color: black"><c:out value="${requestScope.user.userName}"/></li>
                 <c:choose>
-                    <c:when test="${requestScope.user.blocked}">
+                    <c:when test="${requestScope.user.status}">
                         <li style="color: red; font-size: 13px">(<fmt:message key="label.banned"/>)</li>
                     </c:when>
-                    <c:when test="${requestScope.user.blocked == false}">
+                    <c:when test="${requestScope.user.status == false}">
                         <li style="color: #009879; font-size: 13px">(<fmt:message key="label.approved"/>)</li>
                     </c:when>
                 </c:choose>
@@ -124,26 +124,26 @@
                     </div>
                     <div class="buttons">
                         <c:choose>
-                            <c:when test="${requestScope.user.blocked}">
+                            <c:when test="${requestScope.user.status}">
                                 <div class="change-status">
                                     <form action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" name="command" value="unblock_user">
-                                        <input type="hidden" name="user_name" value="${requestScope.user.userName}">
+                                        <input type="hidden" name="user_id" value="${requestScope.user.userId}">
                                         <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.change"/></button>
                                     </form>
                                 </div>
                             </c:when>
-                            <c:when test="${requestScope.user.blocked == false}">
+                            <c:otherwise>
                                 <div class="change-status">
                                     <form action="${pageContext.request.contextPath}/controller" method="post">
                                         <input type="hidden" name="command" value="block_user">
-                                        <input type="hidden" name="user_name" value="${requestScope.user.userName}">
+                                        <input type="hidden" name="user_id" value="${requestScope.user.userId}">
                                         <button type="submit" style="background-color: rgb(211,211,211)"><fmt:message
                                                 key="label.change"/></button>
                                     </form>
                                 </div>
-                            </c:when>
+                            </c:otherwise>
                         </c:choose>
                         <a class="close"
                            style="margin-top: -20px; margin-left: 5px"
@@ -164,6 +164,7 @@
                 <p style="color: white">${requestScope.error}</p>
                 <form action="${pageContext.request.contextPath}/controller" method="post">
                     <input type="hidden" name="command" value="change_user_role">
+                    <input type="hidden" name="user_id" value="${requestScope.user.userId}">
                     <input type="hidden" name="user_name" value="${requestScope.user.userName}">
                     <ul style="display: inline-block">
                         <li>

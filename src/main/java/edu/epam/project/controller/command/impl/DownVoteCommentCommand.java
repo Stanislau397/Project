@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
+import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
@@ -31,14 +31,13 @@ public class DownVoteCommentCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String userName = (String) session.getAttribute(USER_NAME);
-        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        long  userId = (Long) session.getAttribute(USER_ID);
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
         boolean userAlreadyDownVoted;
         try {
-            userAlreadyDownVoted = commentService.userAlreadyDownVoted(commentId, userName, 1);
+            userAlreadyDownVoted = commentService.userAlreadyDownVoted(commentId, userId, 1);
             if (!userAlreadyDownVoted) {
-                commentService.downVoteComment(commentId, userName, movieId, 1);
+                commentService.downVoteComment(commentId, userId, 1);
             }
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);

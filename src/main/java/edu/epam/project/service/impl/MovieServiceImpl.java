@@ -1,6 +1,8 @@
 package edu.epam.project.service.impl;
 
+import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.MovieDao;
+import edu.epam.project.dao.impl.CommentDaoImpl;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
@@ -13,7 +15,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.InputStream;
+import java.lang.management.MemoryManagerMXBean;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -608,15 +610,30 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<Movie> findMovieById(long movieId) throws ServiceException {
+    public Movie findMovieById(long movieId) throws ServiceException {
         Optional<Movie> isFound;
+        CommentDao commentDao = new CommentDaoImpl();
+        Movie movie = new Movie();
         try {
             isFound = movieDao.findMovieById(movieId);
+            List<Genre> genres = movieDao.findMovieGenresByMovieId(movieId);
+            List<Comment> comments = commentDao.findCommentsByMovieId(movieId);
+            List<Actor> actors = movieDao.findActorsByMovieId(movieId);
+            List<Director> directors = movieDao.findDirectorsByMovieId(movieId);
+            List<Country> countries = movieDao.findCountriesForMovieById(movieId);
+            if (isFound.isPresent()) {
+                movie = isFound.get();
+                movie.setGenres(genres);
+                movie.setComments(comments);
+                movie.setActors(actors);
+                movie.setDirectors(directors);
+                movie.setCountries(countries);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isFound;
+        return movie;
     }
 
     @Override

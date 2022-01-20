@@ -2,20 +2,16 @@ package edu.epam.project.dao;
 
 public class SqlQuery {
 
-    public static final String INSERT_TO_USER = "INSERT INTO users (user_id, user_name, password, email, role, is_active, avatar) " +
-            "VALUES(?,?,?,?,?,?,?)";
-    public static final String SELECT_USER = "SELECT email, password, role, is_active, user_name, avatar FROM users WHERE email = (?) and password = (?)";
-    public static final String SELECT_ID_BY_USER_NAME = "SELECT user_id FROM users WHERE user_name = (?)";
-    public static final String UPDATE_ROLE_AND_EMAIL = "UPDATE users SET email = (?), role = (?) WHERE user_id = (?)";
-    public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_name = (?) and password = (?)";
-    public static final String CHANGE_USER_NAME = "UPDATE users SET user_name = (?) WHERE user_name = (?)";
-    public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active, avatar FROM users WHERE user_name = (?)";
-    public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users";
-    public static final String SELECT_LATEST_USERS = "SELECT user_id, user_name, email, role, is_active FROM users ORDER BY user_id DESC";
-    public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_name = (?)";
-    public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_name = (?)";
-    public static final String UPDATE_USER_AVATAR = "UPDATE users SET avatar = (?) WHERE user_id = (?)";
-    public static final String COUNT_USERS = "SELECT COUNT(*) FROM users";
+    public static final String INSERT_TO_USER = "INSERT INTO users (user_name, password, email, role, is_active, avatar) VALUES(?,?,?,?,?,?)"; //completed
+    public static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT user_id, email, role, is_active, user_name, avatar FROM users WHERE email = (?) and password = (?)"; //completed
+    public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_id = (?) and password = (?)"; //completed
+    public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active, avatar FROM users WHERE user_name = (?)"; //completed
+    public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users"; //completed
+    public static final String SELECT_LATEST_USERS = "SELECT user_id, user_name, email, role, is_active FROM users ORDER BY user_id DESC"; //todo
+    public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_id = (?)"; //completed
+    public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_id = (?)"; //completed
+    public static final String UPDATE_USER_AVATAR = "UPDATE users SET avatar = (?) WHERE user_id = (?)"; //completed
+    public static final String COUNT_ALL_USERS = "SELECT COUNT(user_id) FROM users"; //completed
 
     public static final String INSERT_TO_GENRE = "INSERT INTO genres (genres_id, genre_title) VALUES (?,?)";
     public static final String FIND_ALL_GENRES = "SELECT genres_id, genre_title FROM genres";
@@ -78,7 +74,6 @@ public class SqlQuery {
     public static final String UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE = "UPDATE movies SET title = (?), time = (?), release_date = (?), description = (?) WHERE movie_id = (?)";
     public static final String COUNT_MOVIES = "SELECT COUNT(movie_id) FROM movies";
     public static final String SELECT_MOVIE_POSTER = "SELECT picture FROM movies WHERE movie_id = (?)";
-    public static final String DELETE_BY_TITLE = "DELETE FROM movies WHERE title = (?)";
     public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id ORDER BY average DESC LIMIT ?,?";
     public static final String FIND_MOVIE_BY_TITLE = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
@@ -92,7 +87,7 @@ public class SqlQuery {
     public static final String SELECT_MOVIE_BY_YEAR = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = (?) GROUP BY movie_id ORDER BY average DESC";
     public static final String SELECT_NEW_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
-            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC LIMIT ?,?";
+            "LEFT JOIN rating ON movie_id = movie_id_fk WHERE YEAR(release_date) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) AND DATE(release_date) <= DATE(NOW()) GROUP BY movie_id ORDER BY movie_id DESC LIMIT ?,?";
     public static final String SELECT_MOVIES_WITH_TRAILER = "SELECT title, picture, trailer, IFNULL(AVG(user_score), 0) AS average FROM movies\n" +
             "LEFT JOIN rating ON movie_id = movie_id_fk WHERE trailer IS NOT NULL GROUP BY movie_id ORDER BY movie_id DESC LIMIT 10";
     public static final String SELECT_NEW_MOVIES_BY_GENRE = "SELECT m.movie_id, m.title, m.release_date, m.time, m.country, m.description, m.picture, IFNULL(AVG(user_score), 0) AS average FROM movies m\n" +
@@ -145,15 +140,12 @@ public class SqlQuery {
     public static final String COUNT_ALL_MOVIES = "SELECT COUNT(movie_id) FROM movies";
     public static final String COUNT_NEWEST_MOVIES = "SELECT COUNT(movie_id) AS counter FROM movies WHERE YEAR(release_date) = YEAR(CURRENT_TIMESTAMP()) AND DATE(release_date) <= DATE(NOW())";
 
-    public static final String LEAVE_COMMENT = "INSERT INTO movie_comments(movie_id_fk, user_name_fk, user_comment, post_date) " +
-            "VALUES (?,?,?,?)";
-    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT mv.user_name_fk, mv.comment_id, user_comment, post_date, IFNULL(count(comment_up_vote), 0) AS up_votes, \n" +
-            "IFNULL(count(comment_down_vote), 0) AS down_votes, COUNT(cv.user_name_fk) AS counter, u.avatar FROM movie_comments mv\n" +
-            "LEFT JOIN comment_votes cv ON mv.comment_id = cv.comment_id_fk\n" +
-            "LEFT JOIN users u ON u.user_name = mv.user_name_fk\n" +
-            "WHERE mv.movie_id_fk = (?) group by mv.user_comment";
-    public static final String REMOVE_COMMENT = "DELETE FROM movie_comments WHERE movie_id_fk = (?) " +
-            "AND user_name_fk = (?) AND user_comment = (?)";
+    public static final String LEAVE_COMMENT = "INSERT INTO movie_comments (movie_id_fk, user_id_fk, user_comment, post_date) VALUES (?,?,?,?)";
+    public static final String FIND_COMMENTS_BY_MOVIE_ID = "SELECT u.user_name, mc.comment_id, user_comment, post_date, IFNULL(count(comment_up_vote), 0) AS up_votes,\n" +
+            "IFNULL(count(comment_down_vote), 0) AS down_votes, u.avatar FROM movie_comments mc\n" +
+            "LEFT JOIN comment_votes cv ON mc.comment_id = cv.comment_id_fk\n" +
+            "LEFT JOIN users u ON u.user_id = mc.user_id_fk WHERE mc.movie_id_fk = (?) group by mc.user_comment";
+    public static final String DELETE_COMMENT = "DELETE FROM movie_comments WHERE comment_id = (?)";
     public static final String UPDATE_COMMENT = "UPDATE movie_comments SET user_comment = (?) WHERE user_comment = (?) AND user_name_fk = (?)";
     public static final String COUNT_USER_COMMENTS = "SELECT COUNT(user_comment) FROM movie_comments WHERE user_name_fk = (?)";
     public static final String SELECT_USER_COMMENTS = "SELECT m.movie_id AS movie_id, mc.comment_id AS comment_id, mc.user_name_fk AS user_name, mc.user_comment, mc.post_date, COUNT(comment_down_vote) AS down_votes, COUNT(comment_up_vote) AS up_votes, m.title FROM movie_comments mc\n" +
@@ -161,13 +153,13 @@ public class SqlQuery {
             "LEFT JOIN movies m ON mc.movie_id_fk = m.movie_id WHERE mc.user_name_fk = (?) GROUP BY mc.comment_id";
     public static final String COUNT_UP_VOTES_AND_DOWN_VOTES = "SELECT IFNULL(COUNT(comment_up_vote), 0) AS up_votes, IFNULL(COUNT(comment_down_vote), 0) AS down_votes, user_comment, post_date, movie_id_fk FROM movie_comments\n" +
             "LEFT JOIN comment_votes ON comment_id = (?) WHERE user_name = (?) ORDER BY comment_id_fk";
-    public static final String UP_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_up_vote) VALUES(?,?,?,?)";
-    public static final String DOWN_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, movie_id_fk, user_name_fk, comment_down_vote) VALUES(?,?,?,?)";
-    public static final String SELECT_COMMENT_UP_VOTE = "SELECT comment_id_fk, user_name_fk, comment_up_vote FROM comment_votes\n" +
-            "WHERE comment_id_fk = (?) AND user_name_fk = (?) AND comment_up_vote = (?)";
-    public static final String SELECT_COMMENT_DOWN_VOTE = "SELECT comment_id_fk, user_name_fk, comment_down_vote FROM comment_votes\n" +
-            "WHERE comment_id_fk = (?) AND user_name_fk = (?) AND comment_down_vote = (?)";
-    public static final String REMOVE_COMMENT_VOTE = "DELETE FROM comment_votes WHERE comment_id_fk = (?) AND user_name_fk = (?)";
+    public static final String UP_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, user_id_fk, comment_up_vote) VALUES(?,?,?)";
+    public static final String DOWN_VOTE_COMMENT = "INSERT INTO comment_votes (comment_id_fk, user_id_fk, comment_down_vote) VALUES(?,?,?)";
+    public static final String SELECT_COMMENT_UP_VOTE = "SELECT comment_id_fk, user_id_fk, comment_up_vote FROM comment_votes\n" +
+            "WHERE comment_id_fk = (?) AND user_id_fk = (?) AND comment_up_vote = (?)";
+    public static final String SELECT_COMMENT_DOWN_VOTE = "SELECT comment_id_fk, user_id_fk, comment_down_vote FROM comment_votes\n" +
+            "WHERE comment_id_fk = (?) AND user_id_fk = (?) AND comment_down_vote = (?)";
+    public static final String REMOVE_COMMENT_VOTE = "DELETE FROM comment_votes WHERE comment_id_fk = (?) AND user_id_fk = (?)";
 
     public static final String COUNT_AMOUNT_OF_REVIEWS = "SELECT COUNT(user_score) FROM rating WHERE user_name_fk = (?)";
     public static final String COUNT_AVERAGE_RATING_OF_USER = "SELECT AVG(user_score) FROM rating WHERE user_name_fk = (?)";

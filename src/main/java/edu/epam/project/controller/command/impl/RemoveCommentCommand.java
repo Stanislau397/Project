@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.COMMENT;
-import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
+import static edu.epam.project.controller.command.RequestParameter.COMMENT_ID;
 
-import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 import static edu.epam.project.controller.command.SessionAttribute.COMMENT_REMOVED;
 
 public class RemoveCommentCommand implements Command {
@@ -30,14 +28,12 @@ public class RemoveCommentCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String comment = request.getParameter(COMMENT);
-        String userName = request.getParameter(USER_NAME);
-        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
         try {
-            if (commentService.removeComment(movieId, userName, comment)) {
+            if (commentService.deleteCommentById(commentId)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
-                session.setAttribute(COMMENT_REMOVED, comment);
+                session.setAttribute(COMMENT_REMOVED, 1);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

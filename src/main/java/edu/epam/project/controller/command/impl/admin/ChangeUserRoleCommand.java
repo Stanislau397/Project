@@ -18,6 +18,7 @@ import java.io.IOException;
 import static edu.epam.project.controller.command.RequestParameter.*;
 
 import static edu.epam.project.controller.command.SessionAttribute.CHANGED_ROLE;
+import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class ChangeUserRoleCommand implements Command {
 
@@ -28,11 +29,12 @@ public class ChangeUserRoleCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String userName = request.getParameter(USER_NAME_PARAMETER);
+        long userId = Long.parseLong(request.getParameter(USER_ID));
+        String userName = request.getParameter(USER_NAME);
         String role = request.getParameter(ROLE);
         String currentPage = request.getHeader(REFERER);
         try {
-            if (userService.changeUserRoleByUserName(userName, role)) {
+            if (userService.changeRoleById(userId, role)) {
                 session.setAttribute(CHANGED_ROLE, userName);
                 router.setPagePath(currentPage);
                 router.setRoute(RouteType.REDIRECT);
