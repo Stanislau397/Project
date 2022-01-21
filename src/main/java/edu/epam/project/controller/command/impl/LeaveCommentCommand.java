@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
 import edu.epam.project.service.impl.CommentServiceImpl;
@@ -30,11 +31,11 @@ public class LeaveCommentCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         String comment = request.getParameter(COMMENT);
         try {
-            if (commentService.leaveComment(userId, movieId, comment)) {
+            if (commentService.add(userId, movieId, comment)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             router.setPagePath(currentPage);
             router.setRoute(RouteType.REDIRECT);

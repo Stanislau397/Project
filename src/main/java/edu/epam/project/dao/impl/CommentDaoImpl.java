@@ -5,7 +5,6 @@ import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.SqlQuery;
 import edu.epam.project.dao.TableColumn;
 import edu.epam.project.entity.Comment;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 import org.apache.logging.log4j.Level;
@@ -21,13 +20,13 @@ public class CommentDaoImpl implements CommentDao {
     private static final Logger logger = LogManager.getLogger(CommentDaoImpl.class);
 
     @Override
-    public boolean leaveComment(long movieId, long userId, String comment, Timestamp postDate) throws DaoException {
+    public boolean add(long movieId, long userId, String text, Timestamp postDate) throws DaoException {
         boolean isLeft;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.LEAVE_COMMENT)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_COMMENT)) {
             statement.setLong(1, movieId);
             statement.setLong(2, userId);
-            statement.setString(3, comment);
+            statement.setString(3, text);
             statement.setTimestamp(4, postDate);
             int update = statement.executeUpdate();
             isLeft = (update == 1);
@@ -39,10 +38,10 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean deleteCommentById(long commentId) throws DaoException {
+    public boolean delete(long commentId) throws DaoException {
         boolean isDeleted;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COMMENT)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COMMENT_BY_ID)) {
             statement.setLong(1, commentId);
             int update = statement.executeUpdate();
             isDeleted = (update == 1);
@@ -54,33 +53,12 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws DaoException {
-        Comment comment = new Comment();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_UP_VOTES_AND_DOWN_VOTES)) {
-            statement.setLong(1, commentId);
-            statement.setString(2, userName);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            int upVotes = resultSet.getInt(TableColumn.COMMENT_UP_VOTES);
-            int downVotes = resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES);
-            comment.setCommentUpVotes(upVotes);
-            comment.setCommentDownVotes(downVotes);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return comment;
-    }
-
-    @Override
-    public boolean updateComment(String updatedText, String text, String userName) throws DaoException {
+    public boolean update(long commentId, String newText) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_COMMENT)) {
-            statement.setString(1, updatedText);
-            statement.setString(2, text);
-            statement.setString(3, userName);
+            statement.setString(1, newText);
+            statement.setLong(2, commentId);
             int update = statement.executeUpdate();
             isUpdated = (update == 1);
         } catch (SQLException e) {
@@ -125,7 +103,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws DaoException {
+    public boolean isUserAlreadyUpVoted(long commentId, long userId, int upVote) throws DaoException {
         boolean isUserUpVoted = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COMMENT_UP_VOTE)) {
@@ -144,7 +122,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws DaoException {
+    public boolean isUserAlreadyDownVoted(long commentId, long userId, int downVote) throws DaoException {
         boolean isUserDownVoted = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COMMENT_DOWN_VOTE)) {
@@ -163,10 +141,10 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean removeUserVote(long commentId, long userId) throws DaoException {
+    public boolean removeUserVoteByCommentIdAndUserId(long commentId, long userId) throws DaoException {
         boolean isVoteRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_COMMENT_VOTE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COMMENT_VOTE)) {
             statement.setLong(1, commentId);
             statement.setLong(2, userId);
             int update = statement.executeUpdate();
@@ -186,22 +164,18 @@ public class CommentDaoImpl implements CommentDao {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Comment comment = new Comment();
                 User user = User.newUserBuilder()
                         .withUserName(resultSet.getString(TableColumn.USER_NAME))
                         .withAvatar(resultSet.getString(TableColumn.AVATAR))
                         .build();
-                String text = resultSet.getString(TableColumn.COMMENT);
-                long commentId = resultSet.getLong(TableColumn.COMMENT_ID);
-                Timestamp postDate = resultSet.getTimestamp(TableColumn.COMMENT_POST_DATE);
-                int upVotes = resultSet.getInt(TableColumn.COMMENT_UP_VOTES);
-                int downVotes = resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES);
-                comment.setCommentId(commentId);
-                comment.setUser(user);
-                comment.setPostDate(postDate);
-                comment.setText(text);
-                comment.setCommentUpVotes(upVotes);
-                comment.setCommentDownVotes(downVotes);
+                Comment comment = Comment.newCommentBuilder()
+                        .withCommentId(resultSet.getLong(TableColumn.COMMENT_ID))
+                        .withText(resultSet.getString(TableColumn.TEXT))
+                        .withPostDate(resultSet.getTimestamp(TableColumn.COMMENT_POST_DATE))
+                        .withUpVotes(resultSet.getInt(TableColumn.UP_VOTE))
+                        .withDownVotes(resultSet.getInt(TableColumn.DOWN_VOTE))
+                        .withUser(user)
+                        .build();
                 comments.add(comment);
             }
         } catch (SQLException e) {
@@ -209,37 +183,6 @@ public class CommentDaoImpl implements CommentDao {
             throw new DaoException(e);
         }
         return comments;
-    }
-
-    @Override
-    public List<Movie> findCommentsByUserName(String userName) throws DaoException {
-        List<Movie> userComments = new ArrayList<>();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_COMMENTS)) {
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Movie movie = new Movie();
-                Comment comment = new Comment();
-                User user = User.newUserBuilder()
-                        .withUserName(resultSet.getString(TableColumn.USER_NAME))
-                        .build();
-                comment.setCommentId(resultSet.getLong(TableColumn.COMMENT_ID));
-                comment.setPostDate(resultSet.getTimestamp(TableColumn.COMMENT_POST_DATE));
-                comment.setText(resultSet.getString(TableColumn.COMMENT));
-                comment.setCommentUpVotes(resultSet.getInt(TableColumn.COMMENT_UP_VOTES));
-                comment.setCommentDownVotes(resultSet.getInt(TableColumn.COMMENT_DOWN_VOTES));
-                comment.setUser(user);
-                movie.setComment(comment);
-                movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
-                movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
-                userComments.add(movie);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return userComments;
     }
 
     @Override

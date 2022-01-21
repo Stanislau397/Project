@@ -14,6 +14,7 @@ public class MovieValidator {
     private static final Pattern RELEASE_DATE_PATTERN = Pattern.compile("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$");
     private static final Pattern RUN_TIME_PATTERN = Pattern.compile("^\\d+$");
     private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^.{1,1500}$");
+    private static final Pattern COMMENT_TEXT_PATTERN = Pattern.compile("^.{1,500}$");
     private static final Pattern TITLE_PATTERN = Pattern.compile("^.{1,80}$");
 
     private static final String INVALID_IMAGE_MSG = "Invalid image data!";
@@ -21,6 +22,7 @@ public class MovieValidator {
     private static final String INVALID_RELEASE_DATE_MSG = "Invalid release date data!";
     private static final String INVALID_DESCRIPTION_MSG = "Invalid description data!";
     private static final String INVALID_RUN_TIME_MSG = "Invalid run time data!";
+    private static final String INVALID_COMMENT_TEXT_MSG = "Invalid comment text data!";
 
     public boolean isImageValid(String imagePath) throws InvalidInputException {
         if (!imagePath.matches(IMAGE_PATTERN.pattern())) {
@@ -58,6 +60,14 @@ public class MovieValidator {
         if (!description.matches(DESCRIPTION_PATTERN.pattern())) {
             logger.log(Level.ERROR, INVALID_DESCRIPTION_MSG);
             throw new InvalidInputException(INVALID_DESCRIPTION_MSG);
+        }
+        return true;
+    }
+
+    public boolean isCommentTextValid(String text) throws InvalidInputException {
+        if (!text.matches(COMMENT_TEXT_PATTERN.pattern())) {
+            logger.log(Level.ERROR, INVALID_COMMENT_TEXT_MSG);
+            throw new InvalidInputException(INVALID_COMMENT_TEXT_MSG);
         }
         return true;
     }

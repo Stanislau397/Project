@@ -1,11 +1,9 @@
 package edu.epam.project.controller.command.impl.admin;
 
 import edu.epam.project.controller.Router;
-import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.entity.Movie;
-import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.UserService;
@@ -28,7 +26,6 @@ import static edu.epam.project.controller.command.AttributeName.COUNT_GENRES;
 import static edu.epam.project.controller.command.AttributeName.COUNT_USERS;
 import static edu.epam.project.controller.command.AttributeName.MOST_RATED_MOVIES_LIST;
 import static edu.epam.project.controller.command.AttributeName.LATEST_MOVIES_LIST;
-import static edu.epam.project.controller.command.AttributeName.LATEST_USERS_LIST;
 import static edu.epam.project.controller.command.AttributeName.LATEST_REVIEWED_MOVIES_LIST;
 
 public class ToAdminCabinetCommand implements Command {
@@ -46,7 +43,6 @@ public class ToAdminCabinetCommand implements Command {
                 List<Movie> topMovies = movieService.findMostRatedMovies();
                 List<Movie> latestMovies = movieService.findLatestUploadedMovies();
                 List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
-                List<User> latestUsers = userService.findLatestRegisteredUsers();
                 int genresAmount = movieService.countGenres();
                 int moviesAmount = movieService.countMovies();
                 int actorsAmount = movieService.countActors();
@@ -54,7 +50,6 @@ public class ToAdminCabinetCommand implements Command {
                 int usersAmount = userService.countAmountOfUsers();
                 request.setAttribute(MOST_RATED_MOVIES_LIST, topMovies);
                 request.setAttribute(LATEST_MOVIES_LIST, latestMovies);
-                request.setAttribute(LATEST_USERS_LIST, latestUsers);
                 request.setAttribute(LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
                 request.setAttribute(COUNT_ACTORS, actorsAmount);
                 request.setAttribute(COUNT_DIRECTORS, directorsAmount);

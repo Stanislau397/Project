@@ -8,6 +8,7 @@ import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
+import edu.epam.project.service.CommentService;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.validator.ActorValidator;
 import edu.epam.project.validator.MovieValidator;
@@ -612,15 +613,15 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie findMovieById(long movieId) throws ServiceException {
         Optional<Movie> isFound;
-        CommentDao commentDao = new CommentDaoImpl();
+        CommentService commentService = new CommentServiceImpl();
         Movie movie = new Movie();
         try {
             isFound = movieDao.findMovieById(movieId);
-            List<Genre> genres = movieDao.findMovieGenresByMovieId(movieId);
-            List<Comment> comments = commentDao.findCommentsByMovieId(movieId);
-            List<Actor> actors = movieDao.findActorsByMovieId(movieId);
-            List<Director> directors = movieDao.findDirectorsByMovieId(movieId);
-            List<Country> countries = movieDao.findCountriesForMovieById(movieId);
+            List<Genre> genres = findMovieGenresByMovieId(movieId);
+            List<Comment> comments = commentService.findCommentsByMovieId(movieId);
+            List<Actor> actors = findActorsByMovieId(movieId);
+            List<Director> directors = findDirectorsByMovieId(movieId);
+            List<Country> countries = findCountriesForMovieById(movieId);
             if (isFound.isPresent()) {
                 movie = isFound.get();
                 movie.setGenres(genres);

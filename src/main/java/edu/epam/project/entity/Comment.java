@@ -16,79 +16,36 @@ public class Comment extends Entity {
     private Timestamp postDate;
     private User user;
 
-    /**
-     * Empty constructor for Comment
-     * with no parameters
-     */
-    public Comment() {
+    private Comment() {
 
     }
-
-    /**
-     * Constructs and initializes a Comment on fields:
-     * @param commentId long value of commentId
-     * @param text String value of commentText
-     * @param user User object of user
-     * @param postDate Timestamp object of postDate
-     * @param commentUpVotes int value of commentUpVotes
-     * @param commentDownVotes int value of commentDownVotes
-     */
-    public Comment(long commentId, String text, User user, Timestamp postDate, int commentUpVotes, int commentDownVotes) {
-        this.commentId = commentId;
-        this.text = text;
-        this.postDate = postDate;
-        this.user = user;
-        this.commentUpVotes = commentUpVotes;
-        this.commentDownVotes = commentDownVotes;
-    }
-
 
     public long getCommentId() {
         return commentId;
-    }
-
-    public void setCommentId(long commentId) {
-        this.commentId = commentId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Timestamp getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Timestamp postDate) {
-        this.postDate = postDate;
     }
 
     public int getCommentUpVotes() {
         return commentUpVotes;
     }
 
-    public void setCommentUpVotes(int commentUpVotes) {
-        this.commentUpVotes = commentUpVotes;
-    }
-
     public int getCommentDownVotes() {
         return commentDownVotes;
     }
 
-    public void setCommentDownVotes(int commentDownVotes) {
-        this.commentDownVotes = commentDownVotes;
+    public String getText() {
+        return text;
+    }
+
+    public Timestamp getPostDate() {
+        return postDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public static CommentBuilder newCommentBuilder() {
+        return new Comment().new CommentBuilder();
     }
 
     @Override
@@ -109,20 +66,59 @@ public class Comment extends Entity {
     @Override
     public int hashCode() {
         int result = (int) (commentId ^ (commentId >>> 32));
-        result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + commentUpVotes;
         result = 31 * result + commentDownVotes;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (postDate != null ? postDate.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(commentId).append(" ").append(text)
-                .append(" ").append(user.getUserName()).append(" ")
-                .append(user.getAvatar());
-        return sb.toString();
+    public class CommentBuilder {
+
+        private long commentId;
+        private int commentUpVotes;
+        private int commentDownVotes;
+        private String text;
+        private Timestamp postDate;
+        private User user;
+
+        private CommentBuilder() {
+
+        }
+
+        public CommentBuilder withCommentId(long commentId) {
+            Comment.this.commentId = commentId;
+            return this;
+        }
+
+        public CommentBuilder withUpVotes(int upVotes) {
+            Comment.this.commentUpVotes = upVotes;
+            return this;
+        }
+
+        public CommentBuilder withDownVotes(int downVotes) {
+            Comment.this.commentDownVotes = downVotes;
+            return this;
+        }
+
+        public CommentBuilder withText(String text) {
+            Comment.this.text = text;
+            return this;
+        }
+
+        public CommentBuilder withPostDate(Timestamp postDate) {
+            Comment.this.postDate = postDate;
+            return this;
+        }
+
+        public CommentBuilder withUser(User user) {
+            Comment.this.user = user;
+            return this;
+        }
+
+        public Comment build() {
+            return Comment.this;
+        }
     }
 }

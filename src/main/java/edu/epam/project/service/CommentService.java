@@ -1,34 +1,30 @@
 package edu.epam.project.service;
 
 import edu.epam.project.entity.Comment;
-import edu.epam.project.entity.Movie;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
 import java.util.List;
 
 public interface CommentService {
 
-    boolean leaveComment(long userId, long movieId, String comment) throws ServiceException;
+    boolean add(long userId, long movieId, String text) throws ServiceException, InvalidInputException; //completed
 
-    boolean deleteCommentById(long commentId) throws ServiceException;
+    boolean deleteById(long commentId) throws ServiceException; //completed
 
-    boolean updateComment(String updatedText, String text, String userName) throws ServiceException;
+    boolean update(long userId, long commentId, String newText) throws ServiceException; //completed
 
-    boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException;
+    boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException; //completed
 
-    boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException;
+    boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException; //completed
 
-    boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException;
+    boolean isUserAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException; //completed
 
-    boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException;
+    boolean isUserAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException; //completed
 
-    boolean removeUserVote(long commentId, long userId) throws ServiceException;
+    boolean removeUserVote(long commentId, long userId) throws ServiceException; //completed
 
-    Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws ServiceException;
+    List<Comment> findCommentsByMovieId(long movieId) throws ServiceException; //completed
 
-    List<Comment> findCommentsByMovieId(long movieId) throws ServiceException;
-
-    List<Movie> findCommentsByUserName(String userName) throws ServiceException;
-
-    int countUserCommentsByUserName(String userName) throws ServiceException;
+    int countUserCommentsByUserName(String userName) throws ServiceException; //completed
 }

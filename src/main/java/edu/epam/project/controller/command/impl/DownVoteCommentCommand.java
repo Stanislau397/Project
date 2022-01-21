@@ -18,7 +18,6 @@ import java.io.IOException;
 import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 import static edu.epam.project.controller.command.RequestParameter.COMMENT_ID;
 
 public class DownVoteCommentCommand implements Command {
@@ -31,14 +30,10 @@ public class DownVoteCommentCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        long  userId = (Long) session.getAttribute(USER_ID);
+        long userId = (Long) session.getAttribute(USER_ID);
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
-        boolean userAlreadyDownVoted;
         try {
-            userAlreadyDownVoted = commentService.userAlreadyDownVoted(commentId, userId, 1);
-            if (!userAlreadyDownVoted) {
-                commentService.downVoteComment(commentId, userId, 1);
-            }
+            commentService.downVoteComment(commentId, userId, 1);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);
         } catch (ServiceException e) {

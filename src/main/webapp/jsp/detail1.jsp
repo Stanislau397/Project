@@ -423,8 +423,8 @@
                                     <div id="pop1${counter.count}" class="overlay2">
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="edit_comment">
-                                            <input type="hidden" name="text" value="${comments.text}">
-                                            <input type="hidden" name="user_name" value="${comments.user.userName}">
+                                            <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                            <input type="hidden" name="user_id" value="${comments.user.userId}">
                                             <div class="pop1">
                                                 <a class="close" href="#"><i class="fa fa-close"></i></a>
                                                 <div class="text">

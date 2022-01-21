@@ -18,11 +18,11 @@ import java.io.IOException;
 import static edu.epam.project.controller.command.RequestParameter.*;
 
 import static edu.epam.project.controller.command.SessionAttribute.COMMENT_EDITED;
-import static edu.epam.project.controller.command.SessionAttribute.COMMENT_REMOVED;
 
 public class EditCommentCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(EditCommentCommand.class);
+    private static final String COMMENT_EDITED_MSG = "Comment has been edited";
     private CommentService commentService = new CommentServiceImpl();
 
     @Override
@@ -30,14 +30,14 @@ public class EditCommentCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String updatedText = request.getParameter(UPDATED_TEXT);
-        String text = request.getParameter(TEXT);
-        String userName = request.getParameter(USER_NAME_PARAMETER);
+        String newText = request.getParameter(UPDATED_TEXT);
+        long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
+        long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (commentService.updateComment(updatedText, text, userName)) {
+            if (commentService.update(userId, commentId, newText)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
-                session.setAttribute(COMMENT_EDITED, updatedText);
+                session.setAttribute(COMMENT_EDITED, COMMENT_EDITED_MSG);
             }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

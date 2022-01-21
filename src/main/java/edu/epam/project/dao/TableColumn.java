@@ -16,7 +16,6 @@ public class TableColumn {
 
     public static final String MOVIE_TITLE = "title";
     public static final String MOVIE_ID = "movie_id";
-    public static final String MOVIE_ID_FK = "movie_id_fk";
     public static final String MOVIE_COUNTRY = "country";
     public static final String MOVIE_DESCRIPTION = "description";
     public static final String MOVIE_RELEASE_DATE = "release_date";
@@ -26,11 +25,11 @@ public class TableColumn {
     public static final String AVERAGE_MOVIE_SCORE = "average";
 
     public static final String MOVIE_SCORE = "user_score";
-    public static final String COMMENT = "user_comment";
+    public static final String TEXT = "text";
     public static final String COMMENT_ID = "comment_id";
     public static final String COMMENT_POST_DATE = "post_date";
-    public static final String COMMENT_UP_VOTES = "up_votes";
-    public static final String COMMENT_DOWN_VOTES = "down_votes";
+    public static final String UP_VOTE = "up_vote";
+    public static final String DOWN_VOTE = "down_vote";
 
     public static final String GENRE_TITLE = "genre_title";
     public static final String GENRE_ID = "genres_id";

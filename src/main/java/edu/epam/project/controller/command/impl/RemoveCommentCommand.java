@@ -30,7 +30,7 @@ public class RemoveCommentCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
         try {
-            if (commentService.deleteCommentById(commentId)) {
+            if (commentService.deleteById(commentId)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(COMMENT_REMOVED, 1);

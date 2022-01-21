@@ -3,10 +3,11 @@ package edu.epam.project.service.impl;
 import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.impl.CommentDaoImpl;
 import edu.epam.project.entity.Comment;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
+import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
+import edu.epam.project.validator.MovieValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,12 +22,15 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao = new CommentDaoImpl();
 
     @Override
-    public boolean leaveComment(long userId, long movieId, String comment) throws ServiceException {
-        boolean isLeft;
+    public boolean add(long userId, long movieId, String text) throws ServiceException, InvalidInputException {
+        boolean isLeft = false;
+        MovieValidator movieValidator = new MovieValidator();
         Date date = new Date();
         Timestamp postDate = new Timestamp(date.getTime());
         try {
-            isLeft = commentDao.leaveComment(movieId, userId, comment, postDate);
+            if (movieValidator.isCommentTextValid(text)) {
+                isLeft = commentDao.add(movieId, userId, text, postDate);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -35,10 +39,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteCommentById(long commentId) throws ServiceException {
+    public boolean deleteById(long commentId) throws ServiceException {
         boolean isDeleted;
         try {
-            isDeleted = commentDao.deleteCommentById(commentId);
+            isDeleted = commentDao.delete(commentId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -47,10 +51,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean updateComment(String updatedText, String text, String userName) throws ServiceException {
+    public boolean update(long userId, long commentId, String newText) throws ServiceException {
         boolean isUpdated;
         try {
-            isUpdated = commentDao.updateComment(updatedText, text, userName);
+            isUpdated = commentDao.update(commentId, newText);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -62,8 +66,8 @@ public class CommentServiceImpl implements CommentService {
     public boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException {
         boolean isUpVoted;
         try {
-            if (userAlreadyDownVoted(commentId, userId, 1)) {
-                commentDao.removeUserVote(commentId, userId);
+            if (isUserAlreadyDownVoted(commentId, userId, 1)) {
+                removeUserVote(commentId, userId);
             }
             isUpVoted = commentDao.upVoteComment(commentId, userId, upVote);
         } catch (DaoException e) {
@@ -77,8 +81,8 @@ public class CommentServiceImpl implements CommentService {
     public boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException {
         boolean isDownVoted;
         try {
-            if (userAlreadyUpVoted(commentId, userId, 1)) {
-                commentDao.removeUserVote(commentId, userId);
+            if (isUserAlreadyUpVoted(commentId, userId, 1)) {
+                removeUserVote(commentId, userId);
             }
             isDownVoted = commentDao.downVoteComment(commentId, userId, downVote);
         } catch (DaoException e) {
@@ -89,22 +93,22 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException {
-        boolean isUserVoted;
+    public boolean isUserAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException {
+        boolean isUserUpVoted;
         try {
-            isUserVoted = commentDao.userAlreadyUpVoted(commentId, userId, upVote);
+            isUserUpVoted = commentDao.isUserAlreadyUpVoted(commentId, userId, upVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isUserVoted;
+        return isUserUpVoted;
     }
 
     @Override
-    public boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException {
+    public boolean isUserAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException {
         boolean isUserDownVoted;
         try {
-            isUserDownVoted = commentDao.userAlreadyDownVoted(commentId, userId, downVote);
+            isUserDownVoted = commentDao.isUserAlreadyDownVoted(commentId, userId, downVote);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -116,24 +120,12 @@ public class CommentServiceImpl implements CommentService {
     public boolean removeUserVote(long commentId, long userId) throws ServiceException {
         boolean isVoteRemoved;
         try {
-            isVoteRemoved = commentDao.removeUserVote(commentId, userId);
+            isVoteRemoved = commentDao.removeUserVoteByCommentIdAndUserId(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return isVoteRemoved;
-    }
-
-    @Override
-    public Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws ServiceException {
-        Comment comment = new Comment();
-        try {
-            comment = commentDao.findCommentUpVotesAndDownVotes(userName, commentId);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return comment;
     }
 
     @Override
@@ -146,18 +138,6 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
         return comments;
-    }
-
-    @Override
-    public List<Movie> findCommentsByUserName(String userName) throws ServiceException {
-        List<Movie> userComments;
-        try {
-            userComments = commentDao.findCommentsByUserName(userName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return userComments;
     }
 
     @Override

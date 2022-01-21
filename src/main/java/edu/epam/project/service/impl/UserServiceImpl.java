@@ -147,16 +147,4 @@ public class UserServiceImpl implements UserService {
         }
         return users;
     }
-
-    @Override
-    public List<User> findLatestRegisteredUsers() throws ServiceException {
-        List<User> latestUsers;
-        try {
-            latestUsers = userDao.findLatestRegisteredUsers();
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return latestUsers;
-    }
 }

@@ -33,12 +33,8 @@ public class UpVoteCommentCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         long userId = (Long) session.getAttribute(USER_ID);
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
-        boolean userAlreadyUpVoted;
         try {
-            userAlreadyUpVoted = commentService.userAlreadyUpVoted(commentId, userId, 1);
-            if (!userAlreadyUpVoted) {
-                commentService.upVoteComment(commentId, userId, 1);
-            }
+            commentService.upVoteComment(commentId, userId, 1);
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);
         } catch (ServiceException e) {

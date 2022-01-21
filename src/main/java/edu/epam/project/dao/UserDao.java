@@ -25,6 +25,4 @@ public interface UserDao {
     Optional<User> findUserByUserName(String userName) throws DaoException; //completed
 
     List<User> findAll() throws DaoException; //completed
-
-    List<User> findLatestRegisteredUsers() throws DaoException;  //todo
 }

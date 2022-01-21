@@ -1,7 +1,6 @@
 package edu.epam.project.dao;
 
 import edu.epam.project.entity.Comment;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.exception.DaoException;
 
 import java.sql.Timestamp;
@@ -9,27 +8,23 @@ import java.util.List;
 
 public interface CommentDao {
 
-    boolean leaveComment(long movieId, long userId, String comment, Timestamp postDate) throws DaoException;
+    boolean add(long movieId, long userId, String text, Timestamp postDate) throws DaoException; //completed
 
-    boolean deleteCommentById(long commentId) throws DaoException;
+    boolean delete(long commentId) throws DaoException; //completed
 
-    boolean userAlreadyUpVoted(long commentId, long userId, int upVote) throws DaoException;
+    boolean update(long commentId, String newText) throws DaoException; //completed
 
-    boolean userAlreadyDownVoted(long commentId, long userId, int downVote) throws DaoException;
+    boolean isUserAlreadyUpVoted(long commentId, long userId, int upVote) throws DaoException; //completed
 
-    boolean removeUserVote(long commentId, long userId) throws DaoException;
+    boolean isUserAlreadyDownVoted(long commentId, long userId, int downVote) throws DaoException; //completed
 
-    Comment findCommentUpVotesAndDownVotes(String userName, long commentId) throws DaoException;
+    boolean removeUserVoteByCommentIdAndUserId(long commentId, long userId) throws DaoException; //completed
 
-    boolean updateComment(String updatedText, String text, String userName) throws DaoException;
+    boolean upVoteComment(long commentId, long userId, int upVote) throws DaoException; //completed
 
-    boolean upVoteComment(long commentId, long userId, int upVote) throws DaoException;
+    boolean downVoteComment(long commentId, long userId, int downVote) throws DaoException; //completed
 
-    boolean downVoteComment(long commentId, long userId, int downVote) throws DaoException;
+    List<Comment> findCommentsByMovieId(long movieId) throws DaoException; //completed
 
-    List<Comment> findCommentsByMovieId(long movieId) throws DaoException;
-
-    List<Movie> findCommentsByUserName(String userName) throws DaoException;
-
-    int countUserCommentsByUserName(String userName) throws DaoException;
+    int countUserCommentsByUserName(String userName) throws DaoException; //completed
 }
