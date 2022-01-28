@@ -2,7 +2,6 @@ package edu.epam.project.service.impl;
 
 import edu.epam.project.dao.UserDao;
 import edu.epam.project.dao.impl.UserDaoImpl;
-import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.InvalidInputException;
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private static UserDao userDao = new UserDaoImpl();
 
     @Override
-    public boolean register(User user, String password) throws ServiceException, InvalidInputException {
+    public boolean register(User user, String password) throws ServiceException {
         boolean isRegistered = false;
         AccountValidator validator = new AccountValidator();
         PasswordEncryptor encryptor = new PasswordEncryptor();
@@ -34,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 String encryptedPassword = encryptor.encryptPassword(password);
                 isRegistered = userDao.register(user, encryptedPassword);
             }
-        } catch (DaoException e) {
+        } catch (DaoException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
@@ -78,20 +77,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException {
+    public User findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException {
         PasswordEncryptor encryptor = new PasswordEncryptor();
         AccountValidator validator = new AccountValidator();
-        Optional<User> isFound = Optional.empty();
+        Optional<User> userOptional;
+        User user = User.newUserBuilder().build();
         try {
             if (validator.isValidEmail(email) && validator.isValidPassword(password)) {
                 String encryptedPassword = encryptor.encryptPassword(password);
-                isFound = userDao.findByEmailAndPassword(email, encryptedPassword);
+                userOptional = userDao.findByEmailAndPassword(email, encryptedPassword);
+                if (userOptional.isPresent()) {
+                    user = userOptional.get();
+                }
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isFound;
+        return user;
     }
 
     @Override

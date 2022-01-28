@@ -76,38 +76,38 @@
             <c:when test="${requestScope.movie_info.releaseDate.after(today)}">
                 <div class="my-score">
                     <div class="my-score-title">
-                        <h2><fmt:message key="label.review_msg"/> <c:out
+                        <h2><fmt:message key="label.review_msg"/><c:out
                                 value="${requestScope.movie_info.releaseDate}"/></h2>
                     </div>
                 </div>
             </c:when>
-            <c:when test="${sessionScope.user_name != null && requestScope.user_score == 0 && requestScope.movie_info.releaseDate.before(today)
-             || sessionScope.admin != null && requestScope.user_score == 0 && requestScope.movie_info.releaseDate.before(today)}">
+            <c:when test="${sessionScope.user != null && requestScope.user_score == null && requestScope.movie_info.releaseDate.before(today)}">
                 <div class="rate-movie">
                     <button class="rate-btn"><fmt:message key="label.rate"/>
                         <i class="fa fa-arrow-right " style="margin-left: 3px"></i></button>
                     <form action="${pageContext.request.contextPath}/controller" method="post">
                         <input type="hidden" name="command" value="rate_movie">
-                        <input type="hidden" name="movie_id" value="${movie_info.movieId}">
-                        <input type="submit" name="star" id="star1" value="100">
+                        <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
+                        <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
+                        <input type="submit" name="score" id="star1" value="100">
                         <label class="star10" for="star1"></label>
-                        <input type="submit" name="star" id="star2" value="90">
+                        <input type="submit" name="score" id="star2" value="90">
                         <label class="star9" for="star2"></label>
-                        <input type="submit" name="star" id="star3" value="80">
+                        <input type="submit" name="score" id="star3" value="80">
                         <label class="star8" for="star3"></label>
-                        <input type="submit" name="star" id="star4" value="70">
+                        <input type="submit" name="score" id="star4" value="70">
                         <label class="star7" for="star4"></label>
-                        <input type="submit" name="star" id="star5" value="60">
+                        <input type="submit" name="score" id="star5" value="60">
                         <label class="star6" for="star5"></label>
-                        <input type="submit" name="star" id="star6" value="50">
+                        <input type="submit" name="score" id="star6" value="50">
                         <label class="star5" for="star6"></label>
-                        <input type="submit" name="star" id="star7" value="40">
+                        <input type="submit" name="score" id="star7" value="40">
                         <label class="star4" for="star7"></label>
-                        <input type="submit" name="star" id="star8" value="30">
+                        <input type="submit" name="score" id="star8" value="30">
                         <label class="star3" for="star8"></label>
-                        <input type="submit" name="star" id="star9" value="20">
+                        <input type="submit" name="score" id="star9" value="20">
                         <label class="star2" for="star9"></label>
-                        <input type="submit" name="star" id="star10" value="10">
+                        <input type="submit" name="score" id="star10" value="10">
                         <label class="star1" for="star10"></label>
                     </form>
                 </div>
@@ -115,31 +115,33 @@
                     <p></p>
                 </div>
             </c:when>
-            <c:when test="${sessionScope.user_name != null && requestScope.user_score != 0 || sessionScope.admin != null && requestScope.user_score != 0}">
+            <c:when test="${sessionScope.user.userId != null && requestScope.user_score != null}">
                 <div class="my-score">
                     <div class="my-score-title">
                         <h2><fmt:message key="label.my_score"/>
                             <form action="${pageContext.request.contextPath}/controller" method="post">
                                 <input type="hidden" name="command" value="remove_rating">
+                                <input type="hidden" name="rating_id" value="${requestScope.user_score.ratingId}">
+                                <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                 <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
                                 <button class="remove-rating" type="submit"><fmt:message key="label.remove"/></button>
                             </form>
                         </h2>
                     </div>
                     <c:choose>
-                        <c:when test="${requestScope.user_score >= 70}">
+                        <c:when test="${requestScope.user_score.score >= 70}">
                             <div class="my-score-value" style="background-color: #66cc33;">
-                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                                <p class="value"><c:out value="${requestScope.user_score.score / 10}"/></p>
                             </div>
                         </c:when>
-                        <c:when test="${requestScope.user_score < 70 && requestScope.user_score >= 40}">
+                        <c:when test="${requestScope.user_score.score < 70 && requestScope.user_score.score >= 40}">
                             <div class="my-score-value" style="background-color: #f9c22a;">
-                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                                <p class="value"><c:out value="${requestScope.user_score.score / 10}"/></p>
                             </div>
                         </c:when>
-                        <c:when test="${requestScope.user_score < 40}">
+                        <c:when test="${requestScope.user_score.score < 40}">
                             <div class="my-score-value" style="background-color: red;">
-                                <p class="value"><c:out value="${requestScope.user_score / 10}"/></p>
+                                <p class="value"><c:out value="${requestScope.user_score.score / 10}"/></p>
                             </div>
                         </c:when>
                     </c:choose>
@@ -326,7 +328,7 @@
                     <h3><fmt:message key="label.no_comments"/></h3>
                 </c:otherwise>
             </c:choose>
-            <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
+            <c:if test="${sessionScope.user != null && requestScope.movie_info.releaseDate.before(today)}">
                 <button class="scroll-down"><i class="fa fa-plus"></i>
                     <p><fmt:message key="label.write_comment"/></p></button>
             </c:if>
@@ -354,31 +356,31 @@
                                 </div>
                                 <div class="comment-vote">
                                     <c:choose>
-                                        <c:when test="${sessionScope.user != null || sessionScope.admin != null}">
-                                            <c:if test="${sessionScope.user_name != comments.user.userName}">
+                                        <c:when test="${sessionScope.user != null}">
+                                            <c:if test="${sessionScope.user.userName != comments.user.userName}">
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="up_vote_comment">
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
-                                                    <input type="hidden" name="user_id" value="${sessionScope.user_id}">
+                                                    <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                                     <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
                                                         <c:out value="${comments.commentUpVotes}"/></button>
                                                 </form>
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="down_vote_comment">
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
-                                                    <input type="hidden" name="user_id" value="${sessionScope.user_id}">
+                                                    <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                                     <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
                                                         <c:out value="${comments.commentDownVotes}"/></button>
                                                 </form>
                                             </c:if>
-                                            <c:if test="${sessionScope.user_name == comments.user.userName}">
+                                            <c:if test="${sessionScope.user.userName == comments.user.userName}">
                                                 <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
                                                     <c:out value="${comments.commentUpVotes}"/></button>
                                                 <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
                                                     <c:out value="${comments.commentDownVotes}"/></button>
                                             </c:if>
                                         </c:when>
-                                        <c:when test="${sessionScope.user == null || sessionScope.admin == null}">
+                                        <c:when test="${sessionScope.user == null}">
                                             <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
                                                 <c:out value="${comments.commentUpVotes}"/></button>
                                             <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
@@ -391,7 +393,7 @@
                                 <p><fmt:formatDate value="${comments.postDate}" pattern="dd-MM-yyyy | HH:mm"/></p>
                             </div>
                             <div class="more">
-                                <c:if test="${sessionScope.admin != null || sessionScope.user_name == comments.user.userName}">
+                                <c:if test="${sessionScope.user.role == 'ADMIN'|| sessionScope.user.userName == comments.user.userName}">
                                     <span><i class="fa fa-ellipsis-v"></i></span>
                                 </c:if>
                                 <div class="dropdown-content">
@@ -447,20 +449,20 @@
                     <br>
                 </c:when>
             </c:choose>
-            <c:if test="${sessionScope.user_name != null && requestScope.movie_info.releaseDate.before(today)}">
+            <c:if test="${sessionScope.user != null && requestScope.movie_info.releaseDate.before(today)}">
                 <h3><fmt:message key="label.write_comment"/></h3>
                 <div class="leave-comment">
                     <div class="user-info">
                         <div class="user-picture1">
-                            <img src="${sessionScope.user_avatar}">
+                            <img src="${sessionScope.user.avatar}">
                         </div>
                         <div class="user-name">
                             <form action="${pageContext.request.contextPath}/controller" name="get">
                                 <input type="hidden" name="command" value="show_user_profile">
-                                <input type="hidden" name="user_name" value="${sessionScope.user_name}">
+                                <input type="hidden" name="user_name" value="${sessionScope.user.userName}">
                                 <input type="hidden" name="page" value="1">
                                 <button type="submit" class="user-name-button"><c:out
-                                        value="${sessionScope.user_name}"/></button>
+                                        value="${sessionScope.user.userName}"/></button>
                             </form>
                             <form action="${pageContext.request.contextPath}/controller" name="get">
                                 <input type="hidden" name="command" value="sign_out">
@@ -472,8 +474,8 @@
                         <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="command" value="leave_comment">
                             <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                            <input type="hidden" name="user_id" value="${sessionScope.user_id}">
-                            <textarea name="comment"></textarea>
+                            <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
+                            <textarea name="text"></textarea>
                             <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
                         </form>
                     </div>
@@ -481,6 +483,7 @@
             </c:if>
             <br>
             <br>
+            <p><c:out value="${requestScope.error}"/></p>
             <jsp:include page="static/footer.jsp"/>
         </div>
     </c:otherwise>

@@ -11,13 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.SCORE;
+import static edu.epam.project.controller.command.RequestParameter.SCORE_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
-
-import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
+import static edu.epam.project.controller.command.RequestParameter.USER_ID;
 
 public class RateMovieCommand implements Command {
 
@@ -27,13 +25,13 @@ public class RateMovieCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        HttpSession session = request.getSession();
         String page = request.getHeader(REFERER);
-        int rating = Integer.parseInt(request.getParameter(SCORE));
+        int score = Integer.parseInt(request.getParameter(SCORE_PARAMETER));
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
-        String userName = (String) session.getAttribute(USER_NAME);
+        long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (ratingService.rateMovie(movieId, userName, rating)) {
+            if (!ratingService.isUserRatedMovie(userId, movieId)) {
+                ratingService.add(movieId, userId, score);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(page);
             }

@@ -1,24 +1,27 @@
 package edu.epam.project.dao;
 
+import edu.epam.project.entity.Rating;
 import edu.epam.project.exception.DaoException;
+
+import java.util.Optional;
 
 public interface RatingDao {
 
-    int countAverageMovieRatingOfUser(String userName) throws DaoException;
+    boolean add(long movieId, long userId, int score) throws DaoException; //ok
 
-    boolean rateMovie(long movieId, String userName, int score) throws DaoException;
+    boolean deleteById(long ratingId) throws DaoException; //ok
 
-    boolean isUserAlreadyVoted(String userName, long movieId) throws DaoException;
+    boolean isUserRatedMovie(long userId, long movieId) throws DaoException; //ok
 
-    boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws DaoException;
+    int countAverageMovieRatingForUser(long userId) throws DaoException; //ok
 
-    int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws DaoException;
+    Optional<Rating> findPersonalUserScoreForMovie(long userId, long movieId) throws DaoException; //ok
 
-    int countPositiveMovieScores(String userName) throws DaoException;
+    int countPositiveMovieScoresForUser(long userId) throws DaoException; //ok
 
-    int countMixedMovieScores(String userName) throws DaoException;
+    int countMixedMovieScoresForUser(long userId) throws DaoException; //ok
 
-    int countNegativeMovieScores(String userName) throws DaoException;
+    int countNegativeMovieScoresForUser(long userId) throws DaoException; //ok
 
-    int countAllMovieScores(String userName) throws DaoException;
+    int countAllMovieScoresForUser(long userId) throws DaoException; //ok
 }

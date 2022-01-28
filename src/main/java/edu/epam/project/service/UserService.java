@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    boolean register(User user, String password) throws ServiceException, InvalidInputException;
+    boolean register(User user, String password) throws ServiceException;
 
-    Optional<User> findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException;
+    User findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException;
 
     Optional<User> findUserByUserName(String userName) throws ServiceException;
 

@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.COMMENT;
+import static edu.epam.project.controller.command.RequestParameter.TEXT_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 import static edu.epam.project.controller.command.RequestParameter.USER_ID;
 
@@ -29,9 +29,9 @@ public class LeaveCommentCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         long userId = Long.parseLong(request.getParameter(USER_ID));
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
-        String comment = request.getParameter(COMMENT);
+        String text = request.getParameter(TEXT_PARAMETER);
         try {
-            if (commentService.add(userId, movieId, comment)) {
+            if (commentService.add(userId, movieId, text)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }

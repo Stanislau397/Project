@@ -12,12 +12,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<c:if test="${requestScope.register_success != null}">
-    <div class="alert" style="background-color: #66cc33">
-        <h3><fmt:message key="label.register_success"/></h3>
-        <a class="close"><i style="color: black" class="fa fa-close"></i></a>
-    </div>
-</c:if>
+<c:choose>
+    <c:when test="${requestScope.register_success != null}">
+        <div class="alert" style="background-color: #66cc33">
+            <h3><fmt:message key="label.register_success"/></h3>
+            <a class="close"><i style="color: black" class="fa fa-close"></i></a>
+        </div>
+    </c:when>
+    <c:when test="${sessionScope.registration_failure != null}">
+        <div class="alert" style="background-color: #e62e0f">
+            <h3><fmt:message key="label.register_failure"/></h3>
+            <a class="close"><i style="color: black" class="fa fa-close"></i></a>
+            <c:remove var="registration_failure" scope="session"/>
+        </div>
+    </c:when>
+</c:choose>
 <div class="form-box">
     <div class="login-box">
         <h1><fmt:message key="label.register"/></h1>

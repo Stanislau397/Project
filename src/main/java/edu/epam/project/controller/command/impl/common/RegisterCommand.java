@@ -15,12 +15,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.PASSWORD_PARAMETER;
 import static edu.epam.project.controller.command.RequestParameter.EMAIL_PARAMETER;
+import static edu.epam.project.controller.command.RequestParameter.REFERER;
 
 import static edu.epam.project.controller.command.AttributeName.REGISTER_SUCCESS;
+import static edu.epam.project.controller.command.SessionAttribute.REGISTRATION_FAILURE;
 
 public class RegisterCommand implements Command {
 
@@ -32,24 +35,28 @@ public class RegisterCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
+        HttpSession session = request.getSession();
+        String currentPage = request.getHeader(REFERER);
         String userName = request.getParameter(USER_NAME_PARAMETER);
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
         String userEmail = request.getParameter(EMAIL_PARAMETER);
         User userToRegister = User.newUserBuilder()
                 .withUserName(userName)
                 .withEmail(userEmail)
+                .withRole(RoleType.USER)
                 .withAvatar(DEFAULT_AVATAR)
                 .withStatus(false)
-                .withRole(RoleType.USER)
                 .build();
         try {
             if (userService.register(userToRegister, userPassword)) {
                 router.setPagePath(PagePath.LOGIN_PAGE);
-                router.setRoute(RouteType.FORWARD);
                 request.setAttribute(REGISTER_SUCCESS, REGISTER_SUCCESS_MSG);
             }
-        } catch (ServiceException | InvalidInputException e) {
+        } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
+            session.setAttribute(REGISTRATION_FAILURE, e);
+            router.setRoute(RouteType.REDIRECT);
+            router.setPagePath(currentPage);
         }
         return router;
     }

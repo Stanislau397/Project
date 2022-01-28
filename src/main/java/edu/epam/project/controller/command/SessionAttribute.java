@@ -6,13 +6,10 @@ public class SessionAttribute {
 
     }
 
-    public static final String ADMIN = "admin";
-    public static final String USER = "user";
-    public static final String GUEST = "guest";
+    public static final String USER_ATTR = "user";
     public static final String DIRECTOR = "director";
     public static final String ACTOR = "actor";
     public static final String USER_NAME = "user_name";
-    public static final String USER_EMAIL = "user_email";
     public static final String USER_ID = "user_id";
     public static final String USER_AVATAR = "user_avatar";
     public static final String MOVIE_TITLE_ATTR = "movie_title_attr";
@@ -32,19 +29,17 @@ public class SessionAttribute {
     public static final String COMMENT_REMOVED = "comment_removed";
     public static final String COMMENT_EDITED = "comment_edited";
     public static final String AVATAR_EDITED = "avatar_edited";
-    public static final String PASSWORD_EDITED = "password_edited";
     public static final String ACTOR_ALREADY_EXISTS = "actor_already_exists";
-    public static final String DIRECTOR_EXISTS = "director_already_exists";
     public static final String CHANGED_DATA = "changed_data";
     public static final String CHANGED_PICTURE = "changed_picture";
     public static final String CHANGED_TRAILER = "changed_trailer";
     public static final String ERROR = "error";
     public static final String PICTURE_ERROR = "picture_error";
     public static final String TRAILER_ERROR = "trailer_error";
-    public static final String DELETE_ERROR = "delete_error";
     public static final String DELETE_GENRE_ERROR = "delete_genre_error";
     public static final String BLOCKED_USER = "blocked_user";
     public static final String UNBLOCKED_USER = "unblocked_user";
     public static final String CHANGED_ROLE = "changed_role";
     public static final String INVALID_INPUT = "invalid_input";
+    public static final String REGISTRATION_FAILURE = "registration_failure";
 }

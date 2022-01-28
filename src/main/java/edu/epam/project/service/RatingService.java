@@ -1,24 +1,25 @@
 package edu.epam.project.service;
 
+import edu.epam.project.entity.Rating;
 import edu.epam.project.exception.ServiceException;
 
 public interface RatingService {
 
-    int countAverageMovieRatingOfUser(String userName) throws ServiceException;
+    int countAverageMovieRatingForUser(long userId) throws ServiceException;
 
-    boolean rateMovie(long movieId, String userName, int score) throws ServiceException;
+    boolean add(long movieId, long userId, int score) throws ServiceException;
 
-    boolean isUserAlreadyVoted(String userName, long movieId) throws ServiceException;
+    boolean isUserRatedMovie(long userId, long movieId) throws ServiceException;
 
-    boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws ServiceException;
+    boolean deleteById(long ratingId) throws ServiceException;
 
-    int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws ServiceException;
+    Rating findPersonalUserScoreForMovie(long userId, long movieId) throws ServiceException;
 
-    int countPositiveMovieScores(String userName) throws ServiceException;
+    int countPositiveMovieScoresForUser(long userId) throws ServiceException;
 
-    int countMixedMovieScores(String userName) throws ServiceException;
+    int countMixedMovieScoresForUser(long userId) throws ServiceException;
 
-    int countNegativeMovieScores(String userName) throws ServiceException;
+    int countNegativeMovieScoresForUser(long userId) throws ServiceException;
 
-    int countAllMovieScores(String userName) throws ServiceException;
+    int countAllMovieScoresForUser(long userId) throws ServiceException;
 }

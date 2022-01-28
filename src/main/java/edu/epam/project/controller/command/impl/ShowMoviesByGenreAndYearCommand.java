@@ -34,8 +34,9 @@ public class ShowMoviesByGenreAndYearCommand implements Command {
         Router router = new Router();
         String genreTitle = getGenreTitle(request);
         Integer year = getMovieYear(request);
-        Genre genre = new Genre();
-        genre.setGenreTitle(genreTitle);
+        Genre genre = Genre.newGenreBuilder()
+                .withGenreTitle(genreTitle)
+                .build();
         try {
             List<Movie> moviesByGenreAndYear = movieService.findMoviesByGenreAndYear(genre, year);
             List<Genre> genres = movieService.findAllGenres();
@@ -44,7 +45,6 @@ public class ShowMoviesByGenreAndYearCommand implements Command {
             request.setAttribute(MOVIES_BY_GENRE_AND_YEAR_LIST, moviesByGenreAndYear);
             request.setAttribute(GENRES_LIST, genres);
             request.setAttribute(GENRE_ATTRIBUTE, genreTitle);
-            System.out.println(genreTitle);
             request.setAttribute(YEAR, year);
             router.setPagePath(PagePath.MOVIE_PAGE);
         } catch (ServiceException e) {

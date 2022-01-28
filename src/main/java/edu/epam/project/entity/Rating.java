@@ -10,60 +10,20 @@ public class Rating {
     private long ratingId;
     private int score;
 
-    /**
-     * Constructor for Rating object
-     * with no parameters
-     */
-    public Rating() {
+    private Rating() {
 
     }
 
-    /**
-     * Constructor for Rating object
-     * with ratingId and score
-     *
-     * @param ratingId long value of ratingId
-     * @param score    int value of rating score
-     */
-    public Rating(long ratingId, int score) {
-        this.ratingId = ratingId;
-        this.score = score;
-    }
-
-    /**
-     * Getter method of ratingId
-     *
-     * @return long value of ratingId
-     */
     public long getRatingId() {
         return ratingId;
     }
 
-    /**
-     * Setter method of ratingId
-     *
-     * @param ratingId of Rating object
-     */
-    public void setRatingId(long ratingId) {
-        this.ratingId = ratingId;
-    }
-
-    /**
-     * Getter method of ratingScore
-     *
-     * @return int value of ratingScore
-     */
     public int getScore() {
         return score;
     }
 
-    /**
-     * Setter method of ratingScore
-     *
-     * @param score int value of ratingScore
-     */
-    public void setScore(int score) {
-        this.score = score;
+    public static RatingBuilder newRatingBuilder() {
+        return new Rating().new RatingBuilder();
     }
 
     @Override
@@ -84,10 +44,24 @@ public class Rating {
         return result;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(ratingId).append(" ").append(score);
-        return sb.toString();
+    public class RatingBuilder {
+
+        private RatingBuilder() {
+
+        }
+
+        public RatingBuilder withRatingId(long ratingId) {
+            Rating.this.ratingId = ratingId;
+            return this;
+        }
+
+        public RatingBuilder withScore(int score) {
+            Rating.this.score = score;
+            return this;
+        }
+
+        public Rating build() {
+            return Rating.this;
+        }
     }
 }

@@ -175,6 +175,23 @@ button {
     display: inline-block;
 }
 
+.profile-picture ul li a {
+    font-size: 18px;
+    height: 20px;
+    width: 100%;
+    margin-left: -15px;
+    padding: 0px 15px;
+    text-align: left;
+    font-family: sans-serif;
+    display: inline-block;
+}
+
+.profile-picture ul li a:hover {
+    background-color: rgb(40, 40, 40);
+    border: none;
+    outline: none;
+}
+
 .profile-picture ul li ul {
     margin-left: 0px;
 }
@@ -193,7 +210,8 @@ button {
 }
 
 .profile-picture ul li button h4,
-.language ul li button h4 {
+.language ul li button h4,
+.profile-picture ul li a h4{
     font-family: sans-serif;
     font-weight: 200;
     margin-left: 10px;

@@ -2,6 +2,7 @@ package edu.epam.project.entity;
 
 /**
  * Class represents movieCountry
+ *
  * @author Stanislau Kachan
  */
 public class Country extends Entity {
@@ -9,46 +10,20 @@ public class Country extends Entity {
     private long countryId;
     private String countryName;
 
-    /**
-     * Constructor of Country object
-     * @param countryId long value of countryId
-     * @param countryName String value of countryName
-     */
-    public Country(long countryId, String countryName) {
-        this.countryId = countryId;
-        this.countryName = countryName;
+    private Country() {
+
     }
 
-    /**
-     * Getter method of countryId
-     * @return long value of countryId
-     */
     public long getCountryId() {
         return countryId;
     }
 
-    /**
-     * Setter method of countryId
-     * @param countryId long value of countryId
-     */
-    public void setCountryId(long countryId) {
-        this.countryId = countryId;
-    }
-
-    /**
-     * Getter method of countryName
-     * @return String object of countryName
-     */
     public String getCountryName() {
         return countryName;
     }
 
-    /**
-     * Setter method of countryName
-     * @param countryName String object of countryName
-     */
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public static CountryBuilder newCountryBuilder() {
+        return new Country().new CountryBuilder();
     }
 
     @Override
@@ -69,9 +44,24 @@ public class Country extends Entity {
         return result;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("countryId: ").append(countryId).append("CountryName: ").append(countryName);
-        return sb.toString();
+    public class CountryBuilder {
+
+        private CountryBuilder() {
+
+        }
+
+        public CountryBuilder withId(long countryId) {
+            Country.this.countryId = countryId;
+            return this;
+        }
+
+        public CountryBuilder withCountryName(String countryName) {
+            Country.this.countryName = countryName;
+            return this;
+        }
+
+        public Country build() {
+            return Country.this;
+        }
     }
 }

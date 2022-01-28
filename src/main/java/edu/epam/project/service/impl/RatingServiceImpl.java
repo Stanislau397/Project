@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Optional;
 
 public class RatingServiceImpl implements RatingService {
@@ -19,10 +18,10 @@ public class RatingServiceImpl implements RatingService {
     private RatingDao ratingDao = new RatingDaoImpl();
 
     @Override
-    public int countAverageMovieRatingOfUser(String userName) throws ServiceException {
+    public int countAverageMovieRatingForUser(long userId) throws ServiceException {
         int averageUserMovieRating;
         try {
-            averageUserMovieRating = ratingDao.countAverageMovieRatingOfUser(userName);
+            averageUserMovieRating = ratingDao.countAverageMovieRatingForUser(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -31,10 +30,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean rateMovie(long movieId, String userName, int score) throws ServiceException {
+    public boolean add(long movieId, long userId, int score) throws ServiceException {
         boolean isRated;
         try {
-            isRated = ratingDao.rateMovie(movieId, userName, score);
+            isRated = ratingDao.add(movieId, userId, score);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -43,10 +42,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean isUserAlreadyVoted(String userName, long movieId) throws ServiceException {
+    public boolean isUserRatedMovie(long userId, long movieId) throws ServiceException {
         boolean isVoted;
         try {
-            isVoted = ratingDao.isUserAlreadyVoted(userName, movieId);
+            isVoted = ratingDao.isUserRatedMovie(userId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -55,10 +54,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean removeRatingByUserNameAndMovieId(String userName, long movieId) throws ServiceException {
+    public boolean deleteById(long ratingId) throws ServiceException {
         boolean isRatingRemoved;
         try {
-            isRatingRemoved = ratingDao.removeRatingByUserNameAndMovieId(userName, movieId);
+            isRatingRemoved = ratingDao.deleteById(ratingId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -67,22 +66,26 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public int findMovieScoreByUserNameAndMovieId(String userName, long movieId) throws ServiceException {
-        int score;
+    public Rating findPersonalUserScoreForMovie(long userId, long movieId) throws ServiceException {
+        Optional<Rating> isFound;
+        Rating movieRatingForUser = Rating.newRatingBuilder().build();
         try {
-            score = ratingDao.findMovieScoreByUserNameAndMovieId(userName, movieId);
+            isFound = ratingDao.findPersonalUserScoreForMovie(userId, movieId);
+            if (isFound.isPresent()) {
+                movieRatingForUser = isFound.get();
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return score;
+        return movieRatingForUser;
     }
 
     @Override
-    public int countPositiveMovieScores(String userName) throws ServiceException {
+    public int countPositiveMovieScoresForUser(long userId) throws ServiceException {
         int countPositive;
         try {
-            countPositive = ratingDao.countPositiveMovieScores(userName);
+            countPositive = ratingDao.countPositiveMovieScoresForUser(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -91,10 +94,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public int countMixedMovieScores(String userName) throws ServiceException {
+    public int countMixedMovieScoresForUser(long userId) throws ServiceException {
         int countMixed;
         try {
-            countMixed = ratingDao.countMixedMovieScores(userName);
+            countMixed = ratingDao.countMixedMovieScoresForUser(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -103,10 +106,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public int countNegativeMovieScores(String userName) throws ServiceException {
+    public int countNegativeMovieScoresForUser(long userId) throws ServiceException {
         int countNegative;
         try {
-            countNegative = ratingDao.countNegativeMovieScores(userName);
+            countNegative = ratingDao.countNegativeMovieScoresForUser(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -115,10 +118,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public int countAllMovieScores(String userName) throws ServiceException {
+    public int countAllMovieScoresForUser(long userId) throws ServiceException {
         int countAll;
         try {
-            countAll = ratingDao.countAllMovieScores(userName);
+            countAll = ratingDao.countAllMovieScoresForUser(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

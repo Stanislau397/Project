@@ -10,59 +10,20 @@ public class Genre extends Entity {
     private long genreId;
     private String genreTitle;
 
-    /**
-     * Constructor for Genre Object
-     */
-    public Genre() {
+    private Genre() {
 
     }
 
-    /**
-     * Constructor for Genre Object
-     * with given parameters:
-     *
-     * @param genreId    long value of genreId
-     * @param genreTitle String object of genreTitle
-     */
-    public Genre(long genreId, String genreTitle) {
-        this.genreId = genreId;
-        this.genreTitle = genreTitle;
-    }
-
-    /**
-     * Getter method of genreId
-     *
-     * @return long value of genreId
-     */
     public long getGenreId() {
         return genreId;
     }
 
-    /**
-     * Setter method of genreId
-     *
-     * @param genreId long value of genreId
-     */
-    public void setGenreId(long genreId) {
-        this.genreId = genreId;
-    }
-
-    /**
-     * Getter method of genreTitle
-     *
-     * @return String object of genreTitle
-     */
     public String getGenreTitle() {
         return genreTitle;
     }
 
-    /**
-     * Setter method of genreTitle
-     *
-     * @param genreTitle String object of genreTitle
-     */
-    public void setGenreTitle(String genreTitle) {
-        this.genreTitle = genreTitle;
+    public static GenreBuilder newGenreBuilder() {
+        return new Genre().new GenreBuilder();
     }
 
     @Override
@@ -83,11 +44,24 @@ public class Genre extends Entity {
         return result;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(genreId).append(" ")
-                .append(genreTitle);
-        return sb.toString();
+    public class GenreBuilder {
+
+        private GenreBuilder() {
+
+        }
+
+        public GenreBuilder withId(long genreId) {
+            Genre.this.genreId = genreId;
+            return this;
+        }
+
+        public GenreBuilder withGenreTitle(String genreTitle) {
+            Genre.this.genreTitle = genreTitle;
+            return this;
+        }
+
+        public Genre build() {
+            return Genre.this;
+        }
     }
 }

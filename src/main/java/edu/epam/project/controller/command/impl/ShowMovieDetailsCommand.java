@@ -4,7 +4,6 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.*;
@@ -20,7 +19,8 @@ import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
 
 import static edu.epam.project.controller.command.AttributeName.MOVIE_INFO;
 import static edu.epam.project.controller.command.AttributeName.USER_SCORE;
-import static edu.epam.project.controller.command.AttributeName.RATED_MOVIE;
+
+import static edu.epam.project.controller.command.SessionAttribute.USER_ATTR;
 
 public class ShowMovieDetailsCommand implements Command {
 
@@ -30,23 +30,22 @@ public class ShowMovieDetailsCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
-        HttpSession session = request.getSession();
         Router router = new Router();
-        String id = request.getParameter(MOVIE_ID);
-        int movieId = Integer.parseInt(id);
-        String userName = (String) session.getAttribute(SessionAttribute.USER_NAME);
-        Movie movie;
+        HttpSession session = request.getSession();
+        User user;
+        long userId = 0;
+        if (session.getAttribute(USER_ATTR) != null) {
+            user = (User) session.getAttribute(USER_ATTR);
+            userId = user.getUserId();
+        }
+        long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
-            movie = movieService.findMovieById(movieId);
-            int userScore = ratingService.findMovieScoreByUserNameAndMovieId(userName, movieId);
-            boolean isRated = ratingService.isUserAlreadyVoted(userName, movieId);
-            if (isRated) {
-                request.setAttribute(USER_SCORE, userScore);
-            } else {
-                request.setAttribute(RATED_MOVIE, isRated);
+            Movie movie = movieService.findMovieById(movieId);
+            Rating userScoreForMovie = ratingService.findPersonalUserScoreForMovie(userId, movieId);
+            if (ratingService.isUserRatedMovie(userId, movieId)) {
+                request.setAttribute(USER_SCORE, userScoreForMovie);
             }
             request.setAttribute(MOVIE_INFO, movie);
-            request.setAttribute("user_score", userScore);
             router.setPagePath(PagePath.MOVIE_DETAIL_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

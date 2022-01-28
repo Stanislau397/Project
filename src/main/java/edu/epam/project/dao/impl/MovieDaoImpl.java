@@ -168,8 +168,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -195,8 +196,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.FIND_CURRENT_YEAR_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -240,8 +242,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -268,8 +271,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -297,8 +301,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -318,16 +323,17 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException {
+    public List<Genre> findGenresForMovieByMovieId(long movieId) throws DaoException {
         List<Genre> movieGenres = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_GENRES)) {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Genre genre = new Genre();
-                genre.setGenreTitle(resultSet.getString(1));
-                genre.setGenreId(resultSet.getLong(2));
+                Genre genre = Genre.newGenreBuilder()
+                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
+                        .withId(resultSet.getLong(TableColumn.GENRE_ID))
+                        .build();
                 movieGenres.add(genre);
             }
         } catch (SQLException e) {
@@ -347,8 +353,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -374,8 +381,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_UPCOMING_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -403,8 +411,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -430,8 +439,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_MOVIES_WITH_TRAILER);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setRating(rating);
                 movie.setTrailer(resultSet.getString(TableColumn.MOVIE_TRAILER));
@@ -454,8 +464,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -482,8 +493,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -509,8 +521,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_MOST_RATED_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
@@ -537,8 +550,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
@@ -562,8 +576,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setRating(rating);
@@ -585,8 +600,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setRating(rating);
@@ -631,9 +647,12 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                Genre genre = new Genre();
-                genre.setGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
+                Genre genre = Genre.newGenreBuilder()
+                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
+                        .build();
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTrailer(resultSet.getString(TableColumn.MOVIE_TRAILER));
@@ -642,7 +661,6 @@ public class MovieDaoImpl implements MovieDao {
                 movie.setCountry(resultSet.getString(TableColumn.MOVIE_COUNTRY));
                 movie.setDescription(resultSet.getString(TableColumn.MOVIE_DESCRIPTION));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
                 movie.setRating(rating);
                 movie.setGenre(genre);
                 isFound = Optional.of(movie);
@@ -666,12 +684,13 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 Comment comment = Comment.newCommentBuilder()
                         .withText(resultSet.getString(TableColumn.TEXT))
                         .withPostDate(resultSet.getTimestamp(TableColumn.COMMENT_POST_DATE))
                         .build();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setMovieId(resultSet.getInt(TableColumn.MOVIE_ID));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
@@ -695,8 +714,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setRunTime(resultSet.getInt(TableColumn.MOVIE_RUN_TIME));
@@ -722,10 +742,11 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_LATEST_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Genre genre = new Genre();
+                Genre genre = Genre.newGenreBuilder()
+                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
-                genre.setGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE));
                 movie.setGenre(genre);
                 movie.setReleaseDate(resultSet.getDate(TableColumn.MOVIE_RELEASE_DATE));
                 latestMovies.add(movie);
@@ -745,7 +766,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_LATEST_REVIEWED_MOVIES);
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 User user = User.newUserBuilder()
                         .withUserName(resultSet.getString(TableColumn.USER_NAME))
                         .build();
@@ -753,7 +776,6 @@ public class MovieDaoImpl implements MovieDao {
                         .withText(resultSet.getString(TableColumn.TEXT))
                         .withUser(user)
                         .build();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setComment(comment);
@@ -776,8 +798,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
@@ -800,8 +823,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.AVERAGE_MOVIE_SCORE))
+                        .build();
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
                 movie.setTitle(resultSet.getString(TableColumn.MOVIE_TITLE));
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
@@ -1368,8 +1392,9 @@ public class MovieDaoImpl implements MovieDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Movie movie = new Movie();
-                Rating rating = new Rating();
-                rating.setScore(resultSet.getInt(TableColumn.MOVIE_SCORE));
+                Rating rating = Rating.newRatingBuilder()
+                        .withScore(resultSet.getInt(TableColumn.MOVIE_SCORE))
+                        .build();
                 movie.setRating(rating);
                 movie.setPicture(resultSet.getString(TableColumn.MOVIE_PICTURE));
                 movie.setMovieId(resultSet.getLong(TableColumn.MOVIE_ID));
@@ -1387,7 +1412,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean addGenre(Genre genre) throws DaoException {
         boolean isAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_GENRE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_INTO_GENRE)) {
             statement.setLong(1, genre.getGenreId());
             statement.setString(2, genre.getGenreTitle());
             int update = statement.executeUpdate();
@@ -1418,7 +1443,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean addGenreToMovie(long genreId, long movieId) throws DaoException {
         boolean isGenreAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_MOVIE_GENRES)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_INTO_MOVIE_GENRES)) {
             statement.setLong(1, movieId);
             statement.setLong(2, genreId);
             int update = statement.executeUpdate();
@@ -1452,13 +1477,14 @@ public class MovieDaoImpl implements MovieDao {
     public Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException {
         Optional<Genre> isFound = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_GENRE_BY_TITLE)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_GENRE_BY_TITLE)) {
             statement.setString(1, genreTitle);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                long genreId = resultSet.getLong(TableColumn.GENRE_ID);
-                String title = resultSet.getString(TableColumn.GENRE_TITLE);
-                Genre genre = new Genre(genreId, title);
+                Genre genre = Genre.newGenreBuilder()
+                        .withId(resultSet.getLong(TableColumn.GENRE_ID))
+                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
+                        .build();
                 isFound = Optional.of(genre);
             }
         } catch (SQLException e) {
@@ -1469,7 +1495,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException {
+    public boolean removeGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException {
         boolean isGenreRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_FROM_MOVIE)) {
@@ -1489,11 +1515,12 @@ public class MovieDaoImpl implements MovieDao {
         List<Genre> genres = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(SqlQuery.FIND_ALL_GENRES);
+            ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_GENRES);
             while (resultSet.next()) {
-                long genreId = resultSet.getLong(TableColumn.GENRE_ID);
-                String genreTitle = resultSet.getString(TableColumn.GENRE_TITLE);
-                Genre genre = new Genre(genreId, genreTitle);
+                Genre genre = Genre.newGenreBuilder()
+                        .withId(resultSet.getLong(TableColumn.GENRE_ID))
+                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
+                        .build();
                 genres.add(genre);
             }
         } catch (SQLException e) {
@@ -1639,9 +1666,10 @@ public class MovieDaoImpl implements MovieDao {
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SqlQuery.SELECT_ALL_COUNTRIES);
             while (resultSet.next()) {
-                long countryId = resultSet.getLong(TableColumn.COUNTRY_ID);
-                String countryName = resultSet.getString(TableColumn.COUNTRY_NAME);
-                Country country = new Country(countryId, countryName);
+                Country country = Country.newCountryBuilder()
+                        .withId(resultSet.getInt(TableColumn.COUNTRY_ID))
+                        .withCountryName(resultSet.getString(TableColumn.COUNTRY_NAME))
+                        .build();
                 allCountries.add(country);
             }
         } catch (SQLException e) {
@@ -1659,9 +1687,10 @@ public class MovieDaoImpl implements MovieDao {
             statement.setLong(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                long countryId = resultSet.getLong(TableColumn.COUNTRY_ID);
-                String countryName = resultSet.getString(TableColumn.COUNTRY_NAME);
-                Country country = new Country(countryId, countryName);
+                Country country = Country.newCountryBuilder()
+                        .withId(resultSet.getInt(TableColumn.COUNTRY_ID))
+                        .withCountryName(resultSet.getString(TableColumn.COUNTRY_NAME))
+                        .build();
                 movieCountries.add(country);
             }
         } catch (SQLException e) {

@@ -40,17 +40,17 @@ public class ToAdminCabinetCommand implements Command {
         HttpSession session = request.getSession();
         try {
             if (session.getAttribute("admin") != null) {
-                List<Movie> topMovies = movieService.findMostRatedMovies();
-                List<Movie> latestMovies = movieService.findLatestUploadedMovies();
-                List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
+                //List<Movie> topMovies = movieService.findMostRatedMovies();
+                //List<Movie> latestMovies = movieService.findLatestUploadedMovies();
+                //List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
                 int genresAmount = movieService.countGenres();
                 int moviesAmount = movieService.countMovies();
                 int actorsAmount = movieService.countActors();
                 int directorsAmount = movieService.countDirectors();
                 int usersAmount = userService.countAmountOfUsers();
-                request.setAttribute(MOST_RATED_MOVIES_LIST, topMovies);
-                request.setAttribute(LATEST_MOVIES_LIST, latestMovies);
-                request.setAttribute(LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
+                //request.setAttribute(MOST_RATED_MOVIES_LIST, topMovies);
+                //request.setAttribute(LATEST_MOVIES_LIST, latestMovies);
+                //request.setAttribute(LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
                 request.setAttribute(COUNT_ACTORS, actorsAmount);
                 request.setAttribute(COUNT_DIRECTORS, directorsAmount);
                 request.setAttribute(COUNT_USERS, usersAmount);

@@ -5,6 +5,7 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
+import edu.epam.project.controller.command.SessionAttribute;
 import edu.epam.project.entity.Movie;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
@@ -27,8 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static edu.epam.project.controller.command.AttributeName.USER_NAME;
-import static edu.epam.project.controller.command.RequestParameter.USER_NAME_PARAMETER;
-import static edu.epam.project.controller.command.RequestParameter.PAGE_PARAMETER;
 
 import static edu.epam.project.controller.command.AttributeName.RATED_MOVIES_LIST;
 import static edu.epam.project.controller.command.AttributeName.POSITIVE_REVIEWS;
@@ -41,6 +40,7 @@ import static edu.epam.project.controller.command.AttributeName.LATEST_LOW_SCORE
 import static edu.epam.project.controller.command.AttributeName.PAGES;
 import static edu.epam.project.controller.command.AttributeName.PAGE_ID;
 import static edu.epam.project.controller.command.AttributeName.COUNT_COMMENTS;
+import static edu.epam.project.controller.command.RequestParameter.*;
 
 public class ShowUserProfileCommand implements Command {
 
@@ -56,19 +56,23 @@ public class ShowUserProfileCommand implements Command {
         HttpSession session = request.getSession();
         Router router = new Router();
         String userName = (String) session.getAttribute(USER_NAME);
+        long userId = (Long) session.getAttribute(SessionAttribute.USER_ID);
         int pageId = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
         int start = getStartPoint(pageId);
+        if (request.getParameter(USER_ID) != null) {
+            userId = Long.parseLong(request.getParameter(USER_ID));
+        }
         if (request.getParameter(USER_NAME_PARAMETER) != null) {
             userName = request.getParameter(USER_NAME_PARAMETER);
         }
         try {
             Optional<User> userInfo = userService.findUserByUserName(userName);
             List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName, start, TOTAL);
-            int countPositiveReviews = ratingService.countPositiveMovieScores(userName);
-            int countMixedReviews = ratingService.countMixedMovieScores(userName);
-            int countNegativeReviews = ratingService.countNegativeMovieScores(userName);
-            int countAllReviews = ratingService.countAllMovieScores(userName);
-            int countAverageMovieRating = ratingService.countAverageMovieRatingOfUser(userName);
+            int countPositiveReviews = ratingService.countPositiveMovieScoresForUser(userId);
+            int countMixedReviews = ratingService.countMixedMovieScoresForUser(userId);
+            int countNegativeReviews = ratingService.countNegativeMovieScoresForUser(userId);
+            int countAllReviews = ratingService.countAllMovieScoresForUser(userId);
+            int countAverageMovieRating = ratingService.countAverageMovieRatingForUser(userId);
             int countUserComments = commentService.countUserCommentsByUserName(userName);
             int pages = countPages(userName);
             Optional<Movie> latestHighScoreMovie = movieService.findLatestHighRatedMovieForUser(userName);

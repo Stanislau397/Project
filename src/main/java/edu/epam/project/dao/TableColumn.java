@@ -23,6 +23,8 @@ public class TableColumn {
     public static final String MOVIE_PICTURE = "picture";
     public static final String MOVIE_TRAILER = "trailer";
     public static final String AVERAGE_MOVIE_SCORE = "average";
+    public static final String RATING_ID = "rating_id";
+    public static final String USER_SCORE = "user_score";
 
     public static final String MOVIE_SCORE = "user_score";
     public static final String TEXT = "text";

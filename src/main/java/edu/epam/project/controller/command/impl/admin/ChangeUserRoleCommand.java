@@ -31,7 +31,7 @@ public class ChangeUserRoleCommand implements Command {
         HttpSession session = request.getSession();
         long userId = Long.parseLong(request.getParameter(USER_ID));
         String userName = request.getParameter(USER_NAME);
-        String role = request.getParameter(ROLE);
+        String role = request.getParameter(ROLE_PARAMETER);
         String currentPage = request.getHeader(REFERER);
         try {
             if (userService.changeRoleById(userId, role)) {

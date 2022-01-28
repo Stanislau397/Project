@@ -3,7 +3,6 @@ package edu.epam.project.dao;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
 
-import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,8 +36,6 @@ public interface MovieDao {
     List<Movie> findMoviesByGenre(Genre genre) throws DaoException;
 
     List<Movie> findMoviesByGenreAndYear(Genre genre, Integer year) throws DaoException;
-
-    List<Genre> findMovieGenresByMovieId(long movieId) throws DaoException;
 
     List<Movie> findNewestMovies(int page, int total) throws DaoException;
 
@@ -136,21 +133,23 @@ public interface MovieDao {
 
     List<Movie> findMoviesForDirector(long directorId) throws DaoException;
 
-    boolean addGenre(Genre genre) throws DaoException;
+    boolean addGenre(Genre genre) throws DaoException; //ok
 
-    boolean removeGenreById(long genreId) throws DaoException;
+    boolean removeGenreById(long genreId) throws DaoException; //ok
 
-    boolean addGenreToMovie(long genreId, long movieId) throws DaoException;
+    boolean addGenreToMovie(long genreId, long movieId) throws DaoException; //ok
 
-    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException;
+    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException; //ok
 
-    Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException;
+    Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException; //ok
 
-    boolean removeGenreFromMovieByMovieAndGenreId(long movieId, long genreId) throws DaoException;
+    boolean removeGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException; //ok
 
-    List<Genre> findAllGenres() throws DaoException;
+    List<Genre> findAllGenres() throws DaoException; //ok
 
-    int countGenres() throws DaoException;
+    List<Genre> findGenresForMovieByMovieId(long movieId) throws DaoException; //ok
+
+    int countGenres() throws DaoException; //ok
 
     int countActors() throws DaoException;
 

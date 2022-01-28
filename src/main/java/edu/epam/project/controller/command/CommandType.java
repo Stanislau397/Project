@@ -29,7 +29,6 @@ public enum CommandType {
     CHANGE_USER_AVATAR(new ChangeAvatarCommand()),
 
     OPEN_HOME_PAGE(new OpenHomePageCommand()),
-    OPEN_LOGIN_PAGE(new OpenLogInPageCommand()),
     TO_UPLOAD_MOVIE(new ToUploadMovieCommand()),
     TO_GENRES(new ToGenresCommand()),
     TO_EDIT_MOVIE(new ToEditMovieCommand()),
@@ -38,7 +37,6 @@ public enum CommandType {
     TO_EDIT_ACTOR(new ToEditActorCommand()),
     TO_EDIT_DIRECTOR(new ToEditDirectorCommand()),
     EDIT_DIRECTOR_INFO(new EditDirectorInfoCommand()),
-    TO_USER_SETTINGS(new ToUserSettingsCommand()),
     TO_ALL_COUNTRIES(new DisplayAllCountriesCommand()),
 
     UPLOAD_MOVIE(new UploadMovieCommand()),

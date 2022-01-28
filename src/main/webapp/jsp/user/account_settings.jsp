@@ -28,9 +28,9 @@
     <h3><fmt:message key="label.profile_image"/></h3>
     <form action="${pageContext.request.contextPath}/UploadServlet" method="post" enctype="multipart/form-data">
         <input type="hidden" name="command" value="change_user_avatar">
-        <input type="hidden" name="user_id" value="${requestScope.user.userId}">
+        <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
         <div class="image-preview" id="imagePreview">
-            <img src="${requestScope.user.avatar}"
+            <img src="${sessionScope.user.avatar}"
                  alt="Image"
                  class="image-preview__image" style="margin-left: -2px">
             <span class="image-preview__default__text"></span>
@@ -45,7 +45,7 @@
     <div class="password">
         <form action="${pageContext.request.contextPath}/controller" method="post">
             <input type="hidden" name="command" value="change_password">
-            <input type="hidden" name="user_id" value="${sessionScope.user_id}">
+            <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
             <input type="password" name="password" placeholder="<fmt:message key="label.current_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
             <input type="password" name="new_password" id="new_password"

@@ -32,8 +32,9 @@ public class MoviesByGenreCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
-        Genre genre = new Genre();
-        genre.setGenreTitle(genreTitle);
+        Genre genre = Genre.newGenreBuilder()
+                .withGenreTitle(genreTitle)
+                .build();
         try {
             List<Genre> genres = movieService.findAllGenres();
             List<Movie> moviesByGenre = movieService.findMoviesByGenre(genre);

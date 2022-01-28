@@ -34,8 +34,9 @@ public class AddGenreCommand implements Command {
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
         String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
-        Genre genre = new Genre();
-        genre.setGenreTitle(genreTitle);
+        Genre genre = Genre.newGenreBuilder()
+                .withGenreTitle(genreTitle)
+                .build();
         try {
             if (!isGenreAlreadyExists(genreTitle)) {
                 if (movieService.addGenre(genre)) {

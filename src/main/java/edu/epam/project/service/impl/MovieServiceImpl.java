@@ -230,7 +230,7 @@ public class MovieServiceImpl implements MovieService {
     public boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException {
         boolean isGenreRemoved;
         try {
-            isGenreRemoved = movieDao.removeGenreFromMovieByMovieAndGenreId(movieId, genreId);
+            isGenreRemoved = movieDao.removeGenreFromMovieByMovieIdAndGenreId(movieId, genreId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -482,7 +482,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Genre> findMovieGenresByMovieId(long movieId) throws ServiceException {
         List<Genre> movieGenres;
         try {
-            movieGenres = movieDao.findMovieGenresByMovieId(movieId);
+            movieGenres = movieDao.findGenresForMovieByMovieId(movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

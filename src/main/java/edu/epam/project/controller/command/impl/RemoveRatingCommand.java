@@ -12,13 +12,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static edu.epam.project.controller.command.RequestParameter.REFERER;
+import static edu.epam.project.controller.command.RequestParameter.RATING_ID;
+import static edu.epam.project.controller.command.RequestParameter.USER_ID;
 import static edu.epam.project.controller.command.RequestParameter.MOVIE_ID;
-
-import static edu.epam.project.controller.command.SessionAttribute.USER_NAME;
 
 public class RemoveRatingCommand implements Command {
 
@@ -28,12 +27,13 @@ public class RemoveRatingCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
-        HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String userName = (String) session.getAttribute(USER_NAME);
+        long ratingId = Long.parseLong(request.getParameter(RATING_ID));
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
+        long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (ratingService.removeRatingByUserNameAndMovieId(userName, movieId)) {
+            if (ratingService.isUserRatedMovie(userId, movieId)) {
+                ratingService.deleteById(ratingId);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
             }
