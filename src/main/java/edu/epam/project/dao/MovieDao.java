@@ -75,35 +75,27 @@ public interface MovieDao {
 
     boolean addActor(Actor actor) throws DaoException;
 
-    boolean addActorToMovieById(long actorId, long movieId) throws DaoException;
+    boolean addActorToMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
-    boolean addActorToMovieByMovieId(Actor actor, long movieId) throws DaoException;
+    boolean updateActorById(long actorId, Actor actor) throws DaoException; //ok
 
-    boolean updateActorPictureByActorId(long actorId, String picture) throws DaoException;
+    boolean removeActorById(long actorId) throws DaoException; //ok
 
-    boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date release_date, double height) throws DaoException;
+    boolean removeActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
-    boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws DaoException;
+    boolean actorExistsByFirstnameAndLastname(String firstName, String lastName) throws DaoException; //ok
 
-    boolean removeActorByActorId(long actorId) throws DaoException;
+    boolean actorExistsInMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
-    boolean removeActorFromMovieById(long actorId, long movieId) throws DaoException;
+    Optional<Actor> findActorById(long actorId) throws DaoException; //ok
 
-    boolean isActorAlreadyExists(String firstName, String lastName) throws DaoException;
-
-    boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws DaoException;
-
-    Optional<Actor> findActorInfoByActorId(long actorId) throws DaoException;
-
-    List<Actor> findActorsByMovieId(long movieId) throws DaoException;
-
-    Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws DaoException;
-
-    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
+    List<Actor> findActorsByMovieId(long movieId) throws DaoException; //ok
 
     List<Actor> findAllActors(int start, int total) throws DaoException;
 
     List<Actor> findActorsByKeyWords(String keyWords) throws DaoException;
+
+    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
 
     List<Director> findAllDirectors(int start, int total) throws DaoException;
 

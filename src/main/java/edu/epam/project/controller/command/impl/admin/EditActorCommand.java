@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.entity.Actor;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -38,13 +39,15 @@ public class EditActorCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         String currentPage = request.getHeader(REFERER);
-        String firstName = request.getParameter(FIRST_NAME);
-        String lastName = request.getParameter(LAST_NAME);
-        Date birth_date = Date.valueOf(request.getParameter(BIRTH_DATE));
-        double height = Double.parseDouble(request.getParameter(HEIGHT));
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
+        Actor actor = Actor.newActorBuilder()
+                .withFirstname(request.getParameter(FIRST_NAME))
+                .withLastname(request.getParameter(LAST_NAME))
+                .withBirthDate(Date.valueOf(request.getParameter(BIRTH_DATE)).toLocalDate())
+                .withHeight(Double.parseDouble(request.getParameter(HEIGHT)))
+                .build();
         try {
-            if (movieService.updateActorInfoByActorId(actorId, firstName, lastName, birth_date, height)) {
+            if (movieService.updateActorInfoByActorId(actorId, actor)) {
                 session.setAttribute(CHANGED_DATA, DATA_CHANGED_MSG);
             } else {
                 session.setAttribute(ERROR, EDIT_ACTOR_ERROR);

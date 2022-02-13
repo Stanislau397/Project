@@ -31,7 +31,7 @@ public class AddActorToMovieCommand implements Command {
         try {
             for (String actor : actors) {
                 long actorId = Long.parseLong(actor);
-                if (!movieService.isActorAlreadyExistsInMovie(actorId, movieId)) {
+                if (!movieService.actorExistsInMovieByActorIdAndMovieId(actorId, movieId)) {
                     movieService.addActorToMovieById(actorId, movieId);
                 }
             }

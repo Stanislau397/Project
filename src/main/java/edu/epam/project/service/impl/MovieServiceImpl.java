@@ -1,8 +1,6 @@
 package edu.epam.project.service.impl;
 
-import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.MovieDao;
-import edu.epam.project.dao.impl.CommentDaoImpl;
 import edu.epam.project.dao.impl.MovieDaoImpl;
 import edu.epam.project.entity.*;
 import edu.epam.project.exception.DaoException;
@@ -16,8 +14,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.management.MemoryManagerMXBean;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +23,7 @@ public class MovieServiceImpl implements MovieService {
 
     public static final Logger logger = LogManager.getLogger(MovieServiceImpl.class);
     private MovieDao movieDao = new MovieDaoImpl();
+
 
     @Override
     public boolean add(Movie movie) throws ServiceException, InvalidInputException {
@@ -359,18 +358,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public int countActors() throws ServiceException {
-        int actors;
-        try {
-            actors = movieDao.countActors();
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return actors;
-    }
-
-    @Override
     public int countDirectors() throws ServiceException {
         int directors;
         try {
@@ -679,12 +666,12 @@ public class MovieServiceImpl implements MovieService {
         ActorValidator validator = new ActorValidator();
         String firstName = actor.getFirstName();
         String lastName = actor.getLastName();
-        String birthDate = actor.getBirthDate();
+        LocalDate birthDate = actor.getBirthDate();
         try {
-            boolean actorExist = isActorAlreadyExists(firstName, lastName);
-            if (!actorExist) {
+            boolean exists = actorExistsByFirstnameAndLastname(firstName, lastName);
+            if (!exists) {
                 if (validator.isValidFirstName(firstName) && validator.isValidLastName(lastName)
-                        && validator.isValidBirthDate(birthDate)) {
+                        && validator.isValidBirthDate(birthDate.toString())) {
                     isAdded = movieDao.addActor(actor);
                 }
             }
@@ -699,7 +686,7 @@ public class MovieServiceImpl implements MovieService {
     public boolean addActorToMovieById(long actorId, long movieId) throws ServiceException {
         boolean isActorAdded;
         try {
-            isActorAdded = movieDao.addActorToMovieById(actorId, movieId);
+            isActorAdded = movieDao.addActorToMovieByActorIdAndMovieId(actorId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -708,52 +695,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException {
-        boolean isActorAddedToMovie = false;
-        String firstName = actor.getFirstName();
-        String lastName = actor.getLastName();
-        try {
-            Optional<Actor> actorOptional = findActorByFirstLastName(firstName, lastName);
-            if (actorOptional.isPresent()) {
-                actor = actorOptional.get();
-                isActorAddedToMovie = movieDao.addActorToMovieByMovieId(actor, movieId);
-            }
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isActorAddedToMovie;
-    }
-
-    @Override
-    public boolean updateActorPictureByActorId(long actorId, String picture) throws ServiceException {
+    public boolean updateActorInfoByActorId(long actorId, Actor actor) throws ServiceException {
         boolean isUpdated;
         try {
-            isUpdated = movieDao.updateActorPictureByActorId(actorId, picture);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isUpdated;
-    }
-
-    @Override
-    public boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date birth_date, double height) throws ServiceException {
-        boolean isUpdated;
-        try {
-            isUpdated = movieDao.updateActorInfoByActorId(actorId, firstName, lastName, birth_date, height);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isUpdated;
-    }
-
-    @Override
-    public boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws ServiceException {
-        boolean isUpdated;
-        try {
-            isUpdated = movieDao.updateActorFirstAndLastNameByActorId(firstName, lastName, actorId);
+            isUpdated = movieDao.updateActorById(actorId, actor);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -765,7 +710,7 @@ public class MovieServiceImpl implements MovieService {
     public boolean removeActorByActorId(long actorId) throws ServiceException {
         boolean isRemoved;
         try {
-            isRemoved = movieDao.removeActorByActorId(actorId);
+            isRemoved = movieDao.removeActorById(actorId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -777,7 +722,7 @@ public class MovieServiceImpl implements MovieService {
     public boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException {
         boolean isActorDeleted;
         try {
-            isActorDeleted = movieDao.removeActorFromMovieById(actorId, movieId);
+            isActorDeleted = movieDao.removeActorFromMovieByActorIdAndMovieId(actorId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -786,51 +731,39 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException {
-        boolean isExists;
+    public boolean actorExistsByFirstnameAndLastname(String firstName, String lastName) throws ServiceException {
+        boolean exists;
         try {
-            isExists = movieDao.isActorAlreadyExists(firstName, lastName);
+            exists = movieDao.actorExistsByFirstnameAndLastname(firstName, lastName);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isExists;
+        return exists;
     }
 
     @Override
-    public boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws ServiceException {
-        boolean isActorFound;
+    public boolean actorExistsInMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException {
+        boolean exists;
         try {
-            isActorFound = movieDao.isActorAlreadyExistsInMovie(actorId, movieId);
+            exists = movieDao.actorExistsInMovieByActorIdAndMovieId(actorId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isActorFound;
+        return exists;
     }
 
     @Override
-    public Optional<Actor> findActorInfoByActorId(long actorId) throws ServiceException {
+    public Optional<Actor> findActorById(long actorId) throws ServiceException {
         Optional<Actor> actorInfo;
         try {
-            actorInfo = movieDao.findActorInfoByActorId(actorId);
+            actorInfo = movieDao.findActorById(actorId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return actorInfo;
-    }
-
-    @Override
-    public Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws ServiceException {
-        Optional<Actor> isFound;
-        try {
-            isFound = movieDao.findActorByFirstLastName(firstName, lastName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isFound;
     }
 
     @Override
@@ -867,6 +800,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return actorsByKeyWords;
+    }
+
+    @Override
+    public int countActors() throws ServiceException {
+        int actors;
+        try {
+            actors = movieDao.countActors();
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return actors;
     }
 
     @Override

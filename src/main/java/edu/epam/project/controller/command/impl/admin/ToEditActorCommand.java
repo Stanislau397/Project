@@ -29,7 +29,7 @@ public class ToEditActorCommand implements Command {
         Router router = new Router();
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         try {
-            Optional<Actor> actorInfo = movieService.findActorInfoByActorId(actorId);
+            Optional<Actor> actorInfo = movieService.findActorById(actorId);
             if (actorInfo.isPresent()) {
                 Actor actor = actorInfo.get();
                 request.setAttribute(ACTOR, actor);

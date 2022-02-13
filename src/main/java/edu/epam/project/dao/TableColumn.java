@@ -37,8 +37,8 @@ public class TableColumn {
     public static final String GENRE_ID = "genres_id";
 
     public static final String ACTOR_ID = "actor_id";
-    public static final String ACTOR_FIRST_NAME = "first_name";
-    public static final String ACTOR_LAST_NAME = "last_name";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
     public static final String ACTOR_PICTURE = "picture";
 
     public static final String DIRECTOR_ID = "director_id";

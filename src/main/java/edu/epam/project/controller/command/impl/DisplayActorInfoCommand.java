@@ -42,7 +42,7 @@ public class DisplayActorInfoCommand implements Command {
         try {
             List<Movie> moviesForActor = movieService.findMoviesForActorByActorId(actorId);
             List<Movie> bestMoviesForActor = movieService.findBestMoviesForActorByActorId(actorId);
-            Optional<Actor> actorOptional = movieService.findActorInfoByActorId(actorId);
+            Optional<Actor> actorOptional = movieService.findActorById(actorId);
             if (actorOptional.isPresent()) {
                 actor = actorOptional.get();
                 request.setAttribute(ACTOR, actor);

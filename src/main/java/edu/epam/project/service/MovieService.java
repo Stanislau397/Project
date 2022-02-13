@@ -81,25 +81,17 @@ public interface MovieService {
 
     boolean addActorToMovieById(long actorId, long movieId) throws ServiceException;
 
-    boolean addActorToMovieByMovieId(Actor actor, long movieId) throws ServiceException;
-
-    boolean updateActorPictureByActorId(long actorId, String picture) throws ServiceException;
-
-    boolean updateActorInfoByActorId(long actorId, String firstName, String lastName, Date birth_date, double height) throws ServiceException;
-
-    boolean updateActorFirstAndLastNameByActorId(String firstName, String lastName, long actorId) throws ServiceException;
+    boolean updateActorInfoByActorId(long actorId, Actor actor) throws ServiceException;
 
     boolean removeActorByActorId(long actorId) throws ServiceException;
 
     boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
 
-    boolean isActorAlreadyExists(String firstName, String lastName) throws ServiceException;
+    boolean actorExistsByFirstnameAndLastname(String firstName, String lastName) throws ServiceException;
 
-    boolean isActorAlreadyExistsInMovie(long actorId, long movieId) throws ServiceException;
+    boolean actorExistsInMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException;
 
-    Optional<Actor> findActorInfoByActorId(long actorId) throws ServiceException;
-
-    Optional<Actor> findActorByFirstLastName(String firstName, String lastName) throws ServiceException;
+    Optional<Actor> findActorById(long actorId) throws ServiceException;
 
     List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
 
