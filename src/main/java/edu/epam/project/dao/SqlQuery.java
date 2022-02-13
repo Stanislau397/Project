@@ -24,20 +24,20 @@ public class SqlQuery {
     public static final String COUNT_ALL_GENRES = "SELECT COUNT(genres_id) AS counter FROM genres"; //completed
 
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
-    public static final String UPDATE_ACTOR = "UPDATE actors SET first_name = (?), last_name = (?), birth_date = (?), height = (?), picture = (?) WHERE actor_id = (?)";
-    public static final String DELETE_ACTOR = "DELETE FROM actors WHERE actor_id = (?)";
+    public static final String UPDATE_ACTOR_BY_ID = "UPDATE actors SET first_name = (?), last_name = (?), birth_date = (?), height = (?), picture = (?) WHERE actor_id = (?)";
+    public static final String DELETE_ACTOR_BY_ID = "DELETE FROM actors WHERE actor_id = (?)";
     public static final String DELETE_ACTOR_FROM_MOVIE = "DELETE FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
     public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors LIMIT ?,?";
     public static final String SELECT_ACTOR_BY_ID = "SELECT actor_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date, null) AS birth_date,  (\n" +
             "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) - (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))) AS age FROM actors WHERE actor_id = (?)";
     public static final String SELECT_ACTOR_FOR_MOVIE = "SELECT actor_id_fk FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
     public static final String SELECT_ACTORS_BY_MOVIE_ID = "SELECT actor_id, first_name, last_name FROM actors JOIN movie_cast ON actor_id = actor_id_fk where movie_id = ?";
-    public static final String SELECT_ACTORS_BY_KEY_WORDS = "SELECT actor_id, first_name, last_name FROM actors WHERE CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', ? ,'%') GROUP BY actor_id";
+    public static final String SELECT_ACTORS_BY_KEY_WORDS = "SELECT actor_id, first_name, last_name FROM actors WHERE LOWER(CONCAT(first_name, ' ' , last_name)) LIKE LOWER(CONCAT('%', ? ,'%'))";
     public static final String SELECT_ACTOR_BY_FIRSTNAME_AND_LASTNAME = "SELECT actor_id FROM actors WHERE first_name = (?) AND last_name = (?)";
     public static final String INSERT_ACTOR_TO_MOVIE = "INSERT INTO movie_cast (actor_id_fk, movie_id) VALUES(?,?)";
     public static final String COUNT_ALL_ACTORS = "SELECT COUNT(actor_id) AS counter FROM actors";
-    public static final String DELETE_DIRECTOR_FROM_MOVIE = "DELETE FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
 
+    public static final String DELETE_DIRECTOR_FROM_MOVIE = "DELETE FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
     public static final String INSERT_TO_DIRECTOR = "INSERT INTO director (director_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
     public static final String UPDATE_DIRECTOR_INFO = "UPDATE director SET first_name = (?), last_name = (?), height = (?), birth_date = (?) WHERE director_id = (?)";
     public static final String DELETE_DIRECTOR = "DELETE FROM director WHERE director_id = (?)";

@@ -1168,7 +1168,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean updateActorById(long actorId, Actor actor) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ACTOR)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_ACTOR_BY_ID)) {
             statement.setString(1, actor.getFirstName());
             statement.setString(2, actor.getLastName());
             statement.setDate(3, Date.valueOf(actor.getBirthDate()));
@@ -1188,7 +1188,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean removeActorById(long actorId) throws DaoException {
         boolean isRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_BY_ID)) {
             statement.setLong(1, actorId);
             int update = statement.executeUpdate();
             isRemoved = (update == 1);

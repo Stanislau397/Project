@@ -73,7 +73,7 @@ public interface MovieDao {
 
     List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws DaoException;
 
-    boolean addActor(Actor actor) throws DaoException;
+    boolean addActor(Actor actor) throws DaoException; //ok
 
     boolean addActorToMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
@@ -87,13 +87,15 @@ public interface MovieDao {
 
     boolean actorExistsInMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
+    int countActors() throws DaoException; //ok
+
     Optional<Actor> findActorById(long actorId) throws DaoException; //ok
 
     List<Actor> findActorsByMovieId(long movieId) throws DaoException; //ok
 
-    List<Actor> findAllActors(int start, int total) throws DaoException;
+    List<Actor> findAllActors(int start, int total) throws DaoException; //ok
 
-    List<Actor> findActorsByKeyWords(String keyWords) throws DaoException;
+    List<Actor> findActorsByKeyWords(String keyWords) throws DaoException; //ok
 
     Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
 
@@ -142,8 +144,6 @@ public interface MovieDao {
     List<Genre> findGenresForMovieByMovieId(long movieId) throws DaoException; //ok
 
     int countGenres() throws DaoException; //ok
-
-    int countActors() throws DaoException;
 
     int countDirectors() throws DaoException;
 
