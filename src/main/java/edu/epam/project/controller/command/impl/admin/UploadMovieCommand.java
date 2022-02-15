@@ -125,7 +125,7 @@ public class UploadMovieCommand implements Command {
             countries = request.getParameterValues(COUNTRIES);
             for (String country : countries) {
                 long countryId = Long.parseLong(country);
-                movieService.addCountryToMovie(countryId, movieId);
+                movieService.addCountryToMovieByMovieIdAndCountryId(movieId, countryId);
             }
         }
     }

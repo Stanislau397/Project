@@ -19,6 +19,8 @@ public interface MovieService {
 
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws ServiceException;
 
+    boolean movieExistsById(long movieId) throws ServiceException;
+
     int countMovies() throws ServiceException;
 
     int countNewestMovies() throws ServiceException;
@@ -143,21 +145,23 @@ public interface MovieService {
 
     List<Genre> findAllGenres() throws ServiceException;
 
-    boolean addCountry(String countryName) throws ServiceException;
+    boolean addCountry(Country country) throws ServiceException;
 
-    boolean addCountryToMovie(long countryId, long movieId) throws ServiceException;
+    boolean addCountryToMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException;
 
     boolean removeCountryById(long countryId) throws ServiceException;
 
-    boolean removeCountryFromMovie(long movieId, long countryId) throws ServiceException;
+    boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException;
 
-    boolean isCountryAlreadyExists(String countryName) throws ServiceException;
+    boolean countryExistsByName(String countryName) throws ServiceException;
 
-    boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws ServiceException;
+    boolean countryExistsById(long countryId) throws ServiceException;
+
+    boolean countryExistsInMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException;
 
     List<Country> findAllCountries() throws ServiceException;
 
-    List<Country> findCountriesForMovieById(long movieId) throws ServiceException;
+    List<Country> findCountriesForMovieByMovieId(long movieId) throws ServiceException;
 
     int countGenres() throws ServiceException;
 

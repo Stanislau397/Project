@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.entity.Country;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -33,11 +34,13 @@ public class AddCountryCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         HttpSession session = request.getSession();
-        String countryName = request.getParameter(COUNTRY);
         String currentPage = request.getHeader(REFERER);
+        String countryName = request.getParameter(COUNTRY);
+        Country country = Country.newCountryBuilder()
+                .withCountryName(countryName)
+                .build();
         try {
-            if (!movieService.isCountryAlreadyExists(countryName)) {
-                movieService.addCountry(countryName);
+            if (movieService.addCountry(country)) {
                 session.setAttribute(COUNTRY_SUCCESSFULLY_ADDED, ADD_COUNTRY_MSG);
             } else {
                 session.setAttribute(COUNTRY_ALREADY_EXISTS, COUNTRY_EXISTS_MSG);

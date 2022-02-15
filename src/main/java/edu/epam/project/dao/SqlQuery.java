@@ -162,18 +162,19 @@ public class SqlQuery {
     public static final String CHECK_IF_USER_RATED_MOVIE = "SELECT user_id_fk FROM rating WHERE movie_id_fk = (?) AND user_id_fk = (?)"; //ok
     public static final String SELECT_MOVIE_SCORE_FOR_USER = "SELECT rating_id, user_score FROM rating WHERE user_id_fk = (?) AND movie_id_fk = (?)"; //ok
 
-    public static final String INSERT_TO_COUNTRY = "INSERT INTO countries (country_name) VALUES (?)";
-    public static final String DELETE_FROM_COUNTRY = "DELETE FROM countries WHERE country_id = (?)";
-    public static final String INSERT_TO_MOVIE_COUNTRIES = "INSERT INTO movie_countries (country_id_fk, movie_id_fk) VALUES (?,?)";
-    public static final String DELETE_COUNTRY_FROM_MOVIE = "DELETE FROM movie_countries WHERE movie_id_fk = (?) AND country_id_fk = (?)";
-    public static final String SELECT_ALL_COUNTRIES = "SELECT country_id, country_name FROM countries";
+    public static final String INSERT_TO_COUNTRY = "INSERT INTO countries (country_name) VALUES (?)"; //ok
+    public static final String DELETE_COUNTRY_BY_ID = "DELETE FROM countries WHERE country_id = (?)"; //ok
+    public static final String INSERT_COUNTRY_TO_MOVIE_COUNTRIES = "INSERT INTO movie_countries (movie_id_fk, country_id_fk) VALUES (?,?)"; //ok
+    public static final String DELETE_COUNTRY_FROM_MOVIE = "DELETE FROM movie_countries WHERE movie_id_fk = (?) AND country_id_fk = (?)"; //ok
+    public static final String SELECT_ALL_COUNTRIES = "SELECT country_id, country_name FROM countries"; //ok
     public static final String SELECT_MOVIE_COUNTRIES = "SELECT c.country_id, c.country_name FROM countries c\n" +
             "JOIN movie_countries mc ON c.country_id = mc.country_id_fk\n" +
-            "WHERE mc.movie_id_fk = (?) GROUP BY c.country_id";
+            "WHERE mc.movie_id_fk = (?) GROUP BY c.country_id"; //ok
     public static final String SELECT_COUNTRY_FOR_MOVIE = "SELECT c.country_id FROM countries c\n" +
             "JOIN movie_countries mc ON c.country_id = mc.country_id_fk \n" +
-            "WHERE mc.movie_id_fk = (?) AND mc.country_id_fk = (?)";
-    public static final String SELECT_COUNTRY = "SELECT country_name FROM countries WHERE country_name = (?)";
+            "WHERE mc.movie_id_fk = (?) AND mc.country_id_fk = (?)"; //ok
+    public static final String SELECT_COUNTRY_BY_NAME = "SELECT country_name FROM countries WHERE country_name = (?)"; //ok
+    public static final String SELECT_COUNTRY_BY_ID = "SELECT country_id FROM countries WHERE country_id = (?)"; //ok
 
     private SqlQuery() {
 

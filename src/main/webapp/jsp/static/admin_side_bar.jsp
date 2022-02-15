@@ -17,14 +17,14 @@
     <div class="info-container">
         <div class="avatar">
             <img class="user-avatar"
-                    src="${sessionScope.user_avatar}">
+                    src="${sessionScope.user.avatar}">
         </div>
         <div class="user-info">
             <h2 class="user-name">
-                <c:out value="${sessionScope.user_name}"/>
+                <c:out value="${sessionScope.user.userName}"/>
             </h2>
             <p class="user-role">
-                <c:if test="${sessionScope.admin != null}">
+                <c:if test="${sessionScope.user.role != 'ADMIN'}">
                     <fmt:message key="label.admin"/>
                 </c:if>
             </p>

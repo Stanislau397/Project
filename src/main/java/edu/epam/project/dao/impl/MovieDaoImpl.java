@@ -75,7 +75,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException {
-        boolean isTrailerUpdated = false;
+        boolean isTrailerUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_MOVIE_TRAILER)) {
             statement.setString(1, trailer);
@@ -87,6 +87,23 @@ public class MovieDaoImpl implements MovieDao {
             throw new DaoException(e);
         }
         return isTrailerUpdated;
+    }
+
+    @Override
+    public boolean movieExistsById(long movieId) throws DaoException {
+        boolean exists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_BY_ID)) {
+            statement.setLong(1, movieId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return exists;
     }
 
     @Override
@@ -1513,11 +1530,11 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean addCountry(String countryName) throws DaoException {
+    public boolean addCountry(Country country) throws DaoException {
         boolean isCountryAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_COUNTRY)) {
-            statement.setString(1, countryName);
+            statement.setString(1, country.getCountryName());
             int update = statement.executeUpdate();
             isCountryAdded = (update == 1);
         } catch (SQLException e) {
@@ -1531,7 +1548,7 @@ public class MovieDaoImpl implements MovieDao {
     public boolean removeCountryById(long countryId) throws DaoException {
         boolean isCountryRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_FROM_COUNTRY)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COUNTRY_BY_ID)) {
             statement.setLong(1, countryId);
             int update = statement.executeUpdate();
             isCountryRemoved = (update == 1);
@@ -1543,54 +1560,71 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean addCountryToMovie(long movieId, long countryId) throws DaoException {
-        boolean isCountryAddedToMovie;
+    public boolean addCountryToMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException {
+        boolean countryAddedToMovie;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_MOVIE_COUNTRIES)) {
-            statement.setLong(1, countryId);
-            statement.setLong(2, movieId);
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_COUNTRY_TO_MOVIE_COUNTRIES)) {
+            statement.setLong(1, movieId);
+            statement.setLong(2, countryId);
             int update = statement.executeUpdate();
-            isCountryAddedToMovie = (update == 1);
+            countryAddedToMovie = (update == 1);
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
             throw new DaoException(e);
         }
-        return isCountryAddedToMovie;
+        return countryAddedToMovie;
     }
 
     @Override
-    public boolean isCountryAlreadyExists(String countryName) throws DaoException {
-        boolean isCountryExists = false;
+    public boolean countryExistsByName(String countryName) throws DaoException {
+        boolean countryExists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_BY_NAME)) {
             statement.setString(1, countryName);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                isCountryExists = true;
+                countryExists = true;
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
             throw new DaoException(e);
         }
-        return isCountryExists;
+        return countryExists;
     }
 
     @Override
-    public boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws DaoException {
-        boolean isExists = false;
+    public boolean countryExistsById(long countryId) throws DaoException {
+        boolean countryExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_BY_ID)) {
+            statement.setLong(1, countryId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                countryExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return countryExists;
+    }
+
+    @Override
+    public boolean countryExistsInMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException {
+        boolean exists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_FOR_MOVIE)) {
             statement.setLong(1, movieId);
             statement.setLong(2, countryId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                isExists = true;
+                exists = true;
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
             throw new DaoException(e);
         }
-        return isExists;
+        return exists;
     }
 
     @Override
@@ -1614,7 +1648,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public List<Country> findCountriesForMovieById(long movieId) throws DaoException {
+    public List<Country> findCountriesForMovieByMovieId(long movieId) throws DaoException {
         List<Country> movieCountries = new ArrayList<>();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_MOVIE_COUNTRIES)) {
@@ -1635,7 +1669,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeCountryFromMovie(long movieId, long countryId) throws DaoException {
+    public boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException {
         boolean isCountryRemovedFromMovie;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COUNTRY_FROM_MOVIE)) {

@@ -39,7 +39,7 @@
             <input type="hidden" name="command" value="add_actor">
             <div class="left">
                 <div class="image-preview" id="imagePreview">
-                    <img src="${pageContext.request.contextPath}/css/image/default-avatar-1276x1920.jpg"
+                    <img src="${pageContext.request.contextPath}/image/istockphoto-1016744004-612x612.jpg"
                          alt="Image"
                          class="image-preview__image" style="margin-left: -2px">
                     <span class="image-preview__default__text"></span>
@@ -64,10 +64,18 @@
                 <div class="arrow-5 arrow-5-top" id="last-name-error">
                     <fmt:message key="label.last_name_error"/>
                 </div>
-                <label for="birth-date"><fmt:message key="label.birth_date"/></label>
-                <input type="text" id="birth-date" name="birth_date"
-                       placeholder="<fmt:message key="label.date_example"/>"
-                       required>
+                <label><fmt:message key="label.birth_date"/></label>
+                <select id="birth_date" name="day_of_month">
+                    <option value="1">1</option>
+                </select>
+                <select name="month">
+                    <option value="1">January</option>
+                </select>
+                <select name="year">
+                    <c:forEach begin="1900" end="2022" var="year">
+                        <option value="${year}"><c:out value="${year}"/></option>
+                    </c:forEach>
+                </select>
                 <div class="arrow-5 arrow-5-top" id="birth-date-error">
                     <fmt:message key="label.birth_date_error"/>
                 </div>

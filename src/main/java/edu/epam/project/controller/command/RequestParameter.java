@@ -51,6 +51,10 @@ public class RequestParameter {
     public static final String HEIGHT = "height";
     public static final String BIRTH_DATE = "birth_date";
 
+    public static final String DAY_OF_MONTH = "day_of_month";
+    public static final String MONTH = "month";
+    public static final String YEAR = "year";
+
     public static final String ERROR_MESSAGE = "An error occurred!";
 }
 

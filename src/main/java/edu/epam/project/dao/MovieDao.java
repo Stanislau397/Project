@@ -17,6 +17,8 @@ public interface MovieDao {
 
     boolean updateMovieTrailerByMovieId(long movieId, String trailer) throws DaoException;
 
+    boolean movieExistsById(long movieId) throws DaoException; //ok
+
     int countMovies() throws DaoException;
 
     int countNewestMovies() throws DaoException;
@@ -69,6 +71,8 @@ public interface MovieDao {
 
     List<Movie> findLatestReviewedMovies() throws DaoException;
 
+    List<Movie> findMoviesForDirector(long directorId) throws DaoException;
+
     List<Movie> findBestMoviesForActorByActorId(long actorId) throws DaoException;
 
     List<Movie> findBestMoviesForDirectorByDirectorId(long directorId) throws DaoException;
@@ -97,12 +101,6 @@ public interface MovieDao {
 
     List<Actor> findActorsByKeyWords(String keyWords) throws DaoException; //ok
 
-    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
-
-    List<Director> findAllDirectors(int start, int total) throws DaoException;
-
-    List<Director> findDirectorsByKeyWords(String keyWords) throws DaoException;
-
     boolean addDirector(Director director) throws DaoException;
 
     boolean addDirectorToMovieById(long directorId, long movieId) throws DaoException;
@@ -123,9 +121,13 @@ public interface MovieDao {
 
     Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws DaoException;
 
-    List<Director> findDirectorsByMovieId(long movieId) throws DaoException;
+    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
 
-    List<Movie> findMoviesForDirector(long directorId) throws DaoException;
+    List<Director> findAllDirectors(int start, int total) throws DaoException;
+
+    List<Director> findDirectorsByKeyWords(String keyWords) throws DaoException;
+
+    List<Director> findDirectorsByMovieId(long movieId) throws DaoException;
 
     boolean addGenre(Genre genre) throws DaoException; //ok
 
@@ -147,19 +149,21 @@ public interface MovieDao {
 
     int countDirectors() throws DaoException;
 
-    boolean addCountry(String countryName) throws DaoException;
+    boolean addCountry(Country country) throws DaoException; //ok
 
-    boolean removeCountryById(long countryId) throws DaoException;
+    boolean addCountryToMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 
-    boolean addCountryToMovie(long movieId, long countryId) throws DaoException;
+    boolean removeCountryById(long countryId) throws DaoException; //ok
 
-    boolean isCountryAlreadyExists(String countryName) throws DaoException;
+    boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 
-    boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws DaoException;
+    boolean countryExistsByName(String countryName) throws DaoException; //ok
 
-    List<Country> findAllCountries() throws DaoException;
+    boolean countryExistsById(long countryId) throws DaoException; //ok
 
-    List<Country> findCountriesForMovieById(long movieId) throws DaoException;
+    boolean countryExistsInMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 
-    boolean removeCountryFromMovie(long movieId, long countryId) throws DaoException;
+    List<Country> findAllCountries() throws DaoException; //ok
+
+    List<Country> findCountriesForMovieByMovieId(long movieId) throws DaoException; //ok
 }

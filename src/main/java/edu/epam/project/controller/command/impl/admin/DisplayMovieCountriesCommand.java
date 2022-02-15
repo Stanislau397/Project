@@ -35,7 +35,7 @@ public class DisplayMovieCountriesCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         String movieTitle = request.getParameter(TITLE);
         try {
-            List<Country> movieCountries = movieService.findCountriesForMovieById(movieId);
+            List<Country> movieCountries = movieService.findCountriesForMovieByMovieId(movieId);
             List<Country> allCountries = movieService.findAllCountries();
             request.setAttribute(MOVIE_COUNTRIES_LIST, movieCountries);
             request.setAttribute(COUNTRIES_LIST, allCountries);

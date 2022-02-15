@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,6 +92,18 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isTrailerUpdated;
+    }
+
+    @Override
+    public boolean movieExistsById(long movieId) throws ServiceException {
+        boolean exists;
+        try {
+            exists = movieDao.movieExistsById(movieId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return exists;
     }
 
     @Override
@@ -250,10 +263,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean addCountry(String countryName) throws ServiceException {
-        boolean isCountryAdded;
+    public boolean addCountry(Country country) throws ServiceException {
+        boolean isCountryAdded = false;
+        String countryName = country.getCountryName();
         try {
-            isCountryAdded = movieDao.addCountry(countryName);
+            boolean countryExists = countryExistsByName(countryName);
+            if (!countryExists) {
+                isCountryAdded = movieDao.addCountry(country);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -262,10 +279,15 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean addCountryToMovie(long countryId, long movieId) throws ServiceException {
-        boolean isCountryAddedToMovie;
+    public boolean addCountryToMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException {
+        boolean isCountryAddedToMovie = false;
         try {
-            isCountryAddedToMovie = movieDao.addCountryToMovie(movieId, countryId);
+            boolean movieExists = movieExistsById(movieId);
+            boolean countryExists = countryExistsById(countryId);
+            boolean countryExistsInMovie = countryExistsInMovieByMovieIdAndCountryId(movieId, countryId);
+            if (movieExists && countryExists && !countryExistsInMovie) {
+                isCountryAddedToMovie = movieDao.addCountryToMovieByMovieIdAndCountryId(movieId, countryId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -275,9 +297,11 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public boolean removeCountryById(long countryId) throws ServiceException {
-        boolean isCountryRemoved;
+        boolean isCountryRemoved = false;
         try {
-            isCountryRemoved = movieDao.removeCountryById(countryId);
+            if (countryExistsById(countryId)) {
+                isCountryRemoved = movieDao.removeCountryById(countryId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -286,10 +310,15 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean removeCountryFromMovie(long movieId, long countryId) throws ServiceException {
-        boolean isCountryRemovedFromMovie;
+    public boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException {
+        boolean isCountryRemovedFromMovie = false;
         try {
-            isCountryRemovedFromMovie = movieDao.removeCountryFromMovie(movieId, countryId);
+            boolean movieExists = movieExistsById(movieId);
+            boolean countryExists = countryExistsById(countryId);
+            boolean countryExistsInMovie = countryExistsInMovieByMovieIdAndCountryId(movieId, countryId);
+            if (movieExists && countryExists && countryExistsInMovie) {
+                isCountryRemovedFromMovie = movieDao.removeCountryFromMovieByMovieIdAndCountryId(movieId, countryId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -298,27 +327,39 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean isCountryAlreadyExists(String countryName) throws ServiceException {
-        boolean isCountryExists;
+    public boolean countryExistsByName(String countryName) throws ServiceException {
+        boolean exists;
         try {
-            isCountryExists = movieDao.isCountryAlreadyExists(countryName);
+            exists = movieDao.countryExistsByName(countryName);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isCountryExists;
+        return exists;
     }
 
     @Override
-    public boolean isCountryAlreadyExistsInMovie(long movieId, long countryId) throws ServiceException {
-        boolean isExists;
+    public boolean countryExistsById(long countryId) throws ServiceException {
+        boolean exists;
         try {
-            isExists = movieDao.isCountryAlreadyExistsInMovie(movieId, countryId);
+            exists = movieDao.countryExistsById(countryId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isExists;
+        return exists;
+    }
+
+    @Override
+    public boolean countryExistsInMovieByMovieIdAndCountryId(long movieId, long countryId) throws ServiceException {
+        boolean exists;
+        try {
+            exists = movieDao.countryExistsInMovieByMovieIdAndCountryId(movieId, countryId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return exists;
     }
 
     @Override
@@ -334,10 +375,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Country> findCountriesForMovieById(long movieId) throws ServiceException {
-        List<Country> movieCountries;
+    public List<Country> findCountriesForMovieByMovieId(long movieId) throws ServiceException {
+        List<Country> movieCountries = new ArrayList<>();
         try {
-            movieCountries = movieDao.findCountriesForMovieById(movieId);
+            if (movieExistsById(movieId)) {
+                movieCountries = movieDao.findCountriesForMovieByMovieId(movieId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -608,7 +651,7 @@ public class MovieServiceImpl implements MovieService {
             List<Comment> comments = commentService.findCommentsByMovieId(movieId);
             List<Actor> actors = findActorsByMovieId(movieId);
             List<Director> directors = findDirectorsByMovieId(movieId);
-            List<Country> countries = findCountriesForMovieById(movieId);
+            List<Country> countries = findCountriesForMovieByMovieId(movieId);
             if (isFound.isPresent()) {
                 movie = isFound.get();
                 movie.setGenres(genres);
@@ -662,18 +705,18 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public boolean addActor(Actor actor) throws ServiceException, InvalidInputException {
-        boolean isAdded = false;
         ActorValidator validator = new ActorValidator();
+        boolean isAdded = false;
         String firstName = actor.getFirstName();
         String lastName = actor.getLastName();
         LocalDate birthDate = actor.getBirthDate();
         try {
             boolean exists = actorExistsByFirstnameAndLastname(firstName, lastName);
-            if (!exists) {
-                if (validator.isValidFirstName(firstName) && validator.isValidLastName(lastName)
-                        && validator.isValidBirthDate(birthDate.toString())) {
-                    isAdded = movieDao.addActor(actor);
-                }
+            boolean firstnameValid = validator.isValidFirstName(firstName);
+            boolean lastnameValid = validator.isValidLastName(lastName);
+            boolean birthDateValid = validator.isValidBirthDate(birthDate.toString());
+            if (!exists && firstnameValid && lastnameValid && birthDateValid) {
+                isAdded = movieDao.addActor(actor);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);

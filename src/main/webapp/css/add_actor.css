@@ -228,3 +228,18 @@ body {
     border-bottom: 10px solid #eb5757;
     top: -8px;
 }
+
+select {
+    margin-top: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background-color: rgb(245,245,245);
+    border: 1px solid silver;
+}
+
+option {
+    font-size: 18px;
+}

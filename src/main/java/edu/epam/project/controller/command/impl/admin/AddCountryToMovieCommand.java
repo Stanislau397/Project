@@ -32,9 +32,7 @@ public class AddCountryToMovieCommand implements Command {
         try {
             for (String country : countries) {
                 long countryId = Long.parseLong(country);
-                if (!movieService.isCountryAlreadyExistsInMovie(movieId, countryId)) {
-                    movieService.addCountryToMovie(countryId, movieId);
-                }
+                movieService.addCountryToMovieByMovieIdAndCountryId(movieId, countryId);
             }
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);

@@ -35,7 +35,7 @@ public class RemoveCountryFromMovieCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         long countryId = Long.parseLong(request.getParameter(COUNTRY_ID));
         try {
-            if (movieService.removeCountryFromMovie(movieId, countryId)) {
+            if (movieService.removeCountryFromMovieByMovieIdAndCountryId(movieId, countryId)) {
                 session.setAttribute(COUNTRY_REMOVED, COUNTRY_REMOVED_MSG);
             }
             router.setRoute(RouteType.REDIRECT);
