@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     public static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     @Override
-    public boolean register(User user, String password) throws DaoException {
+    public boolean add(User user, String password) throws DaoException {
         boolean isRegistered;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_USER)) {
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean changeRoleById(long userId, String role) throws DaoException {
+    public boolean updateRoleById(long userId, String role) throws DaoException {
         boolean isRoleUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_ROLE)) {
@@ -111,6 +111,75 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException(e);
         }
         return isRoleUpdated;
+    }
+
+    @Override
+    public boolean existsByUserName(String userName) throws DaoException {
+        boolean exists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_USER_NAME)) {
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return exists;
+    }
+
+    @Override
+    public boolean existsById(long userId) throws DaoException {
+        boolean exists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID)) {
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return exists;
+    }
+
+    @Override
+    public boolean existsByEmail(String email) throws DaoException {
+        boolean exists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_EMAIL)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return exists;
+    }
+
+    @Override
+    public boolean existsByIdAndPassword(long userId, String password) throws DaoException {
+        boolean exists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID_AND_PASSWORD)) {
+            statement.setLong(1, userId);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                exists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return exists;
     }
 
     @Override
@@ -130,8 +199,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findUserByUserName(String userName) throws DaoException {
-        Optional<User> isFound = Optional.empty();
+    public Optional<User> findByUserName(String userName) throws DaoException {
+        Optional<User> foundUser = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_USER_NAME)) {
             statement.setString(1, userName);
@@ -145,23 +214,22 @@ public class UserDaoImpl implements UserDao {
                         .withAvatar(resultSet.getString(TableColumn.AVATAR))
                         .withStatus(resultSet.getBoolean(TableColumn.USER_STATUS))
                         .build();
-                isFound = Optional.of(user);
+                foundUser = Optional.of(user);
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
             throw new DaoException(e);
         }
-        return isFound;
+        return foundUser;
     }
 
     @Override
-    public boolean changePasswordByIdAndPassword(long userId, String password, String newPassword) throws DaoException {
+    public boolean updatePasswordById(long userId, String newPassword) throws DaoException {
         boolean isPasswordChanged;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHANGE_PASSWORD)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_ID)) {
             statement.setString(1, newPassword);
             statement.setLong(2, userId);
-            statement.setString(3, password);
             int update = statement.executeUpdate();
             isPasswordChanged = (update == 1);
         } catch (SQLException e) {

@@ -39,7 +39,6 @@ public class ToAdminCabinetCommand implements Command {
         Router router = new Router();
         HttpSession session = request.getSession();
         try {
-            if (session.getAttribute("admin") != null) {
                 //List<Movie> topMovies = movieService.findMostRatedMovies();
                 //List<Movie> latestMovies = movieService.findLatestUploadedMovies();
                 //List<Movie> latestReviewedMovies = movieService.findLatestReviewedMovies();
@@ -47,7 +46,7 @@ public class ToAdminCabinetCommand implements Command {
                 int moviesAmount = movieService.countMovies();
                 int actorsAmount = movieService.countActors();
                 int directorsAmount = movieService.countDirectors();
-                int usersAmount = userService.countAmountOfUsers();
+                int usersAmount = userService.countUsers();
                 //request.setAttribute(MOST_RATED_MOVIES_LIST, topMovies);
                 //request.setAttribute(LATEST_MOVIES_LIST, latestMovies);
                 //request.setAttribute(LATEST_REVIEWED_MOVIES_LIST, latestReviewedMovies);
@@ -57,9 +56,6 @@ public class ToAdminCabinetCommand implements Command {
                 request.setAttribute(COUNT_MOVIES, moviesAmount);
                 request.setAttribute(COUNT_GENRES, genresAmount);
                 router.setPagePath(PagePath.ADMIN_CABINET_PAGE);
-            } else {
-                router.setPagePath(PagePath.ERROR_PAGE);
-            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

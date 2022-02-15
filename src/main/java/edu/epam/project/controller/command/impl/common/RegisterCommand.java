@@ -48,7 +48,7 @@ public class RegisterCommand implements Command {
                 .withStatus(false)
                 .build();
         try {
-            if (userService.register(userToRegister, userPassword)) {
+            if (userService.add(userToRegister, userPassword)) {
                 router.setPagePath(PagePath.LOGIN_PAGE);
                 request.setAttribute(REGISTER_SUCCESS, REGISTER_SUCCESS_MSG);
             }

@@ -52,8 +52,6 @@
                    class="new_password"
                    placeholder="<fmt:message key="label.new_password"/>"
                    pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
-            <input type="password" name="confirm_password" placeholder="<fmt:message key="label.verify_password"/>"
-                   pattern="^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$" required>
             <button type="submit" name="submit"><fmt:message key="label.change_password"/></button>
         </form>
     </div>

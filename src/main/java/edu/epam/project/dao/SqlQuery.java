@@ -4,8 +4,11 @@ public class SqlQuery {
 
     public static final String INSERT_TO_USER = "INSERT INTO users (user_name, password, email, role, is_active, avatar) VALUES(?,?,?,?,?,?)"; //completed
     public static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = "SELECT user_id, email, role, is_active, user_name, avatar FROM users WHERE email = (?) and password = (?)"; //completed
-    public static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) WHERE user_id = (?) and password = (?)"; //completed
+    public static final String UPDATE_PASSWORD_BY_ID = "UPDATE users SET password = (?) WHERE user_id = (?)"; //completed
     public static final String SELECT_USER_BY_USER_NAME = "SELECT user_id, user_name, email, role, is_active, avatar FROM users WHERE user_name = (?)"; //completed
+    public static final String SELECT_USER_BY_ID = "SELECT user_id FROM users WHERE user_id = (?)";
+    public static final String SELECT_USER_BY_EMAIL = "SELECT user_id FROM users WHERE email = (?)";
+    public static final String SELECT_USER_BY_ID_AND_PASSWORD = "SELECT user_id FROM users WHERE user_id = (?) AND password = (?)";
     public static final String SELECT_ALL_USERS = "SELECT user_id, user_name, email, role, is_active FROM users"; //completed
     public static final String UPDATE_USER_STATUS = "Update users SET is_active = (?) WHERE user_id = (?)"; //completed
     public static final String UPDATE_USER_ROLE = "Update users SET role = (?) WHERE user_id = (?)"; //completed

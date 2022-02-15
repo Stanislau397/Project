@@ -29,7 +29,7 @@ public class UnblockUserCommand implements Command {
         String userName = request.getParameter(USER_NAME_PARAMETER);
         long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (userService.updateStatusById(false, userId)) {
+            if (userService.updateStatusById(userId, false)) {
                 session.setAttribute(UNBLOCKED_USER, userName);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);

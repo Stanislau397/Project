@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.user;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.entity.User;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
@@ -15,8 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static edu.epam.project.controller.command.RequestParameter.*;
-import static edu.epam.project.controller.command.SessionAttribute.CHANGE_PASSWORD;
-import static edu.epam.project.controller.command.SessionAttribute.USER_ID;
+import static edu.epam.project.controller.command.SessionAttribute.*;
 
 public class ChangePasswordCommand implements Command {
 
@@ -29,14 +29,13 @@ public class ChangePasswordCommand implements Command {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         HttpSession session = request.getSession();
-        long userId = (Long) session.getAttribute(USER_ID);
-        System.out.println(userId);
         String currentPage = request.getHeader(REFERER);
+        User user = (User) session.getAttribute(USER_ATTR);
+        long userId = user.getUserId();
         String oldPassword = request.getParameter(PASSWORD_PARAMETER);
         String newPassword = request.getParameter(NEW_PASSWORD);
-        String confirmNewPassword = request.getParameter(CONFIRM_PASSWORD);
         try {
-            if (userService.changePassword(userId, oldPassword, newPassword, confirmNewPassword)) {
+            if (userService.updatePasswordByIdAndPassword(userId, oldPassword, newPassword)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(CHANGE_PASSWORD, PASSWORD_HAS_BEEN_UPDATED);

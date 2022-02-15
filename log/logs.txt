@@ -65,3 +65,4 @@
 20:47:29.826 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid image data!
 20:47:29.840 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid release date data!
 20:47:29.844 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid title data!
+19:32:30.760 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data

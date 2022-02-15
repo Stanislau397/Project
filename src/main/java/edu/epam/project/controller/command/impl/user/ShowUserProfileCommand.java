@@ -66,7 +66,7 @@ public class ShowUserProfileCommand implements Command {
             userName = request.getParameter(USER_NAME_PARAMETER);
         }
         try {
-            Optional<User> userInfo = userService.findUserByUserName(userName);
+            User user = userService.findByUserName(userName);
             List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName, start, TOTAL);
             int countPositiveReviews = ratingService.countPositiveMovieScoresForUser(userId);
             int countMixedReviews = ratingService.countMixedMovieScoresForUser(userId);
@@ -85,8 +85,6 @@ public class ShowUserProfileCommand implements Command {
                 Movie lowScoreMovie = latestLowScoreMovie.get();
                 request.setAttribute(LATEST_LOW_SCORE_MOVIE, lowScoreMovie);
             }
-            if (userInfo.isPresent()) {
-                User user = userInfo.get();
                 router.setPagePath(PagePath.USER_PROFILE);
                 request.setAttribute(AttributeName.USER, user);
                 request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
@@ -98,7 +96,6 @@ public class ShowUserProfileCommand implements Command {
                 request.setAttribute(PAGES, pages);
                 request.setAttribute(COUNT_COMMENTS, countUserComments);
                 request.setAttribute(PAGE_ID, pageId);
-            }
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);

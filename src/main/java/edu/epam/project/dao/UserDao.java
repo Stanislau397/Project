@@ -8,21 +8,29 @@ import java.util.Optional;
 
 public interface UserDao {
 
-    boolean register(User user, String password) throws DaoException; //completed
+    boolean add(User user, String password) throws DaoException; //completed
 
-    boolean changePasswordByIdAndPassword(long userId, String password, String newPassword) throws DaoException; //completed
+    boolean updatePasswordById(long userId, String newPassword) throws DaoException; //completed
 
     boolean updateStatusById(long userId, boolean status) throws DaoException; //completed
 
     boolean updateAvatarById(long userId, String avatar) throws DaoException; //completed
 
-    boolean changeRoleById(long userId, String role) throws DaoException; //completed
+    boolean updateRoleById(long userId, String role) throws DaoException; //completed
+
+    boolean existsByUserName(String userName) throws DaoException;
+
+    boolean existsById(long userId) throws DaoException;
+
+    boolean existsByEmail(String email) throws DaoException;
+
+    boolean existsByIdAndPassword(long userId, String password) throws DaoException;
 
     int countUsers() throws DaoException; //completed
 
     Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;  //completed
 
-    Optional<User> findUserByUserName(String userName) throws DaoException; //completed
+    Optional<User> findByUserName(String userName) throws DaoException; //completed
 
     List<User> findAll() throws DaoException; //completed
 }

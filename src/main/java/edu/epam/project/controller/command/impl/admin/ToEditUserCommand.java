@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -27,15 +28,11 @@ public class ToEditUserCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         String userName = request.getParameter(RequestParameter.USER_NAME_PARAMETER);
-        User user;
         try {
-            Optional<User> userOptional = userService.findUserByUserName(userName);
-            if (userOptional.isPresent()) {
-                user = userOptional.get();
-                request.setAttribute(AttributeName.USER, user);
-                request.setAttribute(AttributeName.USER_NAME, user);
-                router.setPagePath(PagePath.EDIT_USER);
-            }
+            User user = userService.findByUserName(userName);
+            request.setAttribute(AttributeName.USER, user);
+            request.setAttribute(AttributeName.USER_NAME, user);
+            router.setPagePath(PagePath.EDIT_USER);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

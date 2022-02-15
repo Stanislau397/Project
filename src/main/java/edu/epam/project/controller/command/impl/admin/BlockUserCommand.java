@@ -30,7 +30,7 @@ public class BlockUserCommand implements Command {
         long userId = Long.parseLong(request.getParameter(USER_ID));
         String userName = request.getParameter(USER_NAME);
         try {
-            if (userService.updateStatusById(true, userId)) {
+            if (userService.updateStatusById(userId, true)) {
                 session.setAttribute(BLOCKED_USER, userName);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);

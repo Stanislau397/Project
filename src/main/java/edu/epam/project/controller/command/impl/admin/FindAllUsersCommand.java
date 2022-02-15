@@ -28,7 +28,7 @@ public class FindAllUsersCommand implements Command {
         Router router = new Router();
         try {
             List<User> users = userService.findAll();
-            int amountOfUsers = userService.countAmountOfUsers();
+            int amountOfUsers = userService.countUsers();
             if (users.size() > 0) {
                 request.setAttribute(USER_LIST, users);
                 request.setAttribute(COUNTER, amountOfUsers);

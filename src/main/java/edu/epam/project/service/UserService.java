@@ -9,21 +9,29 @@ import java.util.Optional;
 
 public interface UserService {
 
-    boolean register(User user, String password) throws ServiceException;
+    boolean add(User user, String password) throws ServiceException;
 
-    User findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException;
+    boolean updatePasswordByIdAndPassword(long userId, String oldPassword, String newPassword) throws ServiceException, InvalidInputException;
 
-    Optional<User> findUserByUserName(String userName) throws ServiceException;
-
-    int countAmountOfUsers() throws ServiceException;
-
-    boolean changePassword(long userId, String oldPassword, String newPassword, String confirmNewPassword) throws ServiceException, InvalidInputException;
-
-    boolean updateStatusById(boolean status, long userId) throws ServiceException;
+    boolean updateStatusById(long userId, boolean status) throws ServiceException;
 
     boolean updateAvatarById(long userId, String avatar) throws ServiceException;
 
-    boolean changeRoleById(long userId, String role) throws ServiceException;
+    boolean updateRoleById(long userId, String role) throws ServiceException;
+
+    boolean existsById(long userId) throws ServiceException;
+
+    boolean existsByUserName(String userName) throws ServiceException;
+
+    boolean existsByEmail(String email) throws ServiceException;
+
+    boolean existsByIdAndPassword(long userId, String password) throws ServiceException;
+
+    User findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException;
+
+    User findByUserName(String userName) throws ServiceException;
 
     List<User> findAll() throws ServiceException;
+
+    int countUsers() throws ServiceException;
 }
