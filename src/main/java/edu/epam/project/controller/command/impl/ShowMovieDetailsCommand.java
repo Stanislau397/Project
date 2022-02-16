@@ -42,7 +42,7 @@ public class ShowMovieDetailsCommand implements Command {
         try {
             Movie movie = movieService.findMovieById(movieId);
             Rating userScoreForMovie = ratingService.findPersonalUserScoreForMovie(userId, movieId);
-            if (ratingService.isUserRatedMovie(userId, movieId)) {
+            if (ratingService.ratingExistsByUserIdAndMovieId(userId, movieId)) {
                 request.setAttribute(USER_SCORE, userScoreForMovie);
             }
             request.setAttribute(MOVIE_INFO, movie);

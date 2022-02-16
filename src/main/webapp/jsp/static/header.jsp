@@ -87,6 +87,7 @@
                                 <form action="${pageContext.request.contextPath}/controller" method="get">
                                     <input type="hidden" name="command" value="show_user_profile">
                                     <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
+                                    <input type="hidden" name="page" value="1">
                                     <button type="submit"><i class="fa fa-user"></i><h4><fmt:message
                                             key="label.profile"/></h4></button>
                                 </form>

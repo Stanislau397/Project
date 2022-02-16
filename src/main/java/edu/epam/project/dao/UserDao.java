@@ -32,5 +32,7 @@ public interface UserDao {
 
     Optional<User> findByUserName(String userName) throws DaoException; //completed
 
+    Optional<User> findById(long userId) throws DaoException;
+
     List<User> findAll() throws DaoException; //completed
 }

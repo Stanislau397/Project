@@ -5,7 +5,6 @@ import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -30,6 +29,8 @@ public interface UserService {
     User findByEmailAndPassword(String email, String password) throws ServiceException, InvalidInputException;
 
     User findByUserName(String userName) throws ServiceException;
+
+    User findById(long userId) throws ServiceException;
 
     List<User> findAll() throws ServiceException;
 

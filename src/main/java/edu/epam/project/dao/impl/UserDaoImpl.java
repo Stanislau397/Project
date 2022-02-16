@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, password);
             statement.setString(3, user.getEmail());
             statement.setString(4, String.valueOf(user.getRole()));
-            statement.setBoolean(5, user.getStatus());
+            statement.setBoolean(5, user.getIsLocked());
             statement.setString(6, user.getAvatar());
             int result = statement.executeUpdate();
             isRegistered = (result == 1);
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
                     .withEmail(resultSet.getString(TableColumn.USER_EMAIL))
                     .withRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)))
                     .withAvatar(resultSet.getString(TableColumn.AVATAR))
-                    .withStatus(resultSet.getBoolean(TableColumn.USER_STATUS))
+                    .withIsLocked(resultSet.getBoolean(TableColumn.USER_STATUS))
                     .build();
             isFound = Optional.of(user);
         } catch (SQLException e) {
@@ -212,7 +212,32 @@ public class UserDaoImpl implements UserDao {
                         .withEmail(resultSet.getString(TableColumn.USER_EMAIL))
                         .withRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)))
                         .withAvatar(resultSet.getString(TableColumn.AVATAR))
-                        .withStatus(resultSet.getBoolean(TableColumn.USER_STATUS))
+                        .withIsLocked(resultSet.getBoolean(TableColumn.USER_STATUS))
+                        .build();
+                foundUser = Optional.of(user);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return foundUser;
+    }
+
+    @Override
+    public Optional<User> findById(long userId) throws DaoException {
+        Optional<User> foundUser = Optional.empty();
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID)) {
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                User user = User.newUserBuilder()
+                        .withUserId(resultSet.getLong(TableColumn.USER_ID))
+                        .withUserName(resultSet.getString(TableColumn.USER_NAME))
+                        .withEmail(resultSet.getString(TableColumn.USER_EMAIL))
+                        .withRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)))
+                        .withAvatar(resultSet.getString(TableColumn.AVATAR))
+                        .withIsLocked(resultSet.getBoolean(TableColumn.USER_STATUS))
                         .build();
                 foundUser = Optional.of(user);
             }
@@ -251,7 +276,7 @@ public class UserDaoImpl implements UserDao {
                         .withUserName(resultSet.getString(TableColumn.USER_NAME))
                         .withEmail(resultSet.getString(TableColumn.USER_EMAIL))
                         .withRole(RoleType.valueOf(resultSet.getString(TableColumn.USER_ROLE)))
-                        .withStatus(resultSet.getBoolean(TableColumn.USER_STATUS))
+                        .withIsLocked(resultSet.getBoolean(TableColumn.USER_STATUS))
                         .build();
                 allUsers.add(user);
             }

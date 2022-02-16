@@ -32,7 +32,7 @@ public class RemoveRatingCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (ratingService.isUserRatedMovie(userId, movieId)) {
+            if (ratingService.ratingExistsByUserIdAndMovieId(userId, movieId)) {
                 ratingService.deleteById(ratingId);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);

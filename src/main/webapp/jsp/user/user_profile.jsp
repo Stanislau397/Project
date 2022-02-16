@@ -25,15 +25,13 @@
             <span><fmt:message key="label.scores"/><span id="all_reviews">${requestScope.all_reviews}</span></span>
             <span><fmt:message key="label.comment"/> <c:out value="${requestScope.count_comments}"/></span>
         </div>
-        <c:if test="${requestScope.user.userName == sessionScope.user_name || requestScope.user.userName == null}">
+        <c:if test="${requestScope.user.userId == sessionScope.user.userId}">
             <div class="edit-settings">
-                <form action="${pageContext.request.contextPath}/controller" method="get">
-                    <input type="hidden" name="command" value="to_user_settings">
-                    <input type="hidden" name="user_name" value="${requestScope.user.userName}">
-                    <button type="submit">
+                <button type="submit">
+                    <a href="${pageContext.request.contextPath}/jsp/user/account_settings.jsp">
                         <fmt:message key="label.edit_settings"/>
-                    </button>
-                </form>
+                    </a>
+                </button>
             </div>
         </c:if>
     </div>

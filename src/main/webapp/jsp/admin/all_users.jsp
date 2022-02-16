@@ -76,10 +76,10 @@
                     <td><c:out value="${users.email}"/></td>
                     <td><c:out value="${users.role}"/></td>
                     <c:choose>
-                        <c:when test="${users.status == false}">
+                        <c:when test="${users.isLocked == false}">
                             <td style="color: green"><fmt:message key="label.active"/></td>
                         </c:when>
-                        <c:when test="${users.status}">
+                        <c:when test="${users.isLocked}">
                             <td style="color:red;"><fmt:message key="label.blocked"/></td>
                         </c:when>
                     </c:choose>
@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="buttons">
                                         <c:choose>
-                                            <c:when test="${users.status}">
+                                            <c:when test="${users.isLocked}">
                                                 <div class="change-status">
                                                     <form action="${pageContext.request.contextPath}/controller"
                                                           method="post">
@@ -108,7 +108,7 @@
                                                     </form>
                                                 </div>
                                             </c:when>
-                                            <c:when test="${users.status == false}">
+                                            <c:when test="${users.isLocked == false}">
                                                 <div class="change-status">
                                                     <form action="${pageContext.request.contextPath}/controller"
                                                           method="post">
@@ -162,10 +162,10 @@
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <c:choose>
-                    <c:when test="${requestScope.user.status == false}">
+                    <c:when test="${requestScope.user.isLocked == false}">
                         <td style="color: #66cc33"><fmt:message key="label.active"/></td>
                     </c:when>
-                    <c:when test="${requestScope.user.status}">
+                    <c:when test="${requestScope.user.isLocked}">
                         <td style="color: #eb5757"><fmt:message key="label.blocked"/></td>
                     </c:when>
                 </c:choose>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="buttons">
                                     <c:choose>
-                                        <c:when test="${user.status}">
+                                        <c:when test="${user.isLocked}">
                                             <div class="change-status">
                                                 <form action="${pageContext.request.contextPath}/controller"
                                                       method="post">
@@ -194,7 +194,7 @@
                                                 </form>
                                             </div>
                                         </c:when>
-                                        <c:when test="${user.status == false}">
+                                        <c:when test="${user.isLocked == false}">
                                             <div class="change-status">
                                                 <form action="${pageContext.request.contextPath}/controller"
                                                       method="post">

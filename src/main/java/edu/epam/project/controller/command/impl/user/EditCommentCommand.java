@@ -34,7 +34,7 @@ public class EditCommentCommand implements Command {
         long commentId = Long.parseLong(request.getParameter(COMMENT_ID));
         long userId = Long.parseLong(request.getParameter(USER_ID));
         try {
-            if (commentService.update(userId, commentId, newText)) {
+            if (commentService.updateTextByUserIdAndCommentId(userId, commentId, newText)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(COMMENT_EDITED, COMMENT_EDITED_MSG);

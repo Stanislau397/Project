@@ -18,13 +18,14 @@ public class RatingDaoImpl implements RatingDao {
     private static final Logger logger = LogManager.getLogger(RatingDaoImpl.class);
 
     @Override
-    public boolean add(long movieId, long userId, int score) throws DaoException {
+    public boolean add(Rating rating) throws DaoException {
         boolean isRated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_TO_RATING)) {
-            statement.setLong(1, movieId);
-            statement.setLong(2, userId);
-            statement.setInt(3, score);
+            statement.setLong(1, rating.getMovie().getMovieId());
+            statement.setLong(2, rating.getUser().getUserId());
+            statement.setInt(3, rating.getScore());
+            statement.setTimestamp(4, Timestamp.valueOf(rating.getCreatedAt()));
             int result = statement.executeUpdate();
             isRated = (result == 1);
         } catch (SQLException e) {
@@ -35,24 +36,39 @@ public class RatingDaoImpl implements RatingDao {
     }
 
     @Override
-    public int countAverageMovieRatingForUser(long userId) throws DaoException {
-        int averageUserMovieRating = 0;
+    public int countAverageRatingOfMovieByUserId(long userId) throws DaoException {
+        int average = 0;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.AVERAGE_MOVIE_RATING_FOR_USER)) {
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.COUNT_AVERAGE_RATING_BY_USER_ID)) {
             statement.setLong(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                averageUserMovieRating = resultSet.getInt(1);
+                average = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e);
             throw new DaoException(e);
         }
-        return averageUserMovieRating;
+        return average;
     }
 
     @Override
-    public boolean isUserRatedMovie(long userId, long movieId) throws DaoException {
+    public boolean deleteById(long ratingId) throws DaoException {
+        boolean isRatingRemoved;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_RATING_BY_ID)) {
+            statement.setLong(1, ratingId);
+            int result = statement.executeUpdate();
+            isRatingRemoved = (result == 1);
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isRatingRemoved;
+    }
+
+    @Override
+    public boolean ratingExistsByUserIdAndMovieId(long userId, long movieId) throws DaoException {
         boolean isVoted = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_IF_USER_RATED_MOVIE)) {
@@ -67,21 +83,6 @@ public class RatingDaoImpl implements RatingDao {
             throw new DaoException(e);
         }
         return isVoted;
-    }
-
-    @Override
-    public boolean deleteById(long ratingId) throws DaoException {
-        boolean isRatingRemoved;
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.REMOVE_RATING)) {
-            statement.setLong(1, ratingId);
-            int result = statement.executeUpdate();
-            isRatingRemoved = (result == 1);
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return isRatingRemoved;
     }
 
     @Override

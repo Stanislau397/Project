@@ -10,11 +10,12 @@ import java.sql.Timestamp;
 public class Comment extends Entity {
 
     private long commentId;
-    private int commentUpVotes;
-    private int commentDownVotes;
+    private int upVotes;
+    private int downVotes;
     private String text;
     private Timestamp postDate;
     private User user;
+    private Movie movie;
 
     private Comment() {
 
@@ -24,12 +25,12 @@ public class Comment extends Entity {
         return commentId;
     }
 
-    public int getCommentUpVotes() {
-        return commentUpVotes;
+    public int getUpVotes() {
+        return upVotes;
     }
 
-    public int getCommentDownVotes() {
-        return commentDownVotes;
+    public int getDownVotes() {
+        return downVotes;
     }
 
     public String getText() {
@@ -44,6 +45,10 @@ public class Comment extends Entity {
         return user;
     }
 
+    public Movie getMovie() {
+        return movie;
+    }
+
     public static CommentBuilder newCommentBuilder() {
         return new Comment().new CommentBuilder();
     }
@@ -56,32 +61,27 @@ public class Comment extends Entity {
         Comment comment = (Comment) o;
 
         if (commentId != comment.commentId) return false;
-        if (commentUpVotes != comment.commentUpVotes) return false;
-        if (commentDownVotes != comment.commentDownVotes) return false;
+        if (upVotes != comment.upVotes) return false;
+        if (downVotes != comment.downVotes) return false;
         if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
         if (postDate != null ? !postDate.equals(comment.postDate) : comment.postDate != null) return false;
-        return user != null ? user.equals(comment.user) : comment.user == null;
+        if (user != null ? !user.equals(comment.user) : comment.user != null) return false;
+        return movie != null ? movie.equals(comment.movie) : comment.movie == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (commentId ^ (commentId >>> 32));
-        result = 31 * result + commentUpVotes;
-        result = 31 * result + commentDownVotes;
+        result = 31 * result + upVotes;
+        result = 31 * result + downVotes;
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (postDate != null ? postDate.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
         return result;
     }
 
     public class CommentBuilder {
-
-        private long commentId;
-        private int commentUpVotes;
-        private int commentDownVotes;
-        private String text;
-        private Timestamp postDate;
-        private User user;
 
         private CommentBuilder() {
 
@@ -93,12 +93,12 @@ public class Comment extends Entity {
         }
 
         public CommentBuilder withUpVotes(int upVotes) {
-            Comment.this.commentUpVotes = upVotes;
+            Comment.this.upVotes = upVotes;
             return this;
         }
 
         public CommentBuilder withDownVotes(int downVotes) {
-            Comment.this.commentDownVotes = downVotes;
+            Comment.this.downVotes = downVotes;
             return this;
         }
 
@@ -114,6 +114,11 @@ public class Comment extends Entity {
 
         public CommentBuilder withUser(User user) {
             Comment.this.user = user;
+            return this;
+        }
+
+        public CommentBuilder withMovie(Movie movie) {
+            Comment.this.movie = movie;
             return this;
         }
 

@@ -5,8 +5,6 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.AttributeName;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.controller.command.PagePath;
-import edu.epam.project.controller.command.SessionAttribute;
-import edu.epam.project.entity.Movie;
 import edu.epam.project.entity.User;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
@@ -55,47 +53,40 @@ public class ShowUserProfileCommand implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Router router = new Router();
-        String userName = (String) session.getAttribute(USER_NAME);
-        long userId = (Long) session.getAttribute(SessionAttribute.USER_ID);
+        long userId = Long.parseLong(request.getParameter(USER_ID));
         int pageId = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
         int start = getStartPoint(pageId);
-        if (request.getParameter(USER_ID) != null) {
-            userId = Long.parseLong(request.getParameter(USER_ID));
-        }
-        if (request.getParameter(USER_NAME_PARAMETER) != null) {
-            userName = request.getParameter(USER_NAME_PARAMETER);
-        }
         try {
-            User user = userService.findByUserName(userName);
-            List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName, start, TOTAL);
-            int countPositiveReviews = ratingService.countPositiveMovieScoresForUser(userId);
-            int countMixedReviews = ratingService.countMixedMovieScoresForUser(userId);
-            int countNegativeReviews = ratingService.countNegativeMovieScoresForUser(userId);
-            int countAllReviews = ratingService.countAllMovieScoresForUser(userId);
-            int countAverageMovieRating = ratingService.countAverageMovieRatingForUser(userId);
-            int countUserComments = commentService.countUserCommentsByUserName(userName);
-            int pages = countPages(userName);
-            Optional<Movie> latestHighScoreMovie = movieService.findLatestHighRatedMovieForUser(userName);
-            Optional<Movie> latestLowScoreMovie = movieService.findLatestLowRatedMovieForUser(userName);
-            if (latestHighScoreMovie.isPresent()) {
-                Movie highScoreMovie = latestHighScoreMovie.get();
-                request.setAttribute(LATEST_HIGH_SCORE_MOVIE, highScoreMovie);
-            }
-            if (latestLowScoreMovie.isPresent()) {
-                Movie lowScoreMovie = latestLowScoreMovie.get();
-                request.setAttribute(LATEST_LOW_SCORE_MOVIE, lowScoreMovie);
-            }
+            User user = userService.findById(userId);
+//            List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName, start, TOTAL);
+//            int countPositiveReviews = ratingService.countPositiveMovieScoresForUser(userId);
+//            int countMixedReviews = ratingService.countMixedMovieScoresForUser(userId);
+//            int countNegativeReviews = ratingService.countNegativeMovieScoresForUser(userId);
+//            int countAllReviews = ratingService.countAllMovieScoresForUser(userId);
+//            int countAverageMovieRating = ratingService.countAverageMovieRatingForUser(userId);
+//            int countUserComments = commentService.countUserCommentsByUserName(userName);
+//            int pages = countPages(userName);
+//            Optional<Movie> latestHighScoreMovie = movieService.findLatestHighRatedMovieForUser(userName);
+//            Optional<Movie> latestLowScoreMovie = movieService.findLatestLowRatedMovieForUser(userName);
+//            if (latestHighScoreMovie.isPresent()) {
+//                Movie highScoreMovie = latestHighScoreMovie.get();
+//                request.setAttribute(LATEST_HIGH_SCORE_MOVIE, highScoreMovie);
+//            }
+//            if (latestLowScoreMovie.isPresent()) {
+//                Movie lowScoreMovie = latestLowScoreMovie.get();
+//                request.setAttribute(LATEST_LOW_SCORE_MOVIE, lowScoreMovie);
+//            }
                 router.setPagePath(PagePath.USER_PROFILE);
                 request.setAttribute(AttributeName.USER, user);
-                request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
-                request.setAttribute(POSITIVE_REVIEWS, countPositiveReviews);
-                request.setAttribute(MIXED_REVIEWS, countMixedReviews);
-                request.setAttribute(NEGATIVE_REVIEWS, countNegativeReviews);
-                request.setAttribute(ALL_REVIEWS, countAllReviews);
-                request.setAttribute(AVERAGE_MOVIE_RATING, countAverageMovieRating);
-                request.setAttribute(PAGES, pages);
-                request.setAttribute(COUNT_COMMENTS, countUserComments);
-                request.setAttribute(PAGE_ID, pageId);
+//                request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
+//                request.setAttribute(POSITIVE_REVIEWS, countPositiveReviews);
+//                request.setAttribute(MIXED_REVIEWS, countMixedReviews);
+//                request.setAttribute(NEGATIVE_REVIEWS, countNegativeReviews);
+//                request.setAttribute(ALL_REVIEWS, countAllReviews);
+//                request.setAttribute(AVERAGE_MOVIE_RATING, countAverageMovieRating);
+//                request.setAttribute(PAGES, pages);
+//                request.setAttribute(COUNT_COMMENTS, countUserComments);
+//                request.setAttribute(PAGE_ID, pageId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
             router.setRoute(RouteType.REDIRECT);

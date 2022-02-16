@@ -18,22 +18,10 @@ public class RatingServiceImpl implements RatingService {
     private RatingDao ratingDao = new RatingDaoImpl();
 
     @Override
-    public int countAverageMovieRatingForUser(long userId) throws ServiceException {
-        int averageUserMovieRating;
-        try {
-            averageUserMovieRating = ratingDao.countAverageMovieRatingForUser(userId);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return averageUserMovieRating;
-    }
-
-    @Override
-    public boolean add(long movieId, long userId, int score) throws ServiceException {
+    public boolean add(Rating rating) throws ServiceException {
         boolean isRated;
         try {
-            isRated = ratingDao.add(movieId, userId, score);
+            isRated = ratingDao.add(rating);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -42,10 +30,10 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public boolean isUserRatedMovie(long userId, long movieId) throws ServiceException {
+    public boolean ratingExistsByUserIdAndMovieId(long userId, long movieId) throws ServiceException {
         boolean isVoted;
         try {
-            isVoted = ratingDao.isUserRatedMovie(userId, movieId);
+            isVoted = ratingDao.ratingExistsByUserIdAndMovieId(userId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -115,6 +103,18 @@ public class RatingServiceImpl implements RatingService {
             throw new ServiceException(e);
         }
         return countNegative;
+    }
+
+    @Override
+    public int countAverageRatingOfMovieByUserId(long userId) throws ServiceException {
+        int averageUserMovieRating;
+        try {
+            averageUserMovieRating = ratingDao.countAverageRatingOfMovieByUserId(userId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return averageUserMovieRating;
     }
 
     @Override

@@ -345,7 +345,7 @@
                                 <div class="user-name">
                                     <form action="${pageContext.request.contextPath}/controller" name="get">
                                         <input type="hidden" name="command" value="show_user_profile">
-                                        <input type="hidden" name="user_name" value="${comments.user.userName}">
+                                        <input type="hidden" name="user_id" value="${comments.user.userId}">
                                         <input type="hidden" name="page" value="1">
                                         <button type="submit" class="user-name-btn"><h2><c:out
                                                 value="${comments.user.userName}"/></h2></button>
@@ -363,28 +363,28 @@
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
                                                     <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                                     <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                                        <c:out value="${comments.commentUpVotes}"/></button>
+                                                        <c:out value="${comments.upVotes}"/></button>
                                                 </form>
                                                 <form action="${pageContext.request.contextPath}/controller" method="post">
                                                     <input type="hidden" name="command" value="down_vote_comment">
                                                     <input type="hidden" name="comment_id" value="${comments.commentId}">
                                                     <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                                     <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                                        <c:out value="${comments.commentDownVotes}"/></button>
+                                                        <c:out value="${comments.downVotes}"/></button>
                                                 </form>
                                             </c:if>
                                             <c:if test="${sessionScope.user.userName == comments.user.userName}">
                                                 <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                                    <c:out value="${comments.commentUpVotes}"/></button>
+                                                    <c:out value="${comments.upVotes}"/></button>
                                                 <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                                    <c:out value="${comments.commentDownVotes}"/></button>
+                                                    <c:out value="${comments.downVotes}"/></button>
                                             </c:if>
                                         </c:when>
                                         <c:when test="${sessionScope.user == null}">
                                             <button class="thumb-up-btn"><i class="fa fa-thumbs-up"></i>
-                                                <c:out value="${comments.commentUpVotes}"/></button>
+                                                <c:out value="${comments.upVotes}"/></button>
                                             <button class="thumb-down-btn"><i class="fa fa-thumbs-down"></i>
-                                                <c:out value="${comments.commentDownVotes}"/></button>
+                                                <c:out value="${comments.downVotes}"/></button>
                                         </c:when>
                                     </c:choose>
                                 </div>
@@ -404,6 +404,7 @@
                                         <form action="${pageContext.request.contextPath}/controller" method="post">
                                             <input type="hidden" name="command" value="remove_comment">
                                             <input type="hidden" name="comment_id" value="${comments.commentId}">
+                                            <input type="hidden" name="user_id" value="${comments.user.userId}">
                                             <div class="pop">
                                                 <a class="close" href="#"><i class="fa fa-close"></i></a>
                                                 <div class="text">
@@ -459,7 +460,7 @@
                         <div class="user-name">
                             <form action="${pageContext.request.contextPath}/controller" name="get">
                                 <input type="hidden" name="command" value="show_user_profile">
-                                <input type="hidden" name="user_name" value="${sessionScope.user.userName}">
+                                <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                 <input type="hidden" name="page" value="1">
                                 <button type="submit" class="user-name-button"><c:out
                                         value="${sessionScope.user.userName}"/></button>
@@ -474,7 +475,6 @@
                         <form action="${pageContext.request.contextPath}/controller" method="post">
                             <input type="hidden" name="command" value="leave_comment">
                             <input type="hidden" name="movie_id" value="${requestScope.movie_info.movieId}">
-                            <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                             <textarea name="text"></textarea>
                             <button type="submit" class="comment-submit-btn"><fmt:message key="label.leave_comment"/></button>
                         </form>

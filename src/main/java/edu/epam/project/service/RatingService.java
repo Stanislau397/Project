@@ -5,11 +5,9 @@ import edu.epam.project.exception.ServiceException;
 
 public interface RatingService {
 
-    int countAverageMovieRatingForUser(long userId) throws ServiceException;
+    boolean add(Rating rating) throws ServiceException;
 
-    boolean add(long movieId, long userId, int score) throws ServiceException;
-
-    boolean isUserRatedMovie(long userId, long movieId) throws ServiceException;
+    boolean ratingExistsByUserIdAndMovieId(long userId, long movieId) throws ServiceException;
 
     boolean deleteById(long ratingId) throws ServiceException;
 
@@ -22,4 +20,6 @@ public interface RatingService {
     int countNegativeMovieScoresForUser(long userId) throws ServiceException;
 
     int countAllMovieScoresForUser(long userId) throws ServiceException;
+
+    int countAverageRatingOfMovieByUserId(long userId) throws ServiceException;
 }

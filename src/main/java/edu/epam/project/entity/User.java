@@ -11,7 +11,7 @@ public class User extends Entity {
     private String userName;
     private String email;
     private String avatar;
-    private boolean status;
+    private boolean locked;
 
     private User() {
 
@@ -37,8 +37,8 @@ public class User extends Entity {
         return avatar;
     }
 
-    public boolean getStatus() {
-        return status;
+    public boolean getIsLocked() {
+        return locked;
     }
 
     public static UserBuilder newUserBuilder() {
@@ -53,7 +53,7 @@ public class User extends Entity {
         User user = (User) o;
 
         if (userId != user.userId) return false;
-        if (status != user.status) return false;
+        if (locked != user.locked) return false;
         if (role != user.role) return false;
         if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
@@ -67,7 +67,7 @@ public class User extends Entity {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
-        result = 31 * result + (status ? 1 : 0);
+        result = 31 * result + (locked ? 1 : 0);
         return result;
     }
 
@@ -102,8 +102,8 @@ public class User extends Entity {
             return this;
         }
 
-        public UserBuilder withStatus(boolean status) {
-            User.this.status = status;
+        public UserBuilder withIsLocked(boolean locked) {
+            User.this.locked = locked;
             return this;
         }
 

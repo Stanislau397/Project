@@ -3,46 +3,60 @@ package edu.epam.project.service.impl;
 import edu.epam.project.dao.CommentDao;
 import edu.epam.project.dao.impl.CommentDaoImpl;
 import edu.epam.project.entity.Comment;
+import edu.epam.project.entity.Movie;
+import edu.epam.project.entity.User;
 import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
+import edu.epam.project.service.MovieService;
+import edu.epam.project.service.UserService;
 import edu.epam.project.validator.MovieValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
 
     private static final Logger logger = LogManager.getLogger(CommentServiceImpl.class);
     private CommentDao commentDao = new CommentDaoImpl();
+    private UserService userService = new UserServiceImpl();
+    private MovieService movieService = new MovieServiceImpl();
 
     @Override
-    public boolean add(long userId, long movieId, String text) throws ServiceException, InvalidInputException {
-        boolean isLeft = false;
+    public boolean addComment(Comment comment) throws ServiceException, InvalidInputException {
+        boolean isAdded = false;
         MovieValidator movieValidator = new MovieValidator();
-        Date date = new Date();
-        Timestamp postDate = new Timestamp(date.getTime());
+        User user = comment.getUser();
+        Movie movie = comment.getMovie();
+        long movieId = movie.getMovieId();
+        long userId = user.getUserId();
+        String text = comment.getText();
         try {
-            if (movieValidator.isCommentTextValid(text)) {
-                isLeft = commentDao.add(movieId, userId, text, postDate);
+            boolean userExists = userService.existsById(userId);
+            boolean movieExists = movieService.movieExistsById(movieId);
+            boolean textValid = movieValidator.isCommentTextValid(text);
+            if (textValid && userExists && movieExists) {
+                isAdded = commentDao.addComment(comment);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isLeft;
+        return isAdded;
     }
 
     @Override
-    public boolean deleteById(long commentId) throws ServiceException {
-        boolean isDeleted;
+    public boolean deleteByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
+        boolean isDeleted = false;
         try {
-            isDeleted = commentDao.delete(commentId);
+            boolean commentExists = commentExistsByCommentIdAndUserId(commentId, userId);
+            if (commentExists) {
+                isDeleted = commentDao.deleteByCommentId(commentId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -51,11 +65,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean update(long userId, long commentId, String newText) throws ServiceException {
-        boolean isUpdated;
+    public boolean updateTextByUserIdAndCommentId(long userId, long commentId, String newText) throws ServiceException {
+        boolean isUpdated = false;
+        MovieValidator movieValidator = new MovieValidator();
         try {
-            isUpdated = commentDao.update(commentId, newText);
-        } catch (DaoException e) {
+            boolean commentExists = commentExistsByCommentIdAndUserId(commentId, userId);
+            boolean newTextValid = movieValidator.isCommentTextValid(newText);
+            if (commentExists && newTextValid) {
+                isUpdated = commentDao.updateTextByCommentId(commentId, newText);
+            }
+        } catch (DaoException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
@@ -63,13 +82,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean upVoteComment(long commentId, long userId, int upVote) throws ServiceException {
-        boolean isUpVoted;
+    public boolean upVoteCommentByCommentIdAndUserId(long commentId, long userId, int upVote) throws ServiceException {
+        boolean isUpVoted = false;
         try {
-            if (isUserAlreadyDownVoted(commentId, userId, 1)) {
-                removeUserVote(commentId, userId);
+            boolean userExists = userService.existsById(userId);
+            boolean commentExists = commentExistsByCommentId(commentId);
+            boolean downVoteExists = downVoteExistsByCommentIdAndUserId(commentId, userId);
+            boolean upVoteExists = upVoteExistsByCommentIdAndUserId(commentId, userId);
+            if (userExists && commentExists && (downVoteExists || upVoteExists)) {
+                deleteCommentVoteByCommentIdAndUserId(commentId, userId);
             }
-            isUpVoted = commentDao.upVoteComment(commentId, userId, upVote);
+            if (commentExists && userExists && !upVoteExists) {
+                isUpVoted = commentDao.upVoteCommentByCommentIdAndUserId(commentId, userId, upVote);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -78,13 +103,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean downVoteComment(long commentId, long userId, int downVote) throws ServiceException {
-        boolean isDownVoted;
+    public boolean downVoteCommentByCommentIdAndUserId(long commentId, long userId, int downVote) throws ServiceException {
+        boolean isDownVoted = false;
         try {
-            if (isUserAlreadyUpVoted(commentId, userId, 1)) {
-                removeUserVote(commentId, userId);
+            boolean userExists = userService.existsById(userId);
+            boolean commentExists = commentExistsByCommentId(commentId);
+            boolean upVoteExists = upVoteExistsByCommentIdAndUserId(commentId, userId);
+            boolean downVoteExists = downVoteExistsByCommentIdAndUserId(commentId, userId);
+            if (userExists && commentExists && (upVoteExists || downVoteExists)) {
+                deleteCommentVoteByCommentIdAndUserId(commentId, userId);
             }
-            isDownVoted = commentDao.downVoteComment(commentId, userId, downVote);
+            if (userExists && commentExists && !downVoteExists) {
+                isDownVoted = commentDao.downVoteCommentByCommentIdAndUserId(commentId, userId, downVote);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -93,10 +124,34 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean isUserAlreadyUpVoted(long commentId, long userId, int upVote) throws ServiceException {
+    public boolean commentExistsByCommentId(long commentId) throws ServiceException {
+        boolean commentExists;
+        try {
+            commentExists = commentDao.commentExistsByCommentId(commentId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return commentExists;
+    }
+
+    @Override
+    public boolean commentExistsByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
+        boolean commentExists;
+        try {
+            commentExists = commentDao.commentExistsByCommentIdAndUserId(commentId, userId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return commentExists;
+    }
+
+    @Override
+    public boolean upVoteExistsByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
         boolean isUserUpVoted;
         try {
-            isUserUpVoted = commentDao.isUserAlreadyUpVoted(commentId, userId, upVote);
+            isUserUpVoted = commentDao.upVoteExistsByCommentIdAndUserId(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -105,10 +160,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean isUserAlreadyDownVoted(long commentId, long userId, int downVote) throws ServiceException {
+    public boolean downVoteExistsByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
         boolean isUserDownVoted;
         try {
-            isUserDownVoted = commentDao.isUserAlreadyDownVoted(commentId, userId, downVote);
+            isUserDownVoted = commentDao.downVoteExistsByCommentIdAndUserId(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -117,10 +172,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean removeUserVote(long commentId, long userId) throws ServiceException {
+    public boolean deleteCommentVoteByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
         boolean isVoteRemoved;
         try {
-            isVoteRemoved = commentDao.removeUserVoteByCommentIdAndUserId(commentId, userId);
+            isVoteRemoved = commentDao.deleteCommentVoteByCommentIdAndUserId(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -130,9 +185,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findCommentsByMovieId(long movieId) throws ServiceException {
-        List<Comment> comments;
+        List<Comment> comments = new ArrayList<>();
         try {
-            comments = commentDao.findCommentsByMovieId(movieId);
+            boolean movieExists = movieService.movieExistsById(movieId);
+            if (movieExists) {
+                comments = commentDao.findCommentsByMovieId(movieId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -140,11 +198,10 @@ public class CommentServiceImpl implements CommentService {
         return comments;
     }
 
-    @Override
-    public int countUserCommentsByUserName(String userName) throws ServiceException {
+    public int countCommentsByUserId(long userId) throws ServiceException {
         int amountOfComments;
         try {
-            amountOfComments = commentDao.countUserCommentsByUserName(userName);
+            amountOfComments = commentDao.countCommentsByUserId(userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

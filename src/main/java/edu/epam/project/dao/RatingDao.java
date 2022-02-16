@@ -7,13 +7,13 @@ import java.util.Optional;
 
 public interface RatingDao {
 
-    boolean add(long movieId, long userId, int score) throws DaoException; //ok
+    boolean add(Rating rating) throws DaoException; //ok
 
     boolean deleteById(long ratingId) throws DaoException; //ok
 
-    boolean isUserRatedMovie(long userId, long movieId) throws DaoException; //ok
+    boolean ratingExistsByUserIdAndMovieId(long userId, long movieId) throws DaoException; //ok
 
-    int countAverageMovieRatingForUser(long userId) throws DaoException; //ok
+    int countAverageRatingOfMovieByUserId(long userId) throws DaoException; //ok
 
     Optional<Rating> findPersonalUserScoreForMovie(long userId, long movieId) throws DaoException; //ok
 

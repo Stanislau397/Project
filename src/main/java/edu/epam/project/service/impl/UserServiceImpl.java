@@ -185,6 +185,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(long userId) throws ServiceException {
+        Optional<User> foundUser;
+        User user = User.newUserBuilder().build();
+        try {
+            boolean userExists = existsById(userId);
+            if (userExists) {
+                foundUser = userDao.findById(userId);
+                if (foundUser.isPresent()) {
+                    user = foundUser.get();
+                }
+            }
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return user;
+    }
+
+    @Override
     public int countUsers() throws ServiceException {
         int amountOfUsers;
         try {

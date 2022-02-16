@@ -45,7 +45,7 @@ public class RegisterCommand implements Command {
                 .withEmail(userEmail)
                 .withRole(RoleType.USER)
                 .withAvatar(DEFAULT_AVATAR)
-                .withStatus(false)
+                .withIsLocked(false)
                 .build();
         try {
             if (userService.add(userToRegister, userPassword)) {

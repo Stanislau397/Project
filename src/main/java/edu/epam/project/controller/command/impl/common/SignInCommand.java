@@ -39,8 +39,10 @@ public class SignInCommand implements Command {
         String userPassword = request.getParameter(PASSWORD_PARAMETER);
         try {
             User user = userService.findByEmailAndPassword(userEmail, userPassword);
-            session.setAttribute(USER_ATTR, user);
-            router.setPagePath(PagePath.INDEX);
+            if (!user.getIsLocked()) {
+                session.setAttribute(USER_ATTR, user);
+                router.setPagePath(PagePath.INDEX);
+            }
         } catch (ServiceException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             request.setAttribute(SIGN_IN_ERROR, LOGIN_ERROR_MSG);
