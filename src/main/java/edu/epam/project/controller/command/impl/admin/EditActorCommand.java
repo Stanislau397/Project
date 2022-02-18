@@ -47,7 +47,7 @@ public class EditActorCommand implements Command {
                 .withHeight(Double.parseDouble(request.getParameter(HEIGHT)))
                 .build();
         try {
-            if (movieService.updateActorInfoByActorId(actorId, actor)) {
+            if (movieService.updateActorByActorId(actorId, actor)) {
                 session.setAttribute(CHANGED_DATA, DATA_CHANGED_MSG);
             } else {
                 session.setAttribute(ERROR, EDIT_ACTOR_ERROR);

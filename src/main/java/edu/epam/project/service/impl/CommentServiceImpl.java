@@ -173,14 +173,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean deleteCommentVoteByCommentIdAndUserId(long commentId, long userId) throws ServiceException {
-        boolean isVoteRemoved;
+        boolean isVoteDeleted;
         try {
-            isVoteRemoved = commentDao.deleteCommentVoteByCommentIdAndUserId(commentId, userId);
+            isVoteDeleted = commentDao.deleteCommentVoteByCommentIdAndUserId(commentId, userId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isVoteRemoved;
+        return isVoteDeleted;
     }
 
     @Override

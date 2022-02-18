@@ -66,3 +66,9 @@
 20:47:29.840 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid release date data!
 20:47:29.844 [main] ERROR edu.epam.project.validator.MovieValidator - Invalid title data!
 19:32:30.760 [main] INFO  edu.epam.project.validator.AccountValidator - Invalid user name Data
+11:24:24.815 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLDataException: Cannot convert string '0' to java.sql.Date value
+11:24:24.815 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLDataException: Cannot convert string '0' to java.sql.Date value
+11:50:59.766 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLDataException: Cannot convert string '-1' to java.sql.Date value
+11:50:59.782 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLDataException: Cannot convert string '-1' to java.sql.Date value
+11:51:16.398 [main] ERROR epam.project.dao.impl.MovieDaoImpl - java.sql.SQLDataException: Cannot convert string '-1' to java.sql.Date value
+11:51:16.398 [main] ERROR epam.project.service.impl.MovieServiceImpl - edu.epam.project.exception.DaoException: java.sql.SQLDataException: Cannot convert string '-1' to java.sql.Date value

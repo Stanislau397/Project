@@ -4,6 +4,7 @@ import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.Genre;
+import edu.epam.project.exception.AlreadyExistsException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -38,25 +39,17 @@ public class AddGenreCommand implements Command {
                 .withGenreTitle(genreTitle)
                 .build();
         try {
-            if (!isGenreAlreadyExists(genreTitle)) {
-                if (movieService.addGenre(genre)) {
-                    router.setRoute(RouteType.REDIRECT);
-                    router.setPagePath(currentPage);
-                    session.setAttribute(GENRE_SUCCESSFULLY_ADDED, genreTitle);
-                }
-            } else {
+            if (movieService.addGenre(genre)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
-                session.setAttribute(GENRE_ALREADY_EXISTS, genreTitle);
+                session.setAttribute(GENRE_SUCCESSFULLY_ADDED, genreTitle);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | AlreadyExistsException e) {
             logger.log(Level.ERROR, e);
+            router.setRoute(RouteType.REDIRECT);
+            router.setPagePath(currentPage);
+            session.setAttribute(GENRE_ALREADY_EXISTS, e);
         }
         return router;
-    }
-
-    private boolean isGenreAlreadyExists(String genreTitle) throws ServiceException {
-        Optional<Genre> genreOptional = movieService.findGenreByTitle(genreTitle);
-        return genreOptional.isPresent();
     }
 }

@@ -32,7 +32,7 @@ public class AddActorToMovieCommand implements Command {
             for (String actor : actors) {
                 long actorId = Long.parseLong(actor);
                 if (!movieService.actorExistsInMovieByActorIdAndMovieId(actorId, movieId)) {
-                    movieService.addActorToMovieById(actorId, movieId);
+                    movieService.addActorToMovieByActorIdAndMovieId(actorId, movieId);
                 }
             }
             router.setRoute(RouteType.REDIRECT);

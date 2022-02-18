@@ -92,7 +92,7 @@ public class UploadMovieCommand implements Command {
             genres = request.getParameterValues(GENRES);
             for (String genre : genres) {
                 long genreId = Long.parseLong(genre);
-                movieService.addGenreToMovie(genreId, movieId);
+                movieService.addGenreToMovieByGenreIdAndMovieId(genreId, movieId);
             }
         }
     }
@@ -103,7 +103,7 @@ public class UploadMovieCommand implements Command {
             actors = request.getParameterValues(ACTORS);
             for (String actor : actors) {
                 long actorId = Long.parseLong(actor);
-                movieService.addActorToMovieById(actorId, movieId);
+                movieService.addActorToMovieByActorIdAndMovieId(actorId, movieId);
             }
         }
     }

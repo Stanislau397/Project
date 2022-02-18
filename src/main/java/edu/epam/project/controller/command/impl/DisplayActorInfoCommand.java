@@ -38,20 +38,17 @@ public class DisplayActorInfoCommand implements Command {
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         String actorFirstName = request.getParameter(FIRST_NAME);
         String actorLastName = request.getParameter(LAST_NAME);
-        Actor actor;
         try {
             List<Movie> moviesForActor = movieService.findMoviesForActorByActorId(actorId);
             List<Movie> bestMoviesForActor = movieService.findBestMoviesForActorByActorId(actorId);
-            Optional<Actor> actorOptional = movieService.findActorById(actorId);
-            if (actorOptional.isPresent()) {
-                actor = actorOptional.get();
-                request.setAttribute(ACTOR, actor);
-                request.setAttribute(MOVIES_FOR_ACTOR_LIST, moviesForActor);
-                request.setAttribute(BEST_MOVIES_FOR_ACTOR_LIST, bestMoviesForActor);
-                request.setAttribute(AttributeName.FIRST_NAME, actorFirstName);
-                request.setAttribute(AttributeName.LAST_NAME, actorLastName);
-                router.setPagePath(PagePath.ACTOR_PAGE);
-            }
+            Actor actor = movieService.findActorById(actorId);
+            request.setAttribute(ACTOR, actor);
+            request.setAttribute(MOVIES_FOR_ACTOR_LIST, moviesForActor);
+            request.setAttribute(BEST_MOVIES_FOR_ACTOR_LIST, bestMoviesForActor);
+            request.setAttribute(AttributeName.FIRST_NAME, actorFirstName);
+            request.setAttribute(AttributeName.LAST_NAME, actorLastName);
+            router.setPagePath(PagePath.ACTOR_PAGE);
+
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

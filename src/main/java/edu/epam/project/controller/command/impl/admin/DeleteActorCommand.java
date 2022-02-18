@@ -36,7 +36,7 @@ public class DeleteActorCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         try {
-            if (movieService.removeActorByActorId(actorId)) {
+            if (movieService.deleteActorByActorId(actorId)) {
                 session.setAttribute(ACTOR_REMOVED, ACTOR_REMOVED_MSG);
             } else {
                 session.setAttribute(ERROR, DELETE_ACTOR_ERROR_MSG);

@@ -39,7 +39,7 @@ public class RemoveGenreFromMovieCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         try {
-            if (movieService.removeGenreFromMovieByMovieAndGenreId(genreId, movieId)) {
+            if (movieService.deleteGenreFromMovieByGenreIdAndMovieId(genreId, movieId)) {
                 session.setAttribute(GENRE_REMOVED, GENRE_REMOVED_MSG);
             } else {
                 session.setAttribute(DELETE_GENRE_ERROR, DELETE_GENRE_ERROR_MSG);

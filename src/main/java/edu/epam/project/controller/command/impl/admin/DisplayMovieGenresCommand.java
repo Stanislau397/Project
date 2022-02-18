@@ -34,7 +34,7 @@ public class DisplayMovieGenresCommand implements Command {
         String movieTitle = request.getParameter(TITLE);
         try {
             List<Genre> genres = movieService.findAllGenres();
-            List<Genre> movieGenres = movieService.findMovieGenresByMovieId(movieId);
+            List<Genre> movieGenres = movieService.findGenresForMovieByMovieId(movieId);
             request.setAttribute(MOVIE_GENRES_LIST, movieGenres);
             request.setAttribute(AttributeName.MOVIE_TITLE, movieTitle);
             request.setAttribute(AttributeName.MOVIE_ID, movieId);

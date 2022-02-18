@@ -64,7 +64,7 @@ public class ShowUserProfileCommand implements Command {
 //            int countNegativeReviews = ratingService.countNegativeMovieScoresForUser(userId);
 //            int countAllReviews = ratingService.countAllMovieScoresForUser(userId);
 //            int countAverageMovieRating = ratingService.countAverageMovieRatingForUser(userId);
-//            int countUserComments = commentService.countUserCommentsByUserName(userName);
+            int countUserComments = commentService.countCommentsByUserId(userId);
 //            int pages = countPages(userName);
 //            Optional<Movie> latestHighScoreMovie = movieService.findLatestHighRatedMovieForUser(userName);
 //            Optional<Movie> latestLowScoreMovie = movieService.findLatestLowRatedMovieForUser(userName);
@@ -76,8 +76,8 @@ public class ShowUserProfileCommand implements Command {
 //                Movie lowScoreMovie = latestLowScoreMovie.get();
 //                request.setAttribute(LATEST_LOW_SCORE_MOVIE, lowScoreMovie);
 //            }
-                router.setPagePath(PagePath.USER_PROFILE);
-                request.setAttribute(AttributeName.USER, user);
+            router.setPagePath(PagePath.USER_PROFILE);
+            request.setAttribute(AttributeName.USER, user);
 //                request.setAttribute(RATED_MOVIES_LIST, ratedMovies);
 //                request.setAttribute(POSITIVE_REVIEWS, countPositiveReviews);
 //                request.setAttribute(MIXED_REVIEWS, countMixedReviews);
@@ -85,7 +85,7 @@ public class ShowUserProfileCommand implements Command {
 //                request.setAttribute(ALL_REVIEWS, countAllReviews);
 //                request.setAttribute(AVERAGE_MOVIE_RATING, countAverageMovieRating);
 //                request.setAttribute(PAGES, pages);
-//                request.setAttribute(COUNT_COMMENTS, countUserComments);
+            request.setAttribute(COUNT_COMMENTS, countUserComments);
 //                request.setAttribute(PAGE_ID, pageId);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);

@@ -16,6 +16,13 @@ public class ActorValidator {
     private static final String INVALID_LAST_NAME_MSG = "Invalid last name data";
     private static final String INVALID_BIRTH_DATE_MSG = "Invalid birth date data";
 
+
+    public boolean isValidActor(String firstname, String lastname) throws InvalidInputException {
+        boolean firstnameValid = isValidFirstName(firstname);
+        boolean lastnameValid = isValidLastName(lastname);
+        return firstnameValid && lastnameValid;
+    }
+
     public boolean isValidFirstName(String firstName) throws InvalidInputException {
         if (!firstName.matches(FIRST_NAME_REGEX)) {
             logger.log(Level.INFO, INVALID_FIRST_NAME_MSG);

@@ -35,7 +35,7 @@ public class RemoveActorFromMovieCommand implements Command {
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         try {
-            if (movieService.removeActorFromMovieById(actorId, movieId)) {
+            if (movieService.deleteActorFromMovieByActorIdAndMovieId(actorId, movieId)) {
                 session.setAttribute(ACTOR_REMOVED, ACTOR_REMOVED_MSG);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);

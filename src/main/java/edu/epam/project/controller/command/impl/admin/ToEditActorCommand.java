@@ -29,13 +29,11 @@ public class ToEditActorCommand implements Command {
         Router router = new Router();
         long actorId = Long.parseLong(request.getParameter(ACTOR_ID));
         try {
-            Optional<Actor> actorInfo = movieService.findActorById(actorId);
-            if (actorInfo.isPresent()) {
-                Actor actor = actorInfo.get();
-                request.setAttribute(ACTOR, actor);
-                router.setPagePath(PagePath.EDIT_ACTOR_PAGE);
-            }
-        } catch (ServiceException e) {
+            Actor actor = movieService.findActorById(actorId);
+            request.setAttribute(ACTOR, actor);
+            router.setPagePath(PagePath.EDIT_ACTOR_PAGE);
+        } catch (
+                ServiceException e) {
             logger.log(Level.ERROR, e);
         }
         return router;

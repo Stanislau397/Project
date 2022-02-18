@@ -13,23 +13,19 @@ import edu.epam.project.service.impl.UserServiceImpl;
 import edu.epam.project.validator.AccountValidator;
 
 import java.io.File;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Main {
 
     public static void main(String[] args) throws ServiceException, InvalidInputException {
-        int a = 2;
-        int b = 2;
-
-        if (a == b) {
-            System.out.println(2);
-        } else if (a==b) {
-            System.out.println(2);
-        }
+        MovieService movieService = new MovieServiceImpl();
+        Actor actor = movieService.findActorById(12);
+        System.out.println(actor.getBirthDate());
     }
 }

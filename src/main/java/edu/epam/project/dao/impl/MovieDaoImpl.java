@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MovieDaoImpl implements MovieDao {
@@ -1202,7 +1203,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeActorById(long actorId) throws DaoException {
+    public boolean deleteActorById(long actorId) throws DaoException {
         boolean isRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_BY_ID)) {
@@ -1217,7 +1218,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException {
+    public boolean deleteActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException {
         boolean isActorDeleted = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_ACTOR_FROM_MOVIE)) {
@@ -1229,6 +1230,23 @@ public class MovieDaoImpl implements MovieDao {
             logger.log(Level.ERROR, e);
         }
         return isActorDeleted;
+    }
+
+    @Override
+    public boolean actorExistsById(long actorId) throws DaoException {
+        boolean actorExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_ACTOR_BY_ID)) {
+            statement.setLong(1, actorId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                actorExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return actorExists;
     }
 
     @Override
@@ -1275,12 +1293,17 @@ public class MovieDaoImpl implements MovieDao {
             statement.setLong(1, actorId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                Date date = resultSet.getDate(TableColumn.BIRTH_DATE);
+                LocalDate birthDate = null;
+                if (date != null) {
+                    birthDate = date.toLocalDate();
+                }
                 Actor actor = Actor.newActorBuilder()
                         .withId(resultSet.getLong(TableColumn.ACTOR_ID))
                         .withFirstname(resultSet.getString(TableColumn.FIRST_NAME))
                         .withLastname(resultSet.getString(TableColumn.LAST_NAME))
                         .withPicture(resultSet.getString(TableColumn.ACTOR_PICTURE))
-                        .withBirthDate((resultSet.getDate(TableColumn.BIRTH_DATE).toLocalDate()))
+                        .withBirthDate(birthDate)
                         .withAge(resultSet.getInt(TableColumn.AGE))
                         .withHeight(resultSet.getDouble(TableColumn.HEIGHT))
                         .build();
@@ -1392,7 +1415,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeGenreById(long genreId) throws DaoException {
+    public boolean deleteGenreById(long genreId) throws DaoException {
         boolean isDeleted;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_BY_ID)) {
@@ -1407,7 +1430,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean addGenreToMovie(long genreId, long movieId) throws DaoException {
+    public boolean addGenreToMovieByGenreIdAndMovieId(long genreId, long movieId) throws DaoException {
         boolean isGenreAdded;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.INSERT_INTO_MOVIE_GENRES)) {
@@ -1423,7 +1446,41 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException {
+    public boolean genreExistsByGenreTitle(String genreTitle) throws DaoException {
+        boolean isGenreExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_GENRE_BY_TITLE)) {
+            statement.setString(1, genreTitle);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isGenreExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isGenreExists;
+    }
+
+    @Override
+    public boolean genreExistsByGenreId(long genreId) throws DaoException {
+        boolean isGenreExists = false;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_GENRE_BY_ID)) {
+            statement.setLong(1, genreId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isGenreExists = true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e);
+            throw new DaoException(e);
+        }
+        return isGenreExists;
+    }
+
+    @Override
+    public boolean genreExistsInMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException {
         boolean isFound = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.FIND_MOVIE_GENRE)) {
@@ -1441,28 +1498,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException {
-        Optional<Genre> isFound = Optional.empty();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_GENRE_BY_TITLE)) {
-            statement.setString(1, genreTitle);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Genre genre = Genre.newGenreBuilder()
-                        .withId(resultSet.getLong(TableColumn.GENRE_ID))
-                        .withGenreTitle(resultSet.getString(TableColumn.GENRE_TITLE))
-                        .build();
-                isFound = Optional.of(genre);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.ERROR, e);
-            throw new DaoException(e);
-        }
-        return isFound;
-    }
-
-    @Override
-    public boolean removeGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException {
+    public boolean deleteGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException {
         boolean isGenreRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_GENRE_FROM_MOVIE)) {
@@ -1545,7 +1581,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeCountryById(long countryId) throws DaoException {
+    public boolean deleteCountryById(long countryId) throws DaoException {
         boolean isCountryRemoved;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COUNTRY_BY_ID)) {
@@ -1576,7 +1612,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean countryExistsByName(String countryName) throws DaoException {
+    public boolean countryExistsByCountryName(String countryName) throws DaoException {
         boolean countryExists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_BY_NAME)) {
@@ -1593,7 +1629,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean countryExistsById(long countryId) throws DaoException {
+    public boolean countryExistsByCountryId(long countryId) throws DaoException {
         boolean countryExists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_COUNTRY_BY_ID)) {
@@ -1669,7 +1705,7 @@ public class MovieDaoImpl implements MovieDao {
     }
 
     @Override
-    public boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException {
+    public boolean deleteCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException {
         boolean isCountryRemovedFromMovie;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COUNTRY_FROM_MOVIE)) {

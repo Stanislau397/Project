@@ -1,10 +1,10 @@
 package edu.epam.project.service;
 
 import edu.epam.project.entity.*;
+import edu.epam.project.exception.AlreadyExistsException;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
-import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +49,6 @@ public interface MovieService {
 
     List<Movie> findMoviesByGenreAndYear(Genre genre, Integer year) throws ServiceException;
 
-    List<Genre> findMovieGenresByMovieId(long movieId) throws ServiceException;
-
     List<Movie> findNewestMovies(int page, int total) throws ServiceException;
 
     List<Movie> findMoviesWithTrailer() throws ServiceException;
@@ -81,19 +79,21 @@ public interface MovieService {
 
     boolean addActor(Actor actor) throws ServiceException, InvalidInputException;
 
-    boolean addActorToMovieById(long actorId, long movieId) throws ServiceException;
+    boolean addActorToMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException;
 
-    boolean updateActorInfoByActorId(long actorId, Actor actor) throws ServiceException;
+    boolean updateActorByActorId(long actorId, Actor actor) throws ServiceException;
 
-    boolean removeActorByActorId(long actorId) throws ServiceException;
+    boolean deleteActorByActorId(long actorId) throws ServiceException;
 
-    boolean removeActorFromMovieById(long actorId, long movieId) throws ServiceException;
+    boolean deleteActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException;
+
+    boolean actorExistsById(long actorId) throws ServiceException;
 
     boolean actorExistsByFirstnameAndLastname(String firstName, String lastName) throws ServiceException;
 
     boolean actorExistsInMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException;
 
-    Optional<Actor> findActorById(long actorId) throws ServiceException;
+    Actor findActorById(long actorId) throws ServiceException;
 
     List<Actor> findActorsByMovieId(long movieId) throws ServiceException;
 
@@ -131,17 +131,21 @@ public interface MovieService {
 
     List<Director> findAllDirectors(int start, int total) throws ServiceException;
 
-    boolean addGenre(Genre genre) throws ServiceException;
+    boolean addGenre(Genre genre) throws ServiceException, AlreadyExistsException;
 
-    boolean removeGenreById(long genreId) throws ServiceException;
+    boolean deleteGenreById(long genreId) throws ServiceException;
 
-    Optional<Genre> findGenreByTitle(String genreTitle) throws ServiceException;
+    boolean genreExistsByGenreId(long genreId) throws ServiceException;
 
-    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws ServiceException;
+    boolean genreExistsByGenreTitle(String genreTitle) throws ServiceException;
 
-    boolean addGenreToMovie(long genreId, long movieId) throws ServiceException;
+    boolean genreExistsInMovieByMovieIdAndGenreId(long movieId, long genreId) throws ServiceException;
 
-    boolean removeGenreFromMovieByMovieAndGenreId(long genreId, long movieId) throws ServiceException;
+    boolean addGenreToMovieByGenreIdAndMovieId(long genreId, long movieId) throws ServiceException;
+
+    boolean deleteGenreFromMovieByGenreIdAndMovieId(long genreId, long movieId) throws ServiceException;
+
+    List<Genre> findGenresForMovieByMovieId(long movieId) throws ServiceException;
 
     List<Genre> findAllGenres() throws ServiceException;
 

@@ -83,9 +83,11 @@ public interface MovieDao {
 
     boolean updateActorById(long actorId, Actor actor) throws DaoException; //ok
 
-    boolean removeActorById(long actorId) throws DaoException; //ok
+    boolean deleteActorById(long actorId) throws DaoException; //ok
 
-    boolean removeActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
+    boolean deleteActorFromMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
+
+    boolean actorExistsById(long actorId) throws DaoException;
 
     boolean actorExistsByFirstnameAndLastname(String firstName, String lastName) throws DaoException; //ok
 
@@ -131,15 +133,17 @@ public interface MovieDao {
 
     boolean addGenre(Genre genre) throws DaoException; //ok
 
-    boolean removeGenreById(long genreId) throws DaoException; //ok
+    boolean deleteGenreById(long genreId) throws DaoException; //ok
 
-    boolean addGenreToMovie(long genreId, long movieId) throws DaoException; //ok
+    boolean addGenreToMovieByGenreIdAndMovieId(long genreId, long movieId) throws DaoException; //ok
 
-    boolean isGenreAlreadyExistsForMovie(long movieId, long genreId) throws DaoException; //ok
+    boolean genreExistsByGenreTitle(String genreTitle) throws DaoException;
 
-    Optional<Genre> findGenreByTitle(String genreTitle) throws DaoException; //ok
+    boolean genreExistsByGenreId(long genreId) throws DaoException;
 
-    boolean removeGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException; //ok
+    boolean genreExistsInMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException; //ok
+
+    boolean deleteGenreFromMovieByMovieIdAndGenreId(long movieId, long genreId) throws DaoException; //ok
 
     List<Genre> findAllGenres() throws DaoException; //ok
 
@@ -153,13 +157,13 @@ public interface MovieDao {
 
     boolean addCountryToMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 
-    boolean removeCountryById(long countryId) throws DaoException; //ok
+    boolean deleteCountryById(long countryId) throws DaoException; //ok
 
-    boolean removeCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
+    boolean deleteCountryFromMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 
-    boolean countryExistsByName(String countryName) throws DaoException; //ok
+    boolean countryExistsByCountryName(String countryName) throws DaoException; //ok
 
-    boolean countryExistsById(long countryId) throws DaoException; //ok
+    boolean countryExistsByCountryId(long countryId) throws DaoException; //ok
 
     boolean countryExistsInMovieByMovieIdAndCountryId(long movieId, long countryId) throws DaoException; //ok
 

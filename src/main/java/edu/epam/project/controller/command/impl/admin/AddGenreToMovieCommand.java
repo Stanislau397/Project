@@ -36,10 +36,10 @@ public class AddGenreToMovieCommand implements Command {
         long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
-            if (movieService.isGenreAlreadyExistsForMovie(movieId, genreId)) {
+            if (movieService.genreExistsInMovieByMovieIdAndGenreId(movieId, genreId)) {
                 session.setAttribute(GENRE_ALREADY_EXISTS, ADD_GENRE_TO_MOVIE_ERROR_MSG);
             } else {
-                movieService.addGenreToMovie(genreId, movieId);
+                movieService.addGenreToMovieByGenreIdAndMovieId(genreId, movieId);
                 session.setAttribute(GENRE_SUCCESSFULLY_ADDED, GENRE_ADDED_MSG);
             }
             router.setRoute(RouteType.REDIRECT);

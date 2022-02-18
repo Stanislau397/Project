@@ -34,7 +34,7 @@ public class DeleteGenreCommand implements Command {
         String genreTitle = request.getParameter(GENRE_TITLE_PARAMETER);
         long genreId = Long.parseLong(request.getParameter(GENRE_ID));
         try {
-            if (movieService.removeGenreById(genreId)) {
+            if (movieService.deleteGenreById(genreId)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(GENRE_REMOVED, genreTitle);
