@@ -36,7 +36,7 @@ public class DeleteDirectorCommand implements Command {
         String currentPage = request.getHeader(REFERER);
         long directorId = Long.parseLong(request.getParameter(DIRECTOR_ID));
         try {
-            if (movieService.removeDirectorById(directorId)) {
+            if (movieService.deleteDirectorById(directorId)) {
                 session.setAttribute(DIRECTOR_REMOVED, DIRECTOR_REMOVED_MSG);
             } else {
                 session.setAttribute(ERROR, DELETE_DIRECTOR_ERROR_MSG);

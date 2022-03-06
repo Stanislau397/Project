@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateStatusById(long userId, boolean status) throws DaoException {
+    public boolean updateStatusByUserId(long userId, boolean status) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_STATUS)) {
@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateAvatarById(long userId, String avatar) throws DaoException {
+    public boolean updateAvatarByUserId(long userId, String avatar) throws DaoException {
         boolean isUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_AVATAR)) {
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updateRoleById(long userId, String role) throws DaoException {
+    public boolean updateRoleByUserId(long userId, String role) throws DaoException {
         boolean isRoleUpdated;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_USER_ROLE)) {
@@ -131,7 +131,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean existsById(long userId) throws DaoException {
+    public boolean existsByUserId(long userId) throws DaoException {
         boolean exists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID)) {
@@ -165,7 +165,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean existsByIdAndPassword(long userId, String password) throws DaoException {
+    public boolean existsByUserIdAndPassword(long userId, String password) throws DaoException {
         boolean exists = false;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID_AND_PASSWORD)) {
@@ -224,7 +224,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findById(long userId) throws DaoException {
+    public Optional<User> findByUserId(long userId) throws DaoException {
         Optional<User> foundUser = Optional.empty();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.SELECT_USER_BY_ID)) {
@@ -249,7 +249,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updatePasswordById(long userId, String newPassword) throws DaoException {
+    public boolean updatePasswordByUserId(long userId, String newPassword) throws DaoException {
         boolean isPasswordChanged;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.UPDATE_PASSWORD_BY_ID)) {

@@ -1,6 +1,7 @@
 package edu.epam.project.entity;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * Class represents actor for movie
@@ -46,6 +47,7 @@ public class Actor extends Entity {
     }
 
     public int getAge() {
+        age = Period.between(birthDate, LocalDate.now()).getYears();
         return age;
     }
 

@@ -5,7 +5,9 @@ import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.Director;
 import edu.epam.project.exception.ServiceException;
+import edu.epam.project.service.FileService;
 import edu.epam.project.service.MovieService;
+import edu.epam.project.service.impl.FileServiceImpl;
 import edu.epam.project.service.impl.MovieServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -15,16 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
-import java.util.Set;
+import java.time.LocalDate;
 
-import static edu.epam.project.controller.command.RequestParameter.REFERER;
-import static edu.epam.project.controller.command.RequestParameter.FIRST_NAME;
-import static edu.epam.project.controller.command.RequestParameter.LAST_NAME;
-import static edu.epam.project.controller.command.RequestParameter.BIRTH_DATE;
-import static edu.epam.project.controller.command.RequestParameter.FILE;
-
+import static edu.epam.project.controller.command.RequestParameter.*;
 import static edu.epam.project.controller.command.SessionAttribute.DIRECTOR;
 
 public class AddDirectorCommand implements Command {
@@ -33,21 +29,30 @@ public class AddDirectorCommand implements Command {
     private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/director/";
     private static final String IMAGE_PATH = "http://localhost:8080/image/director/";
     private MovieService movieService = new MovieServiceImpl();
+    private FileService fileService = new FileServiceImpl();
 
     @Override
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         HttpSession session = request.getSession();
-        Part part = request.getPart(FILE);
-        Set<String> parameterNames = request.getParameterMap().keySet();
         String currentPage = request.getHeader(REFERER);
-        Director director = new Director();
+        Part part = request.getPart(FILE);
+        String firstname = request.getParameter(FIRST_NAME);
+        String lastname = request.getParameter(LAST_NAME);
+        String picture = fileService.getFilePathForDataBase(part, IMAGE_PATH);
+        int dayOfMonth = Integer.parseInt(request.getParameter(DAY_OF_MONTH));
+        int month = Integer.parseInt(request.getParameter(MONTH));
+        int year = Integer.parseInt(request.getParameter(YEAR));
+        LocalDate birthDate = LocalDate.of(year, month, dayOfMonth);
+        Director director = Director.newDirectorBuilder()
+                .withPicture(picture)
+                .withFirstname(firstname)
+                .withLastname(lastname)
+                .withBirthDate(birthDate)
+                .build();
         try {
-            for (String fieldName : parameterNames) {
-                processFormFields(director, fieldName, request);
-            }
-            processUploadedFile(director, part);
             if (movieService.addDirector(director)) {
+                fileService.save(part, DIRECTORY_PATH);
                 session.setAttribute(DIRECTOR, director);
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
@@ -56,41 +61,5 @@ public class AddDirectorCommand implements Command {
             logger.log(Level.ERROR, e);
         }
         return router;
-    }
-
-    private void processFormFields(Director director, String fieldName, HttpServletRequest request) {
-        switch (fieldName) {
-            case FIRST_NAME:
-                String firstName = request.getParameter(FIRST_NAME);
-                director.setFirstName(firstName);
-                break;
-            case LAST_NAME:
-                String lastName = request.getParameter(LAST_NAME);
-                director.setLastName(lastName);
-                break;
-            case BIRTH_DATE:
-                String birth_date = request.getParameter(BIRTH_DATE);
-                director.setBirthDate(birth_date);
-                break;
-        }
-    }
-
-    private String getSavePath(Part part) {
-        String fileName = part.getSubmittedFileName();
-        return (DIRECTORY_PATH + fileName);
-    }
-
-    private String getPicturePath(Part part) {
-        String savePath = getSavePath(part);
-        String pictureName = savePath.substring(savePath.lastIndexOf("/"));
-        return IMAGE_PATH + pictureName;
-    }
-
-    private void processUploadedFile(Director director, Part part) throws IOException {
-        String savePath = getSavePath(part);
-        String picturePath = getPicturePath(part);
-        director.setPicture(picturePath);
-        File file = new File(savePath);
-        part.write(file + File.separator);
     }
 }

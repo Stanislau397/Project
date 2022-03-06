@@ -21,7 +21,7 @@
     </c:when>
     <c:when test="${sessionScope.registration_failure != null}">
         <div class="alert" style="background-color: #e62e0f">
-            <h3><fmt:message key="label.register_failure"/></h3>
+            <h3><c:out value="${sessionScope.registration_failure}"/></h3>
             <a class="close"><i style="color: black" class="fa fa-close"></i></a>
             <c:remove var="registration_failure" scope="session"/>
         </div>

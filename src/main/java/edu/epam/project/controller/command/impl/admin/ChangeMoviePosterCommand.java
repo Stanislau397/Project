@@ -40,14 +40,10 @@ public class ChangeMoviePosterCommand implements Command {
         HttpSession session = request.getSession();
         Part part = request.getPart(FILE);
         String currentPage = request.getHeader(REFERER);
-        String picturePath = FileUploader.getPicturePath(part, IMAGE_PATH, DIRECTORY_PATH);
         long movieId = Long.parseLong(request.getParameter(MOVIE_ID));
         try {
-            if (movieService.updateMoviePosterByMovieId(picturePath, movieId)) {
-                FileUploader.processUploadedFile(part, DIRECTORY_PATH);
+            if (movieService.updateMoviePosterByMovieId(part, movieId)) {
                 session.setAttribute(CHANGED_PICTURE, EDIT_PICTURE_SUCCESS_MSG);
-            } else {
-                session.setAttribute(PICTURE_ERROR, EDIT_PICTURE_ERROR);
             }
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);

@@ -9,7 +9,7 @@ public interface CommentDao {
 
     boolean addComment(Comment comment) throws DaoException; //completed
 
-    boolean deleteByCommentId(long commentId) throws DaoException; //completed
+    boolean deleteCommentById(long commentId) throws DaoException; //completed
 
     boolean updateTextByCommentId(long commentId, String newText) throws DaoException; //completed
 

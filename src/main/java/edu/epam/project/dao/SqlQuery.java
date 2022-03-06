@@ -28,12 +28,12 @@ public class SqlQuery {
     public static final String COUNT_ALL_GENRES = "SELECT COUNT(genres_id) AS counter FROM genres"; //completed
 
     public static final String INSERT_TO_ACTOR = "INSERT INTO actors (actor_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
-    public static final String UPDATE_ACTOR_BY_ID = "UPDATE actors SET first_name = (?), last_name = (?), birth_date = (?), height = (?), picture = (?) WHERE actor_id = (?)";
+    public static final String UPDATE_ACTOR_INFO_BY_ID = "UPDATE actors SET first_name = (?), last_name = (?), birth_date = (?), height = (?) WHERE actor_id = (?)";
+    public static final String UPDATE_ACTOR_IMAGE_BY_ID = "UPDATE actors SET picture = (?) WHERE actor_id = (?)";
     public static final String DELETE_ACTOR_BY_ID = "DELETE FROM actors WHERE actor_id = (?)";
     public static final String DELETE_ACTOR_FROM_MOVIE = "DELETE FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
     public static final String SELECT_ALL_ACTORS = "SELECT actor_id, first_name, last_name FROM actors LIMIT ?,?";
-    public static final String SELECT_ACTOR_BY_ID = "SELECT actor_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date, null) AS birth_date,  (\n" +
-            "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) - (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))) AS age FROM actors WHERE actor_id = (?)";
+    public static final String SELECT_ACTOR_BY_ID = "SELECT actor_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date, null) AS birth_date FROM actors WHERE actor_id = (?)";
     public static final String SELECT_ACTOR_FOR_MOVIE = "SELECT actor_id_fk FROM movie_cast WHERE actor_id_fk = (?) AND movie_id = (?)";
     public static final String SELECT_ACTORS_BY_MOVIE_ID = "SELECT actor_id, first_name, last_name FROM actors JOIN movie_cast ON actor_id = actor_id_fk where movie_id = ?";
     public static final String SELECT_ACTORS_BY_KEY_WORDS = "SELECT actor_id, first_name, last_name FROM actors WHERE LOWER(CONCAT(first_name, ' ' , last_name)) LIKE LOWER(CONCAT('%', ? ,'%'))";
@@ -41,18 +41,15 @@ public class SqlQuery {
     public static final String INSERT_ACTOR_TO_MOVIE = "INSERT INTO movie_cast (actor_id_fk, movie_id) VALUES(?,?)";
     public static final String COUNT_ALL_ACTORS = "SELECT COUNT(actor_id) AS counter FROM actors";
 
+    public static final String INSERT_TO_DIRECTOR = "INSERT INTO director (first_name, last_name, picture, birth_date) VALUES (?,?,?,?)";
+    public static final String INSERT_DIRECTOR_TO_MOVIE = "INSERT INTO movie_direction (director_id_fk, movie_id_fk) VALUES(?,?)";
+    public static final String UPDATE_DIRECTOR_BY_ID = "UPDATE director SET first_name = (?), last_name = (?), height = (?), birth_date = (?), picture = (?) WHERE director_id = (?)";
     public static final String DELETE_DIRECTOR_FROM_MOVIE = "DELETE FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
-    public static final String INSERT_TO_DIRECTOR = "INSERT INTO director (director_id, first_name, last_name, picture, birth_date) VALUES (?,?,?,?,?)";
-    public static final String UPDATE_DIRECTOR_INFO = "UPDATE director SET first_name = (?), last_name = (?), height = (?), birth_date = (?) WHERE director_id = (?)";
-    public static final String DELETE_DIRECTOR = "DELETE FROM director WHERE director_id = (?)";
-    public static final String UPDATE_DIRECTOR_PICTURE = "UPDATE director SET picture = (?) WHERE director_id = (?)";
-    public static final String FIND_DIRECTORS_BY_MOVIE_ID = "SELECT director_id, first_name, last_name FROM director JOIN movie_direction " +
+    public static final String DELETE_DIRECTOR_BY_ID = "DELETE FROM director WHERE director_id = (?)";
+    public static final String SELECT_DIRECTORS_BY_MOVIE_ID = "SELECT director_id, first_name, last_name FROM director JOIN movie_direction " +
             "ON director_id = director_id_fk where movie_id_fk = (?)";
-    public static final String FIND_DIRECTOR = "SELECT director_id, first_name, last_name FROM director WHERE first_name = (?) AND last_name = (?)";
-    public static final String SELECT_DIRECTOR_INFO = "SELECT director_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date,null) AS birth_date,  (\n" +
-            "    (YEAR(CURRENT_DATE) - YEAR(birth_date)) -                             \n" +
-            "    (DATE_FORMAT(CURRENT_DATE, '%m%d') < DATE_FORMAT(birth_date, '%m%d'))\n" +
-            "  ) AS age FROM director WHERE director_id = (?)";
+    public static final String SELECT_DIRECTOR_BY_FIRSTNAME_AND_LASTNAME = "SELECT director_id FROM director WHERE first_name = (?) AND last_name = (?)";
+    public static final String SELECT_DIRECTOR_BY_ID = "SELECT director_id, first_name, last_name, picture, IFNULL(height, 0) AS height, IFNULL(birth_date,null) AS birth_date FROM director WHERE director_id = (?)";
     public static final String SELECT_DIRECTOR_FOR_MOVIE = "SELECT director_id_fk, movie_id_fk FROM movie_direction WHERE director_id_fk = (?) AND movie_id_fk = (?)";
     public static final String SELECT_DIRECTORS_BY_KEY_WORDS = "SELECT director_id, first_name, last_name FROM director WHERE CONCAT(first_name, ' ' , last_name) LIKE CONCAT('%', ? ,'%') GROUP BY director_id";
     public static final String SELECT_ALL_DIRECTORS = "SELECT director_id, first_name, last_name FROM director LIMIT ?,?";
@@ -60,7 +57,6 @@ public class SqlQuery {
             "JOIN movie_direction md ON d.director_id = md.director_id_fk\n" +
             "JOIN movies m ON md.movie_id_fk = m.movie_id\n" +
             "LEFT JOIN rating r ON m.movie_id = r.movie_id_fk WHERE md.director_id_fk = (?) GROUP BY m.movie_id ORDER BY m.release_date DESC";
-    public static final String INSERT_DIRECTOR_TO_MOVIE = "INSERT INTO movie_direction (director_id_fk, movie_id_fk) VALUES(?,?)";
     public static final String INSERT_TO_MOVIE_DIRECTION = "INSERT INTO movie_direction (movie_id_fk, director_id_fk) VALUES (?,?)";
     public static final String COUNT_ALL_DIRECTORS = "SELECT COUNT(director_id) AS counter FROM director";
 
@@ -70,7 +66,7 @@ public class SqlQuery {
     public static final String UPDATE_MOVIE_TRAILER = "UPDATE movies SET trailer = (?) WHERE movie_id = (?)";
     public static final String UPDATE_TITLE_RUNTIME_DESCRIPTION_DATE = "UPDATE movies SET title = (?), time = (?), release_date = (?), description = (?) WHERE movie_id = (?)";
     public static final String COUNT_MOVIES = "SELECT COUNT(movie_id) FROM movies";
-    public static final String SELECT_MOVIE_POSTER = "SELECT picture FROM movies WHERE movie_id = (?)";
+    public static final String SELECT_POSTER_BY_TITLE = "SELECT picture FROM movies WHERE title = (?)";
     public static final String SELECT_ALL_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), " + 0 + ") AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id ORDER BY average DESC LIMIT ?,?";
     public static final String FIND_MOVIE_BY_TITLE = "SELECT movie_id, title, release_date, time, country, description, picture FROM movies " +
@@ -120,7 +116,7 @@ public class SqlQuery {
     public static final String SELECT_MOST_RATED_MOVIES = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(AVG(user_score), 0) AS average FROM movies " +
             "LEFT JOIN rating ON movie_id = movie_id_fk GROUP BY movie_id HAVING AVG(user_score) >= 80 ORDER BY AVG(user_score) DESC";
     public static final String FIND_MOVIE_BY_KEY_WORD = "SELECT movie_id, title, release_date, time, country, description, picture, IFNULL(avg(user_score), " + 0 + ") AS average FROM movies " +
-            "LEFT JOIN rating ON movie_id_fk = movie_id WHERE title LIKE CONCAT( '%',?,'%') GROUP BY movie_id";
+            "LEFT JOIN rating ON movie_id_fk = movie_id WHERE LOWER(title) LIKE LOWER(CONCAT('%',?,'%')) GROUP BY movie_id";
     public static final String SELECT_RATED_MOVIES = "SELECT m.text, m.post_date,  r.user_score, title, picture, movie_id FROM movie_comments m , rating r, movies e WHERE\n" +
             "m.movie_id_fk = r.movie_id_fk AND e.movie_id = r.movie_id_fk and m.user_name_fk = (?) AND r.user_name_fk = (?) \n" +
             "GROUP BY movie_id ORDER BY r.rating_id DESC LIMIT ?,?";

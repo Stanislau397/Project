@@ -21,11 +21,6 @@ import static edu.epam.project.controller.command.RequestParameter.COMMAND;
 public class UploadServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandParameter = request.getParameter(COMMAND);
         Optional<Command> commandOptional =

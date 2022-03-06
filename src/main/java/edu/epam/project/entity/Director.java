@@ -1,5 +1,8 @@
 package edu.epam.project.entity;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  * Class represents movie director
  *
@@ -11,171 +14,85 @@ public class Director extends Entity {
     private String firstName;
     private String lastName;
     private String picture;
-    private String birthDate;
+    private LocalDate birthDate;
     private double height;
     private int age;
 
-    /**
-     * Constructor for Director object
-     * with no parameters
-     */
-    public Director() {
+    private Director() {
 
     }
 
-    /**
-     * Constructor for Director object
-     * @param directorId long value of directorId
-     * @param firstName  String object of firstName
-     * @param lastName   String object of lastName
-     */
-    public Director(long directorId, String firstName, String lastName) {
-        this.directorId = directorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    /**
-     * Constructor for Director object
-     * with given parameters
-     * @param firstName String object of firstName
-     * @param lastName  String object of lastName
-     */
-    public Director(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Director(long directorId, String firstName, String lastName, String picture, double height, int age) {
-        this.directorId = directorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.picture = picture;
-        this.height = height;
-        this.age = age;
-    }
-
-    /**
-     * Getter method of directorId
-     *
-     * @return long value of directorId
-     */
     public long getDirectorId() {
         return directorId;
     }
 
-    /**
-     * Setter method of directorId
-     *
-     * @param directorId long value of directorId
-     */
-    public void setDirectorId(long directorId) {
-        this.directorId = directorId;
-    }
-
-    /**
-     * Getter method of directorFirstName
-     *
-     * @return String object of firstName
-     */
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     * Setter method of directorFirstName
-     *
-     * @param firstName String object of firstName
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * Getter method of directorLastName
-     *
-     * @return String object of lastName
-     */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Setter method of directorLastName
-     *
-     * @param lastName String object of lastName
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     public int getAge() {
+        age = Period.between(birthDate, LocalDate.now()).getYears();
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public static DirectorBuilder newDirectorBuilder() {
+        return new Director().new DirectorBuilder();
     }
 
-    public String getBirthDate() {
-        return birthDate;
-    }
+    public class DirectorBuilder {
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
+        private DirectorBuilder() {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        }
 
-        Director director = (Director) o;
+        public DirectorBuilder withId(long directorId) {
+            Director.this.directorId = directorId;
+            return this;
+        }
 
-        if (directorId != director.directorId) return false;
-        if (Double.compare(director.height, height) != 0) return false;
-        if (age != director.age) return false;
-        if (firstName != null ? !firstName.equals(director.firstName) : director.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(director.lastName) : director.lastName != null) return false;
-        if (picture != null ? !picture.equals(director.picture) : director.picture != null) return false;
-        return birthDate != null ? birthDate.equals(director.birthDate) : director.birthDate == null;
-    }
+        public DirectorBuilder withFirstname(String firstname) {
+            Director.this.firstName = firstname;
+            return this;
+        }
 
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (directorId ^ (directorId >>> 32));
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (picture != null ? picture.hashCode() : 0);
-        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
-        temp = Double.doubleToLongBits(height);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + age;
-        return result;
-    }
+        public DirectorBuilder withLastname(String lastname) {
+            Director.this.lastName = lastname;
+            return this;
+        }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lastName).append(" ").append(firstName);
-        return sb.toString();
+        public DirectorBuilder withBirthDate(LocalDate birthDate) {
+            Director.this.birthDate = birthDate;
+            return this;
+        }
+
+        public DirectorBuilder withPicture(String picture) {
+            Director.this.picture = picture;
+            return this;
+        }
+
+        public DirectorBuilder withHeight(double height) {
+            Director.this.height = height;
+            return this;
+        }
+
+        public Director build() {
+            return Director.this;
+        }
     }
 }

@@ -33,8 +33,8 @@ public class AddDirectorToMovieCommand implements Command {
         try {
             for (String director : directors) {
                 long directorId = Long.parseLong(director);
-                if (!movieService.isDirectorAlreadyExistsInMovie(directorId, movieId)) {
-                    movieService.addDirectorToMovieById(directorId, movieId);
+                if (!movieService.directorExistsInMovieByDirectorIdAndMovieId(directorId, movieId)) {
+                    movieService.addDirectorToMovieByDirectorIdAndMovieId(directorId, movieId);
                 }
             }
             router.setRoute(RouteType.REDIRECT);

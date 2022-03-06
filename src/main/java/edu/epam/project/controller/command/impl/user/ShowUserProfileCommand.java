@@ -22,21 +22,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.List;
-import java.util.Optional;
-
-import static edu.epam.project.controller.command.AttributeName.USER_NAME;
-
-import static edu.epam.project.controller.command.AttributeName.RATED_MOVIES_LIST;
-import static edu.epam.project.controller.command.AttributeName.POSITIVE_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.MIXED_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.NEGATIVE_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.ALL_REVIEWS;
-import static edu.epam.project.controller.command.AttributeName.AVERAGE_MOVIE_RATING;
-import static edu.epam.project.controller.command.AttributeName.LATEST_HIGH_SCORE_MOVIE;
-import static edu.epam.project.controller.command.AttributeName.LATEST_LOW_SCORE_MOVIE;
-import static edu.epam.project.controller.command.AttributeName.PAGES;
-import static edu.epam.project.controller.command.AttributeName.PAGE_ID;
 import static edu.epam.project.controller.command.AttributeName.COUNT_COMMENTS;
 import static edu.epam.project.controller.command.RequestParameter.*;
 
@@ -57,7 +42,7 @@ public class ShowUserProfileCommand implements Command {
         int pageId = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
         int start = getStartPoint(pageId);
         try {
-            User user = userService.findById(userId);
+            User user = userService.findByUserId(userId);
 //            List<Movie> ratedMovies = movieService.findRatedMoviesByUserName(userName, start, TOTAL);
 //            int countPositiveReviews = ratingService.countPositiveMovieScoresForUser(userId);
 //            int countMixedReviews = ratingService.countMixedMovieScoresForUser(userId);

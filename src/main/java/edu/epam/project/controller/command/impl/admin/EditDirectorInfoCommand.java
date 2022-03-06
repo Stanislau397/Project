@@ -3,6 +3,7 @@ package edu.epam.project.controller.command.impl.admin;
 import edu.epam.project.controller.RouteType;
 import edu.epam.project.controller.Router;
 import edu.epam.project.controller.command.Command;
+import edu.epam.project.entity.Director;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.MovieServiceImpl;
@@ -43,8 +44,14 @@ public class EditDirectorInfoCommand implements Command {
         Date birth_date = Date.valueOf(request.getParameter(BIRTH_DATE));
         double height = Double.parseDouble(request.getParameter(HEIGHT));
         long directorId = Long.parseLong(request.getParameter(DIRECTOR_ID));
+        Director director = Director.newDirectorBuilder()
+                .withFirstname(firstName)
+                .withLastname(lastName)
+                .withBirthDate(birth_date.toLocalDate())
+                .withHeight(height)
+                .build();
         try {
-            if (movieService.updateDirectorInfoByDirectorId(directorId, firstName, lastName, birth_date, height)) {
+            if (movieService.updateDirectorById(directorId, director)) {
                 session.setAttribute(CHANGED_DATA, DATA_CHANGED_MSG);
             } else {
                 session.setAttribute(ERROR, EDIT_DIRECTOR_ERROR);

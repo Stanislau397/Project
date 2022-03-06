@@ -234,7 +234,7 @@
                             <span class="image-preview__default__text"></span>
                         </div>
                         <input type="file" name="file" id="inpFile" class="inputFile"
-                               value="${requestScope.movie_info.picture}" required>
+                               value="${requestScope.movie_info.picture}">
                         <label for="inpFile"><fmt:message key="label.choose"/></label>
                     </div>
                     <div class="right">
@@ -334,13 +334,13 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${requestScope.directors_list}" var="directors" varStatus="counter">
+            <c:forEach items="${requestScope.directors_list}" var="director" varStatus="counter">
                 <tr>
                     <td><c:out value="${counter.count}"/></td>
                     <td><c:out value="${requestScope.title}"/></td>
-                    <td><c:out value="${directors.firstName}"/></td>
+                    <td><c:out value="${director.firstName}"/></td>
                     <td style="max-width: 280px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
-                        <c:out value="${directors.lastName}"/></td>
+                        <c:out value="${director.lastName}"/></td>
                     <td>
                         <div class="remove">
                             <a class="button" href="#pop${counter.count}">
@@ -362,7 +362,7 @@
                                                 <input type="hidden" name="movie_id"
                                                        value="${requestScope.movie_id}">
                                                 <input type="hidden" name="director_id"
-                                                       value="${directors.directorId}">
+                                                       value="${director.directorId}">
                                                 <button type="submit"><fmt:message key="label.remove"/></button>
                                             </form>
                                         </div>

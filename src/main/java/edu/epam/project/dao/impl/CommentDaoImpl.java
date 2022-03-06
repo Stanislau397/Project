@@ -40,7 +40,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean deleteByCommentId(long commentId) throws DaoException {
+    public boolean deleteCommentById(long commentId) throws DaoException {
         boolean isDeleted;
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
              PreparedStatement statement = connection.prepareStatement(SqlQuery.DELETE_COMMENT_BY_ID)) {

@@ -6,7 +6,7 @@ import edu.epam.project.controller.command.PagePath;
 import edu.epam.project.controller.command.Command;
 import edu.epam.project.entity.RoleType;
 import edu.epam.project.entity.User;
-import edu.epam.project.exception.InvalidInputException;
+import edu.epam.project.exception.AlreadyExistsException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.UserService;
 import edu.epam.project.service.impl.UserServiceImpl;
@@ -52,9 +52,9 @@ public class RegisterCommand implements Command {
                 router.setPagePath(PagePath.LOGIN_PAGE);
                 request.setAttribute(REGISTER_SUCCESS, REGISTER_SUCCESS_MSG);
             }
-        } catch (ServiceException e) {
+        } catch (ServiceException | AlreadyExistsException e) {
             logger.log(Level.ERROR, e);
-            session.setAttribute(REGISTRATION_FAILURE, e);
+            session.setAttribute(REGISTRATION_FAILURE, e.getMessage());
             router.setRoute(RouteType.REDIRECT);
             router.setPagePath(currentPage);
         }

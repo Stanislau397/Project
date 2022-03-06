@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
         long userId = user.getUserId();
         String text = comment.getText();
         try {
-            boolean userExists = userService.existsById(userId);
+            boolean userExists = userService.existsByUserId(userId);
             boolean movieExists = movieService.movieExistsById(movieId);
             boolean textValid = movieValidator.isCommentTextValid(text);
             if (textValid && userExists && movieExists) {
@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
         try {
             boolean commentExists = commentExistsByCommentIdAndUserId(commentId, userId);
             if (commentExists) {
-                isDeleted = commentDao.deleteByCommentId(commentId);
+                isDeleted = commentDao.deleteCommentById(commentId);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
@@ -85,7 +85,7 @@ public class CommentServiceImpl implements CommentService {
     public boolean upVoteCommentByCommentIdAndUserId(long commentId, long userId, int upVote) throws ServiceException {
         boolean isUpVoted = false;
         try {
-            boolean userExists = userService.existsById(userId);
+            boolean userExists = userService.existsByUserId(userId);
             boolean commentExists = commentExistsByCommentId(commentId);
             boolean downVoteExists = downVoteExistsByCommentIdAndUserId(commentId, userId);
             boolean upVoteExists = upVoteExistsByCommentIdAndUserId(commentId, userId);
@@ -106,7 +106,7 @@ public class CommentServiceImpl implements CommentService {
     public boolean downVoteCommentByCommentIdAndUserId(long commentId, long userId, int downVote) throws ServiceException {
         boolean isDownVoted = false;
         try {
-            boolean userExists = userService.existsById(userId);
+            boolean userExists = userService.existsByUserId(userId);
             boolean commentExists = commentExistsByCommentId(commentId);
             boolean upVoteExists = upVoteExistsByCommentIdAndUserId(commentId, userId);
             boolean downVoteExists = downVoteExistsByCommentIdAndUserId(commentId, userId);

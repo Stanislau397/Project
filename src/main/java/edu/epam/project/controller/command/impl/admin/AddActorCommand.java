@@ -12,6 +12,7 @@ import edu.epam.project.service.FileService;
 import edu.epam.project.service.MovieService;
 import edu.epam.project.service.impl.FileServiceImpl;
 import edu.epam.project.service.impl.MovieServiceImpl;
+import edu.epam.project.util.FileUploader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +34,8 @@ public class AddActorCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(AddActorCommand.class);
     private static final String DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/actor/";
-    private static final String IMAGE_PATH = "http://localhost:8080/image/actor/";
+    private static final String IMAGE_PATH_FOR_DB = "http://localhost:8080/image/actor/";
+    private static final String DEFAULT_IMAGE = "/image/istockphoto-1016744004-612x612.jpg";
     private MovieService movieService = new MovieServiceImpl();
     private FileService fileService = new FileServiceImpl();
 
@@ -43,21 +45,21 @@ public class AddActorCommand implements Command {
         HttpSession session = request.getSession();
         Part part = request.getPart(RequestParameter.FILE);
         String currentPage = request.getHeader(RequestParameter.REFERER);
+
         String firstname = request.getParameter(FIRST_NAME);
         String lastname = request.getParameter(LAST_NAME);
-        String picture = fileService.getFilePathForDataBase(part, IMAGE_PATH);
         int dayOfMonth = Integer.parseInt(request.getParameter(DAY_OF_MONTH));
         int month = Integer.parseInt(request.getParameter(MONTH));
         int year = Integer.parseInt(request.getParameter(YEAR));
+
         Actor actor = Actor.newActorBuilder()
-                .withPicture(picture)
                 .withFirstname(firstname)
                 .withLastname(lastname)
                 .withBirthDate(LocalDate.of(year, month, dayOfMonth))
                 .build();
         try {
             if (movieService.addActor(actor)) {
-                fileService.uploadImageFile(part, DIRECTORY_PATH);
+                FileUploader.save(part, DIRECTORY_PATH, "");
                 session.setAttribute(SessionAttribute.ACTOR, actor);
             } else {
                 session.setAttribute(SessionAttribute.ACTOR_ALREADY_EXISTS, actor);

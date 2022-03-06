@@ -20,6 +20,7 @@ public class RequestParameter {
     public static final String COMMAND = "command";
     public static final String REFERER = "referer";
     public static final String FILE = "file";
+    public static final String IMAGE = "image";
 
     public static final String USER_NAME_PARAMETER = "user_name";
     public static final String PASSWORD_PARAMETER = "password";

@@ -63,6 +63,8 @@ public interface MovieDao {
 
     Optional<Movie> findMovieById(long id) throws DaoException;
 
+    Optional<String> findMoviePosterByTitle(String title) throws DaoException;
+
     List<Movie> findRatedMoviesByUserName(String userName, int start, int total) throws DaoException;
 
     List<Movie> findMoviesByKeyWord(String keyWord) throws DaoException;
@@ -81,7 +83,9 @@ public interface MovieDao {
 
     boolean addActorToMovieByActorIdAndMovieId(long actorId, long movieId) throws DaoException; //ok
 
-    boolean updateActorById(long actorId, Actor actor) throws DaoException; //ok
+    boolean updateActorInfoById(long actorId, Actor actor) throws DaoException; //ok
+
+    boolean updateActorImageById(long actorId, String imagePath) throws DaoException; //ok
 
     boolean deleteActorById(long actorId) throws DaoException; //ok
 
@@ -103,27 +107,23 @@ public interface MovieDao {
 
     List<Actor> findActorsByKeyWords(String keyWords) throws DaoException; //ok
 
-    boolean addDirector(Director director) throws DaoException;
+    boolean addDirector(Director director) throws DaoException; //ok
 
-    boolean addDirectorToMovieById(long directorId, long movieId) throws DaoException;
+    boolean addDirectorToMovieByDirectorIdAndMovieId(long directorId, long movieId) throws DaoException;//ok
 
-    boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws DaoException;
+    boolean updateDirectorById(long directorId, Director director) throws DaoException; //ok
 
-    boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName, Date birthDate, double height) throws DaoException;
+    boolean deleteDirectorById(long directorId) throws DaoException; //ok
 
-    boolean removeDirectorById(long directorId) throws DaoException;
+    boolean deleteDirectorFromMovieByDirectorIdAndMovieId(long directorId, long movieId) throws DaoException; //ok
 
-    boolean removeDirectorFromMovie(long directorId, long movieId) throws DaoException;
+    boolean directorExistsByFirstnameAndLastname(String firstname, String lastname) throws DaoException;
 
-    boolean isDirectorAlreadyExists(Director director) throws DaoException;
+    boolean directorExistsInMovieByDirectorIdAndMovieId(long directorId, long movieId) throws DaoException;
 
-    boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws DaoException;
+    boolean directorExistsById(long directorId) throws DaoException;
 
-    boolean addDirectorToMovieByMovieId(Director director, long movieId) throws DaoException;
-
-    Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws DaoException;
-
-    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws DaoException;
+    Optional<Director> findDirectorById(long directorId) throws DaoException;
 
     List<Director> findAllDirectors(int start, int total) throws DaoException;
 

@@ -1,30 +1,43 @@
 package edu.epam.project.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 public class FileUploader {
 
+    private static final Logger logger = LogManager.getLogger(FileUploader.class);
+    private static final String DOT = ".";
 
-    private FileUploader() {
-
+    public static String save(Part part, String directoryPath, String filename) throws IOException {
+        String filePath = directoryPath.concat(filename);
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            String randomFileName = changeFileName(filename);
+            filePath = directoryPath.concat(randomFileName);
+        }
+        part.write(filePath);
+        return filePath;
     }
 
-    public static String getSavePath(Part part, String directory_path) {
-        String fileName = part.getSubmittedFileName();
-        return (directory_path + fileName);
+    public static String changeFileName(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(DOT);
+        String randomFileName = UUID.randomUUID().toString();
+        String extension = fileName.substring(lastIndexOfDot);
+
+        return randomFileName.concat(extension);
     }
 
-    public static String getPicturePath(Part part, String imagePath, String directoryPath) {
-        String savePath = getSavePath(part, directoryPath);
-        String pictureName = savePath.substring(savePath.lastIndexOf("/"));
-        return imagePath + pictureName;
-    }
-
-    public static void processUploadedFile(Part part, String directoryPath) throws IOException {
-        String savePath = getSavePath(part, directoryPath);
-        File file = new File(savePath);
-        part.write(file + File.separator);
+    public static boolean remove(String filename, String directoryPath) {
+        String fileToRemove = directoryPath.concat(filename);
+        File file = new File(fileToRemove);
+        return file.delete();
     }
 }

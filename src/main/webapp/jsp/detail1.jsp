@@ -76,7 +76,7 @@
             <c:when test="${requestScope.movie_info.releaseDate.after(today)}">
                 <div class="my-score">
                     <div class="my-score-title">
-                        <h2><fmt:message key="label.review_msg"/><c:out
+                        <h2><fmt:message key="label.review_msg"/> <c:out
                                 value="${requestScope.movie_info.releaseDate}"/></h2>
                     </div>
                 </div>
@@ -255,26 +255,26 @@
                 <ul>
                     <li class="name"><fmt:message key="label.director"/></li>
                     <li class="value">
-                        <c:forEach items="${requestScope.movie_info.directors}" var="directors" varStatus="counter">
+                        <c:forEach items="${requestScope.movie_info.directors}" var="director" varStatus="counter">
                             <c:choose>
-                                <c:when test="${requestScope.directors_list.size() != counter.count}">
+                                <c:when test="${requestScope.movie_info.directors.size() != counter.count}">
                                     <form action="${pageContext.request.contextPath}/controller" method="get">
                                         <input type="hidden" name="command" value="display_director_info">
-                                        <input type="hidden" name="first_name" value="${directors.firstName}">
-                                        <input type="hidden" name="last_name" value="${directors.lastName}">
-                                        <input type="hidden" name="director_id" value="${directors.directorId}">
+                                        <input type="hidden" name="first_name" value="${director.firstName}">
+                                        <input type="hidden" name="last_name" value="${director.lastName}">
+                                        <input type="hidden" name="director_id" value="${director.directorId}">
                                         <button type="submit" style="color:#060077;"><c:out
-                                                value="${directors.firstName} ${directors.lastName},"/></button>
+                                                value="${director.firstName} ${director.lastName},"/></button>
                                     </form>
                                 </c:when>
                                 <c:otherwise>
                                     <form action="${pageContext.request.contextPath}/controller" method="get">
                                         <input type="hidden" name="command" value="display_director_info">
-                                        <input type="hidden" name="first_name" value="${directors.firstName}">
-                                        <input type="hidden" name="last_name" value="${directors.lastName}">
-                                        <input type="hidden" name="director_id" value="${directors.directorId}">
+                                        <input type="hidden" name="first_name" value="${director.firstName}">
+                                        <input type="hidden" name="last_name" value="${director.lastName}">
+                                        <input type="hidden" name="director_id" value="${director.directorId}">
                                         <button type="submit" style="color:#060077;"><c:out
-                                                value="${directors.firstName} ${directors.lastName}"/></button>
+                                                value="${director.firstName} ${director.lastName}"/></button>
                                     </form>
                                 </c:otherwise>
                             </c:choose>

@@ -114,7 +114,7 @@ public class UploadMovieCommand implements Command {
             directors = request.getParameterValues(DIRECTOR);
             for (String director : directors) {
                 long directorId = Long.parseLong(director);
-                movieService.addDirectorToMovieById(directorId, movieId);
+                movieService.addDirectorToMovieByDirectorIdAndMovieId(directorId, movieId);
             }
         }
     }

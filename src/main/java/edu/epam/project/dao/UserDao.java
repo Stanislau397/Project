@@ -8,31 +8,31 @@ import java.util.Optional;
 
 public interface UserDao {
 
-    boolean add(User user, String password) throws DaoException; //completed
+    boolean add(User user, String password) throws DaoException;
 
-    boolean updatePasswordById(long userId, String newPassword) throws DaoException; //completed
+    boolean updatePasswordByUserId(long userId, String newPassword) throws DaoException;
 
-    boolean updateStatusById(long userId, boolean status) throws DaoException; //completed
+    boolean updateStatusByUserId(long userId, boolean status) throws DaoException;
 
-    boolean updateAvatarById(long userId, String avatar) throws DaoException; //completed
+    boolean updateAvatarByUserId(long userId, String avatar) throws DaoException;
 
-    boolean updateRoleById(long userId, String role) throws DaoException; //completed
+    boolean updateRoleByUserId(long userId, String role) throws DaoException;
 
     boolean existsByUserName(String userName) throws DaoException;
 
-    boolean existsById(long userId) throws DaoException;
+    boolean existsByUserId(long userId) throws DaoException;
 
     boolean existsByEmail(String email) throws DaoException;
 
-    boolean existsByIdAndPassword(long userId, String password) throws DaoException;
+    boolean existsByUserIdAndPassword(long userId, String password) throws DaoException;
 
-    int countUsers() throws DaoException; //completed
+    int countUsers() throws DaoException;
 
-    Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;  //completed
+    Optional<User> findByEmailAndPassword(String email, String password) throws DaoException;
 
-    Optional<User> findByUserName(String userName) throws DaoException; //completed
+    Optional<User> findByUserName(String userName) throws DaoException;
 
-    Optional<User> findById(long userId) throws DaoException;
+    Optional<User> findByUserId(long userId) throws DaoException;
 
-    List<User> findAll() throws DaoException; //completed
+    List<User> findAll() throws DaoException;
 }

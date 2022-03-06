@@ -1,14 +1,15 @@
 package edu.epam.project.service;
 
 import javax.servlet.http.Part;
+import java.io.IOException;
 
 public interface FileService {
 
-    void uploadImageFile(Part part, String storagePath);
+    String save(Part part, String storagePath) throws IOException;
 
     String changeFileName(String fileName);
 
-    boolean deleteFileByName(String fileName);
+    boolean remove(String fileName);
 
     String getFilePathForDataBase(Part file, String databasePath);
 

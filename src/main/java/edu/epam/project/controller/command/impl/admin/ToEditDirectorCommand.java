@@ -30,12 +30,9 @@ public class ToEditDirectorCommand implements Command {
         Router router = new Router();
         long directorId = Long.parseLong(request.getParameter(DIRECTOR_ID));
         try {
-            Optional<Director> directorInfo = movieService.findDirectorInfoByDirectorId(directorId);
-            if (directorInfo.isPresent()) {
-                Director director = directorInfo.get();
-                request.setAttribute(DIRECTOR, director);
-                router.setPagePath(PagePath.EDIT_DIRECTOR_PAGE);
-            }
+            Director director = movieService.findDirectorById(directorId);
+            request.setAttribute(DIRECTOR, director);
+            router.setPagePath(PagePath.EDIT_DIRECTOR_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

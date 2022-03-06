@@ -5,6 +5,7 @@ import edu.epam.project.exception.AlreadyExistsException;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 
+import javax.servlet.http.Part;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface MovieService {
 
     boolean add(Movie movie) throws ServiceException, InvalidInputException;
 
-    boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException;
+    boolean updateMoviePosterByMovieId(Part file, long movieId) throws ServiceException;
 
     boolean updateMovieInfoById(String title, int runTime, Date releaseDate, String description, long movie_id) throws ServiceException, InvalidInputException;
 
@@ -79,9 +80,13 @@ public interface MovieService {
 
     boolean addActor(Actor actor) throws ServiceException, InvalidInputException;
 
+    boolean addMultipleActorsToMovieByActorIdsAndMovieId(List<Long> actorIds, long movieId) throws ServiceException;
+
     boolean addActorToMovieByActorIdAndMovieId(long actorId, long movieId) throws ServiceException;
 
-    boolean updateActorByActorId(long actorId, Actor actor) throws ServiceException;
+    boolean updateActorInfoByActorId(long actorId, Actor actor) throws ServiceException;
+
+    boolean uploadActorImageByActorId(long actorId, Part file) throws ServiceException;
 
     boolean deleteActorByActorId(long actorId) throws ServiceException;
 
@@ -103,29 +108,25 @@ public interface MovieService {
 
     boolean addDirector(Director director) throws ServiceException;
 
-    boolean removeDirectorById(long directorId) throws ServiceException;
+    boolean addDirectorToMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException;
 
-    Optional<Director> findDirectorInfoByDirectorId(long directorId) throws ServiceException;
+    boolean updateDirectorById(long directorId, Director director) throws ServiceException;
 
-    boolean addDirectorToMovieById(long directorId, long movieId) throws ServiceException;
+    boolean deleteDirectorById(long directorId) throws ServiceException;
 
-    boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException;
+    boolean deleteDirectorFromMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException;
 
-    boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws ServiceException;
+    boolean directorExistsByFirstnameAndLastname(String firstname, String lastname) throws ServiceException;
 
-    boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName, Date birthDate, double height) throws ServiceException;
+    boolean directorExistsInMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException;
 
-    boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException;
+    boolean directorExistsById(long directorId) throws ServiceException;
 
-    Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException;
+    Director findDirectorById(long directorId) throws ServiceException;
 
     List<Movie> findMoviesForDirector(long directorId) throws ServiceException;
 
     List<Director> findDirectorsByKeyWords(String keyWords) throws ServiceException;
-
-    boolean isDirectorAlreadyExists(Director director) throws ServiceException;
-
-    boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws ServiceException;
 
     List<Director> findDirectorsByMovieId(long movieId) throws ServiceException;
 

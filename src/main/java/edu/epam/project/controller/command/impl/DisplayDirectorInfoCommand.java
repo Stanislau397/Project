@@ -35,19 +35,14 @@ public class DisplayDirectorInfoCommand implements Command {
     public Router execute(HttpServletRequest request) throws ServletException, IOException {
         Router router = new Router();
         long directorId = Long.parseLong(request.getParameter(DIRECTOR_ID));
-        String directorFirstName = request.getParameter(FIRST_NAME);
-        String directorLastName = request.getParameter(LAST_NAME);
         try {
             List<Movie> movieForDirector = movieService.findMoviesForDirector(directorId);
             List<Movie> bestMoviesForDirector = movieService.findBestMoviesForDirectorByDirectorId(directorId);
-            Optional<Director> directorInfo = movieService.findDirectorInfoByDirectorId(directorId);
-            if (directorInfo.isPresent()) {
-                Director director = directorInfo.get();
-                request.setAttribute(DIRECTOR, director);
-                request.setAttribute(BEST_MOVIES_FOR_DIRECTOR_LIST, bestMoviesForDirector);
-                request.setAttribute(AttributeName.MOVIE_FOR_DIRECTOR_LIST, movieForDirector);
-                router.setPagePath(PagePath.DIRECTOR_PAGE);
-            }
+            Director director = movieService.findDirectorById(directorId);
+            request.setAttribute(DIRECTOR, director);
+            request.setAttribute(BEST_MOVIES_FOR_DIRECTOR_LIST, bestMoviesForDirector);
+            request.setAttribute(AttributeName.MOVIE_FOR_DIRECTOR_LIST, movieForDirector);
+            router.setPagePath(PagePath.DIRECTOR_PAGE);
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e);
         }

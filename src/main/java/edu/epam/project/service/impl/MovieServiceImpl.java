@@ -8,13 +8,18 @@ import edu.epam.project.exception.DaoException;
 import edu.epam.project.exception.InvalidInputException;
 import edu.epam.project.exception.ServiceException;
 import edu.epam.project.service.CommentService;
+import edu.epam.project.service.FileService;
 import edu.epam.project.service.MovieService;
+import edu.epam.project.util.FileUploader;
 import edu.epam.project.validator.ActorValidator;
 import edu.epam.project.validator.MovieValidator;
+import edu.epam.project.validator.ServiceValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +28,13 @@ import java.util.Optional;
 public class MovieServiceImpl implements MovieService {
 
     public static final Logger logger = LogManager.getLogger(MovieServiceImpl.class);
-    private MovieDao movieDao = new MovieDaoImpl();
+    private static final String SLASH = "/";
+    private static final String IMAGE_PATH_FOR_DB = "http://localhost:8080/image/movie/";
+    private static final String IMAGE_DIRECTORY_PATH = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/movie/";
+    private static final String IMAGE_DIRECTORY_PATH_FOR_ACTOR = "C:/Program Files/Apache Software Foundation/Tomcat 10.0/webapps/image/actor/";
+    private static final String ACTOR_IMAGE_PATH_FOR_DB = "http://localhost:8080/image/actor/";
 
+    private MovieDao movieDao = new MovieDaoImpl();
 
     @Override
     public boolean add(Movie movie) throws ServiceException, InvalidInputException {
@@ -52,11 +62,21 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean updateMoviePosterByMovieId(String picturePath, long movieId) throws ServiceException {
-        boolean isPosterUpdated;
+    public boolean updateMoviePosterByMovieId(Part file, long movieId) throws ServiceException {
+        boolean isPosterUpdated = false;
+        String fileName = file.getSubmittedFileName();
         try {
-            isPosterUpdated = movieDao.updateMoviePosterByMovieId(picturePath, movieId);
-        } catch (DaoException e) {
+            boolean movieExists = movieExistsById(movieId);
+            boolean validImage = ServiceValidator.isImageValid(fileName);
+            boolean emptyFile = file.getSubmittedFileName().isEmpty();
+            if (!emptyFile && movieExists && validImage) {
+                String imagePath = FileUploader.save(file, IMAGE_DIRECTORY_PATH, fileName);
+                int lastIndexOfSlash = imagePath.lastIndexOf(SLASH);
+                String imageName = imagePath.substring(lastIndexOfSlash + 1);
+                String image = IMAGE_PATH_FOR_DB.concat(imageName);
+                isPosterUpdated = movieDao.updateMoviePosterByMovieId(image, movieId);
+            }
+        } catch (DaoException | IOException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
@@ -740,13 +760,14 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public boolean addActor(Actor actor) throws ServiceException, InvalidInputException {
         boolean isAdded = false;
-        ActorValidator validator = new ActorValidator();
         String firstName = actor.getFirstName();
         String lastName = actor.getLastName();
+        String image = actor.getPicture();
         try {
             boolean actorExists = actorExistsByFirstnameAndLastname(firstName, lastName);
-            boolean actorValid = validator.isValidActor(firstName, lastName);
-            if (!actorExists && actorValid) {
+            boolean actorValid = ServiceValidator.isValidActor(firstName, lastName);
+            boolean imageValid = ServiceValidator.isImageValid(image);
+            if (!actorExists && actorValid && imageValid) {
                 isAdded = movieDao.addActor(actor);
             }
         } catch (DaoException e) {
@@ -754,6 +775,15 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
         return isAdded;
+    }
+
+    @Override
+    public boolean addMultipleActorsToMovieByActorIdsAndMovieId(List<Long> actorIds, long movieId) throws ServiceException {
+        boolean isActorsAddedToMovie = false;
+        for (Long actorId : actorIds) {
+            isActorsAddedToMovie = addActorToMovieByActorIdAndMovieId(actorId, movieId);
+        }
+        return isActorsAddedToMovie;
     }
 
     @Override
@@ -773,22 +803,32 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean updateActorByActorId(long actorId, Actor actor) throws ServiceException {
+    public boolean updateActorInfoByActorId(long actorId, Actor actor) throws ServiceException {
         boolean isActorUpdate = false;
         ActorValidator actorValidator = new ActorValidator();
         String firstname = actor.getFirstName();
         String lastname = actor.getLastName();
+        String image = actor.getPicture();
         try {
             boolean actorValid = actorValidator.isValidActor(firstname, lastname);
             boolean actorExists = actorExistsById(actorId);
-            if (actorExists && actorValid) {
-                isActorUpdate = movieDao.updateActorById(actorId, actor);
+            boolean imageValid = ServiceValidator.isImageValid(image);
+            if (actorExists && actorValid && imageValid) {
+                isActorUpdate = movieDao.updateActorInfoById(actorId, actor);
             }
         } catch (DaoException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
         return isActorUpdate;
+    }
+
+    @Override
+    public boolean uploadActorImageByActorId(long actorId, Part file) throws ServiceException {
+        boolean isUploaded;
+        String fileName = file.getSubmittedFileName();
+        String imagePath = ACTOR_IMAGE_PATH_FOR_DB.concat(fileName);
+        return false;
     }
 
     @Override
@@ -928,13 +968,18 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public boolean addDirector(Director director) throws ServiceException {
         boolean isAdded = false;
-        boolean directorExists;
+        String firstname = director.getFirstName();
+        String lastname = director.getLastName();
+        String image = director.getPicture();
         try {
-            directorExists = isDirectorAlreadyExists(director);
-            if (!directorExists) {
+            boolean directorExists = directorExistsByFirstnameAndLastname(firstname, lastname);
+            boolean imageValid = ServiceValidator.isImageValid(image);
+            boolean firstnameValid = ServiceValidator.isValidFirstName(firstname);
+            boolean lastnameValid = ServiceValidator.isValidLastName(lastname);
+            if (!directorExists && imageValid && firstnameValid && lastnameValid) {
                 isAdded = movieDao.addDirector(director);
             }
-        } catch (DaoException e) {
+        } catch (DaoException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
@@ -942,10 +987,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean removeDirectorById(long directorId) throws ServiceException {
-        boolean isDeleted;
+    public boolean deleteDirectorById(long directorId) throws ServiceException {
+        boolean isDeleted = false;
         try {
-            isDeleted = movieDao.removeDirectorById(directorId);
+            boolean directorExists = directorExistsById(directorId);
+            if (directorExists) {
+                isDeleted = movieDao.deleteDirectorById(directorId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -954,39 +1002,29 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<Director> findDirectorInfoByDirectorId(long directorId) throws ServiceException {
+    public Director findDirectorById(long directorId) throws ServiceException {
         Optional<Director> directorInfo;
+        Director director = Director.newDirectorBuilder().build();
         try {
-            directorInfo = movieDao.findDirectorInfoByDirectorId(directorId);
+            directorInfo = movieDao.findDirectorById(directorId);
+            if (directorInfo.isPresent()) {
+                director = directorInfo.get();
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return directorInfo;
+        return director;
     }
 
     @Override
-    public boolean addDirectorToMovieById(long directorId, long movieId) throws ServiceException {
-        boolean isDirectorAdded;
-        try {
-            isDirectorAdded = movieDao.addDirectorToMovieById(directorId, movieId);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isDirectorAdded;
-    }
-
-    @Override
-    public boolean addDirectorToMovieByMovieId(Director director, long movieId) throws ServiceException {
+    public boolean addDirectorToMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException {
         boolean isDirectorAdded = false;
-        String firstName = director.getFirstName();
-        String lastName = director.getLastName();
         try {
-            Optional<Director> directorOptional = findDirectorByFirstLastName(firstName, lastName);
-            if (directorOptional.isPresent()) {
-                director = directorOptional.get();
-                isDirectorAdded = movieDao.addDirectorToMovieByMovieId(director, movieId);
+            boolean directorExists = directorExistsById(directorId);
+            boolean movieExists = movieExistsById(movieId);
+            if (directorExists && movieExists) {
+                isDirectorAdded = movieDao.addDirectorToMovieByDirectorIdAndMovieId(directorId, movieId);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
@@ -996,11 +1034,20 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean updateDirectorPictureByDirectorId(long directorId, String picture) throws ServiceException {
-        boolean isUpdated;
+    public boolean updateDirectorById(long directorId, Director director) throws ServiceException {
+        boolean isUpdated = false;
+        String firstname = director.getFirstName();
+        String lastname = director.getLastName();
+        String image = director.getPicture();
         try {
-            isUpdated = movieDao.updateDirectorPictureByDirectorId(directorId, picture);
-        } catch (DaoException e) {
+            boolean directorExists = directorExistsById(directorId);
+            boolean firstnameValid = ServiceValidator.isValidFirstName(firstname);
+            boolean lastnameValid = ServiceValidator.isValidLastName(lastname);
+            boolean imageValid = ServiceValidator.isImageValid(image);
+            if (directorExists && firstnameValid && lastnameValid && imageValid) {
+                isUpdated = movieDao.updateDirectorById(directorId, director);
+            }
+        } catch (DaoException | InvalidInputException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
@@ -1008,40 +1055,20 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean updateDirectorInfoByDirectorId(long directorId, String firstName, String lastName,
-                                                  Date birthDate, double height) throws ServiceException {
-        boolean isUpdated;
+    public boolean deleteDirectorFromMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException {
+        boolean isDirectorDeleted = false;
         try {
-            isUpdated = movieDao.updateDirectorInfoByDirectorId(directorId, firstName, lastName, birthDate, height);
+            boolean directorExists = directorExistsById(directorId);
+            boolean movieExists = movieExistsById(movieId);
+            boolean directorExistsInMovie = directorExistsInMovieByDirectorIdAndMovieId(directorId, movieId);
+            if (directorExists && movieExists && directorExistsInMovie) {
+                isDirectorDeleted = movieDao.deleteDirectorFromMovieByDirectorIdAndMovieId(directorId, movieId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
         }
-        return isUpdated;
-    }
-
-    @Override
-    public boolean removeDirectorFromMovie(long directorId, long movieId) throws ServiceException {
-        boolean isDirectorRemoved;
-        try {
-            isDirectorRemoved = movieDao.removeDirectorFromMovie(directorId, movieId);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return isDirectorRemoved;
-    }
-
-    @Override
-    public Optional<Director> findDirectorByFirstLastName(String firstName, String lastName) throws ServiceException {
-        Optional<Director> directorOptional;
-        try {
-            directorOptional = movieDao.findDirectorByFirstLastName(firstName, lastName);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, e);
-            throw new ServiceException(e);
-        }
-        return directorOptional;
+        return isDirectorDeleted;
     }
 
     @Override
@@ -1069,10 +1096,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean isDirectorAlreadyExists(Director director) throws ServiceException {
+    public boolean directorExistsByFirstnameAndLastname(String firstname, String lastname) throws ServiceException {
         boolean isDirectorExists;
         try {
-            isDirectorExists = movieDao.isDirectorAlreadyExists(director);
+            isDirectorExists = movieDao.directorExistsByFirstnameAndLastname(firstname, lastname);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -1081,10 +1108,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public boolean isDirectorAlreadyExistsInMovie(long directorId, long movieId) throws ServiceException {
+    public boolean directorExistsInMovieByDirectorIdAndMovieId(long directorId, long movieId) throws ServiceException {
         boolean isDirectorFound;
         try {
-            isDirectorFound = movieDao.isDirectorAlreadyExistsInMovie(directorId, movieId);
+            isDirectorFound = movieDao.directorExistsInMovieByDirectorIdAndMovieId(directorId, movieId);
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);
@@ -1093,10 +1120,25 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Director> findDirectorsByMovieId(long movieId) throws ServiceException {
-        List<Director> directors;
+    public boolean directorExistsById(long directorId) throws ServiceException {
+        boolean directorExists;
         try {
-            directors = movieDao.findDirectorsByMovieId(movieId);
+            directorExists = movieDao.directorExistsById(directorId);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e);
+            throw new ServiceException(e);
+        }
+        return directorExists;
+    }
+
+    @Override
+    public List<Director> findDirectorsByMovieId(long movieId) throws ServiceException {
+        List<Director> directors = new ArrayList<>();
+        try {
+            boolean movieExists = movieExistsById(movieId);
+            if (movieExists) {
+                directors = movieDao.findDirectorsByMovieId(movieId);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e);
             throw new ServiceException(e);

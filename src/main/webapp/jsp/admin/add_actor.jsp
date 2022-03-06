@@ -66,12 +66,28 @@
                 </div>
                 <label><fmt:message key="label.birth_date"/></label>
                 <select id="birth_date" name="day_of_month">
-                    <option value="1">1</option>
+                    <option selected>День</option>
+                    <c:forEach begin="1" end="31" var="month">
+                        <option value="${month}">${month}</option>
+                    </c:forEach>
                 </select>
                 <select name="month">
-                    <option value="1">January</option>
+                    <option selected>Месяц</option>
+                    <option value="1"><fmt:message key="label.january"/></option>
+                    <option value="2"><fmt:message key="label.february"/></option>
+                    <option value="3"><fmt:message key="label.march"/></option>
+                    <option value="4"><fmt:message key="label.april"/></option>
+                    <option value="5"><fmt:message key="label.may"/></option>
+                    <option value="6"><fmt:message key="label.june"/></option>
+                    <option value="7"><fmt:message key="label.july"/></option>
+                    <option value="8"><fmt:message key="label.august"/></option>
+                    <option value="9"><fmt:message key="label.september"/></option>
+                    <option value="10"><fmt:message key="label.october"/></option>
+                    <option value="11"><fmt:message key="label.november"/></option>
+                    <option value="12"><fmt:message key="label.december"/></option>
                 </select>
                 <select name="year">
+                    <option selected><fmt:message key="label.year"/></option>
                     <c:forEach begin="1900" end="2022" var="year">
                         <option value="${year}"><c:out value="${year}"/></option>
                     </c:forEach>

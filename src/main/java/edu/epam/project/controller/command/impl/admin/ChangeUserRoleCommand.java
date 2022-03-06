@@ -34,7 +34,7 @@ public class ChangeUserRoleCommand implements Command {
         String role = request.getParameter(ROLE_PARAMETER);
         String currentPage = request.getHeader(REFERER);
         try {
-            if (userService.updateRoleById(userId, role)) {
+            if (userService.updateRoleByUserId(userId, role)) {
                 session.setAttribute(CHANGED_ROLE, userName);
                 router.setPagePath(currentPage);
                 router.setRoute(RouteType.REDIRECT);

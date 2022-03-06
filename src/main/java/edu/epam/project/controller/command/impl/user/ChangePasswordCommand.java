@@ -35,7 +35,7 @@ public class ChangePasswordCommand implements Command {
         String oldPassword = request.getParameter(PASSWORD_PARAMETER);
         String newPassword = request.getParameter(NEW_PASSWORD);
         try {
-            if (userService.updatePasswordByIdAndPassword(userId, oldPassword, newPassword)) {
+            if (userService.updatePasswordByUserIdAndPassword(userId, oldPassword, newPassword)) {
                 router.setRoute(RouteType.REDIRECT);
                 router.setPagePath(currentPage);
                 session.setAttribute(CHANGE_PASSWORD, PASSWORD_HAS_BEEN_UPDATED);
